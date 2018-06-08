@@ -2,7 +2,7 @@
 set -ev
 
 # get clone master
-git clone https://git.coding.net/yuangezhizao/yuangezhizao.git .deploy_git
+git clone "https://yuangezhizao:${CodingToken}@${CD_REF}" .deploy_git
 cd .deploy_git
 git checkout master
 
