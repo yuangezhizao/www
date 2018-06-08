@@ -35,7 +35,7 @@ branches:
 
 env:
     global:
-        # Github Pages
-        - GH_REF: github.com/yuangezhizao/www.git
+        # Github Source
+        - GH_REF: https://github.com/yuangezhizao/www.git
         # Coding Pages
         - CD_REF: git.coding.net/yuangezhizao/yuangezhizao.git
