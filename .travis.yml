@@ -1,0 +1,41 @@
+language: node_js
+
+node_js: stable
+
+cache:
+    apt: true
+    directories:
+        - node_modules
+
+notifications:
+    email:
+        recipients:
+            - root@yuangezhizao.cn
+        on_success: change
+        on_failure: always
+
+before_install:
+    - export TZ='Asia/Shanghai'
+    - npm install hexo-cli -g
+    - chmod +x ./publish-to-gh-pages.sh
+
+install:
+    - npm install
+
+script:
+    - hexo clean
+    - hexo g
+
+after_script:
+    - ./publish-to-cd-pages.sh
+
+branches:
+    only:
+        - master
+
+env:
+    global:
+        # Github Pages
+        - GH_REF: github.com/yuangezhizao/www.git
+        # Coding Pages
+        - CD_REF: git.coding.net/yuangezhizao/yuangezhizao.git

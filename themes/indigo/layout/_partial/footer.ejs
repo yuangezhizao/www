@@ -1,0 +1,47 @@
+<footer class="footer">
+    <div class="top">
+        <%- partial('plugins/site-visit') %>
+        <p>
+          <span id=span_tree></span>
+        </p>
+        <p>
+          <span id=span_dt_dt></span>
+          <span>感谢一路你的陪伴</span>
+        </p>
+        <p>
+            <span><a href="" target="_blank" rel="external nofollow"><i class="icon icon-pr icon-gears"></i>运行状态</a><span>
+            <span><a href="http://www.miitbeian.gov.cn/" target="_blank" rel="external nofollow">辽 ICP 备 16012415 号</a></span>
+            <span><a href="/sitemap.xml" target="_blank"><i class="icon icon-pr icon-sitemap"></i>站点地图</a></span>
+        </p>
+        <p>
+            <% if ((config.feed) && (config.feed.path.length)) { %>
+                <span><a href="<%- url_for(config.feed.path) %>" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <% } %>
+            <span><%- __('footer.license') %></span>
+        </p>
+    </div>
+<div class="bottom">
+    <p>
+        <span>Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a> Theme <a href="https://imys.net/" target="_blank">indigo</a></span>
+        <span><a href="">https & http2 </a>on</span>
+        <span>Hosted by <a href="https://pages.coding.me" style="font-weight: bold" target="_blank" rel="external nofollow">Coding Pages</a></span>
+    </p>
+    <p>
+        <span><%-config.title %> &copy; <%if (theme.since_year && theme.since_year < date(new Date(), 'YYYY')) {%><%- theme.since_year %> - <%}%><%- date(new Date(), 'YYYY') %></span>
+        <span>All Rights Reserved！</span>
+        <span>
+                <a href="//www.dmca.com/Protection/Status.aspx?ID=fdd06faa-5283-405a-ac85-149f04d1a53d" title="DMCA.com Protection Status" class="dmca-badge"> <img src="//images.dmca.com/Badges/dmca-badge-w100-5x1-06.png?ID=fdd06faa-5283-405a-ac85-149f04d1a53d" alt="DMCA.com Protection Status"></a> <script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+        </span>
+    </p>
+    <p>
+        <span>友人帐</span>
+        <span>
+        <a href="https://estertion.win/" target="_blank">esterTion</a>
+        <a href="https://www.haotown.cn/" target="_blank">HAOTOWN</a>
+        <a href="http://www.nothamor.cn/" target="_blank">欧尼酱</a>
+        <a href="https://www.binarization.com/" target="_blank">喵喵蛋包飯</a>
+        <a href="https://jackyu.cn/" target="_blank">IT 青年的空间</a>
+        </span>
+    </p>
+</div>
+</footer>
