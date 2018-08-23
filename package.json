@@ -23,6 +23,6 @@
     "hexo-server": "^0.2.0",
     "hexo-wordcount": "^3.0.2",
     "hexo-generator-sitemap": "^1.2.0",
-    "hexo-encrypt": "^0.2.0",
+    "hexo-encrypt": "^0.2.0"
   }
 }
