@@ -319,9 +319,16 @@ key: 37
 就算是我特别想和她说话，可惜她可能已经不再把我看成她的好朋友了
 
 ## 0x08.他人看法
+> 2018-9-17 01:52:00 补充截图，大晚上的突然感觉自己没有以前那么矫情了……
+
 ![sz](https://i1.yuangezhizao.cn/Win-10/2018091418264204.jpg!webp)
 
+![lf](https://i1.yuangezhizao.cn/Win-10/2018091701414220.jpg!webp)
+
 ![lj](https://i1.yuangezhizao.cn/Win-10/2018091701371493.jpg!webp)
+
+![lsr](https://i1.yuangezhizao.cn/Win-10/2018091701475744.jpg!webp)
+![lsr](https://i1.yuangezhizao.cn/Win-10/2018091701491791.jpg!webp)
 
 ![wyf](https://i1.yuangezhizao.cn/Win-10/2018091701184567.jpg!webp)
 ![wyf](https://i1.yuangezhizao.cn/Win-10/2018091701195501.jpg!webp)
@@ -334,7 +341,7 @@ key: 37
 ![wyf](https://i1.yuangezhizao.cn/Win-10/2018091701213669.jpg!webp)
 ![wyf](https://i1.yuangezhizao.cn/Win-10/2018091701215441.jpg!webp)
 
-
+2018091701304945.jpg
 待贴图
 
 ## 0x09.后记
