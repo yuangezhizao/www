@@ -3809,7 +3809,7 @@ var Gitment =
                     }, options);
 
                     this.state.user.isLoggingIn = true;
-                    _utils.http.post('https://gh-oauth.imsun.net', {
+                    _utils.http.post('https://auth.baixiaotu.cc', {
                         code: code,
                         client_id: client_id,
                         client_secret: client_secret
