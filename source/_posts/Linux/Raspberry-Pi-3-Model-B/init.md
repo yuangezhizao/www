@@ -65,7 +65,7 @@ index-url = http://mirrors.aliyun.com/pypi/simple
 安装：`sudo apt-get install aria2`
 创建配置文件夹：`sudo mkdir /etc/aria2`
 创建`session`和配置文件：`sudo touch /etc/aria2/aria2.session`，`sudo touch /etc/aria2/aria2.conf`
-修改配置文件`sudo vim/etc/aria2/aria2.conf`：
+修改配置文件`sudo vim /etc/aria2/aria2.conf`：
 ```shell
 ## 文件保存相关 ##
 
