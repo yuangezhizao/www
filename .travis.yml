@@ -7,27 +7,20 @@ cache:
     directories:
         - node_modules
 
-notifications:
-    email:
-        recipients:
-            - root@yuangezhizao.cn
-        on_success: change
-        on_failure: always
-
 before_install:
     - export TZ='Asia/Shanghai'
     - npm install hexo-cli -g
-    - chmod +x ./publish-to-cd-pages.sh
+    - chmod +x ./deploy.sh
 
 install:
     - npm install
 
 script:
     - hexo clean
-    - hexo g
+    - hexo g >/dev/null 2>&1
 
 after_script:
-    - ./publish-to-cd-pages.sh
+    - ./deploy.sh
 
 branches:
     only:
@@ -35,7 +28,4 @@ branches:
 
 env:
     global:
-        # Github Source
-        - GH_REF: github.com/yuangezhizao/www.git
-        # Coding Pages
         - CD_REF: git.coding.net/yuangezhizao/yuangezhizao.git
