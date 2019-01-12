@@ -1,9 +1,13 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "yuangezhizao",
+  "version": "0.0.1",
   "private": true,
   "hexo": {
-    "version": "3.5.0"
+    "version": "3.8.0"
+  },
+  "scripts": {
+    "build": "hexo clean && hexo g",
+    "server": "hexo s"
   },
   "dependencies": {
     "hexo": "^3.2.0",
@@ -14,14 +18,14 @@
     "hexo-generator-index": "^0.2.0",
     "hexo-generator-json-content": "^3.0.1",
     "hexo-generator-restful": "^0.2.1",
+    "hexo-generator-sitemap": "^1.2.0",
     "hexo-generator-tag": "^0.2.0",
     "hexo-helper-qrcode": "^1.0.2",
     "hexo-renderer-ejs": "^0.3.0",
-    "hexo-renderer-less": "^0.2.0",
+    "hexo-renderer-less": "^1.0.0",
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0",
-    "hexo-wordcount": "^3.0.2",
-    "hexo-generator-sitemap": "^1.2.0"
+    "hexo-wordcount": "^3.0.2"
   }
 }
