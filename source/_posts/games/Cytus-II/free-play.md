@@ -14,7 +14,7 @@ key: 41
 ---
     『Can you hear me？』
 <!-- more -->
-> 原文地址：https://ojhdt.club/20180821/cytus2/ （原文存在）
+> 原文地址：https://ojhdt.club/20180821/cytus2/（原文存在）
   原文作者：ojhdt
   
 ## 0x00.前言
