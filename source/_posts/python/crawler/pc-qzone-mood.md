@@ -25,7 +25,7 @@ M 版接口残缺，到最后还是回过头来看 PC 版的了
 https://user.qzone.qq.com/proxy/domain/taotao.qq.com/cgi-bin/emotion_cgi_msglist_v6?uin=< 对方 QQ 号码 >&ftype=0&sort=0&pos=0&num=20&replynum=100&g_tk=< 你的 g_tk >&callback=_preloadCallback&code_version=1&format=jsonp&need_private_comment=1&qzonetoken=< 你的 qzonetoken >&g_tk=< 你的 g_tk >
 ```
 ![说说首页](https://i1.yuangezhizao.cn/Win-10/20180218170839.png!webp)
-找接口的时候可以`Filter``XHR`这里忘记了，截图就不修改了……
+找接口的时候可以`Filter`选`XHR`这里忘记了，截图就不修改了……
 说说数据就在`msglist`里面![返回数据](https://i1.yuangezhizao.cn/Win-10/20180218171645.png!webp)
 详细字段非常占版面，不贴了。
 点击一条说说的时间可以进到一个详细接口
