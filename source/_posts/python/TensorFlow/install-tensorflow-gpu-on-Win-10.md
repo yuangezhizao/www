@@ -82,16 +82,14 @@ trusted-host=mirrors.aliyun.com
 安装完之后，在命令行输入`nvcc -V`，会有正常回显……
 
 #### 5. 安装[cuDNN](https://developer.nvidia.com/cudnn)
-`cuDNN`可以在前面`GPU`加速基础上大概再提升`1.5`倍的速度，同样由`nVIDIA`开发。官网注册账号，下载[cuDNN v6.0 Library for Windows 10](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v6/prod/8.0_20170307/cudnn-8.0-windows10-x64-v6.0-zip)
+`cuDNN`可以在前面`GPU`加速基础上大概再提升`1.5`倍的速度，同样由`nVIDIA`开发。官网注册账号，下载[cuDNN v8.0 Library for Windows 10](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v6/prod/8.0_20170307/cudnn-8.0-windows10-x64-v6.0-zip)
 压缩包，解压完将**对应**文件夹（`bin、include、lib`）覆盖至`CUDA`的安装目录，即`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0`，然后把`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\bin`加入环境变量，并将`bin`文件夹里的`cudnn64_6.dll`重命名为`cudnn64_5.dll`（此处参考[tensorflow/issues/7705](https://github.com/tensorflow/tensorflow/issues/7705)，其实换旧版本也可以解决[stackoverflow](https://stackoverflow.com/questions/44080677/no-module-named-pywrap-tensorflow-internal)，因为重下安装包较大故采用前一方法），才算完成。
-https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.1_20171129/cudnn-9.1-windows10-x64-v7
-http://developer2.download.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.1_20171129/cudnn-9.1-windows10-x64-v7.zip?ZLrypQyS9qaPi2V24ZffXps-WqZnYaTOsPUaA5O9BY-LV-bJlHkijvtQkvNn-SPFVTDbAGqc0UhtSt5e70qbF66G4mCzvo9BLs3-fAGYNo0afIsTeQ6YwVbARA1yzssWExLzEgOmFeGOv7AscZCeepaNlc3-OdFeUb2s72BF-dXNV8VQx_u7nc2vgWRQypNmFCTeTXZxo-FpoE-t
 
     话说注册账号要求好麻烦，大小写包含特殊符号且不少于6位……
 
 #### 6. `pip`安装`TensorFlow-GPU`（最后一步）
 `pip3 install --upgrade tensorflow-gpu`
-万一在线`pip`安装失败了，就离线安装，到[http://www.lfd.uci.edu/~gohlke/pythonlibs/](http://www.lfd.uci.edu/~gohlke/pythonlibs/)下载`python`的`whl`包`tensorflow_gpu‑1.1.0‑cp36‑cp36m‑win_amd64.whl`，然后命令提示符运行`pip install < 此处填写 .whl 所在位置 >`（可以将`.whi`文件拖入命令提示符中即生成其位置）
+万一在线`pip`安装失败了，就离线安装，到[http://www.lfd.uci.edu/~gohlke/pythonlibs/](http://www.lfd.uci.edu/~gohlke/pythonlibs/)下载`python`的`whl`包`tensorflow_gpu‑1.1.0‑cp36‑cp36m‑win_amd64.whl`，然后命令提示符运行`pip install < 此处填写 .whl 所在位置 >`（可以将`.whl`文件拖入命令提示符中即生成其位置）
 
 ## 0x03.测试
 ``` python
