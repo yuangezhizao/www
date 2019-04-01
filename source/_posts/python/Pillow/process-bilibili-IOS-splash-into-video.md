@@ -54,14 +54,14 @@ for url in url_all:
 2.可用数据之类型一（不含`TTL`）
 举例：
 ``` json
-20160314_00-4d1bca42.json {"code":0,"message":"success","result":[{"id":3901257,"animate":1,"duration":2,"platform":"IOS","startTime":1457884740,"endTime":1457971140,"thumbUrl":"http://i0.hdslb.com/bfs/archive/69fca7faf1b6b159613f042abdce6d69bc55f227.jpg!webp?/44b9b94f5d1a5397eba0105a63d045a1.","times":10,"type":"default"}]}
+20160314_00-4d1bca42.json {"code":0,"message":"success","result":[{"id":3901257,"animate":1,"duration":2,"platform":"IOS","startTime":1457884740,"endTime":1457971140,"thumbUrl":"http://i0.hdslb.com/bfs/archive/69fca7faf1b6b159613f042abdce6d69bc55f227.jpg?/44b9b94f5d1a5397eba0105a63d045a1.","times":10,"type":"default"}]}
 ```
 很明显是启用了`bfs`，随便试了几个都可以正常访问，时间段（`20160314_00-4d1bca42.json 295B`-`20170611_20-e18c8089.json 519B`：共`173`条`.json`数据、`432`张图片）
 
 3.可用数据之类型二（含`TTL`）
 举例：
 ``` json
-20170630_00-91ca5641.json {"code":0,"data":[{"id":522,"type":1,"animate":1,"duration":2,"start_time":1498636800,"end_time":1498838340,"thumb":"http://i0.hdslb.com/bfs/archive/3afefb263f3a282f2bfba6f0abcab820ae219b59.jpg!webp","hash":"86fa91e5a6d21ebbc3e916dfd3ac1264","times":5,"skip":1,"uri":"http://www.bilibili.com/blackboard/topic/activity-BJEHXeuXZ.html"},{"id":206,"type":4,"animate":1,"duration":3,"start_time":1480058707,"end_time":1480490708,"thumb":"http://i0.hdslb.com/bfs/archive/54282e5017a3775fef1ac77e37d66b732f071743.png!webp!webp","hash":"b7be29596e6cb78e06edc8e51c4d3a73","times":1,"skip":0,"uri":""}],"message":"","ttl":1,"ver":"13234343026192087504"}
+20170630_00-91ca5641.json {"code":0,"data":[{"id":522,"type":1,"animate":1,"duration":2,"start_time":1498636800,"end_time":1498838340,"thumb":"http://i0.hdslb.com/bfs/archive/3afefb263f3a282f2bfba6f0abcab820ae219b59.jpg","hash":"86fa91e5a6d21ebbc3e916dfd3ac1264","times":5,"skip":1,"uri":"http://www.bilibili.com/blackboard/topic/activity-BJEHXeuXZ.html"},{"id":206,"type":4,"animate":1,"duration":3,"start_time":1480058707,"end_time":1480490708,"thumb":"http://i0.hdslb.com/bfs/archive/54282e5017a3775fef1ac77e37d66b732f071743.png","hash":"b7be29596e6cb78e06edc8e51c4d3a73","times":1,"skip":0,"uri":""}],"message":"","ttl":1,"ver":"13234343026192087504"}
 ```
 增加了`TTL`（虽然不知道有什么用处），试了几个也可以正常访问，时间段（`20170630_00-91ca5641.json 629B`-`20170908_04-19bcfad0.json 610B`：共`81`条`.json`数据、`188`张图片）
 > 注：上述数据均为原始数据，后续去重本数据不再更新
@@ -69,8 +69,8 @@ for url in url_all:
 失效数据只能抛弃，先处理可用数据一
 ![](https://i1.yuangezhizao.cn/Win-10/20170909154202.jpg!webp)
 
-链接为：`http://i0.hdslb.com/bfs/archive/69fca7faf1b6b159613f042abdce6d69bc55f227.jpg!webp?/44b9b94f5d1a5397eba0105a63d045a1.`
-经过测试，`.jpg!webp`文件名`69fca7faf1b6b159613f042abdce6d69bc55f227`为`SHA1`，`?`后的`44b9b94f5d1a5397eba0105a63d045a1`为`MD5`……然而并没有什么卵用（要是在这里再校验一步`MD5`的话我只能说真是闲……）
+链接为：`http://i0.hdslb.com/bfs/archive/69fca7faf1b6b159613f042abdce6d69bc55f227.jpg?/44b9b94f5d1a5397eba0105a63d045a1.`
+经过测试，`.jpg`文件名`69fca7faf1b6b159613f042abdce6d69bc55f227`为`SHA1`，`?`后的`44b9b94f5d1a5397eba0105a63d045a1`为`MD5`……然而并没有什么卵用（要是在这里再校验一步`MD5`的话我只能说真是闲……）
 ![](https://i1.yuangezhizao.cn/Win-10/20170909154811.jpg!webp)
 
 那么现在是时候保存下来了，文件名取`SHA1`（本来准备用`id`，后来发现相同`id`有的有多个图片），可以这样：
@@ -107,21 +107,21 @@ for line in fileinput.input("11.txt"):
 输出结果：
 ``` python
 C:\Python27\python.exe C:/Users/yuangezhizao/PycharmProjects/splash_fetch/demo.py
-69fca7faf1b6b159613f042abdce6d69bc55f227.jpg!webp
-89fed817241ea099d24a4d0cc80c962605252779.jpg!webp
-6df573232bf88e7325100a8b019a6c0860da4ae7.jpg!webp
-ea15b0417d8f59b99eb628c5ad16d7bfa52da994.jpg!webp
-c0f0b3395e7f186b45b166a66276c1f5f0b2556e.jpg!webp
-0c4d9f4a2179d48371eaafbf680afbb9e9acfda7.jpg!webp
-6d5d3ab0303b855fa4deab840e8936ae6fe1ed3c.jpg!webp
-b2e0377ed2455499649286eab90015906ceb284d.jpg!webp
-b6d057b310a5ed6ac8b604e58a36b56dcbd1308f.jpg!webp
+69fca7faf1b6b159613f042abdce6d69bc55f227.jpg
+89fed817241ea099d24a4d0cc80c962605252779.jpg
+6df573232bf88e7325100a8b019a6c0860da4ae7.jpg
+ea15b0417d8f59b99eb628c5ad16d7bfa52da994.jpg
+c0f0b3395e7f186b45b166a66276c1f5f0b2556e.jpg
+0c4d9f4a2179d48371eaafbf680afbb9e9acfda7.jpg
+6d5d3ab0303b855fa4deab840e8936ae6fe1ed3c.jpg
+b2e0377ed2455499649286eab90015906ceb284d.jpg
+b6d057b310a5ed6ac8b604e58a36b56dcbd1308f.jpg
 ```
 把文件放好：
 ![](https://i1.yuangezhizao.cn/Win-10/20170909161905.jpg!webp)
 
 
-## 0x01.图片先知
+## 0x03.图片先知
 可以看出分辨率是：`2732 x 2048`综合考虑长宽各缩放一半为佳。
 ![](https://i1.yuangezhizao.cn/Win-10/20170909162046.jpg!webp)
 
@@ -130,7 +130,7 @@ b6d057b310a5ed6ac8b604e58a36b56dcbd1308f.jpg!webp
 
 发现`20160421_20-a3c99e08.json`开始加入了`data`，举例：
 ``` json
-20160421_20-a3c99e08.json {"code":0,"data":[{"id":71,"animate":1,"duration":2,"platform":"IOS","startTime":1461286800,"endTime":1461384000,"thumbUrl":"http://i0.hdslb.com/bfs/archive/b6d057b310a5ed6ac8b604e58a36b56dcbd1308f.jpg!webp?/ac9cc99fc93283d0dcbc71695a9fe06b.","times":3,"type":"opertion"}]}
+20160421_20-a3c99e08.json {"code":0,"data":[{"id":71,"animate":1,"duration":2,"platform":"IOS","startTime":1461286800,"endTime":1461384000,"thumbUrl":"http://i0.hdslb.com/bfs/archive/b6d057b310a5ed6ac8b604e58a36b56dcbd1308f.jpg?/ac9cc99fc93283d0dcbc71695a9fe06b.","times":3,"type":"opertion"}]}
 ```
 emmm……文件不同`MD5`一样？看来是我想多了，后者的`MD5`是假的
 ![](https://i1.yuangezhizao.cn/Win-10/20170909170239.jpg!webp)
@@ -164,7 +164,7 @@ for line in fileinput.input("1.txt"):
 emmm……我还是再订一份鸡吧（饿的受不了了）……才想起来为什么不在服务器上操作……
 此处省略在服务器上的一系列操作，结果就是现在图片都下载好了……
 
-## 0x02.`PIL`——`processing……`
+## 0x04.`PIL`——`processing……`
 首先，查看图片信息，可以这样：
 ``` python
 # -*- coding: utf-8 -*-
@@ -292,10 +292,10 @@ for line in fileinput.input("1.txt"):
 考虑到有重复存在：从另一文件夹取图片保存至本目录下，其实只要确定有图片存在的情况下不要覆盖就好啦
 又考虑到文件名：时间戳 + 哈希为好，毕竟顺序还是很重要的
 ```
-8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg!webp
-cannot identify image file u'C:\\picc\\8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg!webp'
-8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg!webp
-cannot identify image file u'C:\\picc\\8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg!webp'
+8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg
+cannot identify image file u'C:\\picc\\8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg'
+8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg
+cannot identify image file u'C:\\picc\\8183052d20011f761e2f0a48ca3b6d4c4d0a3fd4.jpg'
 ```
 emmm……系统画图打不开，web预览纯黑，估计是遇到什么`bug`了吧……
 ![](https://i1.yuangezhizao.cn/Win-10/20170910201334.jpg!webp)
@@ -385,7 +385,7 @@ for line in fileinput.input("3.txt"):
 看到图片数量不大，于是从服务器打包下回本地，得重命名下。最终决定前`10`位时间戳保留，后两位`SHA1`也留下
 ![](https://i1.yuangezhizao.cn/Win-10/20170910214416.jpg!webp)
 
-第一次遇到改名失败`14762880002535d48d9dc511eb5aa4a307724cdd68710b4bb1.jpg!webp`
+第一次遇到改名失败`14762880002535d48d9dc511eb5aa4a307724cdd68710b4bb1.jpg`
 遇到`Win`迷之排序问题，决定写程序改成日期
 不在同一目录下的路径问题实在是太尴尬了……
 突发奇想想把`SHA-1`放到视频里（或者贴张二维码），这样想要一张图片的话也不用下整个图包，不过，转瞬之间就打消了念头，谁会手打那么长……
@@ -403,7 +403,7 @@ print url
 前面还有`4`个空格，所以再加上
 还有一只漏网之鱼，夏日挑战赛链接过长……
 部分图片黑屏综合考虑剔除
-例：`http://i0.hdslb.com/bfs/archive/47fe7ab64ad00e1ca552617d2eb27019450458cb.jpg!webp`
+例：`http://i0.hdslb.com/bfs/archive/47fe7ab64ad00e1ca552617d2eb27019450458cb.jpg`
 不过作画失误还是保留，全场包邮般的笑声（个别地区除外）……
 那么现在该处理剩下的两张分辨率异常的图片了：
 ![](https://i1.yuangezhizao.cn/Win-10/20170911185635.jpg!webp)
@@ -413,20 +413,20 @@ print url
 ![](https://i1.yuangezhizao.cn/Win-10/20170911185939.jpg!webp)
 
 `1439 x 1080`
-处理完按照文件名的日期顺序排序，重命名`000.jpg!webp`-`220.jpg!webp`，后缀名不必改（因为处理过程中已经解决了）
+处理完按照文件名的日期顺序排序，重命名`000.jpg`-`220.jpg`，后缀名不必改（因为处理过程中已经解决了）
 
-## 0x03.图片转视频
+## 0x05.图片转视频
 还是用`ffmpeg`：
 ```
-ffmpeg -r 0.5 -i C:\ffmpeg\bin\2016\%3d.jpg!webp -vcodec libx264 -level
+ffmpeg -r 0.5 -i C:\ffmpeg\bin\2016\%3d.jpg -vcodec libx264 -level
  4.1 -crf 0 -pix_fmt yuv420p 420.flv
 ```
 帧率`0.5`也就是一张图片停留`2s`
 
-## 0x04.后记
+## 0x06.后记
 爆肝了三天，终于做完了……
 发现`420p`码率未超`1800`于是加上音频合并直传
 但是`444p`码率`2007`暂时放弃
 
-## 0x09.参考
+## 0x07.参考
 > http://www.cnblogs.com/lilinwei340/p/6474170.html
