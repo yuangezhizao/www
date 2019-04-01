@@ -32,8 +32,10 @@ key: 12
 ```
 本来比较早就看到了这项活动，不过没放在心上，后来随着画板内容的爆满，才意识到可以尝试记录一下这项活动，正巧看到了[av13032452](https://www.bilibili.com/video/av13032452/)，原理在简介里写的很清楚了：`制作流程：使用autohotkey脚本每10秒截屏一次，然后使用irfanview批量裁剪+时间戳，最后使用ffmpeg压制，参数crf=0，yuv444，码率小于1500，测试b站能否通过。`。但是这流程并不适合我，首先`autohotkey`就不会用……但是原视频效果很好，可以非常清楚地看到像素点的移动。过了一天发现居然有单独的直播间`24h`开放记录着，这就再好不过了，[用 FFmpeg 保存 bilibili 直播视频](https://www.yuangezhizao.cn/articles/java/FFmpeg/save-live-video-of-bilibili.html)。但是不久就忘记自己还在服务器上录制着，前几天突然想起来了，赶紧登上去看下，结果录制了`80h`了，文件`10GB`，这……`1M`小水管就不拖到本地吧，云端处理好得了，贴下`media info`：
 ![处理前视频 media info](https://i1.yuangezhizao.cn/Win-10/20170811194120.jpg!webp)
+
 起初是在百度云服务器处理，就是`ffmpeg 加速视频播放`，参考[这里](http://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video)，[这里](http://blog.csdn.net/matrix_laboratory/article/details/53158307)有中文版，即在控制台运行`ffmpeg -i "in.flv" -an -filter:v "setpts=0.002*PTS" out.flv`，但是太慢了，于是就`ftp`传到了阿里云服务器（目前本人手中 CPU 性能最好的云服务器），好在时间在可以忍受的范围之内，几个小时便处理完了，把`80`多小时的视频缩短到了不到`10 min`。
 ![处理后视频 media info](https://i1.yuangezhizao.cn/Win-10/20170811194142.jpg!webp)
+
 最后下回本地，导入`Pr`（按照套路是拿小丸转成`MP4`再导入，因为`Pr CC 2017`不支持`flv`，但是这次居然没法转成`MP4`，无奈最后转成了`mkv`），加上自己喜欢的背景音乐以及浮夸的字幕说明，再导出媒体（用`VBR，2 次，目标 1.6 M，最大 1.8 M`参数画了半个小时），传到了 bilibili 。
 `av13249656`
 压完感觉是失败之作，画面完全糊了，像素点根本没法看清，再想想 bilibili 再来个二圧，多半是废了，这一阶段就告一段落了……
@@ -53,7 +55,7 @@ key: 12
 在[这里](https://intoli.com/blog/running-selenium-with-headless-chrome/)、[这里](https://www.ctolib.com/schnerd-chrome-headless-screenshots.html)、[这里](http://web.jobbole.com/91489/)和不知道是谁转谁的[这篇](https://segmentfault.com/a/1190000009353359)虽然看到了`HEADLESS CHROME`，但是跟我想的还是有点不太一样（其实是不会用），所以以后再考虑用这个吧，现在还是用`Selenium`吧……
 
 ## 0x02.[Selenium](http://www.seleniumhq.org/)+[Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/home)——`Screenshot`
-下载安装可参考此文：http://blog.jarjar.cn/first-selenium-python/， 即`pip install selenium`和下载`chromedriver_win32.zip`并将其路径加入`Path`环境变量。
+下载安装可参考此文：http://blog.jarjar.cn/first-selenium-python/ ，即`pip install selenium`和下载`chromedriver_win32.zip`并将其路径加入`Path`环境变量。
 备注：`Chromedriver`有国内淘宝源：https://npm.taobao.org/mirrors/chromedriver
 看了一堆资料，链接在文末，并反复试验，最终得出如下可行方案：
 控制`WebDriver.Chrome`进入夏日绘板页面，向下滚动`192`之后截图（数据是反复试验所得），听起来很简单，实现的话如下代码：
@@ -69,7 +71,7 @@ def save_pic():
     # 必要的`sleep`可以减少坏片率
     file_name = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
     # 以时间戳对文件进行命名
-    driver.save_screenshot(str(file_name) + ".png!webp!webp!webp")
+    driver.save_screenshot(str(file_name) + ".png")
 
 driver = webdriver.Chrome()
 driver.set_window_size(1920, 1080)
@@ -84,10 +86,10 @@ while True:
 ```
 这里有集合的关于`Selenium`的资料：http://blog.csdn.net/column/details/12694.html
 http://www.51testing.com/zhuanti/selenium.html
-感觉在这里放链接挺好，省的浏览器书签太多（至少上百个）……
+感觉在这里放链接挺好（不过万一失效了是真没有办法、但是也不能全搬到这里吧，那也太占版面了），省的浏览器书签太多（至少上~~百~~**千**个）……
 
 ## 0x03.`PIL`——`Timestamp`&`cut out`
-参考[这里](http://blog.topspeedsnail.com/archives/1037)、[这里](https://wanglu.info/1120.html)和[这里](http://www.cnblogs.com/denny402/p/4998893.html)，可写出这样的代码：
+参考[这里](http://blog.topspeedsnail.com/archives/1037)、[这里](https://wanglu.info/2015/12/28/1120.html)和[这里](http://www.cnblogs.com/denny402/p/4998893.html)，可写出这样的代码：
 ``` python
 # -*- coding: utf-8 -*-
 import os
@@ -158,7 +160,7 @@ for filename in os.listdir(r"./pic"):
 ## 0x05.[FFmpeg](http://ffmpeg.org/)：`Screenshot` to `Video`
 一行代码，控制台执行（需要在`FFmpeg`的`bin`目录下除非已经加入`Path`环境变量）：
 ```
-ffmpeg -r 60 -i C:\ffmpeg\bin\data_8.15-16\%5d.png!webp!webp!webp -vcodec libx264 -level 4.1 -crf 0 -pix_fmt yuv420p -b:v 4000k data_60_k.flv
+ffmpeg -r 60 -i C:\ffmpeg\bin\data_8.15-16\%5d.png -vcodec libx264 -level 4.1 -crf 0 -pix_fmt yuv420p -b:v 4000k data_60_k.flv
 ```
 可以说最近两天，为了这一行代码，把`vcb-s`和`小丸`的教程看了个遍，总算知道一些简单参数的使用方法了
 这好像是第一次在新站用`markdown`写表格，语法都忘了了……
@@ -183,7 +185,7 @@ options | usage
 ## 0x07.测试总流程
 好了，上面写了一大堆一张图也没有，现在可以适量放一些图上来了……
 测试的时候用了三台云服务器，正式的时候两台就够了，所以这里就描述两台（也就是现在的方法）
-首先（服务器软件安装配置环境略），运行截图（`0x02`）脚本，即实时产出图片，来些数据看看：
+首先（服务器软件安装配置环境略），运行截图（`#0x02`）脚本，即实时产出图片，来些数据看看：
 
 服务器 | 日期范围 | 时间范围 | 好片 | 坏片 | 好片率 | 好片总大小 | 视频地址
 :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
@@ -203,9 +205,7 @@ options | usage
 `cn-ali-hb2D-w2d`&`cn-tx-bj1-w2d`| 8.29-8.30 | 12:26:49-16:31:04| 6854 | 246 | 96.54 % | 9.37 GB |[av13991058](https://www.bilibili.com/video/av13984275/)
 `cn-ali-hb2D-w2d`| 8.30-8.31 | 12:26:49-16:31:04| 5395 | 34 | 99.37 % | 9.93 GB |[av14020054](https://www.bilibili.com/video/av14020054/)
 
-
-
-9392 5.85 GB 22-57-01 13-23-25
+~~9392 5.85 GB 22-57-01 13-23-25~~
 
 发现百度云服务器的弹性公网还有`4`天（也就是`8.21`）就要到期了……最便宜（1兆带宽）的`23/月`感觉不是很便宜……
 ![](https://i1.yuangezhizao.cn/Win-10/20170821093328.jpg!webp)
@@ -214,7 +214,7 @@ options | usage
 ![](https://i1.yuangezhizao.cn/Win-10/20170821093720.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170821093756.jpg!webp)
 
-测试时是用两台服务器分时截图，主要是害怕服务器空间不够，万一图片存不下就GG了，然而今天还就真满了，登百度云服务器一看`C`盘就剩`6MB`了，想起上次阿里云服务器被我搞成就剩`NTFS 0B`，还能远程登陆上去……但是两台的缺点是分别合成两段视频之后还得合并，限于带宽和繁琐程度就不如在一台上搞了，上面说的两台其实是交换的意思，你一天我一天的……
+测试时是用两台服务器分时截图，主要是害怕服务器空间不够，万一图片存不下就GG了，然而今天还就真满了，登百度云服务器一看`C`盘就剩`6MB`了，想起上次阿里云服务器被我搞成就剩`NTFS 0B`，还能远程登录上去……但是两台的缺点是分别合成两段视频之后还得合并，限于带宽和繁琐程度就不如在一台上搞了，上面说的两台其实是交换的意思，你一天我一天的……
 此时云服务器几乎处于`CPU`打满状态：
 截图如无特殊说明，均为`cn-bd-gzA-w2d 8.15-8.16`
 ![](https://i1.yuangezhizao.cn/Win-10/20170816150243.jpg!webp)
@@ -247,15 +247,18 @@ options | usage
 
 接下来用《橙刀改名器》改名：
 ![](https://i1.yuangezhizao.cn/Win-10/20170816151909.jpg!webp)
+
 下一步，`FFmpeg`生成视频：
 ``` s
-ffmpeg -r 60 -i C:\ffmpeg\bin\data_8.15-16\%5d.png!webp!webp!webp -vcodec libx264 -crf 0 -pix_fmt yuv420p data_60_420.flv
+ffmpeg -r 60 -i C:\ffmpeg\bin\data_8.15-16\%5d.png -vcodec libx264 -crf 0 -pix_fmt yuv420p data_60_420.flv
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170816152505.jpg!webp)
+
 生成完成（约`35min`），这次的时间算是长的了：
 ![](https://i1.yuangezhizao.cn/Win-10/20170816155135.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170816155411.jpg!webp)
-最后一步，小丸压制，当然官方的工具也要压一遍做对照组：
+
+最后一步，小丸压制，当然官方的工具也要压一遍做对照组……
 传到`bilibili`就 ok 了！
 整个流程就是这样子的……
 
