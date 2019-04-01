@@ -20,6 +20,7 @@ key: 31
 
 ## 0x01.修改主机名
 ![首先 ssh 密钥连接，然后先改这俩](https://i1.yuangezhizao.cn/Win-10/20180223163407.png!webp)
+
 其一，临时生效修改
 `hostname <自定义内容>`
 重登`shell`生效
@@ -93,6 +94,7 @@ xauth: (argv):1:  bad display name "Ubuntu:0" in "remove" command
 
 ## 0x05.安装 realvnc 的 VNC Server
 ![下载VNC-Server-6.2.1-Linux-x64-ANY.tar.gz](https://i1.yuangezhizao.cn/Win-10/20180223170618.jpg!webp)
+
 ``` shell
 cd Downloads/
 wget https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.2.1-Linux-x64-ANY.tar.gz
@@ -108,6 +110,7 @@ systemctl start vncserver-x11-serviced.service
 还有这个[文档](https://www.realvnc.com/en/connect/docs/deployment-script.html#deployment-script)
 可知`Home`版订阅必须在图形化界面下操作，不能在命令行下
 ![因为禁用了账户登录，只能使用密钥](https://i1.yuangezhizao.cn/Win-10/20180223172404.png!webp)
+
 但是可以在远程终端使用账户登录，于是先分配密码（勿仿）
 `passwd root`
 然后去远程终端`startx`，然后发现居然有浏览器……
