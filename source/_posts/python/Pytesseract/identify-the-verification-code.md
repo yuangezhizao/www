@@ -45,14 +45,14 @@ tesseract本身不支持png，jpg这样图片格式，pytesser需要利用PIL将
 `Win`下，需要在[Tesseract at UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki)下载，我选择`tesseract-ocr-setup-3.05.01.exe`，因为`tesseract-ocr-setup-4.0.0-alpha.20180109.exe(experimental)`没好使。
 
 > 存档原文：
-在`Mac`下安装方法极其简单，brew install tesseract，附：语言包在`/usr/local/share/tessdata`,这样子就安装好了，可以在终端输入`tesseract`试试
+在`Mac`下安装方法极其简单，`brew install tesseract`，附：语言包在`/usr/local/share/tessdata`,这样子就安装好了，可以在终端输入`tesseract`试试
 
 #### 3. 安装[pytesseract](https://code.google.com/archive/p/pytesser/downloads)
 只有`pytesser_v0.0.1.zip`的版本，不过我好像是`pip`安装的，有点记不清了。
 
 > 存档原文：
 下载，解压，重命名，拷贝到`/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages`，
-`/usr/local/lib/python2.7/site-packages/pytesser`，https://stackoverflow.com/questions/15567141/installing-pytesser，sudo pip install pytesseract
+`/usr/local/lib/python2.7/site-packages/pytesser`，https://stackoverflow.com/questions/15567141/installing-pytesser ，`sudo pip install pytesseract`
 
 ## 0x03.测试
 ``` python
