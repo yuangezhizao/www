@@ -271,6 +271,29 @@ pi@raspberrypi:~/Downloads $ docker search raspbian
 Warning: failed to get default registry endpoint from daemon (Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.36/info: dial unix /var/run/docker.sock: connect: permission denied). Using system default: https://index.docker.io/v1/
 Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.36/images/search?limit=25&term=raspbian: dial unix /var/run/docker.sock: connect: permission denied
 ```
+
+## 0x13.Python 2、3 版本切换
+原理其实就是软链接，建立如下的`.sh`文件并赋予可执行权限，即`sudo chmod +x <文件名>`
+``` bash
+pi@rpi:~/Documents $ cat py2.sh 
+#!/bin/bash
+echo "Start rm /usr/bin/python"
+rm /usr/bin/python
+echo "Finish rm /usr/bin/python"
+echo "Start create 2.7"
+sudo ln -s /usr/bin/python2.7 /usr/bin/python
+echo "Finish create 2.7"
+pi@rpi:~/Documents $ cat py3.sh
+#!/bin/bash
+echo "Start rm /usr/bin/python"
+rm /usr/bin/python
+echo "Finish rm /usr/bin/python"
+echo "Start create 3.5"
+sudo ln -s /usr/bin/python3.5 /usr/bin/python
+echo "Finish create 3.5"
+pi@rpi:~/Documents $ 
+```
+
 ## 引用
 > [树莓派3B新版raspbian系统换国内源](http://www.cnblogs.com/wangchuanyang/p/6434323.html)
 > [修改树莓派交换分区 SWAP 的正确姿势](http://shumeipai.nxez.com/2017/12/18/how-to-modify-raspberry-pi-swap-partition.html)
