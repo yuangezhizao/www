@@ -88,12 +88,13 @@ Once installed, you can upgrade to a newer version of Bazel with:
 `./configure`
 这里给出我的选择：
 ![](https://i1.yuangezhizao.cn/Win-10/20170818095912.jpg!webp)
+
 强迫症的我，也尽量选`N`（因为多不一定好）……
 
 ## 0x06.编译安装
 `bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package`
 `bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg`
-`sudo pip install /tmp/tensorflow_pkg/< 自行替换 >.whl`（.whl 文件的实际名字与使用的平台有关）
+`sudo pip install /tmp/tensorflow_pkg/< 自行替换 >.whl`（`.whl`文件的实际名字与使用的平台有关）
 
 ## 0x07.后记
 编译报错：`gcc: internal compiler error: Killed (program cc1plus)`
