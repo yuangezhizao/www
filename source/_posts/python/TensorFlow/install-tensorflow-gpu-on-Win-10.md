@@ -14,7 +14,7 @@ key: 11
 ---
     已经是八月份了，暑假已经过了一半的说
 <!-- more -->
-> 很感谢能点进来看的你们，唯独这篇文章让我这个小站有了每天的固定个位数访客，为表达对老铁们的感谢特更新了文章，详情请见：https://www.yuangezhizao.cn/articles/python/TensorFlow/install-tensorflow-gpu-on-Win-10-1903.html
+> **【20190401】**很感谢能点进来看的你们，唯独这篇文章让我这个小站有了每天的固定个位数访客，为表达对老铁们的感谢特更新了文章，详情请见：https://www.yuangezhizao.cn/articles/python/TensorFlow/install-tensorflow-gpu-on-Win-10-1903.html
 
 ## 0x00.缘由
 Q：为什么要写（这么低级的）配置教程？
