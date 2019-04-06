@@ -59,6 +59,14 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 ```
+注：`pip`升级后`Import Error:cannot import name main`的解决方案
+![第一种方法](https://i1.yuangezhizao.cn/Win-10/20190406140457.jpg!webp)
+
+将`/usr/bin/pip`和`/usr/bin/pip3`文件中的`from pip import main`改为`from pip._internal import main`
+![但是加 sudo 会出问题](https://i1.yuangezhizao.cn/Win-10/20190406142635.jpg!webp)
+![第二种方法](https://i1.yuangezhizao.cn/Win-10/20190406142820.jpg!webp)
+
+然而，还是不能解决问题……
 
 ## 0x05.修改交换分区大小
 因为默认`100M`编译`FFmpeg`会不够用，分他个`500M`应该够了，当然`2G`是最好的了……
