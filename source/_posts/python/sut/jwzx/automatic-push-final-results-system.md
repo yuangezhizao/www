@@ -219,7 +219,7 @@ r = s.post(LoginUrl, data=LoginData)
 绑定：点击「[微信推送](http://sc.ftqq.com/?c=wechat&a=bind)」，扫码关注同时即可完成绑定
 发消息：往[http://sc.ftqq.com/SCKEY.send](http://sc.ftqq.com/SCKEY.send)发GET请求，就可以在微信里收到消息啦
 来个示意图：
-![示意图](http://anime-img.stor.sinaapp.com/55ec21e37e46b.gif)
+![示意图](https://i1.yuangezhizao.cn/Win-10/ServerChan.gif!raw)
 调用代码
 发送消息非常简单，只需要向以下URL发一个GET或者POST请求：
 `https://sc.ftqq.com/< 此处填写 SCKEY >.send`
