@@ -23,9 +23,8 @@ key: 25
 ## 0x02.经验
 1.用户状态信息是根据`cookies`中的`jsessionid`鉴别的，用`requests`库写的时候最好把`session`放到类的初始化中去，免得`3`次登录失败就谈验证码（此法可破），即`self.session = requests.Session()`
 
-## 0x03.结果
-[源码](https://github.com/yuangezhizao/)会公开的
-未完待续
+## 0x03.源码下载
+https://github.com/yuangezhizao/SUTDN
 
 ## 0x04.参考
 > https://github.com/j178/ipgw
