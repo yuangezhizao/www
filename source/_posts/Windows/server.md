@@ -3,7 +3,7 @@ title: 重装系统之腾讯云学生机 Windows Server 2012 R2 数据中心版 
 date: 2019-5-9 10:14:46
 tags:
   - Windows
-  - Server
+  - server
 count: 1
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
