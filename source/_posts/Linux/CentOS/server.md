@@ -79,12 +79,18 @@ cd Python-3.7.0
 sudo ./configure --prefix=/usr/local/python3
 sudo make && make install
 ```
-6. 安装`pip（3）`
+6. 安装`pip3`
 ``` bash
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
 ```
-7. 创建软链接（`python3`&`pip3`）
+7. 升级`pip3`
+``` bash
+[root@txy ~]# pip3 install --upgrade pip
+Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
+Requirement already up-to-date: pip in /usr/local/python3/lib/python3.7/site-packages (19.1.1)
+```
+8. 创建软链接（`python3`&`pip3`）
 ``` bash
 sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python3
 sudo ln -s /usr/local/python3/bin/pip3.7 /usr/bin/pip3
@@ -95,21 +101,15 @@ Python 3.7.3
 ```
 > 这样就可以通过`python`命令使用`Python 2`，`python3`来使用`Python 3`。
 
-8. 更改`yum`配置
+9. 更改`yum`配置
 ``` bash
 vim /usr/bin/yum 
 vim /usr/libexec/urlgrabber-ext-down 
 ```
 把`#! /usr/bin/python`修改为`#! /usr/bin/python2`
-9. 修改默认为`Python 3`
+10. 修改默认为`Python 3`
 将`/usr/bin`中的`python`备份，然后创建`python3`的软链接，这样默认的`Python`版本就替换为`Python 3`了。
 ``` bash
 [root@txy ~]# sudo mv /usr/bin/python /usr/bin/python.bak
 [root@txy ~]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python
-```
-10. 升级`pip `
-``` bash
-[root@txy ~]# pip3 install --upgrade pip
-Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
-Requirement already up-to-date: pip in /usr/local/python3/lib/python3.7/site-packages (19.1.1)
 ```
