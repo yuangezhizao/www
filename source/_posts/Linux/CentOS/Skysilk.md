@@ -96,35 +96,58 @@ Max upload size: 5.2 TB
 开机禁用：`systemctl disable firewalld`
 状态：`systemctl status firewalld`
 
-## 0x08.后记
+## 0x08. 编译安装[python373](https://www.python.org/downloads/release/python-373/)环境
+https://www.yuangezhizao.cn/articles/Linux/CentOS/server.html#0x04-编译安装python373环境
+
+## 0x09. 测速工具`speedtest-cli`
+`pip3 install speedtest-cli`
+``` bash
+[root@CentOS ~]# speedtest-cli
+Retrieving speedtest.net configuration...
+Testing from QuadraNet (<rm>)...
+Retrieving speedtest.net server list...
+Selecting best server based on ping...
+Hosted by Kansas Research and Education Network (Wichita, KS) [43.14 km]: 46.056 ms
+Testing download speed................................................................................
+Download: 96.85 Mbit/s
+Testing upload speed......................................................................................................
+Upload: 95.07 Mbit/s
+```
+
+## 0x10.后记
 本来还想着放到路由器上，后来想想还是算了吧，毕竟性能（其实`K2`还可以的）
 
-## 0x09.附注：已安装包
+## 0x11.附注：已安装包（同步更新）
 应该是最小化版本（因为`vim`都没有……）
 ``` bash
 [root@CentOS ~]# yum list installed
 Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
- * base: repos-lax.psychz.net
- * epel: d2lzkl7pfhq30w.cloudfront.net
- * extras: mirror.san.fastserv.com
- * updates: repos.lax.quadranet.com
+ * base: centos.mirror.lax.us.hostlink.com.au
+ * epel: mirror.layeronline.com
+ * extras: linux.mirrors.es.net
+ * updates: mirrors.syringanetworks.net
 Installed Packages
 GeoIP.x86_64                                       1.5.0-13.el7                      @base   
 acl.x86_64                                         2.2.51-14.el7                     @base   
 audit-libs.x86_64                                  2.8.4-4.el7                       @base   
+autoconf.noarch                                    2.69-11.el7                       @base   
+automake.noarch                                    1.13.4-3.el7                      @base   
 axel.x86_64                                        2.4-9.el7                         @epel   
 basesystem.noarch                                  10.0-7.el7.centos                 @base   
 bash.x86_64                                        4.2.46-31.el7                     @base   
 bind-libs-lite.x86_64                              32:9.9.4-73.el7_6                 @updates
 bind-license.noarch                                32:9.9.4-73.el7_6                 @updates
 binutils.x86_64                                    2.27-34.base.el7                  @base   
+bzip2-devel.x86_64                                 1.0.6-13.el7                      @base   
 bzip2-libs.x86_64                                  1.0.6-13.el7                      @base   
 ca-certificates.noarch                             2018.2.22-70.0.el7_5              @base   
 centos-release.x86_64                              7-6.1810.2.el7.centos             @base   
 chkconfig.x86_64                                   1.7.4-1.el7                       @base   
+cmake.x86_64                                       2.8.12.2-2.el7                    @base   
 coreutils.x86_64                                   8.22-23.el7                       @base   
 cpio.x86_64                                        2.11-27.el7                       @base   
+cpp.x86_64                                         4.8.5-36.el7_6.2                  @updates
 cracklib.x86_64                                    2.9.0-11.el7                      @base   
 cracklib-dicts.x86_64                              2.9.0-11.el7                      @base   
 cronie.x86_64                                      1.4.11-20.el7_6                   @updates
@@ -137,6 +160,8 @@ dbus.x86_64                                        1:1.10.24-13.el7_6           
 dbus-glib.x86_64                                   0.100-7.el7                       @base   
 dbus-libs.x86_64                                   1:1.10.24-13.el7_6                @updates
 dbus-python.x86_64                                 1.1.1-9.el7                       @base   
+dejavu-fonts-common.noarch                         2.33-6.el7                        @base   
+dejavu-sans-fonts.noarch                           2.33-6.el7                        @base   
 device-mapper.x86_64                               7:1.02.149-10.el7_6.7             @updates
 device-mapper-libs.x86_64                          7:1.02.149-10.el7_6.7             @updates
 dhclient.x86_64                                    12:4.2.5-68.el7.centos.1          @base   
@@ -150,6 +175,7 @@ elfutils-libelf.x86_64                             0.172-2.el7                  
 elfutils-libs.x86_64                               0.172-2.el7                       @base   
 epel-release.noarch                                7-11                              @epel   
 expat.x86_64                                       2.1.0-10.el7_3                    @updates
+expat-devel.x86_64                                 2.1.0-10.el7_3                    @base   
 fail2ban.noarch                                    0.9.7-1.el7                       @epel   
 fail2ban-firewalld.noarch                          0.9.7-1.el7                       @epel   
 fail2ban-sendmail.noarch                           0.9.7-1.el7                       @epel   
@@ -161,12 +187,23 @@ fipscheck.x86_64                                   1.4.1-6.el7                  
 fipscheck-lib.x86_64                               1.4.1-6.el7                       @base   
 firewalld.noarch                                   0.5.3-5.el7                       @base   
 firewalld-filesystem.noarch                        0.5.3-5.el7                       @base   
+fontconfig.x86_64                                  2.13.0-4.3.el7                    @base   
+fontconfig-devel.x86_64                            2.13.0-4.3.el7                    @base   
+fontpackages-filesystem.noarch                     1.44-8.el7                        @base   
+freetype.x86_64                                    2.8-12.el7_6.1                    @updates
+freetype-devel.x86_64                              2.8-12.el7_6.1                    @updates
 gawk.x86_64                                        4.0.2-4.el7_3.1                   @updates
+gcc.x86_64                                         4.8.5-36.el7_6.2                  @updates
+gcc-c++.x86_64                                     4.8.5-36.el7_6.2                  @updates
 gdbm.x86_64                                        1.10-8.el7                        @base   
+gettext.x86_64                                     0.19.8.1-2.el7                    @base   
+gettext-libs.x86_64                                0.19.8.1-2.el7                    @base   
 git.x86_64                                         1.8.3.1-20.el7                    @updates
 glib2.x86_64                                       2.56.1-2.el7                      @base   
 glibc.x86_64                                       2.17-260.el7_6.5                  @updates
 glibc-common.x86_64                                2.17-260.el7_6.5                  @updates
+glibc-devel.x86_64                                 2.17-260.el7_6.5                  @updates
+glibc-headers.x86_64                               2.17-260.el7_6.5                  @updates
 gmp.x86_64                                         1:6.0.0-15.el7                    @base   
 gnupg2.x86_64                                      2.0.22-5.el7_5                    @base   
 gobject-introspection.x86_64                       1.56.1-1.el7                      @base   
@@ -186,19 +223,34 @@ ipset-libs.x86_64                                  6.38-3.el7_6                 
 iptables.x86_64                                    1.4.21-28.el7                     @base   
 iputils.x86_64                                     20160308-10.el7                   @base   
 json-c.x86_64                                      0.11-4.el7_0                      @base   
+kernel-headers.x86_64                              3.10.0-957.12.2.el7               @updates
 keyutils-libs.x86_64                               1.5.8-3.el7                       @base   
+keyutils-libs-devel.x86_64                         1.5.8-3.el7                       @base   
 kmod.x86_64                                        20-23.el7                         @base   
 kmod-libs.x86_64                                   20-23.el7                         @base   
 kpartx.x86_64                                      0.4.9-123.el7                     @base   
+krb5-devel.x86_64                                  1.15.1-37.el7_6                   @updates
 krb5-libs.x86_64                                   1.15.1-37.el7_6                   @updates
 less.x86_64                                        458-9.el7                         @base   
+libX11.x86_64                                      1.6.5-2.el7                       @base   
+libX11-common.noarch                               1.6.5-2.el7                       @base   
+libX11-devel.x86_64                                1.6.5-2.el7                       @base   
+libXau.x86_64                                      1.0.8-2.1.el7                     @base   
+libXau-devel.x86_64                                1.0.8-2.1.el7                     @base   
+libXft.x86_64                                      2.3.2-2.el7                       @base   
+libXft-devel.x86_64                                2.3.2-2.el7                       @base   
+libXrender.x86_64                                  0.9.10-1.el7                      @base   
+libXrender-devel.x86_64                            0.9.10-1.el7                      @base   
 libacl.x86_64                                      2.2.51-14.el7                     @base   
+libarchive.x86_64                                  3.1.2-10.el7_2                    @base   
 libassuan.x86_64                                   2.1.0-3.el7                       @base   
 libattr.x86_64                                     2.4.46-13.el7                     @base   
 libblkid.x86_64                                    2.23.2-59.el7_6.1                 @updates
 libcap.x86_64                                      2.22-9.el7                        @base   
 libcap-ng.x86_64                                   0.7.5-4.el7                       @base   
 libcom_err.x86_64                                  1.42.9-13.el7                     @base   
+libcom_err-devel.x86_64                            1.42.9-13.el7                     @base   
+libcroco.x86_64                                    0.6.12-4.el7                      @base   
 libcurl.x86_64                                     7.29.0-51.el7                     @base   
 libdb.x86_64                                       5.3.21-24.el7                     @base   
 libdb-utils.x86_64                                 5.3.21-24.el7                     @base   
@@ -206,36 +258,54 @@ libedit.x86_64                                     3.0-12.20121213cvs.el7       
 libestr.x86_64                                     0.1.9-2.el7                       @base   
 libfastjson.x86_64                                 0.99.4-3.el7                      @base   
 libffi.x86_64                                      3.0.13-18.el7                     @base   
+libffi-devel.x86_64                                3.0.13-18.el7                     @base   
 libgcc.x86_64                                      4.8.5-36.el7_6.2                  @updates
 libgcrypt.x86_64                                   1.5.3-14.el7                      @base   
+libgomp.x86_64                                     4.8.5-36.el7_6.2                  @updates
 libgpg-error.x86_64                                1.12-3.el7                        @base   
 libidn.x86_64                                      1.28-4.el7                        @base   
+libkadm5.x86_64                                    1.15.1-37.el7_6                   @updates
 libmnl.x86_64                                      1.0.3-7.el7                       @base   
 libmount.x86_64                                    2.23.2-59.el7_6.1                 @updates
+libmpc.x86_64                                      1.0.1-3.el7                       @base   
 libnetfilter_conntrack.x86_64                      1.0.6-1.el7_3                     @updates
 libnfnetlink.x86_64                                1.0.1-4.el7                       @base   
+libpng.x86_64                                      2:1.5.13-7.el7_2                  @base   
+libpng-devel.x86_64                                2:1.5.13-7.el7_2                  @base   
 libpwquality.x86_64                                1.2.3-5.el7                       @base   
 libselinux.x86_64                                  2.5-14.1.el7                      @base   
+libselinux-devel.x86_64                            2.5-14.1.el7                      @base   
 libselinux-python.x86_64                           2.5-14.1.el7                      @base   
 libselinux-utils.x86_64                            2.5-14.1.el7                      @base   
 libsemanage.x86_64                                 2.5-14.el7                        @base   
 libsepol.x86_64                                    2.5-10.el7                        @base   
+libsepol-devel.x86_64                              2.5-10.el7                        @base   
 libsmartcols.x86_64                                2.23.2-59.el7_6.1                 @updates
 libssh2.x86_64                                     1.4.3-12.el7_6.2                  @updates
 libstdc++.x86_64                                   4.8.5-36.el7_6.2                  @updates
+libstdc++-devel.x86_64                             4.8.5-36.el7_6.2                  @updates
 libtasn1.x86_64                                    4.10-1.el7                        @base   
+libunistring.x86_64                                0.9.3-9.el7                       @base   
 libuser.x86_64                                     0.60-9.el7                        @base   
 libutempter.x86_64                                 1.1.6-4.el7                       @base   
 libuuid.x86_64                                     2.23.2-59.el7_6.1                 @updates
+libuuid-devel.x86_64                               2.23.2-59.el7_6.1                 @updates
 libverto.x86_64                                    0.2.5-4.el7                       @base   
+libverto-devel.x86_64                              0.2.5-4.el7                       @base   
+libxcb.x86_64                                      1.13-1.el7                        @base   
+libxcb-devel.x86_64                                1.13-1.el7                        @base   
 libxml2.x86_64                                     2.9.1-6.el7_2.3                   @base   
 logrotate.x86_64                                   3.8.6-17.el7                      @base   
 lua.x86_64                                         5.1.4-15.el7                      @base   
 lz4.x86_64                                         1.7.5-2.el7                       @base   
+lzo.x86_64                                         2.06-8.el7                        @base   
+m4.x86_64                                          1.4.16-10.el7                     @base   
 make.x86_64                                        1:3.82-23.el7                     @base   
+mpfr.x86_64                                        3.1.1-4.el7                       @base   
 nano.x86_64                                        2.3.1-10.el7                      @base   
 ncurses.x86_64                                     5.9-14.20130511.el7_4             @base   
 ncurses-base.noarch                                5.9-14.20130511.el7_4             @base   
+ncurses-devel.x86_64                               5.9-14.20130511.el7_4             @base   
 ncurses-libs.x86_64                                5.9-14.20130511.el7_4             @base   
 nspr.x86_64                                        4.19.0-1.el7_5                    @base   
 nss.x86_64                                         3.36.0-7.1.el7_6                  @updates
@@ -250,14 +320,17 @@ openssh.x86_64                                     7.4p1-16.el7                 
 openssh-clients.x86_64                             7.4p1-16.el7                      @base   
 openssh-server.x86_64                              7.4p1-16.el7                      @base   
 openssl.x86_64                                     1:1.0.2k-16.el7_6.1               @updates
+openssl-devel.x86_64                               1:1.0.2k-16.el7_6.1               @updates
 openssl-libs.x86_64                                1:1.0.2k-16.el7_6.1               @updates
 p11-kit.x86_64                                     0.23.5-3.el7                      @base   
 p11-kit-trust.x86_64                               0.23.5-3.el7                      @base   
 pam.x86_64                                         1.1.8-22.el7                      @base   
 passwd.x86_64                                      0.79-4.el7                        @base   
 pcre.x86_64                                        8.32-17.el7                       @base   
+pcre-devel.x86_64                                  8.32-17.el7                       @base   
 perl.x86_64                                        4:5.16.3-294.el7_6                @updates
 perl-Carp.noarch                                   1.26-244.el7                      @base   
+perl-Data-Dumper.x86_64                            2.145-3.el7                       @base   
 perl-Encode.x86_64                                 2.51-7.el7                        @base   
 perl-Error.noarch                                  1:0.17020-2.el7                   @base   
 perl-Exporter.noarch                               5.68-3.el7                        @base   
@@ -276,7 +349,9 @@ perl-Scalar-List-Utils.x86_64                      1.27-248.el7                 
 perl-Socket.x86_64                                 2.010-4.el7                       @base   
 perl-Storable.x86_64                               2.45-3.el7                        @base   
 perl-TermReadKey.x86_64                            2.30-20.el7                       @base   
+perl-Test-Harness.noarch                           3.28-3.el7                        @base   
 perl-Text-ParseWords.noarch                        3.29-4.el7                        @base   
+perl-Thread-Queue.noarch                           3.02-2.el7                        @base   
 perl-Time-HiRes.x86_64                             4:1.9725-3.el7                    @base   
 perl-Time-Local.noarch                             1.2300-2.el7                      @base   
 perl-constant.noarch                               1.27-2.el7                        @base   
@@ -313,6 +388,7 @@ python2-pip.noarch                                 8.1.2-8.el7                  
 pyxattr.x86_64                                     0.5.1-5.el7                       @base   
 qrencode-libs.x86_64                               3.4.1-3.el7                       @base   
 readline.x86_64                                    6.2-10.el7                        @base   
+readline-devel.x86_64                              6.2-10.el7                        @base   
 rootfiles.noarch                                   8.1-11.el7                        @base   
 rpm.x86_64                                         4.11.3-35.el7                     @base   
 rpm-build-libs.x86_64                              4.11.3-35.el7                     @base   
@@ -326,13 +402,18 @@ shadow-utils.x86_64                                2:4.1.5.1-25.el7_6.1         
 shared-mime-info.x86_64                            1.8-4.el7                         @base   
 socat.x86_64                                       1.7.3.2-2.el7                     @base   
 sqlite.x86_64                                      3.7.17-8.el7                      @base   
+sqlite-devel.x86_64                                3.7.17-8.el7                      @base   
 ssmtp.x86_64                                       2.64-14.el7                       @epel   
 systemd.x86_64                                     219-62.el7_6.6                    @updates
 systemd-libs.x86_64                                219-62.el7_6.6                    @updates
 systemd-python.x86_64                              219-62.el7_6.6                    @updates
 sysvinit-tools.x86_64                              2.88-14.dsf.el7                   @base   
 tar.x86_64                                         2:1.26-35.el7                     @base   
+tcl.x86_64                                         1:8.5.13-8.el7                    @base   
+tcl-devel.x86_64                                   1:8.5.13-8.el7                    @base   
 tcp_wrappers-libs.x86_64                           7.6-77.el7                        @base   
+tk.x86_64                                          1:8.5.13-6.el7                    @base   
+tk-devel.x86_64                                    1:8.5.13-6.el7                    @base   
 tzdata.noarch                                      2019a-1.el7                       @updates
 unzip.x86_64                                       6.0-19.el7                        @base   
 ustr.x86_64                                        1.0.4-16.el7                      @base   
@@ -343,10 +424,13 @@ vim-filesystem.x86_64                              2:7.4.160-5.el7              
 vim-minimal.x86_64                                 2:7.4.160-5.el7                   @base   
 wget.x86_64                                        1.14-18.el7                       @base   
 which.x86_64                                       2.20-7.el7                        @base   
+xorg-x11-proto-devel.noarch                        2018.4-1.el7                      @base   
 xz.x86_64                                          5.2.2-1.el7                       @base   
 xz-libs.x86_64                                     5.2.2-1.el7                       @base   
 yum.noarch                                         3.4.3-161.el7.centos              @base   
 yum-metadata-parser.x86_64                         1.1.4-10.el7                      @base   
 yum-plugin-fastestmirror.noarch                    1.1.31-50.el7                     @base   
-zlib.x86_64                                        1.2.7-18.el7                      @base 
+zlib.x86_64                                        1.2.7-18.el7                      @base   
+zlib-devel.x86_64                                  1.2.7-18.el7                      @base   
+[root@CentOS ~]# 
 ```
