@@ -15,6 +15,7 @@ key: 46
     多图预警
 <!-- more -->
 > 来自[《树莓派开始，玩转 Linux》](http://www.broadview.com.cn/book/76) 第`44`章
+ 来自[《AlphaGo如何战胜人类围棋大师——智能硬件TensorFlow实践》](http://www.tup.com.cn/booksCenter/book_07598201.html)第`9`章
 
 ## 0x00.前言
 懒得打字，直接拍照
@@ -27,3 +28,9 @@ key: 46
 ![P315](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160329.jpg!webp)
 ![P316](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160341.jpg!webp)
 ![P317](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160355.jpg!webp)
+
+![P107](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123804.jpg!webp)
+![P108](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123818.jpg!webp)
+![P109](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123827.jpg!webp)
+![P110](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123841.jpg!webp)
+![P111](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123847.jpg!webp)
