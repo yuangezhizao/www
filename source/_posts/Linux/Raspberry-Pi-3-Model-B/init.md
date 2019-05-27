@@ -28,15 +28,15 @@ key: 34
 不全说了，只挑几个。`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`256`，`A7 GL Griver`我选的第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`。
 ![在这里也可以进](https://i1.yuangezhizao.cn/Win-10/20180317004332.jpg!webp)
 
-## 0x03.更换阿里源
+## 0x03.更换科大源
 修改`/etc/apt/sources.list`
 ```
-#科大源
+# 科大源
 deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main contrib non-free rpi
 ```
 修改`/etc/apt/sources.list.d/raspi.list`
 ```
-#科大源
+# 科大源
 deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ jessie main ui
 ```
 更新软件索引清单：`sudo apt-get update`
