@@ -105,6 +105,7 @@ Python 3.7.3
 ``` bash
 vim /usr/bin/yum 
 vim /usr/libexec/urlgrabber-ext-down 
+vim /bin/yum-config-manager
 ```
 把`#! /usr/bin/python`修改为`#! /usr/bin/python2`
 10. 修改默认为`Python 3`
@@ -113,3 +114,59 @@ vim /usr/libexec/urlgrabber-ext-down
 [root@txy ~]# sudo mv /usr/bin/python /usr/bin/python.bak
 [root@txy ~]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python
 ```
+
+## 0x05.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
+1. 卸载旧版本
+``` bash
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+```
+2. 使用源安装
+`sudo yum install -y yum-utils device-mapper-persistent-data lvm2`
+`sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo`
+3. 安装
+`sudo yum install docker-ce docker-ce-cli containerd.io`
+4. 启动
+`sudo systemctl start docker`
+5. 测试
+`sudo docker run hello-world`
+输出如下：
+``` bash
+[root@txy ~]# docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+1b930d010525: Pull complete 
+Digest: sha256:6f744a2005b12a704d2608d8070a494ad1145636eeb74a570c56b94d94ccdbfc
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+```
+6. 加速器
+`curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://e6d6fb48.m.daocloud.io`
+7. 自启
+`sudo systemctl enable docker`
