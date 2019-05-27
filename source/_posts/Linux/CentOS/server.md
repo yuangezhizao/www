@@ -114,6 +114,9 @@ vim /bin/yum-config-manager
 [root@txy ~]# sudo mv /usr/bin/python /usr/bin/python.bak
 [root@txy ~]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python
 ```
+11. 加入环境变量
+`vim ~/.bash_profile`
+`PATH=$PATH:$HOME/bin:/usr/local/python3/bin`
 
 ## 0x05.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
 1. 卸载旧版本
@@ -170,3 +173,18 @@ For more examples and ideas, visit:
 `curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://e6d6fb48.m.daocloud.io`
 7. 自启
 `sudo systemctl enable docker`
+
+## 0x06. 测速工具`speedtest-cli`
+`pip3 install speedtest-cli`
+``` bash
+[root@txy ~]# speedtest-cli
+Retrieving speedtest.net configuration...
+Testing from Tencent cloud computing (<rm>)...
+Retrieving speedtest.net server list...
+Selecting best server based on ping...
+Hosted by Beijing Unicom (Beijing) [1.69 km]: 28.199 ms
+Testing download speed................................................................................
+Download: 86.21 Mbit/s
+Testing upload speed......................................................................................................
+Upload: 1.27 Mbit/s
+```
