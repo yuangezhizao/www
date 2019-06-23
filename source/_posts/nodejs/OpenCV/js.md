@@ -215,6 +215,7 @@ Traceback (most recent call last):
     raise Fail("Child returned: %s" % retcode)
 __main__.Fail: Child returned: 1
 ```
+又去试了下`win`，也不行，缺对应版本的`Windows SDK`……
 搜了下还是算了吧不折腾了（这不就是我最开始的想法吗`2333`），https://stackoverflow.com/questions/49777780/can-anybody-generate-opencv-js
 
 > You can find a nightly build at https://docs.opencv.org/master/opencv.js and some useful stuff at https://docs.opencv.org/master/utils.js .
