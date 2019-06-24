@@ -16,10 +16,17 @@ key: 34
 ## 0x00.前言
 > 成文时间仓促也不想细写，所以**不适合**无基础人士阅读！（请善用`Gitment`评论区
 
-## 0x01.`Etcher`烧录[镜像](https://www.raspberrypi.org/downloads/raspbian/)
-> 版本：RASPBIAN STRETCH WITH DESKTOP，2018-03-13-raspbian-stretch.img
+## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspbian/)
+> 版本：~~RASPBIAN STRETCH WITH DESKTOP，2018-03-13-raspbian-stretch.img~~
+Raspbian Buster with desktop and recommended software，2019-06-20-raspbian-buster-full.img
+
+![烧录](https://i1.yuangezhizao.cn/Win-10/20190624205425.jpg!webp)
+![验证](https://i1.yuangezhizao.cn/Win-10/20190624205804.jpg!webp)
 
 升级系统虽然`sudo apt-get update`，`sudo apt-get dist-upgrade`这两步就能解决，~~然而我是后看到的~~但是如果以前没安装某软件，就不能在更新中下载到它。所以还是重新烧录了最新版本的镜像。烧录完成创建一个可以是空的`ssh`文件放在`/boot`分区下以开启`ssh`服务（我没有显示器但是有网线）。所以，要记得插根网线。
+默认用户名：`pi`
+默认密码：`raspberry`
+![SSH](https://i1.yuangezhizao.cn/Win-10/20190624210639.jpg!webp)
 
 ## 0x02.善于使用`raspi-config`
 以`sudo`权限运行
@@ -28,59 +35,84 @@ key: 34
 不全说了，只挑几个。`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`256`，`A7 GL Griver`我选的第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`。
 ![在这里也可以进](https://i1.yuangezhizao.cn/Win-10/20180317004332.jpg!webp)
 
-## 0x03.更换科大源
-修改`/etc/apt/sources.list`
-```
-# 科大源
-deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main contrib non-free rpi
-```
-修改`/etc/apt/sources.list.d/raspi.list`
-```
-# 科大源
-deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ jessie main ui
-```
+## 0x03.更换[科大源](https://mirrors.ustc.edu.cn/help/raspbian.html#id5)
+`2019-6-24 20:16:38`：` 清华大学开源软件镜像站`并没有`buster`版本的，所以……
+`sudo sed -i 's|raspbian.raspberrypi.org|mirrors.ustc.edu.cn/raspbian|g' /etc/apt/sources.list`
 更新软件索引清单：`sudo apt-get update`
 比较索引清单更新依赖关系：`sudo apt-get upgrade -y`
 
-## 0x04.更换[清华`pip`镜像源](https://mirror.tuna.tsinghua.edu.cn/help/pypi/)
-> `pypi`镜像每`5`分钟同步一次
+## 0x04.更换[科大`pip`镜像源](https://mirrors.ustc.edu.cn/help/pypi.html)
 #### 临时使用
 ```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple some-package
 ```
 注意，`simple`不能少, 是`https`而不是`http`
 #### 设为默认
 升级`pip`到最新的版本`(>=10.0.0)`后进行配置：
 ```
-pip install pip -U
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple pip -U
+pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
+pip config set global.format columns
 ```
-如果您到`pip`默认源的网络连接较差，临时使用本镜像站来升级`pip`：
+`pip.conf`文件配置示例如下：
 ```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+[global]
+index-url = https://mirrors.ustc.edu.cn/pypi/web/simple
+format = columns
 ```
-注：`pip`升级后`Import Error:cannot import name main`的解决方案
+#### 修复
+`pip`升级后`Import Error:cannot import name main`的解决方案
 ![第一种方法](https://i1.yuangezhizao.cn/Win-10/20190406140457.jpg!webp)
 
 将`/usr/bin/pip`和`/usr/bin/pip3`文件中的`from pip import main`改为`from pip._internal import main`
 ![但是加 sudo 会出问题](https://i1.yuangezhizao.cn/Win-10/20190406142635.jpg!webp)
 ![第二种方法](https://i1.yuangezhizao.cn/Win-10/20190406142820.jpg!webp)
 
-然而，还是不能解决问题……
+~~然而，还是不能解决问题……~~
+报错：`ImportError: No module named 'pip._internal'`
+解决方法：
+`curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
+`sudo python3 get-pip.py --force-reinstall`
+验证：
+``` bash
+pi@rpi:~ $ pip3 show pip
+Name: pip
+Version: 19.1.1
+Summary: The PyPA recommended tool for installing Python packages.
+Home-page: https://pip.pypa.io/
+Author: The pip developers
+Author-email: pypa-dev@groups.google.com
+License: MIT
+Location: /home/pi/.local/lib/python3.7/site-packages
+Requires: 
+Required-by: 
+pi@rpi:~ $ pip2 show pip
+DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won\'t be maintained after that date. A future version of pip will drop support for Python 2.7.
+Name: pip
+Version: 19.1.1
+Summary: The PyPA recommended tool for installing Python packages.
+Home-page: https://pip.pypa.io/
+Author: The pip developers
+Author-email: pypa-dev@groups.google.com
+License: MIT
+Location: /home/pi/.local/lib/python2.7/site-packages
+Requires: 
+Required-by: 
+```
 
 ## 0x05.修改交换分区大小
 因为默认`100M`编译`FFmpeg`会不够用，分他个`500M`应该够了，当然`2G`是最好的了……
 先看一眼，`free -h`
-`sudo vi /etc/dphys-swapfile`
+`sudo vim /etc/dphys-swapfile`
 修改`CONF_SWAPSIZE`即可。
 `sudo /etc/init.d/dphys-swapfile restart`
 再看一眼，`free -h`
 
 ## 0x06.挂载 NTFS 硬盘支持读写
-`sudo apt-get install ntfs-3g`
+`sudo apt-get install ntfs-3g -y`
 
 ## 0x07.安装`Aria2`以备远程下载
-安装：`sudo apt-get install aria2`
+安装：`sudo apt-get install aria2 -y`
 创建配置文件夹：`sudo mkdir /etc/aria2`
 创建`session`和配置文件：`sudo touch /etc/aria2/aria2.session`，`sudo touch /etc/aria2/aria2.conf`
 修改配置文件`sudo vim /etc/aria2/aria2.conf`：
@@ -201,7 +233,7 @@ exit $RETVAL
 
 ## 0x08.安装`Nginx`
 源于习惯本来想用`Apache`的，但是翻了翻感觉还是换个轻量级的较好，于是换成`Nginx`了。可以在上面放`webui-aria2`这种纯静态页面，但是后来被我移到腾讯云的`Apache`上了……（看到某人说的也就能支撑`100`用户在线……
-`sudo apt-get -y install nginx`
+`sudo apt-get install nginx -y`
 `rm -rf /var/www/html`
 `git clone https://github.com/ziahamza/webui-aria2.git /var/www/html`
 `/etc/init.d/nginx start`
@@ -306,11 +338,94 @@ pi@rpi:~/Documents $ cat py3.sh
 echo "Start rm /usr/bin/python"
 rm /usr/bin/python
 echo "Finish rm /usr/bin/python"
-echo "Start create 3.5"
-sudo ln -s /usr/bin/python3.5 /usr/bin/python
-echo "Finish create 3.5"
+echo "Start create 3.7"
+sudo ln -s /usr/bin/python3.7 /usr/bin/python
+echo "Finish create 3.7"
 pi@rpi:~/Documents $ 
 ```
+
+## 0x14.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
+选择`Python 3.x + Tensorflow v1.13.1`：
+`sudo pip3 uninstall tensorflow`
+``` bash
+pi@rpi:~/Downloads $ sudo pip3 install tensorflow-1.13.1-cp35-cp35m-linux_armv7l.whl 
+Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
+Processing ./tensorflow-1.13.1-cp35-cp35m-linux_armv7l.whl
+Requirement already satisfied: grpcio>=1.8.6 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (1.19.0)
+Collecting tensorboard<1.14.0,>=1.13.0 (from tensorflow==1.13.1)
+  Downloading https://files.pythonhosted.org/packages/0f/39/bdd75b08a6fba41f098b6cb091b9e8c7a80e1b4d679a581a0ccd17b10373/tensorboard-1.13.1-py3-none-any.whl (3.2MB)
+     |████████████████████████████████| 3.2MB 411kB/s 
+Requirement already satisfied: six>=1.10.0 in /usr/lib/python3/dist-packages (from tensorflow==1.13.1) (1.12.0)
+Requirement already satisfied: astor>=0.6.0 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (0.7.1)
+Requirement already satisfied: wheel>=0.26 in /usr/lib/python3/dist-packages (from tensorflow==1.13.1) (0.29.0)
+Collecting tensorflow-estimator<1.14.0rc0,>=1.13.0 (from tensorflow==1.13.1)
+  Using cached https://files.pythonhosted.org/packages/bb/48/13f49fc3fa0fdf916aa1419013bb8f2ad09674c275b4046d5ee669a46873/tensorflow_estimator-1.13.0-py2.py3-none-any.whl
+Requirement already satisfied: absl-py>=0.1.6 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (0.7.0)
+Requirement already satisfied: termcolor>=1.1.0 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (1.1.0)
+Requirement already satisfied: numpy>=1.13.3 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (1.16.2)
+Requirement already satisfied: keras-applications>=1.0.6 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (1.0.7)
+Requirement already satisfied: keras-preprocessing>=1.0.5 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (1.0.9)
+Requirement already satisfied: gast>=0.2.0 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (0.2.2)
+Requirement already satisfied: protobuf>=3.6.1 in /usr/local/lib/python3.5/dist-packages (from tensorflow==1.13.1) (3.7.0)
+Requirement already satisfied: werkzeug>=0.11.15 in /usr/lib/python3/dist-packages (from tensorboard<1.14.0,>=1.13.0->tensorflow==1.13.1) (0.11.15)
+Requirement already satisfied: markdown>=2.6.8 in /usr/local/lib/python3.5/dist-packages (from tensorboard<1.14.0,>=1.13.0->tensorflow==1.13.1) (3.0.1)
+Collecting mock>=2.0.0 (from tensorflow-estimator<1.14.0rc0,>=1.13.0->tensorflow==1.13.1)
+  Downloading https://files.pythonhosted.org/packages/05/d2/f94e68be6b17f46d2c353564da56e6fb89ef09faeeff3313a046cb810ca9/mock-3.0.5-py2.py3-none-any.whl
+Requirement already satisfied: h5py in /usr/local/lib/python3.5/dist-packages (from keras-applications>=1.0.6->tensorflow==1.13.1) (2.9.0)
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from protobuf>=3.6.1->tensorflow==1.13.1) (33.1.1)
+Installing collected packages: tensorboard, mock, tensorflow-estimator, tensorflow
+  Found existing installation: tensorboard 1.11.0
+    Uninstalling tensorboard-1.11.0:
+      Successfully uninstalled tensorboard-1.11.0
+Successfully installed mock-3.0.5 tensorboard-1.13.1 tensorflow-1.13.1 tensorflow-estimator-1.13.0
+```
+`Operation check`：
+``` bash
+pi@rpi:~ $ python3
+Python 3.5.3 (default, Sep 27 2018, 17:25:39) 
+[GCC 6.3.0 20170516] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import tensorflow
+>>> tensorflow.__version__
+'1.13.1'
+>>> exit()
+pi@rpi:~ $ 
+```
+`Sample of MultiThread x4`：
+``` bash
+$ cd ~;mkdir test
+$ curl https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/lite/examples/label_image/testdata/grace_hopper.bmp > ~/test/grace_hopper.bmp
+$ curl https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_1.0_224_frozen.tgz | tar xzv -C ~/test mobilenet_v1_1.0_224/labels.txt
+$ mv ~/test/mobilenet_v1_1.0_224/labels.txt ~/test/
+$ curl http://download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224_quant.tgz | tar xzv -C ~/test
+$ cp tensorflow/tensorflow/contrib/lite/examples/python/label_image.py ~/test
+```
+测试结果：
+``` bash
+pi@rpi:~/test $ python3 label_image.py \
+> --num_threads 1 \
+> --image grace_hopper.bmp \
+> --model_file mobilenet_v1_1.0_224_quant.tflite \
+> --label_file labels.txt
+0.415686: 653:military uniform
+0.352941: 907:Windsor tie
+0.058824: 668:mortarboard
+0.035294: 458:bow tie, bow-tie, bowtie
+0.035294: 835:suit, suit of clothes
+time:  0.4737093448638916
+pi@rpi:~/test $ python3 label_image.py \
+> --num_threads 4 \
+> --image grace_hopper.bmp \
+> --model_file mobilenet_v1_1.0_224_quant.tflite \
+> --label_file labels.txt
+0.415686: 653:military uniform
+0.352941: 907:Windsor tie
+0.058824: 668:mortarboard
+0.035294: 458:bow tie, bow-tie, bowtie
+0.035294: 835:suit, suit of clothes
+time:  0.19170689582824707
+```
+
 
 ## 引用
 > [树莓派3B新版raspbian系统换国内源](http://www.cnblogs.com/wangchuanyang/p/6434323.html)
@@ -324,7 +439,7 @@ pi@rpi:~/Documents $
 > [【教程】树莓派程序开机自启动方法总结](https://www.jianshu.com/p/86adb6d5347b)
 > [树莓派音频口底噪太大的解决办法](http://blog.csdn.net/SmallSquare/article/details/79506097)
 
-> [树莓派 b 站直播相关](https://www.chenxublog.com/)
+> [树莓派 b 站直播相关](https://www.chenxublog.com/2017/11/23/24h-raspberry-live-on-bilibili-reload.html)
 
 
 > [三步在树莓派上部署nginx+uWSGI+flask](https://www.jianshu.com/p/14123b6b74c0)
