@@ -3,7 +3,7 @@ title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
   - Raspberry-pi
-count: 2
+count: 4
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -26,14 +26,16 @@ Raspbian Buster with desktop and recommended software，2019-06-20-raspbian-bust
 升级系统虽然`sudo apt-get update`，`sudo apt-get dist-upgrade`这两步就能解决，~~然而我是后看到的~~但是如果以前没安装某软件，就不能在更新中下载到它。所以还是重新烧录了最新版本的镜像。烧录完成创建一个可以是空的`ssh`文件放在`/boot`分区下以开启`ssh`服务（我没有显示器但是有网线）。所以，要记得插根网线。
 默认用户名：`pi`
 默认密码：`raspberry`
+之后修改密码
 ![SSH](https://i1.yuangezhizao.cn/Win-10/20190624210639.jpg!webp)
 
 ## 0x02.善于使用`raspi-config`
-以`sudo`权限运行
+`sudo raspi-config`
 ![你并不会看到这个图形化界面](https://i1.yuangezhizao.cn/Win-10/20180316232443.jpg!webp)
 
-不全说了，只挑几个。`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`256`，`A7 GL Griver`我选的第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`。
+~~不全说了，只挑几个。~~修改地区，修改主机名为`rpi`，这样就能通过`rpi.local`访问，`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`256`，`A7 GL Griver`我选的~~第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`~~第一项`Legacy`。
 ![在这里也可以进](https://i1.yuangezhizao.cn/Win-10/20180317004332.jpg!webp)
+![新壁纸](https://i1.yuangezhizao.cn/Win-10/20190625082338.png!webp)
 
 ## 0x03.更换[科大源](https://mirrors.ustc.edu.cn/help/raspbian.html#id5)
 `2019-6-24 20:16:38`：` 清华大学开源软件镜像站`并没有`buster`版本的，所以……
@@ -269,57 +271,37 @@ sudo ./12864g-86-pc
 重启生效，在之前的镜像中改变还是很明显的。
 
 
-## 0x12.【暂不推荐】安装`Docker`
+## 0x12.安装`Docker`
+最新版本`ok`
 ```shell
-pi@raspberrypi:~/Downloads $ curl -fsSL get.docker.com -o get-docker.sh
-pi@raspberrypi:~/Downloads $ ls
-get-docker.sh
-pi@raspberrypi:~/Downloads $ sudo sh get-docker.sh
-# Executing docker install script, commit: fc04d2c
-+ sh -c apt-get update -qq >/dev/null
-+ sh -c apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
-+ sh -c curl -fsSL "https://download.docker.com/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
+pi@rpi:~ $ sudo apt-get update
+命中:1 http://mirrors.ustc.edu.cn/raspbian/raspbian buster InRelease
+命中:2 http://archive.raspberrypi.org/debian buster InRelease
+正在读取软件包列表... 完成
+pi@rpi:~ $ sudo apt-get upgrade -y
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+正在计算更新... 完成
+升级了 0 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。
+pi@rpi:~ $ sudo apt-get dist-upgrade
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+正在计算更新... 完成
+升级了 0 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。
+pi@rpi:~ $ 
+```
+```shell
+pi@rpi:~ $ sudo curl -sSL https://get.docker.com | sh
+# Executing docker install script, commit: 2f4ae48
++ sudo -E sh -c apt-get update -qq >/dev/null
++ sudo -E sh -c apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sudo -E sh -c curl -fsSL "https://download.docker.com/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
 Warning: apt-key output should not be parsed (stdout is not a terminal)
-+ sh -c echo "deb [arch=armhf] https://download.docker.com/linux/raspbian stretch edge" > /etc/apt/sources.list.d/docker.list
-+ [ raspbian = debian ]
-+ sh -c apt-get update -qq >/dev/null
-+ sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
-+ sh -c docker version
-Client:
- Version:	18.02.0-ce
- API version:	1.36
- Go version:	go1.9.3
- Git commit:	fc4de44
- Built:	Wed Feb  7 21:24:08 2018
- OS/Arch:	linux/arm
- Experimental:	false
- Orchestrator:	swarm
-
-Server:
- Engine:
-  Version:	18.02.0-ce
-  API version:	1.36 (minimum version 1.12)
-  Go version:	go1.9.3
-  Git commit:	fc4de44~
-  Built:	Wed Feb  7 21:20:13 2018
-  OS/Arch:	linux/arm
-  Experimental:	false
-If you would like to use Docker as a non-root user, you should now consider
-adding your user to the "docker" group with something like:
-
-  sudo usermod -aG docker your-user
-
-Remember that you will have to log out and back in for this to take effect!
-
-WARNING: Adding a user to the "docker" group will grant the ability to run
-         containers which can be used to obtain root privileges on the
-         docker host.
-         Refer to https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
-         for more information.
-pi@raspberrypi:~/Downloads $ sudo usermod -aG docker pi
-pi@raspberrypi:~/Downloads $ docker search raspbian
-Warning: failed to get default registry endpoint from daemon (Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.36/info: dial unix /var/run/docker.sock: connect: permission denied). Using system default: https://index.docker.io/v1/
-Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.36/images/search?limit=25&term=raspbian: dial unix /var/run/docker.sock: connect: permission denied
++ sudo -E sh -c echo "deb [arch=armhf] https://download.docker.com/linux/raspbian 10 stable" > /etc/apt/sources.list.d/docker.list
++ sudo -E sh -c apt-get update -qq >/dev/null
+E: 仓库 “https://download.docker.com/linux/raspbian 10 Release” 没有 Release 文件。
 ```
 
 ## 0x13.Python 2、3 版本切换
