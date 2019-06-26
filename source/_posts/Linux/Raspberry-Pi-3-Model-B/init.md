@@ -3,7 +3,7 @@ title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
   - Raspberry-pi
-count: 4
+count: 5
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -273,7 +273,7 @@ sudo ./12864g-86-pc
 
 ## 0x12.安装`Docker`
 最新版本`ok`
-```shell
+``` bash
 pi@rpi:~ $ sudo apt-get update
 命中:1 http://mirrors.ustc.edu.cn/raspbian/raspbian buster InRelease
 命中:2 http://archive.raspberrypi.org/debian buster InRelease
@@ -292,7 +292,7 @@ pi@rpi:~ $ sudo apt-get dist-upgrade
 升级了 0 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。
 pi@rpi:~ $ 
 ```
-```shell
+``` bash
 pi@rpi:~ $ sudo curl -sSL https://get.docker.com | sh
 # Executing docker install script, commit: 2f4ae48
 + sudo -E sh -c apt-get update -qq >/dev/null
@@ -408,6 +408,129 @@ pi@rpi:~/test $ python3 label_image.py \
 time:  0.19170689582824707
 ```
 
+## 0x15.禁用无线网卡
+无线网卡莫名坏掉了，可能是静电损坏……
+`sudo ifconfig eth0 down`：重启失效
+故使用配置文件禁用无线网卡驱动
+`sudo apt-get install lshw`
+``` bash
+pi@rpi:~$ sudo lshw
+rpi                         
+    description: ARMv7 Processor rev 4 (v7l)
+    product: Raspberry Pi 3 Model B Rev 1.2
+    serial: <rm>
+    width: 32 bits
+    capabilities: smp
+  *-core
+       description: Motherboard
+       physical id: 0
+     *-cpu:0
+          description: CPU
+          product: cpu
+          physical id: 0
+          bus info: cpu@0
+          size: 1200MHz
+          capacity: 1200MHz
+          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+     *-cpu:1
+          description: CPU
+          product: cpu
+          physical id: 1
+          bus info: cpu@1
+          size: 1200MHz
+          capacity: 1200MHz
+          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+     *-cpu:2
+          description: CPU
+          product: cpu
+          physical id: 2
+          bus info: cpu@2
+          size: 1200MHz
+          capacity: 1200MHz
+          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+     *-cpu:3
+          description: CPU
+          product: cpu
+          physical id: 3
+          bus info: cpu@3
+          size: 1200MHz
+          capacity: 1200MHz
+          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+     *-memory
+          description: System memory
+          physical id: 4
+          size: 747MiB
+  *-usbhost
+       product: DWC OTG Controller
+       vendor: Linux 4.19.50-v7+ dwc_otg_hcd
+       physical id: 1
+       bus info: usb@1
+       logical name: usb1
+       version: 4.19
+       capabilities: usb-2.00
+       configuration: driver=hub slots=1 speed=480Mbit/s
+     *-usb
+          description: USB hub
+          product: SMC9514 Hub
+          vendor: Standard Microsystems Corp.
+          physical id: 1
+          bus info: usb@1:1
+          version: 2.00
+          capabilities: usb-2.00
+          configuration: driver=hub maxpower=2mA slots=5 speed=480Mbit/s
+        *-usb:0
+             description: Ethernet interface
+             product: SMSC9512/9514 Fast Ethernet Adapter
+             vendor: Standard Microsystems Corp.
+             physical id: 1
+             bus info: usb@1:1.1
+             logical name: enxb827eb05ffd4
+             version: 2.00
+             serial: <rm>
+             size: 10Mbit/s
+             capacity: 100Mbit/s
+             capabilities: usb-2.00 ethernet physical tp mii 10bt 10bt-fd 100bt 100bt-fd autonegotiation
+             configuration: autonegotiation=on broadcast=yes driver=smsc95xx driverversion=22-Aug-2005 duplex=half firmware=smsc95xx USB 2.0 Ethernet link=no maxpower=2mA multicast=yes port=MII speed=10Mbit/s
+        *-usb:1
+             description: Generic USB device
+             product: 802.11 n WLAN
+             vendor: MediaTek
+             physical id: 3
+             bus info: usb@1:1.3
+             version: 0.00
+             serial: 1.0
+             capabilities: usb-2.01
+             configuration: driver=mt7601u maxpower=160mA speed=480Mbit/s
+  *-network:0 DISABLED
+       description: Wireless interface
+       physical id: 2
+       logical name: wlan0
+       serial: <rm>
+       capabilities: ethernet physical wireless
+       configuration: broadcast=yes driver=brcmfmac driverversion=7.45.98.38 firmware=01-e58d219f multicast=yes wireless=IEEE 802.11
+  *-network:1
+       description: Wireless interface
+       physical id: 3
+       bus info: usb@1:1.3
+       logical name: wlx00367607f60c
+       serial: <rm>
+       capabilities: ethernet physical wireless
+       configuration: broadcast=yes driver=mt7601u driverversion=4.19.50-v7+ firmware=N/A ip=192.168.123.56 link=yes multicast=yes wireless=IEEE 802.11
+```
+> 执行命令以后查看`network:0 description: Wireless interface`在这个里面找到`driver=brcmfmac`那么这个`brcmfmac`就是驱动名称
+记好你的机器显示的那个名称（我不确定大家是不是都一样），然后创建内容为`blacklist brcmfmac`的文件`/etc/modprobe.d/blacklist-brcmfmac.conf`
+
+## 0x16.查看版本
+``` bash
+getconf LONG_BIT                            # 系统位数
+uname -a                                    # 内核版本
+/opt/vc/bin/vcgencmd version                # 固件版本
+strings /boot/start.elf | grep VC_BUILD_ID  # 固件版本
+cat /proc/version                           # 完整内核版本
+cat /etc/os-release                         # 系统版本
+cat /etc/issue                              # Linux distro 版本
+cat /etc/debian_version                     # Debian 版本编号
+```
 
 ## 引用
 > [树莓派3B新版raspbian系统换国内源](http://www.cnblogs.com/wangchuanyang/p/6434323.html)
@@ -426,8 +549,7 @@ time:  0.19170689582824707
 
 > [三步在树莓派上部署nginx+uWSGI+flask](https://www.jianshu.com/p/14123b6b74c0)
 
-
-> [Raspbian镜像使用帮助](https://lug.ustc.edu.cn/wiki/mirrors/help/raspbian)
-
+> [树莓派永久禁用无线网卡](https://aoenian.github.io/2017/02/16/rasp-disable-wireless-card/)
+> [[常見問與答] 如何看 Raspbian 的版本資訊？](https://www.raspberrypi.com.tw/10400/check-what-raspbian-version-you-are-running-on-the-raspberry-pi/)
 
 https://github.com/markondej/fm_transmitter
