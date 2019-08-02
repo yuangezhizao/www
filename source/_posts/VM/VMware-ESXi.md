@@ -21,11 +21,20 @@ key: 53
 电信宽带提供公网`IP`，只需一个电话说明理由就给你分配，与移动的`NAT`相比已经很良心的了……
 再一个这里能获取到`IPV6`地址，下列截图中也进行了高斯模糊处理。
 ![host](https://i1.yuangezhizao.cn/Win-10/20190727235250.png!webp)
+
+ 这里比较有意思的是，你可以创建大于物理核心数量的虚拟核心，也可以理解为虚拟化的是总频率，如下图
+![CPU](https://i1.yuangezhizao.cn/Win-10/20190803011722.jpg!webp)
+
+更改用户权限的页面藏在了这里，找了半天才发现，实在是太反人类了……
 ![permission](https://i1.yuangezhizao.cn/Win-10/20190728002659.jpg!webp)
+
+先给自己分配了一个虚拟机`hhh`
 ![vms](https://i1.yuangezhizao.cn/Win-10/20190728003657.png!webp)
 ![+1s](https://i1.yuangezhizao.cn/Win-10/20190728004123.jpg!webp)
 
 ## 0x01.Windows Server 2019 DataCenter
+爽到
 ![cn-py-dl-w9d](https://i1.yuangezhizao.cn/Win-10/20190728015602.png!webp)
 
-未完待续……
+## 0x02.后记
+这玩楞搁在了客厅的冰箱旁边和冰箱一起`24h`不断电工作，虽然主板以及其他位置都配置为了**节能**，但是感觉还是会比较费电……也不知道功耗能有多少诶？
