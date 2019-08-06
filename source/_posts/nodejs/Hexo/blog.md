@@ -34,7 +34,7 @@ cnpm install hexo-cli -g
 ```
 hexo init blog
 cd blog
-npm install
+cnpm install
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20180220161242.jpg!webp)
 ```
@@ -49,7 +49,6 @@ cnpm install hexo-helper-qrcode --save
 cnpm install hexo-all-minifier --save
 cnpm i --save hexo-wordcount
 cnpm install hexo-generator-restful --save
-
 ```
 
 ## 0x06.测试
