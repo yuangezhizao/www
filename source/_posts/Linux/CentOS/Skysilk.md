@@ -25,15 +25,104 @@ key: 51
 新系统刚进去就看到了两次失败登录尝试，于是直接关了密码登录`/etc/ssh/sshd_config`：`PasswordAuthentication no`，`systemctl restart sshd.service`，注销之后果然密码登录不行，密钥`ok`
 ![我关了](https://i1.yuangezhizao.cn/Win-10/20190512214356.jpg!webp)
 
-## 0x02.[V2ray.Fun](https://github.com/FunctionClub/V2ray.Fun)
-一键安装脚本有的是，特意看了内容有的真的会保存你的信息……安装原版的又不顺手，最终选了这个，带图形化管理界面不错`hhh`，是用`Flask`写的。
-`wget -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/V2ray.Fun/master/install.sh && bash install.sh`
+## 0x02.~~[V2ray.Fun](https://github.com/FunctionClub/V2ray.Fun)~~[V2ray](https://github.com/v2ray/v2ray-core)
+看了下手册，其实只需要`bash <(curl -L -s https://install.direct/go.sh)`，之后记好`PORT`&`UUID`即可
+``` bash
+[root@CentOS ~]# bash <(curl -L -s https://install.direct/go.sh)
+Installing V2Ray v4.19.1 on x86_64
+Downloading V2Ray: https://github.com/v2ray/v2ray-core/releases/download/v4.19.1/v2ray-linux-64.zip
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   608    0   608    0     0   1720      0 --:--:-- --:--:-- --:--:--  1722
+100 11.2M  100 11.2M    0     0  2729k      0  0:00:04  0:00:04 --:--:-- 3141k
+Updating software repo
+Installing unzip
+Extracting V2Ray package to /tmp/v2ray.
+Archive:  /tmp/v2ray/v2ray.zip
+  inflating: /tmp/v2ray/config.json  
+   creating: /tmp/v2ray/doc/
+  inflating: /tmp/v2ray/doc/readme.md  
+  inflating: /tmp/v2ray/geoip.dat    
+  inflating: /tmp/v2ray/geosite.dat  
+   creating: /tmp/v2ray/systemd/
+  inflating: /tmp/v2ray/systemd/v2ray.service  
+   creating: /tmp/v2ray/systemv/
+  inflating: /tmp/v2ray/systemv/v2ray  
+  inflating: /tmp/v2ray/v2ctl        
+ extracting: /tmp/v2ray/v2ctl.sig    
+  inflating: /tmp/v2ray/v2ray        
+ extracting: /tmp/v2ray/v2ray.sig    
+  inflating: /tmp/v2ray/vpoint_socks_vmess.json  
+  inflating: /tmp/v2ray/vpoint_vmess_freedom.json  
+PORT:<rm>
+UUID:<rm>
+Created symlink from /etc/systemd/system/multi-user.target.wants/v2ray.service to /etc/systemd/system/v2ray.service.
+V2Ray v4.19.1 is installed.
+[root@CentOS ~]# systemctl status v2ray
+● v2ray.service - V2Ray Service
+   Loaded: loaded (/etc/systemd/system/v2ray.service; enabled; vendor preset: disabled)
+   Active: inactive (dead)
+[root@CentOS ~]# systemctl stop firewalld
+[root@CentOS ~]# systemctl disable firewalld
+Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.
+Removed symlink /etc/systemd/system/basic.target.wants/firewalld.service.
+[root@CentOS ~]# systemctl start v2ray
+[root@CentOS ~]# systemctl status v2ray
+● v2ray.service - V2Ray Service
+   Loaded: loaded (/etc/systemd/system/v2ray.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2019-06-25 22:18:58 CST; 3s ago
+ Main PID: 2107 (v2ray)
+   CGroup: /system.slice/v2ray.service
+           └─2107 /usr/bin/v2ray/v2ray -config /etc/v2ray/config.json
+
+Jun 25 22:18:58 CentOS systemd[1]: Started V2Ray Service.
+Jun 25 22:18:58 CentOS v2ray[2107]: V2Ray 4.19.1 (Let\'s Fly) Custom
+Jun 25 22:18:58 CentOS v2ray[2107]: A unified platform for anti-censorship.
+Jun 25 22:18:58 CentOS v2ray[2107]: 2019/06/25 22:18:58 [Warning] v2ray.com/core: V2Ray...ted
+Hint: Some lines were ellipsized, use -l to show in full.
+[root@CentOS ~]# cat /etc/v2ray/config.json 
+{
+  "inbounds": [{
+    "port": <rm>,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "<rm>",
+          "level": 1,
+          "alterId": 64
+        }
+      ]
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  },{
+    "protocol": "blackhole",
+    "settings": {},
+    "tag": "blocked"
+  }],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
+```
+
+~~一键安装脚本有的是，特意看了内容有的真的会保存你的信息……安装原版的又不顺手，最终选了这个，带图形化管理界面不错`hhh`，是用`Flask`写的。
+`wget -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/V2ray.Fun/master/install.sh && bash install.sh`~~
 ![修改连接](https://i1.yuangezhizao.cn/Win-10/20190512214632.png!webp)
 
-还能直接看运行日志，也是十分爽到了
+~~还能直接看运行日志，也是十分爽到了~~
 ![运行日志](https://i1.yuangezhizao.cn/Win-10/20190512214900.png!webp)
 
-然后第二天就又炸了，正好遇到
+~~然后第二天就又炸了，正好遇到~~
 ![htop](https://i1.yuangezhizao.cn/Win-10/20190513125106.jpg!webp)
 
 ## 0x03.服务器版本
