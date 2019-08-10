@@ -2,7 +2,7 @@
 layout: page
 title: 关于 & 留言板
 date: 2017-7-1 19:09:11
-description: 感觉进这里都是关心我的人，2333……
+description: 哈哈哈你又过来看了（雾
 reward: false
 count: 1
 os: 0
@@ -13,18 +13,19 @@ place: 家
 key: -1
 ---
 
-<blockquote>最后更新：`2019-4-1 20:22:20`</blockquote>
+<blockquote>最后更新：2019-8-10 21:41:40</blockquote>
 
 @column-2{
 
 @card{
 
 # 远哥
-今秋毕业，
-`电子信息工程`专业（简称`电信`），
-首次（`2019`届）`考研`已炸，找工作（社畜）进行时！
-相信命运石之门的二次元党（`UID 25622031`）
-人生苦短，我用 `python` ……
+`日`企社畜，
+常写`Python Web`
+看过`143+`部日漫
+音游狗最近打`maimai`
+
+https://space.bilibili.com/25622031
 
 }
 
@@ -32,7 +33,7 @@ key: -1
 
 # 制造
 `yuangezhizao.cn`已续费至`2024`年（`5`年后）
-![我的域名](https://i1.yuangezhizao.cn/Win-10/20190401183620.png!webp)
+![官方唯一域名](https://i1.yuangezhizao.cn/Win-10/20190401183620.png!webp)
 
 }
 
@@ -61,6 +62,16 @@ key: -1
 ###### 9 月份
 
 步入`SUT`
+
+}
+
+##### 2019
+
+@item{
+
+###### 7 月份
+
+`日`企社畜
 
 }
 
@@ -106,7 +117,7 @@ key: -1
 
 接入`baidu`&`google`统计服务
 
-}
+}   
 
 @item{
 
@@ -125,7 +136,7 @@ key: -1
 @card{
 
 # 留言板
-此页的评论就当留言板吧。2333……
+评论区，请！
 ![](http://ip.ntrqq.net/images/lovelive.png?wd=6IO95Zyo5LqM5qyh5YWD6YeM6YGH6KeB5L2g5Lus55yf5piv5aSq5aW95LqGCnUncyBmb3JldmVy77yB)
 
 }
