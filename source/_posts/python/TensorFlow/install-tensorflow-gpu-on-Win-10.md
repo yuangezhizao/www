@@ -54,16 +54,40 @@ d. GeForce GTX 965M
 ## 0x02.安装
 #### 1. 安装`python 36`
 一路下一步打钩环境变量设置即可。不建议`python 27`，因为好像不支持，所以最后一步会报`Could not find a version that satisfies the requirement tensorflow-gpu (from versions: ) No matching distribution found for tensorflow-gpu`
-#### 2. 更改`pip`默认源
-默认源服务器在国外，国内下载较慢，有必要换为国内阿里源。
-> 对于`Win`来说，直接在当前用户目录下新建一个`pip.ini`文件，例：`C:\Users\yuangezhizao\pip.ini`
-内容如下：
+
+#### 2. 更换[科大`pip`镜像源](https://mirrors.ustc.edu.cn/help/pypi.html)
+默认源服务器在国外，国内下载较慢，有必要换为国内科大源。
+##### 临时使用
 ```
-[global]  
-index-url = http://mirrors.aliyun.com/pypi/simple/
-[install]  
-trusted-host=mirrors.aliyun.com
+pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple some-package
 ```
+注意，`simple`不能少, 是`https`而不是`http`
+##### 设为默认
+升级`pip`到最新的版本`(>=10.0.0)`后进行配置：
+``` bash
+Microsoft Windows [版本 10.0.17763.652]
+(c) 2018 Microsoft Corporation。保留所有权利。
+
+C:\Windows\system32>pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple pip -U
+Looking in indexes: https://mirrors.ustc.edu.cn/pypi/web/simple
+Requirement already up-to-date: pip in c:\python37\lib\site-packages (19.2.1)
+
+C:\Windows\system32>pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+Writing to C:\Users\yuangezhizao\AppData\Roaming\pip\pip.ini
+
+C:\Windows\system32>pip config set global.format columns
+Writing to C:\Users\yuangezhizao\AppData\Roaming\pip\pip.ini
+
+C:\Windows\system32>
+```
+`pip.ini`文件配置示例如下：
+```
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+format = columns
+```
+这里吐槽下科大其实用的是清华的源……
+
 #### 3. 升级`pip`
 `py -2 -m pip install --upgrade pip`
 由于我电脑安装了两个版本，所以用 py -2 选择 2 版本的解释器，同理 py -3 即是选择 3 版本的解释器
