@@ -20,6 +20,11 @@ key: 54
 
 这里说明一点，`NodeMCU`中的`Node`与我们所熟知的`Node.js`并没有关系，没想到吧`hhh`，骚年……
 但是是基于`Lua`语言的（写到这里想到了貌似也有基于`Python`的开发板，`py`大法好！
+`2019-8-18 20:54:41`又买了一套扔`WZ`屋里用
+![19.4 一套](https://i1.yuangezhizao.cn/Win-10/20190818205558.jpg!webp)
+![未拆](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205754.jpg!webp)
+![正面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205826.jpg!webp)
+![背面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205905.jpg!webp)
 
 ## 0x01.[NodeMCU](http://www.nodemcu.com/index_cn.html)
 > 超简单的物联网开发平台
@@ -50,20 +55,134 @@ The basic process to get started with NodeMCU consists of the following three st
 #### 编译
 上云：https://nodemcu-build.com/
 云端定制固件，你值得拥有！
-![要用谷歌邮箱，腾讯邮箱可不行](https://i1.yuangezhizao.cn/Win-10/20190731221604.jpg!webp)
-![勾选模块，注意红框](https://i1.yuangezhizao.cn/Win-10/20190731221503.jpg!webp)
+![要用谷歌邮箱，腾讯邮箱可不行](https://i1.yuangezhizao.cn/Win-10/20190818212200.jpg!webp)
+
+注意`master`和`dev`与`gh`上的代码库是同步的，因此随着时间的推移会有部分语法的差别（基本上网上的例程直接跑都会报错需要小修小改尤其是带`tmr`的），在这里暂时选择`1.5.4.1-final (frozen, for 512KB flash)`
+以上是花了半下午的时间~~（公司摸鱼）~~远程连接到家里的电脑之后反复编译，下载试出来的（到最后谷歌邮箱接收的固件直接`404`不让下载也是绝了`2333`
+![勾选模块，注意红框](https://i1.yuangezhizao.cn/Win-10/20190818212437.jpg!webp)
 
 `DHT`和`HTTP`不是默认自带的，
-![TLS 可以勾上](https://i1.yuangezhizao.cn/Win-10/20190731221846.jpg!webp)
+![TLS 可以勾上](https://i1.yuangezhizao.cn/Win-10/20190818212620.jpg!webp)
+
+编译开始与完成之时会分别收到邮件：
+![finished](https://i1.yuangezhizao.cn/Win-10/20190813200048.jpg!webp)
+
+`float`与`integer`具体选哪个好？在这里我选了前者，在`print`的时候字符串格式化会有差异
 
 #### 烧录
 [NodeMCU PyFlasher](https://github.com/marcelstoer/nodemcu-pyflasher)：其实这玩楞就是个`esptool.py`的图形化封装
-![Flash NodeMCU](https://i1.yuangezhizao.cn/Win-10/20190731222322.png!webp)
+![Flash NodeMCU](https://i1.yuangezhizao.cn/Win-10/20190813200545.jpg!webp)
 
 #### 连接
 [ESPlorer](https://github.com/4refr0nt/ESPlorer)
-`pc`需要`CH340`的驱动，这里是`COM18`，第一次连接可以按一下板子上的`RST`复位键，并且下载完成应该会提示`init.lua is not found`
-我这里之前传过了所以不会有这个提示。现在懒得截图，之后再补吧……
-![Communication](https://i1.yuangezhizao.cn/Win-10/20190731222651.jpg!webp)
+`pc`需要`CH340`的驱动，这里是`COM4`，波特率`115200`
+首次连接可以按一下板子上的`RST`复位键，并且下载完成应该会提示`lua: cannot open init.lua`
+~~我这里之前传过了所以不会有这个提示。现在懒得截图，之后再补吧……~~
+![Communication](https://i1.yuangezhizao.cn/Win-10/20190813200956.jpg!webp)
+
+## 0x03.代码
+> 注：本文所有代码均经过测试并已通过运行验证
+#### [连接`WiFi`](https://nodemcu.readthedocs.io/en/master/modules/wifi/)
+法一、初级：先定义函数，后在参数中引用
+``` lua
+print('[WiFi]Setting...')
+wifi.setmode(wifi.STATION)
+wifi.sta.config{ssid="SUT", pwd="<rm>"}
+print('[WiFi]Connecting...')
+wifi.sta.connect()
+
+function getip()
+    if wifi.sta.getip() == nil then
+        print('[WiFi]Waiting（2s）...')
+    else
+        print('[WiFi]Connected at：' .. wifi.sta.getip())
+        tmr.stop(1)
+    end
+end
+
+tmr.alarm(1, 2000, tmr.ALARM_AUTO, getip)
+```
+法二、高级：匿名函数直接写入参数
+``` lua
+print('[WiFi]Setting...')
+wifi.setmode(wifi.STATION)
+wifi.sta.config{ssid="SUT", pwd="<rm>"}
+print('[WiFi]Connecting...')
+wifi.sta.connect()
+
+tmr.alarm(1, 2000, tmr.ALARM_AUTO, function()
+    if wifi.sta.getip() == nil then
+        print('[WiFi]Waiting（2s）...')
+    else
+        print('[WiFi]Connected at：' .. wifi.sta.getip())
+    tmr.stop(1)
+    end
+end)
+```
+然后你就可以活学活用下了：
+``` lua
+print("[WiFi]Scanning...")
+
+function connect(t)
+    for k, v in pairs(t) do
+        print(k.."："..v)
+        if k == "SUT" then
+            print("[WiFi]Setting...")
+            wifi.sta.config{ssid="SUT", pwd="<rm>"}
+            print("[WiFi]Connecting...")
+            wifi.sta.connect()
+            tmr.alarm(1, 2000, tmr.ALARM_AUTO, get_ip)
+            break
+        else
+            print("[WiFi]Unavailable AP...")
+        end
+    end
+end
+
+
+function get_ip()
+    if wifi.sta.getip() == nil then
+        print("[WiFi]Waiting（2s）...")
+    else
+        print("[WiFi]Connected："..wifi.sta.getip())
+        tmr.stop(1)
+    end
+end
+
+wifi.setmode(wifi.STATION)
+wifi.sta.getap(connect)
+```
+#### [温湿度传感器](https://nodemcu.readthedocs.io/en/master/modules/dht/)
+``` lua
+pin = 1
+
+function measure()
+    status, temp, humi, temp_dec, humi_dec = dht.read11(pin)
+    if status == dht.OK then
+        -- Integer firmware using this example
+        --[[
+        print(string.format("DHT Temperature:%d.%03d;Humidity:%d.%03d\r\n",
+              math.floor(temp),
+              temp_dec,
+              math.floor(humi),
+              humi_dec
+        ))
+        ]]--
+
+        -- Float firmware using this example
+        print("[DHT11][SUCCESS]T："..temp..";H："..humi)
+    elseif status == dht.ERROR_CHECKSUM then
+        print("[DHT11][ERROR_CHECKSUM]T："..temp.."；H："..humi)
+    elseif status == dht.ERROR_TIMEOUT then
+        print("[DHT11][ERROR_TIMEOUT]")
+    end
+end
+
+
+tmr.alarm(1, 1000, tmr.ALARM_AUTO, measure)
+```
+
+## 0x03.引用
+> [NodeMCU--学习笔记(二)连接wifi](https://blog.csdn.net/qq_28877125/article/details/78680743)
 
 未完待续……
