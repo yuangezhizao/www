@@ -14,6 +14,11 @@
                     client_id: '<%- theme.gitment.client_id %>',
                     client_secret: '<%- theme.gitment.client_secret %>',
                 },
+                /*
+                Personal GitHub APP “Gitment”
+                https://github.com/settings/connections/applications/f9499ece3391318f822c
+                The “client_secret” is only be used for OAuth！（貌似明文放出也无关紧要？
+                */
             })
             gitment.render('comments')
         </script>
