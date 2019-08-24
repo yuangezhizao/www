@@ -113,7 +113,7 @@ If this workaround works for you, I will include the snippet to the README file.
 后来发现其实`GitHub`首页就有写……
 
 ~~20 日写了一下午，未完待续……~~
-`2017-7-24 16:04:12更新`：
+`2017-7-24 16:04:12 更新`：
 
 现在可以识别教务在线的附加码了：
 ``` python
