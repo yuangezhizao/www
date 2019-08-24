@@ -43,24 +43,22 @@ Raspbian Buster with desktop and recommended software，2019-06-20-raspbian-bust
 更新软件索引清单：`sudo apt-get update`
 比较索引清单更新依赖关系：`sudo apt-get upgrade -y`
 
-## 0x04.更换[科大`pip`镜像源](https://mirrors.ustc.edu.cn/help/pypi.html)
+## 0x04.更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
 #### 临时使用
 ```
-pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple some-package
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
 ```
 注意，`simple`不能少, 是`https`而不是`http`
 #### 设为默认
 升级`pip`到最新的版本`(>=10.0.0)`后进行配置：
 ```
-pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple pip -U
-pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
-pip config set global.format columns
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 `pip.conf`文件配置示例如下：
 ```
 [global]
-index-url = https://mirrors.ustc.edu.cn/pypi/web/simple
-format = columns
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 #### 修复
 `pip`升级后`Import Error:cannot import name main`的解决方案
