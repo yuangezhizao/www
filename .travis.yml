@@ -28,4 +28,4 @@ branches:
 
 env:
     global:
-        - CD_REF: git.coding.net/yuangezhizao/yuangezhizao.git
+        - CodingRepo: e.coding.net/yuangezhizao/yuangezhizao.git
