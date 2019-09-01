@@ -39,20 +39,44 @@ CPU | [AMD Ryzen 7 3700X](https://item.jd.com/100006391078.html) | JD 正品 | �
 显卡 | 泰索至尊 OC 1080 | WZ 二手 | ~~¥3600~~¥2500
 主板 | [MPG X570 GAMING EDGE WIFI](https://item.jd.com/100003809901.html) | JD 正品 | ¥1381
 硬盘 | [HP EX920 M.2 NvMe 1T](https://item.jd.com/6209326.html) | JD 正品 | ¥869
+硬盘 | [HP EX920 M.2 NvMe 1T](https://item.jd.com/6209326.html) | JD 正品 | ¥243
 机箱 | [SAMA 坦克 3](https://item.jd.com/100003124872.html) | JD 正品 | ¥203
 电源 | [Antec NEO650](https://item.jd.com/1039354.html) | WZ 二手 | ~~¥459~~¥200
 音箱 | [PHILIPS SPA1312](https://item.jd.com/172149.html) | JD 正品 | ¥98
 鼠标 | [ASUS ROG Gladius](https://item.jd.com/12440466577.html) | JD 抽奖 | ~~¥239~~¥0
 键盘 | [USCORSAIR K70 LUX](https://item.jd.com/41756364735.html) | WZ 二手 | ~~699~~¥200
-内存 | 【待定】16G 3200 | WZ 暂借 | ¥0
+内存 | [Kingston Fury DDR4 3200 16G](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
 显示器 | 【待定】4K？ | WZ 暂借 | ¥0
  | | | 
-总计 | | | ¥7819
+总计 | | | ¥8592.28
 
 #### 详情
 ![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/Win-10/20190815205532.png!webp)
 ![8.2 到的 EX920](https://i1.yuangezhizao.cn/Win-10/20190815205737.png!webp)
 ![8.4 到的坦克 3](https://i1.yuangezhizao.cn/Win-10/20190815210231.png!webp)
 ![并不能调低音的音箱](https://i1.yuangezhizao.cn/Win-10/20190815210414.png!webp)
+![本来想买 ADATA 的因为较便宜，结果第二天正好在下班时打电话说标错了无货要主动发个贵点的金士顿，可海星](https://i1.yuangezhizao.cn/Win-10/20190824122235.png!webp)
+
+`2019-9-1 00:00:00`领到了全品无门槛减`666`的优惠券（详见下表），于是下单购买
+
+日期 | 场次 | 结果
+:---: | :---: | :---:
+9-1 | 00:00 | ¥666、24 免息
+9-1 | 10:00 | ¥666 
+9-1 | 16:00 | 火爆
+9-1 | 20:00 | 无库存
+
+![感谢狗东](https://i1.yuangezhizao.cn/Win-10/20190901232422.png!webp)
+![1T Games 盘回来了](https://i1.yuangezhizao.cn/Win-10/20190901232104.png!webp)
+
+## 0x02.CPU
+超频大法好！`3.99`逼死强逼症，神奇的是这个数字会跳回`4.00`……
+> 超频参数：
+`CPU Ratio：40.00`
+`Override CPU Core Voltage：1.3500V`
+`Override CPU NB/Soc Voltage：1.1000V`
+
+![3.99GHz](https://i1.yuangezhizao.cn/Win-10/20190824123130.jpg!webp)
+![4.00GHz](https://i1.yuangezhizao.cn/Win-10/20190824123301.jpg!webp)
 
 未完待续……
