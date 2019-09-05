@@ -67,6 +67,16 @@ The basic process to get started with NodeMCU consists of the following three st
 编译开始与完成之时会分别收到邮件：
 ![finished](https://i1.yuangezhizao.cn/Win-10/20190813200048.jpg!webp)
 
+```
+Strike!
+You successfully commissioned a NodeMCU custom build from the dev branch. You selected the following 15 modules: cron crypto dht encoder enduser_setup file gpio http mqtt net node tmr uart websocket wifi.
+
+We'll keep you posted by email about the progress of your build.
+
+In the meantime I suggest you take a look at the build stats to find out how your firmware configuration compares to others in the community.
+```
+> This was built against the dev branch and includes the following modules: cron, crypto, dht, encoder, enduser_setup, file, gpio, http, mqtt, net, node, tmr, uart, websocket, wifi, tls.
+
 `float`与`integer`具体选哪个好？在这里我选了前者，在`print`的时候字符串格式化会有差异
 
 #### 烧录
@@ -183,6 +193,6 @@ tmr.alarm(1, 1000, tmr.ALARM_AUTO, measure)
 ```
 
 ## 0x03.引用
-> [NodeMCU--学习笔记(二)连接wifi](https://blog.csdn.net/qq_28877125/article/details/78680743)
+> [NodeMCU--学习笔记(二)连接wifi](https://web.archive.org/web/20190905061225/https://blog.csdn.net/qq_28877125/article/details/78680743)
 
 未完待续……

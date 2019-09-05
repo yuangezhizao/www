@@ -21,11 +21,10 @@ key: 35
 ## 0x01.开工
 [地址](https://console.bce.baidu.com/ai/#/ai/face/overview/index)，创建应用，应用名称我设的“人脸识别”，记录`AppID`、`API Key`、`Secret Key`之后`SDK`包初始化需要用到
 `pip3 install baidu-aip`
-
 ![](https://i1.yuangezhizao.cn/Win-10/20180401112606.jpg!webp)
+
 人脸库为了方便管理写的“年级名”
 ![](https://i1.yuangezhizao.cn/Win-10/20180401113358.jpg!webp)
-
 
 ## 0x02.新建`AipFace`
 详见[文档](http://ai.baidu.com/docs#/Face-Python-SDK/top)

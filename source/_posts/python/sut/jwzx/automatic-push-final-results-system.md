@@ -249,7 +249,7 @@ def send_wechat_message():
 ## 0x07.看似没有用的后记
 再次强调一遍不要在`py`里循环查询（会出意外的……），`Win`下善用`计划任务`，`Linux`下善用`Cron`
 
-> 参考链接：https://www.polarxiong.com/archives/python-pytesser-tesseract.html
+> 参考链接：[Python:文本识别抛弃pytesser，直接使用Tesseract](https://web.archive.org/web/20190905071151/https://www.polarxiong.com/archives/python-pytesser-tesseract.html)
 
 # 完结撒花
 终于写完了，好累……

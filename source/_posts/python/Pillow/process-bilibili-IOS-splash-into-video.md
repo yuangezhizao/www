@@ -428,5 +428,5 @@ ffmpeg -r 0.5 -i C:\ffmpeg\bin\2016\%3d.jpg -vcodec libx264 -level
 发现`420p`码率未超`1800`于是加上音频合并直传
 但是`444p`码率`2007`暂时放弃
 
-## 0x07.参考
-> http://www.cnblogs.com/lilinwei340/p/6474170.html
+## 0x07.引用
+> [python PIL实现图片合成](https://web.archive.org/web/20190905064729/https://www.cnblogs.com/lilinwei340/p/6474170.html)

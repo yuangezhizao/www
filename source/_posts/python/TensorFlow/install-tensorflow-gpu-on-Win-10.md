@@ -147,10 +147,9 @@ b'Hello, TensorFlow!'
 ```
 这里之所以会出红字提示是因为没有在本机编译，尝试编译（实在是不会……），于是重启进`Mac`里……未完待续
 
-## 0x04.参考
-
-http://www.jianshu.com/p/6766fbcd43b9
-http://www.jianshu.com/p/c245d46d43f0
-http://blog.csdn.net/u010099080/article/details/53418159
-http://blog.csdn.net/wx7788250/article/details/60877166
-http://www.cnblogs.com/leoking01/p/6913408.html
+## 0x04.引用
+> [TensorFlow 入门](https://web.archive.org/web/20190905070704/https://www.jianshu.com/p/6766fbcd43b9)
+[windows 10 64bit下安装Tensorflow+Keras+VS2015+CUDA8.0 GPU加速](https://web.archive.org/web/20190905070738/https://www.jianshu.com/p/c245d46d43f0)
+[【TensorFlow】Windows10 64 位下安装 TensorFlow - 官方原生支持](https://web.archive.org/web/20190905070826/https://blog.csdn.net/u010099080/article/details/53418159)
+[【TensorFlow】Windows环境下PyCharm运行TensorFlow GPU版(附TensorFlow更新方法)](https://web.archive.org/web/20190905070916/https://blog.csdn.net/wx7788250/article/details/60877166)
+[windows 10 64bit下安装Tensorflow+Keras+VS2015+CUDA8.0 GPU加速](https://web.archive.org/web/20190905071000/https://www.cnblogs.com/leoking01/p/6913408.html)

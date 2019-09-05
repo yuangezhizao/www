@@ -264,5 +264,5 @@ sudo add-apt-repository \
 `docker run hello-world`
 
 ## 引用
-> [阿里云 ECS 监控卸载，屏蔽云盾 IP ](https://blog.whe.me/post/uninstall-aliyun-monitoring.html)
-> [ubuntu16.04 开启 ssh 和 vncserver](https://zhuanlan.zhihu.com/p/27473119)
+> [阿里云 ECS 监控卸载，屏蔽云盾 IP ](https://web.archive.org/web/20190905072238/https://blog.whe.me/post/uninstall-aliyun-monitoring.html)
+> [ubuntu16.04 开启 ssh 和 vncserver](https://web.archive.org/web/20190905072311/https://zhuanlan.zhihu.com/p/27473119)

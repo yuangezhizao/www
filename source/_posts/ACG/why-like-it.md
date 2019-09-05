@@ -14,7 +14,7 @@ key: 36
     很久很久之前看见了这篇文章，去年也给她看过了，今年这几天决定转载过来（我真的找了好长好长时间才找到）
     之前虽说本站为纯技术类站点（全站联动），但是最近想了想还是回归最原始的布局吧，毕竟自己在这里是自由的……
 <!-- more -->
-> 原文地址：https://www.freejishu.com/archives/128 （原文存在）
+> 原文地址：[为什么会喜欢二次元？](https://web.archive.org/web/20190905071514/https://www.freejishu.com/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%96%9C%E6%AC%A2%E4%BA%8C%E6%AC%A1%E5%85%83%EF%BC%9F/)
   原文作者：freejishu
   
 入坑2年多了，我一直在思考这个问题：为什么会喜欢二次元？
@@ -84,7 +84,7 @@ B站著名游戏视频制作者LexBurner在自己的小学生作文中写过这�
 所以，如果遇到身边的这种人，还请好好爱护他们，因为这些人都是有伤口的。而且是能妥善处理伤口的。
 
 > 本文引用的资料：
-抢占二次元市场，应该如何决策美术风格？  http://www.hexieshe.com/655054/
-【小学生作文】一个宅男的故事 http://www.bilibili.com/video/av4402954/
-Lex教你神作的套路 http://www.bilibili.com/video/av4371560/
-元旦三天134场漫展，有这样六大特征 http://toutiao.com/i6239622603682611713/
+[抢占二次元市场，应该如何决策美术风格？](https://web.archive.org/web/20190905071631/https://www.hexieshe.com/655054/)
+[【小学生作文】一个宅男的故事](https://web.archive.org/web/20190905071807/https://www.bilibili.com/video/av4402954/)
+[Lex教你神作的套路](https://web.archive.org/web/20190905071910/https://www.bilibili.com/video/av4371560/)
+[元旦三天134场漫展，有这样六大特征](https://web.archive.org/web/20190905071956/https://www.toutiao.com/i6239622603682611713/)

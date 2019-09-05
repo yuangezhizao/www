@@ -531,23 +531,22 @@ cat /etc/debian_version                     # Debian 版本编号
 ```
 
 ## 引用
-> [树莓派3B新版raspbian系统换国内源](http://www.cnblogs.com/wangchuanyang/p/6434323.html)
-> [修改树莓派交换分区 SWAP 的正确姿势](http://shumeipai.nxez.com/2017/12/18/how-to-modify-raspberry-pi-swap-partition.html)
-> [玩转树莓派02——搭建下载机](https://www.jianshu.com/p/4cf37177fc62)
+> [树莓派3B新版raspbian系统换国内源](https://web.archive.org/web/20190905062924/https://www.cnblogs.com/wangchuanyang/p/6434323.html)
+> [修改树莓派交换分区 SWAP 的正确姿势](https://web.archive.org/web/20190905063006/http://shumeipai.nxez.com/2017/12/18/how-to-modify-raspberry-pi-swap-partition.html)
+> [玩转树莓派02——搭建下载机](https://web.archive.org/web/20190905063051/https://www.jianshu.com/p/4cf37177fc62)
 > [树莓派驱动的b站直播弹幕点播台](https://github.com/chenxuuu/24h-raspberry-live-on-bilibili)
-> [ffmpeg源码编译安装（Compile ffmpeg with source） Part 2 ： 扩展安装](http://www.cnblogs.com/yaoz/p/6944942.html)
-> [树莓派编译安装FFmpeg(添加H.264硬件编解码器支持)](http://blog.csdn.net/sbdx/article/details/75110126)
-> [树莓派 GPIO 控制](http://wiki.jikexueyuan.com/project/raspberry-pi/gpio.html)
-> [树莓派开机自动运行某程序.md](http://blog.csdn.net/qq_17242837/article/details/53931738)
-> [【教程】树莓派程序开机自启动方法总结](https://www.jianshu.com/p/86adb6d5347b)
-> [树莓派音频口底噪太大的解决办法](http://blog.csdn.net/SmallSquare/article/details/79506097)
+> [ffmpeg源码编译安装（Compile ffmpeg with source） Part 2 ： 扩展安装](https://web.archive.org/web/20190905063132/https://www.cnblogs.com/yaoz/p/6944942.html)
+> [树莓派编译安装FFmpeg(添加H.264硬件编解码器支持)](https://web.archive.org/web/20190905063215/https://blog.csdn.net/sbdx/article/details/75110126)
+> [树莓派 GPIO 控制](https://web.archive.org/web/20190905063313/http://wiki.jikexueyuan.com/project/raspberry-pi/gpio.html)
+> [树莓派开机自动运行某程序.md](https://web.archive.org/web/20190905063346/https://blog.csdn.net/qq_17242837/article/details/53931738)
+> [【教程】树莓派程序开机自启动方法总结](https://web.archive.org/web/20190905063417/https://www.jianshu.com/p/86adb6d5347b)
+> [树莓派音频口底噪太大的解决办法](https://web.archive.org/web/20190905063451/https://blog.csdn.net/SmallSquare/article/details/79506097)
 
-> [树莓派 b 站直播相关](https://www.chenxublog.com/2017/11/23/24h-raspberry-live-on-bilibili-reload.html)
+> [树莓派 b 站直播相关](https://web.archive.org/web/20190905063528/https://www.chenxublog.com/2017/11/23/24h-raspberry-live-on-bilibili-reload.html)
 
+> [三步在树莓派上部署nginx+uWSGI+flask](https://web.archive.org/web/20190905063553/https://www.jianshu.com/p/14123b6b74c0)
 
-> [三步在树莓派上部署nginx+uWSGI+flask](https://www.jianshu.com/p/14123b6b74c0)
-
-> [树莓派永久禁用无线网卡](https://aoenian.github.io/2017/02/16/rasp-disable-wireless-card/)
-> [[常見問與答] 如何看 Raspbian 的版本資訊？](https://www.raspberrypi.com.tw/10400/check-what-raspbian-version-you-are-running-on-the-raspberry-pi/)
+> [树莓派永久禁用无线网卡](https://web.archive.org/web/20190905063621/https://aoenian.github.io/2017/02/16/rasp-disable-wireless-card/)
+> [[常見問與答] 如何看 Raspbian 的版本資訊？](https://web.archive.org/web/20190905063753/https://www.raspberrypi.com.tw/10400/check-what-raspbian-version-you-are-running-on-the-raspberry-pi/)
 
 https://github.com/markondej/fm_transmitter

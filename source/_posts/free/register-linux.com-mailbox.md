@@ -41,5 +41,3 @@ key: 01
 设置邮箱地址
 上面的`mail`填写`xxx@linux.com`下面就填写要转发的邮箱，完成
 ![](http://static.qcloud-cdn.yuangezhizao.cn/img/blog/Linux/1.2.png)
-
-

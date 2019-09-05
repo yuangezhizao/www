@@ -66,11 +66,11 @@ hexo clean && hexo g && hexo s
 ![CloudStudio](https://i1.yuangezhizao.cn/Win-10/20190825230738.jpg!webp)
 
 ## 0x04.引用
-> [使用Travis CI自动部署Hexo博客](https://www.itfanr.cc/2017/08/09/using-travis-ci-automatic-deploy-hexo-blogs/)
-[使用 Travis CI 自动部署 HEXO 博客](https://www.giuem.com/deploy-via-travis-ci/)
-[使用 travis-ci 持续集成 Hexo 静态博客](https://www.pangjian.me/2016/05/25/travis-ci-hexo/)
-[使用 Travis CI 自动部署 Hexo 博客](https://blessing.studio/deploy-hexo-blog-automatically-with-travis-ci/)
-[使用travis-ci自动部署Hexo到github和coding](https://juejin.im/post/5afe61f5f265da0b8d422a3e)
-[用TravisCI持续集成自动部署Hexo博客的个人实践](https://mtianyan.gitee.io//post/90a759d5.html)
+> [使用Travis CI自动部署Hexo博客](https://web.archive.org/web/20190905064005/https://www.itfanr.cc/2017/08/09/using-travis-ci-automatic-deploy-hexo-blogs/)
+[使用 Travis CI 自动部署 HEXO 博客](https://web.archive.org/web/20190905064039/https://www.giuem.com/deploy-via-travis-ci/)
+[使用 travis-ci 持续集成 Hexo 静态博客](https://web.archive.org/web/20190905064103/https://www.pangjian.me/2016/05/25/travis-ci-hexo/)
+[使用 Travis CI 自动部署 Hexo 博客](https://web.archive.org/web/20190905064132/https://blessing.studio/deploy-hexo-blog-automatically-with-travis-ci/)
+[使用travis-ci自动部署Hexo到github和coding](https://web.archive.org/web/20190905064200/https://juejin.im/post/5afe61f5f265da0b8d422a3e)
+[用TravisCI持续集成自动部署Hexo博客的个人实践](https://web.archive.org/web/20190905064240/https://mtianyan.gitee.io//post/90a759d5.html)
 
 未完待续……

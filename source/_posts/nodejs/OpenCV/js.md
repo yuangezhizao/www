@@ -233,4 +233,4 @@ __main__.Fail: Child returned: 1
 
 ## 0x03.引用
 > [OpenCV.js 入门](https://github.com/allenGKC/Blog/issues/9)
-  [用OpenCV在浏览器进行人脸检测](https://segmentfault.com/a/1190000014639145)
+  [用OpenCV在浏览器进行人脸检测](https://web.archive.org/web/20190905061631/https://segmentfault.com/a/1190000014639145)

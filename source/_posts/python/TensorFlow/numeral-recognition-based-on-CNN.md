@@ -20,12 +20,14 @@ key: 15
 仍然是腾讯云开发者实验室（beta），今天换个实验做：
 ![](https://i1.yuangezhizao.cn/Win-10/20170820094255.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170820095001.jpg!webp)
+
 ## 0x01.引用
 #### 1.0 TensorFlow 实现基于 CNN 数字识别的代码
 #### 1.1 前期准备
 `TensorFlow`相关`API`可以到在实验`TensorFlow - 相关 API `中学习。
 唔，这就尴尬了，这节课我还没看呢……
 ![](https://i1.yuangezhizao.cn/Win-10/20170820095142.jpg!webp)
+
 #### 1.2 `CNN`模型构建
 现在您可以在`/home/ubuntu`目录下创建源文件`mnist_model.py`，内容可参考：
 ``` python
@@ -112,6 +114,7 @@ def bias_variable(shape):
   return tf.Variable(initial)
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820095558.jpg!webp)
+
 #### 1.3 训练 CNN 模型
 现在您可以在`/home/ubuntu`目录下创建源文件`train_mnist_model.py`，内容可参考：
 ``` python
@@ -226,6 +229,7 @@ step 4900, training accuracy 1
 test accuracy 0.9862
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820100145.jpg!webp)
+
 #### 1.4 测试 CNN 模型
 下载测试图片
 下载`test_num.zip`
@@ -308,15 +312,18 @@ if __name__ == "__main__":
 执行结果：
 `1`
 ![](https://i1.yuangezhizao.cn/Win-10/20170820102034.jpg!webp)
+
 你可以修改`1.png!webp`为`1-9.png!webp`中任意一个
 既然都这么说了，那我就全部试一下……
 ![](https://i1.yuangezhizao.cn/Win-10/20170820102235.jpg!webp)
+
 emmm……我要看下原图
 ![](https://i1.yuangezhizao.cn/Win-10/20170820102517.jpg!webp)
 
 ## 0x02.后记
 ![](https://i1.yuangezhizao.cn/Win-10/20170820102618.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170820102908.jpg!webp)
+
 `文件浏览器`的刷新按钮好像坏掉了，实验做到最后文件也没改变……手动点下上层文件夹就好了
 我感觉我又水了一篇文章……
 未完待续……

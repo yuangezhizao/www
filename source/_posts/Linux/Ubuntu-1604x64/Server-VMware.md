@@ -179,5 +179,3 @@ quit
 `#bind 127.0.0.1`注释
 `databases 5`
 重启服务：`sudo systemctl restart redis`
-
-

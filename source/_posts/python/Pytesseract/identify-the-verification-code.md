@@ -73,8 +73,5 @@ print vcode
 ![](https://i1.yuangezhizao.cn/Win-10/20180129135329.jpg!webp)
 
 
-## 0x05.参考
-[Python处理验证码第一篇（pytesser初探及报错处理）](http://blog.csdn.net/Bone_ACE/article/details/50436587)
-
-
-
+## 0x05.引用
+[Python处理验证码第一篇（pytesser初探及报错处理）](https://web.archive.org/web/20190905064358/https://blog.csdn.net/Bone_ACE/article/details/50436587)

@@ -100,10 +100,8 @@ Once installed, you can upgrade to a newer version of Bazel with:
 编译报错：`gcc: internal compiler error: Killed (program cc1plus)`
 查找原因，`swap`分区满了……不折腾了……
 
-## 0x08.参考
+## 0x08.引用
 > https://www.tensorflow.org/install/install_sources#ConfigureInstallation
-http://blog.csdn.net/lwplwf/article/details/54881836
-http://blog.csdn.net/banana1006034246/article/details/70789307
-http://wiki.jikexueyuan.com/project/tensorflow-zh/get_started/os_setup.html
-http://blog.csdn.net/banana1006034246/article/details/70789307
-
+[TensorFlow安装--（方法1）系统自带Python，VirtualEnv方式安装（Ubuntu14.04 64位CPU）](https://web.archive.org/web/20190905065208/https://blog.csdn.net/lwplwf/article/details/54881836)
+[Ubuntu14.04源码编译安装CPU版本的tensorflow](https://web.archive.org/web/20190905065316/https://blog.csdn.net/banana1006034246/article/details/70789307)
+[下载与安装](https://web.archive.org/web/20190905065415/http://wiki.jikexueyuan.com/project/tensorflow-zh/get_started/os_setup.html)

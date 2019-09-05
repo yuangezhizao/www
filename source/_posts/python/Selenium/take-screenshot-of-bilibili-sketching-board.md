@@ -266,15 +266,8 @@ ffmpeg -r 60 -i C:\ffmpeg\bin\data_8.15-16\%5d.png -vcodec libx264 -crf 0 -pix_f
 写了三个小时写不动了……
 
 
-## 0x09.参考
-
-> http://www.cnblogs.com/harolei/p/3466284.html
-https://www.biaodianfu.com/python-selenium-capture.html
-http://www.jianshu.com/p/7ed519854be7
-http://codingpy.com/article/take-screenshot-of-web-page-using-selenium/
-http://ideadot.cn/2016/07/20/%E5%88%A9%E7%94%A8pythonselenium%E6%88%AA%E5%8F%96dom%E6%9F%90%E4%B8%AA%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0/
-
-
-
-
-
+## 0x09.引用
+> [python selenium自动化（三）Chrome Webdriver的兼容](https://web.archive.org/web/20190905065737/https://www.cnblogs.com/harolei/p/3466284.html)
+[使用Python+Selenium对网页进行截图](https://web.archive.org/web/20190905065903/https://www.biaodianfu.com/python-selenium-capture.html)
+[利用 Python + Selenium 实现对页面的指定元素截图(可截长图元素)](https://web.archive.org/web/20190905070110/https://www.jianshu.com/p/7ed519854be7)
+[利用Python+Selenium截取DOM(某个网页元素)](https://web.archive.org/web/20190905070416/http://ideadot.cn/article/49/)

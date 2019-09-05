@@ -25,6 +25,7 @@ key: 26
 `http://www.bilibili.com/activity/likes/list/10156?pagesize=49&page= < 此处填写页码 >`
 从活动开始到结束，现在留有`104368`条，如图所示，
 ![](https://i1.yuangezhizao.cn/Win-10/20171021221549.jpg!webp)
+
 给你们看一下表的数据条数，我确实全部保存下来了：
 ![](https://i1.yuangezhizao.cn/Win-10/20171021221309.jpg!webp)
 
@@ -297,14 +298,10 @@ if __name__ == "__main__":
 ```
 ## 0x05.结果图片
 ![](https://i1.yuangezhizao.cn/Win-10/20171021222714.png!webp)
+
 上面那张是词云，下面这张是点赞排行榜
 ![](https://i1.yuangezhizao.cn/Win-10/20171021223837.jpg!webp)
 
-## 0x06.汇总
-[源码](https://github.com/yuangezhizao/)会公开的
-未完待续
-
-
-## 0x07.参考
-> [生成词云之python中WordCloud包的用法](http://blog.csdn.net/u010309756/article/details/67637930)
-[把300W淘宝文胸评论绘制成词云](http://nladuo.github.io/2017/04/07/%E6%8A%8A300W%E6%B7%98%E5%AE%9D%E6%96%87%E8%83%B8%E8%AF%84%E8%AE%BA%E7%BB%98%E5%88%B6%E6%88%90%E8%AF%8D%E4%BA%91/)
+## 0x06.引用
+> [生成词云之python中WordCloud包的用法](https://web.archive.org/web/20190905064506/https://blog.csdn.net/u010309756/article/details/67637930)
+[把300W淘宝文胸评论绘制成词云](https://web.archive.org/web/20190905064553/http://nladuo.github.io/2017/04/07/%E6%8A%8A300W%E6%B7%98%E5%AE%9D%E6%96%87%E8%83%B8%E8%AF%84%E8%AE%BA%E7%BB%98%E5%88%B6%E6%88%90%E8%AF%8D%E4%BA%91/)
