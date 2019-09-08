@@ -40,6 +40,7 @@ CPU | [AMD Ryzen 7 3700X](https://item.jd.com/100006391078.html) | JD 正品 | �
 主板 | [MPG X570 GAMING EDGE WIFI](https://item.jd.com/100003809901.html) | JD 正品 | ¥1381
 硬盘 | [HP EX920 M.2 NvMe 1T](https://item.jd.com/6209326.html) | JD 正品 | ¥869
 硬盘 | [HP EX920 M.2 NvMe 1T](https://item.jd.com/6209326.html) | JD 正品 | ¥243
+硬盘 | [Seagate BarraCuda 4TB 256MB 5400RPM](https://item.jd.com/4220257.html) | JD 正品 | ¥2.8
 机箱 | [SAMA 坦克 3](https://item.jd.com/100003124872.html) | JD 正品 | ¥203
 电源 | [Antec NEO650](https://item.jd.com/1039354.html) | WZ 二手 | ~~¥459~~¥200
 音箱 | [PHILIPS SPA1312](https://item.jd.com/172149.html) | JD 正品 | ¥98
@@ -48,7 +49,7 @@ CPU | [AMD Ryzen 7 3700X](https://item.jd.com/100006391078.html) | JD 正品 | �
 内存 | [Kingston Fury DDR4 3200 16G](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
 显示器 | 【待定】4K？ | WZ 暂借 | ¥0
  | | | 
-总计 | | | ¥8592.28
+总计 | | | ¥8595.08
 
 #### 详情
 ![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/Win-10/20190815205532.png!webp)
@@ -68,6 +69,7 @@ CPU | [AMD Ryzen 7 3700X](https://item.jd.com/100006391078.html) | JD 正品 | �
 
 ![感谢狗东](https://i1.yuangezhizao.cn/Win-10/20190901232422.png!webp)
 ![1T Games 盘回来了](https://i1.yuangezhizao.cn/Win-10/20190901232104.png!webp)
+![4T 冷备](https://i1.yuangezhizao.cn/Win-10/20190908175356.png!webp)
 
 ## 0x02.CPU
 超频大法好！`3.99`逼死强逼症，神奇的是这个数字会跳回`4.00`……
