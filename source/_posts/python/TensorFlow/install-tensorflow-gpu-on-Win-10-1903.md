@@ -76,7 +76,7 @@ d. GeForce GTX 965M
 ![安装](https://i1.yuangezhizao.cn/Win-10/20190314211329.jpg!webp)
 
 安装方法和`cuDNN`同理，只把`/lib`目录下的全部内容复制到`/bin`目录下嘛
-![这个最新的倒是只有 10.0](https://i1.yuangezhizao.cn/Win-10/20190314211933.jpg!webp)
+![这个最新的倒是只有 10.0](https://i1.yuangezhizao.cn/Win-10/20190314211934.jpg!webp)
 
 #### 5. 终于完事儿了
 ![可海星](https://i1.yuangezhizao.cn/Win-10/20190314225747.jpg!webp)
