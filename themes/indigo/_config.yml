@@ -100,10 +100,6 @@ less:
   paths:
     - source/css/style.less
 
-# 以下评论插件开启一个即可
-# 是否开启 disqus
-disqus_shortname: false
-# 是否使用 gitment，https://github.com/imsun/gitment
 gitment:
    owner: yuangezhizao
    repo: gitment
