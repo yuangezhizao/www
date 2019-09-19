@@ -41,15 +41,12 @@ avatar: https://i1.yuangezhizao.cn/avatar/head.png!webp?imageView2/1/w/80
 avatar_link: /
 # 头像背景图
 brand: https://i1.yuangezhizao.cn/anime/We-Never-Learn/Clipboard_20190514.jpg!webp?imageMogr2/gravity/center/crop/240x180
-# favicon
-favicon: /favicon.ico
 
 # email
 email: root@yuangezhizao.cn
 
 # 设置 Android L Chrome 浏览器状态栏颜色
 color: '66CCFF'
-#'3F51B5'
 
 # 页面标题
 tags_title: 标 签
@@ -90,9 +87,6 @@ postMessage: 转载请注明出处：<a href="<%- url_for(page.path).replace(/in
 
 # 站长统计，如要开启，输入CNZZ站点id，如 cnzz: 1255152447
 cnzz: false
-
-# 百度统计，如要开启，改为你的 key
-baidu_tongji: d8e5ef52f9d6d75ff10f7d1a2f478720
 
 # less
 less:
