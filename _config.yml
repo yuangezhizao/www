@@ -4,8 +4,8 @@
 
 # Site
 title: 远哥制造
-subtitle: yuangezhizao
-description: 远哥制造
+subtitle: 
+description: 远哥制造的博客站即主站，另有自建的实验室站请出门左转
 keywords: 远哥制造
 author: 远哥制造
 email: root@yuangezhizao.cn
@@ -159,10 +159,3 @@ neat_js:
   compress:
   exclude:
     - '*.min.js'
-
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repo: git@git.coding.net:yuangezhizao/yuangezhizao.git
-  branch: master
