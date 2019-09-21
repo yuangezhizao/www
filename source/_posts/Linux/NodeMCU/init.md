@@ -26,6 +26,11 @@ key: 54
 ![正面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205826.jpg!webp)
 ![背面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205905.jpg!webp)
 
+`2019-9-21 23:15:41`由于中秋节自己带回去的那套扔家里了所以就又又买了一套给自己玩
+![终于买继电器了](https://i1.yuangezhizao.cn/Win-10/20190921230857.jpg!webp)
+![正面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190921_234033.jpg!webp)
+![背面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190921_234051.jpg!webp)
+
 ## 0x01.[NodeMCU](http://www.nodemcu.com/index_cn.html)
 > 超简单的物联网开发平台
 
