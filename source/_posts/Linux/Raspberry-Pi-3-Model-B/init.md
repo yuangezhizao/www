@@ -17,8 +17,7 @@ key: 34
 > 成文时间仓促也不想细写，所以**不适合**无基础人士阅读！（请善用`Gitment`评论区
 
 ## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspbian/)
-> 版本：~~RASPBIAN STRETCH WITH DESKTOP，2018-03-13-raspbian-stretch.img~~
-Raspbian Buster with desktop and recommended software，2019-06-20-raspbian-buster-full.img
+> Raspbian Buster with desktop and recommended software，2019-07-10-raspbian-buster-full.img
 
 ![烧录](https://i1.yuangezhizao.cn/Win-10/20190624205425.jpg!webp)
 ![验证](https://i1.yuangezhizao.cn/Win-10/20190624205804.jpg!webp)
@@ -44,6 +43,9 @@ Raspbian Buster with desktop and recommended software，2019-06-20-raspbian-bust
 比较索引清单更新依赖关系：`sudo apt-get upgrade -y`
 
 ## 0x04.更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
+#### 安装
+`curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
+`sudo python3 get-pip.py --force-reinstall`
 #### 临时使用
 ```
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
@@ -60,42 +62,29 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```
-#### 修复
-`pip`升级后`Import Error:cannot import name main`的解决方案
-![第一种方法](https://i1.yuangezhizao.cn/Win-10/20190406140457.jpg!webp)
-
-将`/usr/bin/pip`和`/usr/bin/pip3`文件中的`from pip import main`改为`from pip._internal import main`
-![但是加 sudo 会出问题](https://i1.yuangezhizao.cn/Win-10/20190406142635.jpg!webp)
-![第二种方法](https://i1.yuangezhizao.cn/Win-10/20190406142820.jpg!webp)
-
-~~然而，还是不能解决问题……~~
-报错：`ImportError: No module named 'pip._internal'`
-解决方法：
-`curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
-`sudo python3 get-pip.py --force-reinstall`
-验证：
+#### 验证
 ``` bash
-pi@rpi:~ $ pip3 show pip
+pi@rpi:~ $ pip2 show pip
+DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
 Name: pip
-Version: 19.1.1
+Version: 19.2.3
 Summary: The PyPA recommended tool for installing Python packages.
 Home-page: https://pip.pypa.io/
 Author: The pip developers
 Author-email: pypa-dev@groups.google.com
 License: MIT
-Location: /home/pi/.local/lib/python3.7/site-packages
+Location: /usr/local/lib/python2.7/dist-packages
 Requires: 
 Required-by: 
-pi@rpi:~ $ pip2 show pip
-DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won\'t be maintained after that date. A future version of pip will drop support for Python 2.7.
+pi@rpi:~ $ pip show pip
 Name: pip
-Version: 19.1.1
+Version: 19.2.3
 Summary: The PyPA recommended tool for installing Python packages.
 Home-page: https://pip.pypa.io/
 Author: The pip developers
 Author-email: pypa-dev@groups.google.com
 License: MIT
-Location: /home/pi/.local/lib/python2.7/site-packages
+Location: /usr/local/lib/python3.7/dist-packages
 Requires: 
 Required-by: 
 ```
