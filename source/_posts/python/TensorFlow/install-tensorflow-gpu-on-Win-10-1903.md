@@ -54,16 +54,15 @@ d. GeForce GTX 965M
 ~~链接：https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_411.31_win10~~
 ![GD-WLAN 好慢呀](https://i1.yuangezhizao.cn/Win-10/20190314190055.jpg!webp)
 
-滚去下`net`版了（注：此处下错了，下最新的`10.1`了……）
-![这他妈叫精简，WTF？](https://i1.yuangezhizao.cn/Win-10/20190314193503.jpg!webp)
-![真·最小化安装](https://i1.yuangezhizao.cn/Win-10/20190314193640.jpg!webp)
-![打死也不升级](https://i1.yuangezhizao.cn/Win-10/20190314193705.jpg!webp)
+滚去下`net`版了（~~注：此处下错了，下最新的`10.1`了……~~已改正图）
+![这他妈叫精简，WTF？](https://i1.yuangezhizao.cn/Win-10/20191007201921.jpg!webp)
+![真·最小化安装](https://i1.yuangezhizao.cn/Win-10/20191007202253.jpg!webp)
+![打死也不升级](https://i1.yuangezhizao.cn/Win-10/20191007202344.jpg!webp)
 ![PATH 环境变量已经给写好了](https://i1.yuangezhizao.cn/Win-10/20190314204638.jpg!webp)
 ![装完之后拿 nvcc -V 验证](https://i1.yuangezhizao.cn/Win-10/20190314185821.jpg!webp)
 ![确认无误](https://i1.yuangezhizao.cn/Win-10/20190314231151.jpg!webp)
 
-补充：`10.0`的截图：
-![目前只支持 10.0](https://i1.yuangezhizao.cn/Win-10/20190314204432.jpg!webp)
+补充：`10.1`的报错截图：
 ![Fuck u 10.1](https://i1.yuangezhizao.cn/Win-10/20190314214628.jpg!webp)
 
 #### 3. 安装[cuDNN](https://developer.nvidia.com/cudnn)
