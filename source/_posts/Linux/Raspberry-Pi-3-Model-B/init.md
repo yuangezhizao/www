@@ -3,7 +3,7 @@ title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
   - Raspberry-pi
-count: 5
+count: 6
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -17,10 +17,10 @@ key: 34
 > 成文时间仓促也不想细写，所以**不适合**无基础人士阅读！（请善用`Gitment`评论区
 
 ## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspbian/)
-> Raspbian Buster with desktop and recommended software，2019-07-10-raspbian-buster-full.img
+> Raspbian Buster with desktop and recommended software，2019-09-26-raspbian-buster-full.img
 
-![烧录](https://i1.yuangezhizao.cn/Win-10/20190624205425.jpg!webp)
-![验证](https://i1.yuangezhizao.cn/Win-10/20190624205804.jpg!webp)
+![烧录](https://i1.yuangezhizao.cn/Win-10/20191013201158.jpg!webp)
+![验证](https://i1.yuangezhizao.cn/Win-10/20191013201546.jpg!webp)
 
 升级系统虽然`sudo apt-get update`，`sudo apt-get dist-upgrade`这两步就能解决，~~然而我是后看到的~~但是如果以前没安装某软件，就不能在更新中下载到它。所以还是重新烧录了最新版本的镜像。烧录完成创建一个可以是空的`ssh`文件放在`/boot`分区下以开启`ssh`服务（我没有显示器但是有网线）。所以，要记得插根网线。
 默认用户名：`pi`
@@ -97,10 +97,7 @@ Required-by:
 `sudo /etc/init.d/dphys-swapfile restart`
 再看一眼，`free -h`
 
-## 0x06.挂载 NTFS 硬盘支持读写
-`sudo apt-get install ntfs-3g -y`
-
-## 0x07.安装`Aria2`以备远程下载
+## 0x06.安装`Aria2`以备远程下载
 安装：`sudo apt-get install aria2 -y`
 创建配置文件夹：`sudo mkdir /etc/aria2`
 创建`session`和配置文件：`sudo touch /etc/aria2/aria2.session`，`sudo touch /etc/aria2/aria2.conf`
@@ -220,7 +217,7 @@ exit $RETVAL
 添加`/etc/init.d/aria2c start`到`/etc/rc.local`的`exit 0`之前
 ~~`apt-get -y install chkconfig`，`chkconfig --add aria2c`~~
 
-## 0x08.安装`Nginx`
+## 0x07.安装`Nginx`
 源于习惯本来想用`Apache`的，但是翻了翻感觉还是换个轻量级的较好，于是换成`Nginx`了。可以在上面放`webui-aria2`这种纯静态页面，但是后来被我移到腾讯云的`Apache`上了……（看到某人说的也就能支撑`100`用户在线……
 `sudo apt-get install nginx -y`
 `rm -rf /var/www/html`
@@ -228,11 +225,11 @@ exit $RETVAL
 `/etc/init.d/nginx start`
 ~~开机自启：编辑`/etc/rc.local`添加`/etc/init.d/nginx start`~~
 
-## 0x09.手动编译支持硬解的[FFmpeg](http://ffmpeg.org/)
+## 0x08.手动编译支持硬解的[FFmpeg](http://ffmpeg.org/)
 参考[引用第三条](#引用)
 上个版本系统可以编译出`ffplay`、`ffprobe`、`ffserver`。但是最新版本的系统编译`ffplay`的依赖处理关系又问题，暂时先搁置一段时间
 
-## 0x10.`GPIO`驱动`JLX12864G-086-PC`
+## 0x09.`GPIO`驱动`JLX12864G-086-PC`
 这显示屏原本是`51`单片机课设所用，官方有驱动文件，所以就移（复）植（制）过来了，后续还会单独发相关内容，所以就简单写了。
 我只用到了`wiringPiSetup()`、`pinMode`、`digitalWrite`和`digitalRead`这四个库函数。
 编译：`gcc -Wall -o 12864g-86-pc.c 12864g-86-pc -lwiringPi`
@@ -251,14 +248,14 @@ sudo ./12864g-86-pc
 `sudo vim /etc/rc.local`
 在`exit 0`之前添加如下内容：`路径/start.sh start`
 
-## 0x11.播放音频杂音问题
+## 0x10.播放音频杂音问题
 最新版本镜像该问题已不存在，参考[引用第十条](#引用)
 `sudo vim /boot/config.txt`
 `audio_pwm_mode = 2`
 重启生效，在之前的镜像中改变还是很明显的。
 
 
-## 0x12.安装`Docker`
+## 0x11.安装`Docker`
 最新版本`ok`
 ``` bash
 pi@rpi:~ $ sudo apt-get update
@@ -291,7 +288,7 @@ Warning: apt-key output should not be parsed (stdout is not a terminal)
 E: 仓库 “https://download.docker.com/linux/raspbian 10 Release” 没有 Release 文件。
 ```
 
-## 0x13.Python 2、3 版本切换
+## 0x12.Python 2、3 版本切换
 原理其实就是软链接，建立如下的`.sh`文件并赋予可执行权限，即`sudo chmod +x <文件名>`
 ``` bash
 pi@rpi:~/Documents $ cat py2.sh 
@@ -313,7 +310,7 @@ echo "Finish create 3.7"
 pi@rpi:~/Documents $ 
 ```
 
-## 0x14.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
+## 0x13.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
 选择`Python 3.x + Tensorflow v1.13.1`：
 `sudo pip3 uninstall tensorflow`
 ``` bash
@@ -395,7 +392,7 @@ pi@rpi:~/test $ python3 label_image.py \
 time:  0.19170689582824707
 ```
 
-## 0x15.禁用无线网卡
+## 0x14.禁用无线网卡
 无线网卡莫名坏掉了，可能是静电损坏……
 `sudo ifconfig eth0 down`：重启失效
 故使用配置文件禁用无线网卡驱动
@@ -507,7 +504,7 @@ rpi
 > 执行命令以后查看`network:0 description: Wireless interface`在这个里面找到`driver=brcmfmac`那么这个`brcmfmac`就是驱动名称
 记好你的机器显示的那个名称（我不确定大家是不是都一样），然后创建内容为`blacklist brcmfmac`的文件`/etc/modprobe.d/blacklist-brcmfmac.conf`
 
-## 0x16.查看版本
+## 0x15.查看版本
 ``` bash
 getconf LONG_BIT                            # 系统位数
 uname -a                                    # 内核版本
