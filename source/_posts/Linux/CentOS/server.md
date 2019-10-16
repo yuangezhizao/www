@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -98,7 +98,7 @@ Python 2.7.5
 [root@txy ~]# python3 -V
 Python 3.7.3
 ```
-> 这样就可以通过`python`命令使用`Python 2`，`python3`来使用`Python 3`。
+> 这样就可以通过`python`命令使用`Python 2`，`python3`来使用`Python 3`
 
 9. 更改`yum`配置
 ``` bash
@@ -108,7 +108,7 @@ vim /bin/yum-config-manager
 ```
 把`#! /usr/bin/python`修改为`#! /usr/bin/python2`
 10. 修改默认为`Python 3`
-将`/usr/bin`中的`python`备份，然后创建`python3`的软链接，这样默认的`Python`版本就替换为`Python 3`了。
+将`/usr/bin`中的`python`备份，然后创建`python3`的软链接，这样默认的`Python`版本就替换为`Python 3`了
 ``` bash
 [root@txy ~]# sudo mv /usr/bin/python /usr/bin/python.bak
 [root@txy ~]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python
@@ -117,7 +117,69 @@ vim /bin/yum-config-manager
 `vim ~/.bash_profile`
 `PATH=$PATH:$HOME/bin:/usr/local/python3/bin`
 
-## 0x05.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
+## 0x05.编译安装[python380](https://www.python.org/downloads/release/python-380/)环境
+1. 查看现有位置
+``` bash
+[root@txy ~]# whereis python
+python: /usr/bin/python /usr/bin/python.bak /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/local/python3/bin/python3.7 /usr/local/python3/bin/python3.7-config /usr/local/python3/bin/python3.7m-config /usr/local/python3/bin/python3.7m /usr/share/man/man1/python.1.gz
+```
+2. 下载源码包
+``` bash
+wget --no-check-certificate https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz
+```
+![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
+
+4. 解压
+``` bash
+tar xvJf Python-3.8.0.tar.xz 
+cd Python-3.8.0
+```
+5. 编译
+``` bash
+sudo ./configure --prefix=/usr/local/python3
+sudo make && make install
+```
+![都在同一文件夹](https://i1.yuangezhizao.cn/Win-10/20191016211846.jpg!webp)
+
+6. 升级`pip3`
+``` bash
+[root@txy Python-3.8.0]# pip3 install --upgrade pip
+Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
+Collecting pip
+  Downloading http://mirrors.tencentyun.com/pypi/packages/4a/08/6ca123073af4ebc4c5488a5bc8a010ac57aa39ce4d3c8a931ad504de4185/pip-19.3-py2.py3-none-any.whl (1.4MB)
+     |████████████████████████████████| 1.4MB 846kB/s 
+Installing collected packages: pip
+  Found existing installation: pip 19.2.3
+    Uninstalling pip-19.2.3:
+      Successfully uninstalled pip-19.2.3
+Successfully installed pip-19.3
+```
+8. 修改默认为`Python 3`
+将`/usr/bin`中的`python`备份，然后创建`python3`的软链接，这样默认的`Python`版本就替换为`Python 3`了
+``` bash
+[root@txy ~]# sudo mv /usr/bin/python /usr/bin/python.bak
+[root@txy ~]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python
+[root@txy ~]# python
+Python 3.8.0 (default, Oct 16 2019, 21:10:37) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exit()
+[root@txy ~]# 
+```
+9. 创建软链接（`python3`&`pip3`）
+``` bash
+rm -f /usr/bin/python3
+rm -f /usr/bin/pip3
+sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+sudo ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
+[root@txy ~]# python -V
+Python 3.8.0
+[root@txy ~]# python2 -V
+Python 2.7.5
+```
+> 这样就可以通过`python2`命令使用`Python`，`python`/`python3`来使用`Python 3`
+
+## 0x06.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
 1. 卸载旧版本
 ``` bash
 sudo yum remove docker \
@@ -188,7 +250,16 @@ Testing upload speed............................................................
 Upload: 1.27 Mbit/s
 ```
 
-## 0x07.编译安装[Nginx](https://nginx.org/)
+## 0x07.安装[PHPStudy Linux 面板](https://www.xp.cn/linux.html)
+![官网](https://i1.yuangezhizao.cn/Win-10/20191016213712.jpg!webp)
+![V0.2 公测版](https://i1.yuangezhizao.cn/Win-10/20191016213828.jpg!webp)
+
+一键安装
+`yum install -y wget && wget -O install.sh https://download.xp.cn/install.sh && sh install.sh`
+![还不错的面板](https://i1.yuangezhizao.cn/Win-10/20191016214057.jpg!webp)
+![吊炸天的监控](https://i1.yuangezhizao.cn/Win-10/20191016214130.jpg!webp)
+
+## 0x08.编译安装[Nginx](https://nginx.org/)
 准备
 `mkdir nginx_build && cd nginx_build`
 下载`1.17.3`版本`Nginx`源码
