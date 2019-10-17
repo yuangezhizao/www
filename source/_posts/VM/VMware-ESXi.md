@@ -32,6 +32,10 @@ key: 53
 ![vms](https://i1.yuangezhizao.cn/Win-10/20190728003657.png!webp)
 ![+1s](https://i1.yuangezhizao.cn/Win-10/20190728004123.jpg!webp)
 
+`2019-8-24 13:06:59`
+![4TB 硬盘购买](https://i1.yuangezhizao.cn/Win-10/20190824130554.png!webp)
+![NASdata 3TB](https://i1.yuangezhizao.cn/Win-10/20190824130337.jpg!webp)
+
 ## 0x01.Windows Server 2019 DataCenter
 爽到
 ![cn-py-dl-w9d](https://i1.yuangezhizao.cn/Win-10/20190728015602.png!webp)
