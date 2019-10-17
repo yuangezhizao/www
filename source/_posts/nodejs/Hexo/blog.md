@@ -3,7 +3,7 @@ title: 用 Hexo 搭建博客
 date: 2018-2-20 15:39:14
 tags:
   - Hexo
-count: 1
+count: 2
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -17,13 +17,14 @@ key: 30
 升级搞崩了，于是重新做人
 
 ## 0x01.安装[Node.js](https://nodejs.org/zh-cn/)
-![每次去看都有更新，速度实在是太快了](https://i1.yuangezhizao.cn/Win-10/20180220154155.jpg!webp)
+![每次去看都有更新，速度实在是太快了](https://i1.yuangezhizao.cn/Win-10/20191017213053.jpg!webp)
+![坚决拒绝全家桶，不解释](https://i1.yuangezhizao.cn/Win-10/20191017214637.jpg!webp)
 
 配置[淘宝`NPM`镜像](https://npm.taobao.org/)
 `npm install -g cnpm --registry=https://registry.npm.taobao.org`
 
 ## 0x02.安装[Hexo](https://hexo.io/zh-cn/)
-![作者台湾大学生](https://i1.yuangezhizao.cn/Win-10/20180220154341.jpg!webp)
+![作者台湾大学生](https://i1.yuangezhizao.cn/Win-10/20191017213644.jpg!webp)
 
 ``` bash
 cnpm install hexo-cli -g
@@ -42,6 +43,11 @@ cnpm install hexo-helper-qrcode --save
 cnpm install hexo-all-minifier --save
 cnpm install hexo-wordcount --save
 cnpm install hexo-generator-restful --save
+
+cnpm install hexo-server --save
+cnpm install hexo-helper-live2d --save
+cnpm install hexo-filter-date-from-git --save
+cnpm install hexo-native-lazy-load --save
 
 hexo clean && hexo g && hexo s
 ```
