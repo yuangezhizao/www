@@ -181,3 +181,7 @@ live2d:
   dialog:
     enable: true
     hitokoto: false
+
+lazy_load:
+  enable: true
+  all: true
