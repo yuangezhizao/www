@@ -16,7 +16,37 @@ key: 58
     《HIMEHINA 心灵的怒吼》直播源 720P 拉伸至 1080P 的尝试
 <!-- more -->
 ## 0x00.前言
-> https://pan.baidu.com/s/1gBimi2KfyP_oDvqh6V4IGA
+> 原版：https://www.acfun.cn/v/ac11277880
+度盘：https://pan.baidu.com/s/1gBimi2KfyP_oDvqh6V4IGA
+
+Audio：
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script>
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    audio: [{
+        name: '1stONE-MAN LIVE「心を叫べ」',
+        artist: 'HIMEHINA',
+        url: 'https://a1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac',
+        cover: 'https://i0.hdslb.com/bfs/archive/a3e25de38182292dfa36ef06fea7ea7cd894e15b.jpg'
+    }]
+});
+</script>
+Video：
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css" />
+<div id="dplayer"></div>
+<script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
+<script>
+const dp = new DPlayer({
+    container: document.getElementById('dplayer'),
+    video: {
+        url: 'https://v1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+        preload: 'metadata'
+    },
+});
+</script>
 ![资源](https://i1.yuangezhizao.cn/Win-10/20191007173645.jpg!webp)
 ![审核过草](https://i1.yuangezhizao.cn/Win-10/20191007173737.jpg!webp)
 ![血赚](https://i1.yuangezhizao.cn/Win-10/20191007173222.jpg!webp)
