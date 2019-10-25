@@ -18,8 +18,8 @@ key: 44
   原文作者：远哥制造
 
 ## 0x00.缘由
-在`2017-8-3 10:25:03`写的[Win-10 安装 TensorFlow-GPU](https://www.yuangezhizao.cn/articles/python/TensorFlow/install-tensorflow-gpu-on-Win-10.html)被[CSDN](https://blog.csdn.net/sinat_36458870/article/details/78783587)上的一位博主引用，这篇文章让我这个小站有了每天的固定个位数访客。正值前几天`TF 2.0`发布（油管直播我他妈熬夜看的`QAQ`），也是时候把这篇文章更新下了，其实早就想了……
-唔，还有简书上的这篇[Faster R-CNN for Tensorflow](https://www.jianshu.com/p/08c1faa38358)
+在`2017-8-3 10:25:03`写的[Win-10 安装 TensorFlow-GPU](https://www.yuangezhizao.cn/articles/python/TensorFlow/install-tensorflow-gpu-on-Win-10.html)被[CSDN](https://web.archive.org/save/https://blog.csdn.net/sinat_36458870/article/details/78783587)上的一位博主引用，这篇文章让我这个小站有了每天的固定个位数访客。正值前几天`TF 2.0`发布（油管直播我他妈熬夜看的`QAQ`），也是时候把这篇文章更新下了，其实早就想了……
+唔，还有简书上的这篇[Faster R-CNN for Tensorflow](https://web.archive.org/save/https://www.jianshu.com/p/08c1faa38358)
 
 ## 0x01.环境
 a. Microsoft Windows [版本 10.0.17763.316]（Win 10 x64 2019-LTSC 1809 17763.316）
