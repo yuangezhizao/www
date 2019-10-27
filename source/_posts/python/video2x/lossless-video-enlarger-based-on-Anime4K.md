@@ -29,8 +29,9 @@ const ap = new APlayer({
     audio: [{
         name: '1stONE-MAN LIVE「心を叫べ」',
         artist: 'HIMEHINA',
-        url: 'https://a1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac',
-        // https://a3.yuangezhizao.workers.dev/?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac
+        // url: 'https://a1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac',
+        // url: 'https://a3.yuangezhizao.workers.dev/?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac',
         cover: 'https://cors.yuangezhizao.workers.dev/?url=https://i0.hdslb.com/bfs/archive/a3e25de38182292dfa36ef06fea7ea7cd894e15b.jpg'
     }]
 });
@@ -46,15 +47,16 @@ const dp = new DPlayer({
     video: {
         // url: 'https://v1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
         // url: 'https://v3.yuangezhizao.workers.dev?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
-        url: 'http://v0-hls.yuangezhizao.cn/job_02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
-        type: 'hls',
+        // url: 'http://v0-hls.yuangezhizao.cn/job_02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+        url: 'https://home.yuangezhizao.cn:3333/cos/v0/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+        // type: 'hls',
         preload: 'metadata'
     },
-    pluginOptions: {
-        hls: {
-            // hls config
-        },
-    },
+    // pluginOptions: {
+    //     hls: {
+    //         // hls config
+    //     },
+    // },
 });
 </script>
 ![资源](https://i1.yuangezhizao.cn/Win-10/20191007173645.jpg!webp)
