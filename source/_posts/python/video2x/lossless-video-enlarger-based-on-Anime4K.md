@@ -31,21 +31,29 @@ const ap = new APlayer({
         artist: 'HIMEHINA',
         url: 'https://a1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac',
         // https://a3.yuangezhizao.workers.dev/?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output_audio_index0.aac
-        cover: 'https://i0.hdslb.com/bfs/archive/a3e25de38182292dfa36ef06fea7ea7cd894e15b.jpg'
+        cover: 'https://cors.yuangezhizao.workers.dev/?url=https://i0.hdslb.com/bfs/archive/a3e25de38182292dfa36ef06fea7ea7cd894e15b.jpg'
     }]
 });
 </script>
 Video：
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css" />
 <div id="dplayer"></div>
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
 <script>
 const dp = new DPlayer({
     container: document.getElementById('dplayer'),
     video: {
-        url: 'https://v1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
-        // https://v3.yuangezhizao.workers.dev?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4
+        // url: 'https://v1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+        // url: 'https://v3.yuangezhizao.workers.dev?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+        url: 'http://v0-hls.yuangezhizao.cn/job_02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+        type: 'hls',
         preload: 'metadata'
+    },
+    pluginOptions: {
+        hls: {
+            // hls config
+        },
     },
 });
 </script>
