@@ -45,11 +45,29 @@ Video：
 const dp = new DPlayer({
     container: document.getElementById('dplayer'),
     video: {
-        // url: 'https://v1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
-        // url: 'https://v3.yuangezhizao.workers.dev?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
-        // url: 'http://v0-hls.yuangezhizao.cn/job_02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
-        url: 'https://home.yuangezhizao.cn:3333/cos/v0/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
-        // type: 'hls',
+        quality: [
+            {
+                name: 'home',
+                url: 'https://home.yuangezhizao.cn:3333/cos/v0/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+                type: 'normal',
+            },
+            {
+                name: 'v3',
+                url: 'https://v3.yuangezhizao.workers.dev?file=02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+                type: 'normal',
+            },
+            {
+                name: 'v1',
+                url: 'https://v1.yuangezhizao.cn/02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+                type: 'normal',
+            },
+            {
+                name: 'v0-hls',
+                url: 'http://v0-hls.yuangezhizao.cn/job_02be24f712d246fda72bc70076fe402b-4f3b523415ec5a4e9b85143508d77e06-hd_output.mp4',
+                type: 'hls',
+            },
+        ],
+        defaultQuality: 0,
         preload: 'metadata'
     },
     // pluginOptions: {
