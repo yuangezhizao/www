@@ -191,8 +191,8 @@ Max upload size: 5.2 TB
 ## 0x08. 编译安装[python373](https://www.python.org/downloads/release/python-373/)环境
 https://www.yuangezhizao.cn/articles/Linux/CentOS/server.html#0x04-编译安装python373环境
 
-## 0x09. 测速工具`speedtest-cli`
-`pip3 install speedtest-cli`
+## 0x09. 测速工具`speedtest`~~-cli~~
+~~`pip3 install speedtest-cli`~~
 ``` bash
 [root@CentOS ~]# speedtest-cli
 Retrieving speedtest.net configuration...
@@ -204,6 +204,47 @@ Testing download speed..........................................................
 Download: 96.85 Mbit/s
 Testing upload speed......................................................................................................
 Upload: 95.07 Mbit/s
+```
+![然后竟然出了官方版](https://i1.yuangezhizao.cn/Win-10/20191103230422.jpg!webp)
+```
+sudo yum install wget
+wget https://bintray.com/ookla/rhel/rpm -O bintray-ookla-rhel.repo
+sudo mv bintray-ookla-rhel.repo /etc/yum.repos.d/
+# Other non-official binaries will conflict with Speedtest CLI
+# Example how to remove using yum
+# rpm -qa | grep speedtest | xargs -I {} sudo yum -y remove {}
+sudo yum install speedtest
+```
+测速结果
+```
+[root@CentOS ~]# speedtest
+==============================================================================
+
+You may only use this Speedtest software and information generated
+from it for personal, non-commercial use, through a command line
+interface on a personal computer. Your use of this software is subject
+to the End User License Agreement, Terms of Use and Privacy Policy at
+these URLs:
+
+	https://www.speedtest.net/about/eula
+	https://www.speedtest.net/about/terms
+	https://www.speedtest.net/about/privacy
+
+==============================================================================
+
+Do you accept the license? [type YES to accept]: YES
+License acceptance recorded. Continuing.
+
+
+   Speedtest by Ookla
+
+     Server: Xfernet - Los Angeles, CA (id = 13516)
+        ISP: QuadraNet
+    Latency:    41.88 ms   (1.92 ms jitter)
+   Download:    99.61 Mbps (data used: 123.0 MB)                               
+     Upload:   102.78 Mbps (data used: 132.7 MB)                               
+Packet Loss:     0.0%
+ Result URL: https://www.speedtest.net/result/c/<rm>
 ```
 
 ## 0x10.后记
