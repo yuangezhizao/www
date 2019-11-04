@@ -14,8 +14,6 @@ key: 61
     太好看了鸭
 <!-- more -->
 ## 0x00.[190719][Hi-Res][天気の子/RADWIMPS][天気の子 主題歌5曲+劇伴27曲][48.0kHz/24bit][flac+5%rr][1.09GB]
-![](https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp)    
-
 > RADWIMPS
 レーベル Universal Music LLC
 配信開始日 2019.07.19
@@ -74,3 +72,171 @@ CDパッケージ用のコメントを利用している場合があるため、
 30-大丈夫 (Movie edit)
 31-愛にできることはまだあるかい
 
+Audio：
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script>
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    preload: 'metadata',
+    audio: [{
+        name: '01. 『天気の子』のテーマ',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/01. 『天気の子』のテーマ.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '02. 優しさの味.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/02. 優しさの味.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '03. K&A 初訪問.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/03. K&A 初訪問.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '04. 占秘館へようこそ.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/04. 占秘館へようこそ.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '05. K&A 入社式.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/05. K&A 入社式.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '06. 風たちの声 (Movie edit).flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/06. 風たちの声 (Movie edit).flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '07. 陽菜、救出.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/07. 陽菜、救出.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '08. 晴れゆく空.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/08. 晴れゆく空.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '09. 空の海.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/09. 空の海.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '10. 御宅訪問.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/10. 御宅訪問.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '11. 初の晴れ女バイト.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/11. 初の晴れ女バイト.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '12. 祝祭 (Movie edit) feat.三浦透子.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/12. 祝祭 (Movie edit) feat.三浦透子.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '13. 花火大会.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/13. 花火大会.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '14. 気象神社.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/14. 気象神社.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '15. 芝公園.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/15. 芝公園.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '16. 二つの告白.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/16. 二つの告白.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '17. 首都危機.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/17. 首都危機.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '18. 真夏の雪.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/18. 真夏の雪.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '19. 天気の力.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/19. 天気の力.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '20. 家族の時間.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/20. 家族の時間.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '21. 消えゆく陽菜.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/21. 消えゆく陽菜.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '22. 永遠の雲の上.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/22. 永遠の雲の上.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '23. 晴天と喪失.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/23. 晴天と喪失.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '24. 帆高、逃走～子供達の画策.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/24. 帆高、逃走～子供達の画策.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '25. バイクチェイス.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/25. バイクチェイス.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '26. 陽菜と、走る帆高.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/26. 陽菜と、走る帆高.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '27. 愛にできることはまだあるかい (Movie edit).flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/27. 愛にできることはまだあるかい (Movie edit).flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '28. グランドエスケープ (Movie edit) feat.三浦透子.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/28. グランドエスケープ (Movie edit) feat.三浦透子.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '29. ふたたびの、雨.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/29. ふたたびの、雨.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '30. 大丈夫 (Movie edit).flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/30. 大丈夫 (Movie edit).flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    },{
+        name: '31. 愛にできることはまだあるかい.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/31. 愛にできることはまだあるかい.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/Zcvyt4ASg1Xbaek.jpg!webp'
+    }]
+});
+</script>
+
+未完待续……
