@@ -26,6 +26,7 @@ Audio：
 <script>
 const ap = new APlayer({
     container: document.getElementById('aplayer'),
+    preload: 'metadata',
     audio: [{
         name: '1stONE-MAN LIVE「心を叫べ」',
         artist: 'HIMEHINA',
