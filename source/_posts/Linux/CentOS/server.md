@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -18,7 +18,9 @@ key: 50
 ## 0x00.修改主机名
 ``` bash
 [root@txy ~]# hostnamectl set-hostname txy.yuangezhizao.cn
-[root@txy ~]# cat /etc/hosts 
+[root@txy ~]# hostname
+txy.yuangezhizao.cn
+[root@txy ~]# cat /etc/hosts
 127.0.0.1 txy.yuangezhizao.cn txy.yuangezhizao.cn
 127.0.0.1 localhost.localdomain localhost
 127.0.0.1 localhost4.localdomain4 localhost4
@@ -26,21 +28,22 @@ key: 50
 ::1 txy.yuangezhizao.cn txy.yuangezhizao.cn
 ::1 localhost.localdomain localhost
 ::1 localhost6.localdomain6 localhost6
+[root@txy ~]# reboot
 ```
 
 ## 0x01.更新
 ``` bash
-yum update && yum upgrade -y
+yum update -y
 ```
 
 ## 0x02.软件
+``` bash
+yum install htop git axel -y
+```
 1. `nfs-utils`：暂时`10G`免费
 ![腾讯云文件系统](https://i1.yuangezhizao.cn/Win-10/20190509232645.jpg!webp)
 
-2. `htop`
-3. `git`
-4. `axel`：多线程下载工具
-5. `COSFS`：https://github.com/tencentyun/cosfs
+2. `COSFS`：https://github.com/tencentyun/cosfs
 ![直接在本地是相当爽了，可惜 Win 享受不到](https://i1.yuangezhizao.cn/Win-10/20190509232817.jpg!webp)
 
 ## 0x03.挂载第三方存储
@@ -49,7 +52,7 @@ yum update && yum upgrade -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python373](https://www.python.org/downloads/release/python-373/)环境
+## 0x04.编译安装[python380](https://www.python.org/downloads/release/python-380/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -62,68 +65,6 @@ yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel read
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-奇怪的是我用`IDM`本地多线程下载的包，传上去解压的时候会报错，查了下说是包不完整需要重下，无奈……
-`==`
-只能`wget`龟速下载了……
-``` bash
-wget --no-check-certificate https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
-```
-4. 解压
-``` bash
-tar -zxvf Python-3.7.0.tgz
-cd Python-3.7.0
-```
-5. 编译
-``` bash
-sudo ./configure --prefix=/usr/local/python3
-sudo make && make install
-```
-6. 安装`pip3`
-``` bash
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python3 get-pip.py
-```
-7. 升级`pip3`
-``` bash
-[root@txy ~]# pip3 install --upgrade pip
-Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
-Requirement already up-to-date: pip in /usr/local/python3/lib/python3.7/site-packages (19.1.1)
-```
-8. 创建软链接（`python3`&`pip3`）
-``` bash
-sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-sudo ln -s /usr/local/python3/bin/pip3.7 /usr/bin/pip3
-[root@txy ~]# python -V
-Python 2.7.5
-[root@txy ~]# python3 -V
-Python 3.7.3
-```
-> 这样就可以通过`python`命令使用`Python 2`，`python3`来使用`Python 3`
-
-9. 更改`yum`配置
-``` bash
-vim /usr/bin/yum 
-vim /usr/libexec/urlgrabber-ext-down 
-vim /bin/yum-config-manager
-```
-把`#! /usr/bin/python`修改为`#! /usr/bin/python2`
-10. 修改默认为`Python 3`
-将`/usr/bin`中的`python`备份，然后创建`python3`的软链接，这样默认的`Python`版本就替换为`Python 3`了
-``` bash
-[root@txy ~]# sudo mv /usr/bin/python /usr/bin/python.bak
-[root@txy ~]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python
-```
-11. 加入环境变量
-`vim ~/.bash_profile`
-`PATH=$PATH:$HOME/bin:/usr/local/python3/bin`
-
-## 0x05.编译安装[python380](https://www.python.org/downloads/release/python-380/)环境
-1. 查看现有位置
-``` bash
-[root@txy ~]# whereis python
-python: /usr/bin/python /usr/bin/python.bak /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/local/python3/bin/python3.7 /usr/local/python3/bin/python3.7-config /usr/local/python3/bin/python3.7m-config /usr/local/python3/bin/python3.7m /usr/share/man/man1/python.1.gz
-```
-2. 下载源码包
 ``` bash
 wget --no-check-certificate https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz
 ```
@@ -131,7 +72,7 @@ wget --no-check-certificate https://www.python.org/ftp/python/3.8.0/Python-3.8.0
 
 4. 解压
 ``` bash
-tar xvJf Python-3.8.0.tar.xz 
+tar xvJf Python-3.8.0.tar.xz
 cd Python-3.8.0
 ```
 5. 编译
@@ -139,47 +80,78 @@ cd Python-3.8.0
 sudo ./configure --prefix=/usr/local/python3
 sudo make && make install
 ```
-![都在同一文件夹](https://i1.yuangezhizao.cn/Win-10/20191016211846.jpg!webp)
-
-6. 升级`pip3`
+6. 创建软链接（`python3`&`pip3`）
+此法不会破坏自带`py`环境，因此无需修改任何`yum`文件
+注：更改`yum`配置
 ``` bash
-[root@txy Python-3.8.0]# pip3 install --upgrade pip
+vim /usr/bin/yum 
+vim /usr/libexec/urlgrabber-ext-down 
+vim /bin/yum-config-manager
+```
+把`#! /usr/bin/python`修改为`#! /usr/bin/python2`
+``` bash
+……
+Installing collected packages: setuptools, pip
+Successfully installed pip-19.2.3 setuptools-41.2.0
+[root@txy Python-3.8.0]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+[root@txy Python-3.8.0]# sudo ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
+[root@txy Python-3.8.0]# python -V
+Python 2.7.5
+[root@txy Python-3.8.0]# python2 -V
+Python 2.7.5
+[root@txy Python-3.8.0]# python3 -V
+Python 3.8.0
+[root@txy Python-3.8.0]# pip -V
+-bash: pip: command not found
+[root@txy Python-3.8.0]# pip2 -V
+-bash: pip2: command not found
+[root@txy Python-3.8.0]# pip3 -V
+pip 19.2.3 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
+[root@txy ~]# python3
+Python 3.8.0 (default, Nov  8 2019, 19:13:51) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exit()
+```
+> 这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`
+
+7. 升级`pip3`
+你云环境下会自动配置镜像源
+``` bash
+[root@txy ~]# pip3 install --upgrade pip
 Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
 Collecting pip
-  Downloading http://mirrors.tencentyun.com/pypi/packages/4a/08/6ca123073af4ebc4c5488a5bc8a010ac57aa39ce4d3c8a931ad504de4185/pip-19.3-py2.py3-none-any.whl (1.4MB)
-     |████████████████████████████████| 1.4MB 846kB/s 
+  Downloading http://mirrors.tencentyun.com/pypi/packages/00/b6/9cfa56b4081ad13874b0c6f96af8ce16cfbc1cb06bedf8e9164ce5551ec1/pip-19.3.1-py2.py3-none-any.whl (1.4MB)
+     |████████████████████████████████| 1.4MB 670kB/s 
 Installing collected packages: pip
   Found existing installation: pip 19.2.3
     Uninstalling pip-19.2.3:
       Successfully uninstalled pip-19.2.3
-Successfully installed pip-19.3
+Successfully installed pip-19.3.1
 ```
-8. 修改默认为`Python 3`
-将`/usr/bin`中的`python`备份，然后创建`python3`的软链接，这样默认的`Python`版本就替换为`Python 3`了
+安装`pip3`的另一种方法
 ``` bash
-[root@txy ~]# sudo mv /usr/bin/python /usr/bin/python.bak
-[root@txy ~]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python
-[root@txy ~]# python
-Python 3.8.0 (default, Oct 16 2019, 21:10:37) 
-[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> exit()
-[root@txy ~]# 
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py
 ```
-9. 创建软链接（`python3`&`pip3`）
+8. 加入环境变量
 ``` bash
-rm -f /usr/bin/python3
-rm -f /usr/bin/pip3
-sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-sudo ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
-[root@txy ~]# python -V
-Python 3.8.0
-[root@txy ~]# python2 -V
-Python 2.7.5
-```
-> 这样就可以通过`python2`命令使用`Python`，`python`/`python3`来使用`Python 3`
+[root@txy ~]# cat ~/.bash_profile
+# .bash_profile
 
-## 0x06.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin:/usr/local/python3/bin
+
+export PATH
+```
+
+## 0x05.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
 1. 卸载旧版本
 ``` bash
 sudo yum remove docker \
