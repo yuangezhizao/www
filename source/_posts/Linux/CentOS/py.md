@@ -302,7 +302,7 @@ synchronised to NTP server (134.175.254.134) at stratum 3
 ```
 
 ## 0x04.引用
-> [ifconfig命令不存在command not found](https://web.archive.org/web/20191028144703/http://web.archive.org/screenshot/https://blog.csdn.net/dong_alex/article/details/80873733)
-[Linux 实例设置 NTP 服务](https://web.archive.org/web/20191107152042/http://web.archive.org/screenshot/https://cloud.tencent.com/document/product/213/30393)
+> [ifconfig命令不存在command not found](https://web.archive.org/web/20191028144703/https://blog.csdn.net/dong_alex/article/details/80873733)
+[Linux 实例设置 NTP 服务](https://web.archive.org/web/20191107152042/https://cloud.tencent.com/document/product/213/30393)
 
 未完待续……

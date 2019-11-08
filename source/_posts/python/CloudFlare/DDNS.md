@@ -162,6 +162,6 @@ Successfully installed certifi-2019.6.16 chardet-3.0.4 idna-2.8 requests-2.22.0 
 ![运行成功](https://i1.yuangezhizao.cn/Win-10/20190812015053.png!webp)
 
 ## 0x03.引用
-> [基于 Cloudflare DNS API 部署 IPv6 DDNS](https://web.archive.org/web/20191027085842/http://web.archive.org/screenshot/https://zenandidi.com/archives/2397)
+> [基于 Cloudflare DNS API 部署 IPv6 DDNS](https://web.archive.org/web/20191027085842/https://zenandidi.com/archives/2397)
 
 未完待续……
