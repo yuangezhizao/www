@@ -4,7 +4,7 @@ date: 2019-5-12 20:53:55
 tags:
   - CentOS
   - server
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.475 2019-LTSC
 browser: 0
@@ -25,11 +25,19 @@ key: 51
 
 ## 0x01.`ssh`关闭密码登录
 新系统刚进去就看到了两次失败登录尝试，于是直接关了密码登录`/etc/ssh/sshd_config`：`PasswordAuthentication no`，`systemctl restart sshd.service`，注销之后果然密码登录不行，密钥`ok`
-![我关了](https://i1.yuangezhizao.cn/Win-10/20190512214356.jpg!webp)
+![修改配置文件不会显示在这里](https://i1.yuangezhizao.cn/Win-10/20190512214356.jpg!webp)
 ![或在重装系统时选好](https://i1.yuangezhizao.cn/Win-10/20191120185105.jpg!webp)
 
-## 0x02.[V2ray](https://github.com/v2ray/v2ray-core)官方安装
-~~[V2ray.Fun](https://github.com/FunctionClub/V2ray.Fun)~~
+## 0x02. `v2ray`合集
+### 1. [v2-ui](https://github.com/sprov065/v2-ui/)
+
+作者博客：[v2-ui，一个全新的多协议多用户 v2ray 面板](https://web.archive.org/web/20191123055128/https://blog.sprov.xyz/2019/08/03/v2-ui/)
+又搜罗到好的面板了，用了数月看起来还不错
+![登录](https://i1.yuangezhizao.cn/Win-10/20191123141115.jpg!webp)
+![主界面](https://i1.yuangezhizao.cn/Win-10/20191123141157.jpg!webp)
+
+### 2. [v2ray](https://github.com/v2ray/v2ray-core)
+使用官方原版安装，其实只需要配置文件提前写好就`ok`
 看了下手册，其实只需要`bash <(curl -L -s https://install.direct/go.sh)`，之后记好`PORT`&`UUID`即可
 ``` bash
 [root@CentOS ~]# bash <(curl -L -s https://install.direct/go.sh)
@@ -118,7 +126,7 @@ Hint: Some lines were ellipsized, use -l to show in full.
   }
 }
 ```
-
+### ~~3. [V2ray.Fun](https://github.com/FunctionClub/V2ray.Fun)~~
 ~~一键安装脚本有的是，特意看了内容有的真的会保存你的信息……安装原版的又不顺手，最终选了这个，带图形化管理界面不错`hhh`，是用`Flask`写的。
 `wget -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/V2ray.Fun/master/install.sh && bash install.sh`~~
 ![修改连接](https://i1.yuangezhizao.cn/Win-10/20190512214632.png!webp)
@@ -132,7 +140,7 @@ Hint: Some lines were ellipsized, use -l to show in full.
 ## 0x03.服务器版本
 ``` bash
 [root@CentOS ~]# cat /etc/redhat-release
-CentOS Linux release 7.3.1611 (Core)
+CentOS Linux release 7.7.1908 (Core)
 ```
 
 ## 0x04.修改时区
@@ -161,7 +169,7 @@ NTP synchronized: yes
 ## 0x05.常用工具
 ``` bash
 yum update
-yum install vim htop axel -y
+yum install vim htop axel ffmpeg -y
 ```
 
 ## 0x06.挂载第三方存储
@@ -193,20 +201,7 @@ Max upload size: 5.2 TB
 ## 0x08. 编译安装[python380](https://www.python.org/downloads/release/python-380/)环境
 https://www.yuangezhizao.cn/articles/Linux/CentOS/server.html#0x04-编译安装python380环境
 
-## 0x09. 测速工具`speedtest`
-~~`pip3 install speedtest-cli`~~
-``` bash
-[root@CentOS ~]# speedtest-cli
-Retrieving speedtest.net configuration...
-Testing from QuadraNet (<rm>)...
-Retrieving speedtest.net server list...
-Selecting best server based on ping...
-Hosted by Kansas Research and Education Network (Wichita, KS) [43.14 km]: 46.056 ms
-Testing download speed................................................................................
-Download: 96.85 Mbit/s
-Testing upload speed......................................................................................................
-Upload: 95.07 Mbit/s
-```
+## 0x09. 测速工具[SPEEDTEST CLI](https://speedtest.net/apps/cli#fedora)
 ![然后竟然出了官方版](https://i1.yuangezhizao.cn/Win-10/20191120191325.jpg!webp)
 ```
 sudo yum install wget
@@ -248,15 +243,42 @@ License acceptance recorded. Continuing.
 Packet Loss:     0.0%
  Result URL: https://www.speedtest.net/result/c/<rm>
 ```
+基于`py`的上古`speedtest-cli`已成为历史
+~~`pip3 install speedtest-cli`~~
+``` bash
+[root@CentOS ~]# speedtest-cli
+Retrieving speedtest.net configuration...
+Testing from QuadraNet (<rm>)...
+Retrieving speedtest.net server list...
+Selecting best server based on ping...
+Hosted by Kansas Research and Education Network (Wichita, KS) [43.14 km]: 46.056 ms
+Testing download speed................................................................................
+Download: 96.85 Mbit/s
+Testing upload speed......................................................................................................
+Upload: 95.07 Mbit/s
+```
 
-## 0x10.后记
+## 0x10.安装[宝塔面板](https://www.bt.cn/)
+经过多次试验，不管是选择`源码编译安装`还是`二进制极速安装`都会失败，想了下原因应该是机子配置太低……
+即使安装完成，但是会自动启动应用程序，而且默认配置已经吃满了性能，所以内存直接就爆掉了，过草
+因此，想安装软件只能自己手动安装，再修改配置文件，最后启动（生草，比如 `ng` 就是这么搞的
+![每次进来都会弹出安装提示](https://i1.yuangezhizao.cn/Win-10/20191123152243.jpg!webp)
+![主界面](https://i1.yuangezhizao.cn/Win-10/20191123152444.jpg!webp)
+
+比较实用的是`Web Shell`和`文件管理`，~~这样在使用公司网络这种含有特殊防火墙无法连接`22`端口的环境下也可以顺利操作了`hhh`~~
+~~顺便一提，十月份特殊时期靠着公司代理能连上`proxy.yuangezhizao.cn`，然后`bt`面板主界面一直开着没关，导致访问量爆炸~~
+~~到了`191114`突然被`SC`课电话查水表了，“这个域名是你自己的吧……你这个是干什么的？”~~
+~~上午巨困……内部电话也听不太清……后来想想解释的也不对（Doge~~
+~~`网 络 审 计 大 草`~~
+
+## 0x11.后记
 本来还想着放到路由器上，后来想想还是算了吧，毕竟性能（其实`K2`还可以的）
 `2019.10`翻车了。。。后借用大佬的`Cisco AnyConnect`才够到了失恋的国外机子（骚操作
 连上之后`CloudFlare`反代`ws`协议的`v2ray`才能勉强持续使用……
 然而都`10.11`也不见恢复的样子，过草过草……
 所以就干脆一步到位直接重装系统了……
 
-## 0x11.附注：已安装包（同步更新）
+## 0x12.附注：已安装包（同步更新）
 应该是最小化版本（因为`vim`都没有……）
 ![htop 看了眼进程列表](https://i1.yuangezhizao.cn/Win-10/20191120182547.jpg!webp)
 
@@ -268,7 +290,7 @@ Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
  * base: mirror.fileplanet.com
  * epel: d2lzkl7pfhq30w.cloudfront.net
- * extras: mirror.fileplanet.com
+ * extras: repos-lax.psychz.net
  * nux-dextop: mirror.li.nux.ro
  * updates: mirror.fileplanet.com
 Installed Packages
@@ -689,5 +711,5 @@ yum-plugin-fastestmirror.noarch             1.1.31-52.el7                       
 zip.x86_64                                  3.0-11.el7                                    @base               
 zlib.x86_64                                 1.2.7-18.el7                                  @base               
 zlib-devel.x86_64                           1.2.7-18.el7                                  @base               
-[root@CentOS ~]#  
+[root@CentOS ~]# 
 ```
