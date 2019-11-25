@@ -5,7 +5,7 @@ tags:
   - Anime4K
   - Video2X
   - HIMEHINA
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.775 2019-LTSC
 browser: 0
@@ -37,6 +37,9 @@ const ap = new APlayer({
     }]
 });
 </script>
+
+下载地址（由`Coding`企业版`TencentStorage`支持）：[https://yuangezhizao.coding.net/s/ef2743f2-14ac-4b3e-b02d-2fe16ead36f9](https://yuangezhizao.coding.net/s/ef2743f2-14ac-4b3e-b02d-2fe16ead36f9)
+
 Video：
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css" />
 <div id="dplayer"></div>
