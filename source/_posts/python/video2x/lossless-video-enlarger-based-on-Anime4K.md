@@ -17,7 +17,7 @@ key: 58
 <!-- more -->
 ## 0x00.前言
 > 原版：https://www.acfun.cn/v/ac11277880
-度盘：https://pan.baidu.com/s/1gBimi2KfyP_oDvqh6V4IGA
+度盘：https://pan.baidu.com/s/1Sxkr64-KRTQTfo_cDmdGXw
 
 Audio：
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
@@ -112,5 +112,6 @@ const dp = new DPlayer({
 ![于是变成了手动下载了……](https://i1.yuangezhizao.cn/Win-10/20191007205803.jpg!webp)
 ![顺便更新下版本](https://i1.yuangezhizao.cn/Win-10/20191007201335.jpg!webp)
 ![文件夹名实在是太难了……](https://i1.yuangezhizao.cn/Win-10/20191007213018.jpg!webp)
+![GitMent 权限？](https://i1.yuangezhizao.cn/Win-10/20191121183458.jpg!webp)
 
 未完待续……
