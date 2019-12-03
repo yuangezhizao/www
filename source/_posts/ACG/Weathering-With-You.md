@@ -74,11 +74,11 @@ CDパッケージ用のコメントを利用している場合があるため、
 
 Audio：
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-<div id="aplayer"></div>
+<div id="aplayer_0"></div>
 <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
 <script>
-const ap = new APlayer({
-    container: document.getElementById('aplayer'),
+const ap_0 = new APlayer({
+    container: document.getElementById('aplayer_0'),
     preload: 'metadata',
     audio: [{
         name: '01. 『天気の子』のテーマ',
@@ -235,6 +235,66 @@ const ap = new APlayer({
         artist: 'RADWIMPS',
         url: 'https://home.yuangezhizao.cn:3333/cos/a0/天気の子/31. 愛にできることはまだあるかい.flac',
         cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/cover.jpg!webp'
+    }]
+});
+</script>
+
+## 0x01.[191127][Hi-Res]RADWIMPS - 天気の子 complete version[48kHZ/24bit][FLAC][455.2 MiB]
+> 天気の子 complete version／RADWIMPS
+天気の子 complete version
+RADWIMPS
+レーベル
+配信開始日
+収録曲数
+収録時間
+サイズ合計
+販売データ
+Universal Music LLC
+2019.11.27
+全5曲
+26:55
+454.2MB
+ハイレゾ｜FLAC｜48.0kHz/24bit<br>
+作品紹介
+RADWIMPS×映画『天気の子』プロジェクトで制作された主題歌5曲のフルサイズ音源が収録され、これまでMovie edit（劇中サイズ）で発表されていた楽曲の全容が、ついに明らかになる。<br>
+> 1. 風たちの声    04:13
+2. 祝祭 feat. 三浦透子    04:34
+3. グランドエスケープ feat. 三浦透子    05:39
+4. 大丈夫    05:35
+5. 愛にできることはまだあるかい    06:54
+
+Audio：
+<div id="aplayer_1"></div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script>
+const ap_1 = new APlayer({
+    container: document.getElementById('aplayer_1'),
+    preload: 'metadata',
+    audio: [{
+        name: '001-風たちの声.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/191127_天気の子/001-風たちの声.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/cover_1.jpg!webp'
+    },{
+        name: '002-祝祭 feat. 三浦透子.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/191127_天気の子/002-祝祭 feat. 三浦透子.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/cover_1.jpg!webp'
+    },{
+        name: '003-グランドエスケープ feat. 三浦透子.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/191127_天気の子/003-グランドエスケープ feat. 三浦透子.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/cover_1.jpg!webp'
+    },{
+        name: '004-大丈夫.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/191127_天気の子/004-大丈夫.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/cover_1.jpg!webp'
+    },{
+        name: '005-愛にできることはまだあるかい.flac',
+        artist: 'RADWIMPS',
+        url: 'https://home.yuangezhizao.cn:3333/cos/a0/191127_天気の子/005-愛にできることはまだあるかい.flac',
+        cover: 'https://i1.yuangezhizao.cn/anime/Weathering-With-You/cover_1.jpg!webp'
     }]
 });
 </script>
