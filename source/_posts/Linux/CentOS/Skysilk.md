@@ -17,10 +17,8 @@ key: 51
 
 ## 0x00.前言
 ~~![隔一阵子就炸一次的面板]~~(https://i1.yuangezhizao.cn/Win-10/20191011215155.jpg!webp)
-
 ~~一直以为被墙了，今晚才反应过来很奇怪啊，能`ping`，但是`nginx`外网页面看不了（还不是`80`端口），`ssh`连不上……直到我打开了`Graphs`，woc~~
 ~~![CPU爆了]~~(https://i1.yuangezhizao.cn/Win-10/20190512205532.jpg!webp)
-
 ~~重启之后终于登录进去了，提示距离上次成功登录有十万次错误，绝了，`htop`也没看出来是哪个进程，并不是弱密码，奇怪的是那上面自带的`fail2ban`进程在但是貌似没生效，我也没去看相关日志，只是把`/var/log/nginx`和`/var/log/v2ray`这俩文件夹下下来了，等后期再分析……然后就直接重装新系统并传了密钥~~
 
 ## 0x01.`ssh`关闭密码登录
@@ -130,10 +128,8 @@ Hint: Some lines were ellipsized, use -l to show in full.
 ~~一键安装脚本有的是，特意看了内容有的真的会保存你的信息……安装原版的又不顺手，最终选了这个，带图形化管理界面不错`hhh`，是用`Flask`写的。
 `wget -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/V2ray.Fun/master/install.sh && bash install.sh`~~
 ~~![修改连接]~~(https://i1.yuangezhizao.cn/Win-10/20190512214632.png!webp)
-
 ~~还能直接看运行日志，也是十分爽到了~~
 ~~![运行日志]~~(https://i1.yuangezhizao.cn/Win-10/20190512214900.png!webp)
-
 ~~然后第二天就又炸了，正好遇到~~
 ~~![我们仍未知道那天就炸了的原因.jpG]~~(https://i1.yuangezhizao.cn/Win-10/20190513125106.jpg!webp)
 
