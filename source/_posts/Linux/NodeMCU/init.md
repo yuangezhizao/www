@@ -57,8 +57,7 @@ The basic process to get started with NodeMCU consists of the following three st
 2. Flash the firmware to the chip
 3. Upload code to the device.
 
-#### 编译
-上云：https://nodemcu-build.com/
+#### [上云编译](https://nodemcu-build.com/)
 云端定制固件，你值得拥有！
 ![要用谷歌邮箱，腾讯邮箱可不行](https://i1.yuangezhizao.cn/Win-10/20190818212200.jpg!webp)
 
@@ -84,12 +83,11 @@ In the meantime I suggest you take a look at the build stats to find out how you
 
 `float`与`integer`具体选哪个好？在这里我选了前者，在`print`的时候字符串格式化会有差异
 
-#### 烧录
-[NodeMCU PyFlasher](https://github.com/marcelstoer/nodemcu-pyflasher)：其实这玩楞就是个`esptool.py`的图形化封装
+#### [NodeMCU PyFlasher](https://github.com/marcelstoer/nodemcu-pyflasher)烧录
+其实这玩楞就是个`esptool.py`的图形化封装
 ![Flash NodeMCU](https://i1.yuangezhizao.cn/Win-10/20190813200545.jpg!webp)
 
-#### 连接
-[ESPlorer](https://github.com/4refr0nt/ESPlorer)
+#### [ESPlorer](https://github.com/4refr0nt/ESPlorer)连接
 `pc`需要`CH340`的驱动，这里是`COM4`，波特率`115200`
 首次连接可以按一下板子上的`RST`复位键，并且下载完成应该会提示`lua: cannot open init.lua`
 ~~我这里之前传过了所以不会有这个提示。现在懒得截图，之后再补吧……~~

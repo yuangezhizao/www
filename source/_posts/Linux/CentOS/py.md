@@ -30,7 +30,7 @@ yum install net-tools -y
 ![记下 ipv4 地址](https://i1.yuangezhizao.cn/Win-10/20191028225005.png!webp)
 
 然后就可以回到日常使用的`XShell`了（妙
-注：还不确定设定静态`ip`会不会有影响，所以就先不设了……
+注：还不确定设定静态`ip`会不会有影响（其实是不会），所以就先不设了……
 ```
 [root@localhost ~]# ip addr
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
