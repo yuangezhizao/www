@@ -95,14 +95,32 @@ key: 63
 
 ## 0x04.运行
 ![3 MB 显存，爆炸啊](https://i1.yuangezhizao.cn/Win-10/20191224214137.jpg)
+![安装不能](https://i1.yuangezhizao.cn/Win-10/20191224225344.jpg)
 ![然后只能去下了个 darwin10_1.iso 手动安装](https://i1.yuangezhizao.cn/Win-10/20191224215147.jpg)
 ![草](https://i1.yuangezhizao.cn/Win-10/20191224215402.jpg)
 ![只敢更 10.14](https://i1.yuangezhizao.cn/Win-10/20191224221201.jpg)
+![再更](https://i1.yuangezhizao.cn/Win-10/20191224225429.jpg)
 ![允许](https://i1.yuangezhizao.cn/Win-10/20191224215432.jpg)
 ![重启见奇迹](https://i1.yuangezhizao.cn/Win-10/20191224215615.jpg)
 ![128 MB 显存！](https://i1.yuangezhizao.cn/Win-10/20191224220032.jpg)
 ![高分辨率全屏实在是太奇怪了](https://i1.yuangezhizao.cn/Win-10/20191224220245.png)
-
 ![2h 警告](https://i1.yuangezhizao.cn/Win-10/20191224221228.jpg)
+
+`2019-12-25 22:40:34`更新：
+`10.15`还是不可使用，因此只能`10.14`……
+![打完快照尝试 10.15](https://i1.yuangezhizao.cn/Win-10/20191225215552.jpg)
+![屏幕分辨率受限点不到继续](https://i1.yuangezhizao.cn/Win-10/20191225220128.jpg)
+![去 tm HIDPI](https://i1.yuangezhizao.cn/Win-10/20191225221031.jpg)
+![继续](https://i1.yuangezhizao.cn/Win-10/20191225221444.jpg)
+![同意](https://i1.yuangezhizao.cn/Win-10/20191225221550.jpg)
+![安装](https://i1.yuangezhizao.cn/Win-10/20191225221621.jpg)
+![继续](https://i1.yuangezhizao.cn/Win-10/20191225222246.jpg)
+![突然完成](https://i1.yuangezhizao.cn/Win-10/20191225222513.jpg)
+![果然已炸](https://i1.yuangezhizao.cn/Win-10/20191225223700.jpg)
+![日志](https://i1.yuangezhizao.cn/Win-10/20191225223743.jpg)
+![转到](https://i1.yuangezhizao.cn/Win-10/20191225223857.jpg)
+
+## 0x05.引用
+> [求助，安装VM苹果，全屏分辨率自动变HiDPI](https://web.archive.org/web/20191225141257/http://tieba.baidu.com/p/5460378749?red_tag=c0777425807)
 
 未完待续……
