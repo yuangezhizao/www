@@ -1,10 +1,10 @@
 ---
-title: ESXI 安装 macOS Mojave
+title: ESXi 安装 macOS Mojave
 date: 2019-12-24 20:11:21
 tags:
   - VM
   - VMware
-  - ESXI
+  - ESXi
   - macOS
 count: 1
 os: 0
@@ -17,7 +17,7 @@ key: 63
     黑苹果？启动！
 <!-- more -->
 ## 0x00.前言
-由于新台式硬盘已经分配好了，所以不想再进行切割操作……况且年底也不想再去买硬盘，所以就尝试在`ESXI`上安装`macOS`试试看好了……
+由于新台式硬盘已经分配好了，所以不想再进行切割操作……况且年底也不想再去买硬盘，所以就尝试在`ESXi`上安装`macOS`试试看好了……
 前一阵子的某个周末折腾了下，照着`Google`来的教程就开始搞，只不过自己手头并没有实体`macOS`系统的机子（笔记本黑苹果已带回家
 所以只能去官网`iTunes`？下载`dmg`镜像，然后现下了个`Ultra ISO`用来把`dmg`格式转化为`iso`格式，启动！
 结果启动不能过草，直接就进`BIOS`让我去选启动项？？？然后又翻到了有人对比过的和能正常启动的`ISO`镜像的内容差异的帖子
@@ -32,7 +32,7 @@ key: 63
 ![VMs](https://i1.yuangezhizao.cn/Win-10/20191215030826.jpg!webp)
 ![苹果系统！](https://i1.yuangezhizao.cn/Win-10/20191215030849.jpg!webp)
 
-注：`unlocker`补丁（使非`ESXI`支持非`Apple`硬件等）记得最开始打上（之后重启`ESXI`
+注：`unlocker`补丁（使非`ESXi`支持非`Apple`硬件等）记得最开始打上（之后重启`ESXi`
 ![sudo sh](https://i1.yuangezhizao.cn/Win-10/20191215030222.jpg!webp)
 ![命名](https://i1.yuangezhizao.cn/Win-10/20191215030916.jpg!webp)
 ![150 GB](https://i1.yuangezhizao.cn/Win-10/20191215031120.jpg!webp)
@@ -53,7 +53,7 @@ key: 63
 ![嗯？](https://i1.yuangezhizao.cn/Win-10/20191224194512.jpg!webp)
 
 出现这个错误之后立即去搜索，想到是时间的问题，`date`更改时间重启无解，继续尝试发现还需要断网
-`ESXI`倒是很好操作，右键网络图标选择`断开连接`再开机，之后再修改时间
+`ESXi`倒是很好操作，右键网络图标选择`断开连接`再开机，之后再修改时间
 ![断网大法](https://i1.yuangezhizao.cn/Win-10/20191224195505.jpg!webp)
 ![修改时间](https://i1.yuangezhizao.cn/Win-10/20191224195650.jpg!webp)
 ![退出终端](https://i1.yuangezhizao.cn/Win-10/20191224194749.jpg!webp)
