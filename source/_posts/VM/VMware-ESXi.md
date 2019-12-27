@@ -5,7 +5,7 @@ tags:
   - VM
   - VMware
   - ESXI
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -33,7 +33,7 @@ Windows PowerShell
 版权所有 (C) Microsoft Corporation。保留所有权利。
 
 PS C:\Windows\system32> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
-PS C:\Windows\system32> Install-Module -Name VMware.PowerCLI
+PS C:\Windows\system32> Install-Module -Name VMware.PowerCLI -Scope AllUsers
 
 需要使用 NuGet 提供程序来继续操作
 PowerShellGet 需要使用 NuGet 提供程序“2.8.5.201”或更高版本来与基于 NuGet 的存储库交互。必须在“C:\Program
@@ -41,6 +41,16 @@ Files\PackageManagement\ProviderAssemblies”或“C:\Users\yuangezhizao\AppData
 s”中提供 NuGet 提供程序。也可以通过运行 'Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force' 安装
 NuGet 提供程序。是否要让 PowerShellGet 立即安装并导入 NuGet 提供程序?
 [Y] 是(Y)  [N] 否(N)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): Y
+PackageManagement\Install-Package : 找不到与指定的搜索条件和程序包名称“VMware.PowerCLI”匹配的项目。请尝试使用 Get-PSR
+epository 查看所有可用的注册程序包源。
+所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:1809 字符: 21
++ ...          $null = PackageManagement\Install-Package @PSBoundParameters
++                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Microsoft.Power....InstallPackage:InstallPackage) [Install-Package], Ex
+   ception
+    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackage
+
+PS C:\Windows\system32> Install-Module -Name VMware.PowerCLI -Scope AllUsers
 PackageManagement\Install-Package : 找不到与指定的搜索条件和程序包名称“VMware.PowerCLI”匹配的项目。请尝试使用 Get-PSR
 epository 查看所有可用的注册程序包源。
 所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:1809 字符: 21
@@ -69,17 +79,83 @@ PS C:\Windows\system32>
 ![草 * 2](https://i1.yuangezhizao.cn/Win-10/20191016005155.jpg!webp)
 ![才看到原来这里写明了新版本会在新地址发布](https://i1.yuangezhizao.cn/Win-10/20191227233138.jpg!webp)
 
-[真·官网](https://web.archive.org/web/20191227151927/https://code.vmware.com/web/tool/11.5.0/vmware-powercli)下载之后解压到模块目录下：`C:\Windows\System32\WindowsPowerShell\v1.0\Modules`，顺手把`VMware-PowerCLI-11.5.0-14912921`重命名为了`VMware-PowerCLI`
+[真·官网](https://web.archive.org/web/20191227151927/https://code.vmware.com/web/tool/11.5.0/vmware-powercli)下载之后解压到模块目录下：`C:\Windows\System32\WindowsPowerShell\v1.0\Modules`，~~顺手把`VMware-PowerCLI-11.5.0-14912921`重命名为了`VMware-PowerCLI`~~
+`2019-12-28 01:14:06`终于找到了导入不能的解决方法，那就是解压完不要嵌套文件夹，要直接放在`Modules`目录下……
 最后导入模块：`Import-Module VMware.PowerCLI`
 附：
-关闭`CEIP`（`Customer Experience Improvement Program`客户体验改进计划）：`Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false`
+关闭`CEIP（Customer Experience Improvement Program）`：`Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false`
 忽略证书验证：`Set-PowerCLIConfiguration -InvalidCertificateAction Ignore`
+![完美离线导入](https://i1.yuangezhizao.cn/Win-10/20191228011727.jpg!webp)
+
+<details><summary>点击此处 ← 查看终端</summary>
+
+``` powershell
+PS C:\Users\yuangezhizao> $env:PSModulePath
+D:\yuangezhizao\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+PS C:\Users\yuangezhizao> Import-Module VMware.PowerCLI
+警告: Please consider joining the VMware Customer Experience Improvement Program, so you can help us make PowerCLI a
+better product. You can join using the following command:
+
+Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $true
+
+VMware's Customer Experience Improvement Program ("CEIP") provides VMware with information that enables VMware to
+improve its products and services, to fix problems, and to advise you on how best to deploy and use our products.  As
+part of the CEIP, VMware collects technical information about your organization抯 use of VMware products and services
+on a regular basis in association with your organization抯 VMware license key(s).  This information does not personally
+ identify any individual.
+
+For more details: type "help about_ceip" to see the related help article.
+
+To disable this warning and set your preference use the following command and restart PowerShell:
+Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $true or $false.
+          Welcome to VMware PowerCLI!
+
+Log in to a vCenter Server or ESX host:              Connect-VIServer
+To find out what commands are available, type:       Get-VICommand
+To show searchable help for all PowerCLI commands:   Get-PowerCLIHelp
+Once you've connected, display all virtual machines: Get-VM
+If you need more help, visit the PowerCLI community: Get-PowerCLICommunity
+
+       Copyright (C) VMware, Inc. All rights reserved.
+
+
+PS C:\Users\yuangezhizao> Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false
+
+Perform operation?
+Performing operation 'Update PowerCLI configuration.'?
+[Y] 是(Y)  [A] 全是(A)  [N] 否(N)  [L] 全否(L)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): Y
+
+Scope    ProxyPolicy     DefaultVIServerMode InvalidCertificateAction  DisplayDeprecationWarnings WebOperationTimeout
+                                                                                                  Seconds
+-----    -----------     ------------------- ------------------------  -------------------------- -------------------
+Session  UseSystemProxy  Multiple            Unset                     True                       300
+User
+AllUsers
+
+
+PS C:\Users\yuangezhizao> Set-PowerCLIConfiguration -InvalidCertificateAction Ignore
+
+Perform operation?
+Performing operation 'Update PowerCLI configuration.'?
+[Y] 是(Y)  [A] 全是(A)  [N] 否(N)  [L] 全否(L)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): Y
+
+Scope    ProxyPolicy     DefaultVIServerMode InvalidCertificateAction  DisplayDeprecationWarnings WebOperationTimeout
+                                                                                                  Seconds
+-----    -----------     ------------------- ------------------------  -------------------------- -------------------
+Session  UseSystemProxy  Multiple            Ignore                    True                       300
+User                                         Ignore
+AllUsers
+
+
+PS C:\Users\yuangezhizao>
+```
+</details>
 
 #### 2.下载`ESXi-Customizer-PS`脚本
 [VMware Front Experience: ESXi-Customizer-PS](https://web.archive.org/web/20191227135715/https://www.v-front.de/p/esxi-customizer-ps.html)
 最新仍然是：`Version 2.6.0 (2018-04-18)`即`ESXi-Customizer-PS-v2.6.0.ps1`
 
-<details><summary>点击此处 ↓ 查看源码</summary>
+<details><summary>点击此处 ← 查看源码</summary>
 
 ``` powershell
 #############################################################################################################################
@@ -557,7 +633,7 @@ write-host -ForegroundColor Green "`nAll done.`n"
 ```
 </details>
 
-<details><summary>点击此处 ↓ 查看帮助</summary>
+<details><summary>点击此处 ← 查看帮助</summary>
 
 ``` powershell
 PS D:\yuangezhizao\Documents\ESXI> .\ESXi-Customizer-PS-v2.6.0.ps1 -help
@@ -629,7 +705,39 @@ SHA256SUM: a480208411422076e7cb7fda83aed2198513deb5859d6087f56f931afb0aa399
 
 下载这个：[net55-r8168-8.045a-napi-offline_bundle.zip](http://vibsdepot.v-front.de/depot/bundles/net55-r8168-8.045a-napi-offline_bundle.zip)
 
-未完待续……
+#### 5.封装
+![终于成功](https://i1.yuangezhizao.cn/Win-10/20191228012436.jpg!webp)
+
+``` powershell
+PS D:\yuangezhizao\Documents\ESXI> ./ESXi-Customizer-PS-v2.6.0.ps1 -izip ESXi670-201912001.zip -dpt net55-r8168-8.045a-napi-offline_bundle.zip -load net55-r8168
+
+This is ESXi-Customizer-PS Version 2.6.0 (visit https://ESXi-Customizer-PS.v-front.de for more information!)
+(Call with -help for instructions)
+
+Logging to C:\Users\YUANGE~1\AppData\Local\Temp\ESXi-Customizer-PS-17316.log ...
+
+Running with PowerShell version 5.1 and VMware PowerCLI version 11.5.0.14899560
+
+Adding base Offline bundle ESXi670-201912001.zip ... [OK]
+
+Connecting additional depot net55-r8168-8.045a-napi-offline_bundle.zip ... [OK]
+
+Getting Imageprofiles, please wait ... [OK]
+
+Using Imageprofile ESXi-6.7.0-20191204001-standard ...
+(dated 11/25/2019 11:43:03, AcceptanceLevel: PartnerSupported,
+Updates ESXi 6.7 Image Profile-ESXi-6.7.0-20191204001-standard)
+
+Load additional VIBs from Online depots ...
+   Add VIB net55-r8168 8.045a-napi [New AcceptanceLevel: CommunitySupported] [OK, added]
+
+Exporting the Imageprofile to 'D:\yuangezhizao\Documents\ESXI\ESXi-6.7.0-20191204001-standard-customized.iso'. Please be patient ...
+
+
+All done.
+
+PS D:\yuangezhizao\Documents\ESXI>
+```
 
 ## 0x01.[VMware ESXi](https://www.vmware.com/products/esxi-and-esx.html)
 这玩楞就是传说中的把服务器整机都虚拟化的软件，之前用的`VMware Workstation`只是在本机跑虚拟机。而前者虚拟化完成之后并没有图形化界面，只能在另一台电脑上远程访问`Web`界面进行管理，比如创建多个虚拟机此类操作。所以，你懂得……
