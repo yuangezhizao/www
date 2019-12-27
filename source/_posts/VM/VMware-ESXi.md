@@ -4,7 +4,7 @@ date: 2019-7-28 01:58:51
 tags:
   - VM
   - VMware
-  - ESXI
+  - ESXi
 count: 3
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
@@ -15,7 +15,8 @@ key: 53
 ---
     VMware ESXi: The Purpose-Built Bare Metal Hypervisor
 <!-- more -->
-## 0x00.封装含有`Realtek 8168`网卡驱动的离线包
+## 0x00.安装或升级
+### 封装含有`Realtek 8168`网卡驱动的离线包
 #### 1.`PowerShell`大法
 设置`PowerShell`执行策略：`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
 安装`VMware PowerCLI`模块：`Install-Module -Name VMware.PowerCLI`
@@ -86,6 +87,7 @@ PS C:\Windows\system32>
 关闭`CEIP（Customer Experience Improvement Program）`：`Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false`
 忽略证书验证：`Set-PowerCLIConfiguration -InvalidCertificateAction Ignore`
 ![完美离线导入](https://i1.yuangezhizao.cn/Win-10/20191228011727.jpg!webp)
+![成功登录](https://i1.yuangezhizao.cn/Win-10/20191228014148.png!webp)
 
 <details><summary>点击此处 ← 查看终端</summary>
 
@@ -636,7 +638,7 @@ write-host -ForegroundColor Green "`nAll done.`n"
 <details><summary>点击此处 ← 查看帮助</summary>
 
 ``` powershell
-PS D:\yuangezhizao\Documents\ESXI> .\ESXi-Customizer-PS-v2.6.0.ps1 -help
+PS D:\yuangezhizao\Documents\ESXi> .\ESXi-Customizer-PS-v2.6.0.ps1 -help
 
 This is ESXi-Customizer-PS Version 2.6.0 (visit https://ESXi-Customizer-PS.v-front.de for more information!)
 
@@ -673,7 +675,7 @@ Optional parameters:
 ```
 </details>
 
-#### 3.下载`ESXI`离线包
+#### 3.下载`ESXi`离线包
 它的文件命名格式突然变了，现在的`ESXi670-201912001.zip`与之前的`update-from-esxi6.7-6.7_update03.zip`……
 ![ESXi670-201912001](https://i1.yuangezhizao.cn/Win-10/20191227214127.jpg!webp)
 ![最新到 1205](https://i1.yuangezhizao.cn/Win-10/20191227214501.jpg!webp)
@@ -709,7 +711,7 @@ SHA256SUM: a480208411422076e7cb7fda83aed2198513deb5859d6087f56f931afb0aa399
 ![终于成功](https://i1.yuangezhizao.cn/Win-10/20191228012436.jpg!webp)
 
 ``` powershell
-PS D:\yuangezhizao\Documents\ESXI> ./ESXi-Customizer-PS-v2.6.0.ps1 -izip ESXi670-201912001.zip -dpt net55-r8168-8.045a-napi-offline_bundle.zip -load net55-r8168
+PS D:\yuangezhizao\Documents\ESXi> ./ESXi-Customizer-PS-v2.6.0.ps1 -izip ESXi670-201912001.zip -dpt net55-r8168-8.045a-napi-offline_bundle.zip -load net55-r8168
 
 This is ESXi-Customizer-PS Version 2.6.0 (visit https://ESXi-Customizer-PS.v-front.de for more information!)
 (Call with -help for instructions)
@@ -731,13 +733,43 @@ Updates ESXi 6.7 Image Profile-ESXi-6.7.0-20191204001-standard)
 Load additional VIBs from Online depots ...
    Add VIB net55-r8168 8.045a-napi [New AcceptanceLevel: CommunitySupported] [OK, added]
 
-Exporting the Imageprofile to 'D:\yuangezhizao\Documents\ESXI\ESXi-6.7.0-20191204001-standard-customized.iso'. Please be patient ...
+Exporting the Imageprofile to 'D:\yuangezhizao\Documents\ESXi\ESXi-6.7.0-20191204001-standard-customized.iso'. Please be patient ...
 
 
 All done.
 
-PS D:\yuangezhizao\Documents\ESXI>
+PS D:\yuangezhizao\Documents\ESXi>
 ```
+
+#### 6.烧录
+亲测使用`balenaEtcher`烧录之后的`U`盘并不能成功启动，于是采用[官网](https://rufus.ie/)←的[rufus](https://github.com/pbatard/rufus)该工具
+![？](https://i1.yuangezhizao.cn/Win-10/20191228024213.jpg!webp)
+![选择镜像和盘](https://i1.yuangezhizao.cn/Win-10/20191228021735.jpg!webp)
+
+注意如果提示啥启动项过于老旧可能不会成功需要联网下载新版请点**是**，第一次没截图现在不出弹提示了草
+
+#### 7.启动
+机子搬回屋子里，菊花插上显示器、键盘和盘……开机`BIOS`设置项里选盘启动！
+
+![BIOS](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_021245.jpg!webp)
+![Installer](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022257.jpg!webp)
+![Enter](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022403.jpg!webp)
+
+这里让选在哪块硬盘上安装或升级`ESXi`，当时一愣选错就尴尬了……
+后来看到可以看详细信息，只有一块硬盘含有`ESX(I) Found：ESXi 6.7.0`
+![看硬盘详细信息](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022553.jpg!webp)
+![Upgrade](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022615.jpg!webp)
+![最终确认](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022633.jpg!webp)
+![升级中](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022643.jpg!webp)
+![升级完成](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022741.jpg!webp)
+![运行中](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022928.jpg!webp)
+
+然后关机后把机子拿到客厅，插上电源和网线（主板上电自动开机
+回到卧室，进`web`一看
+![不慌，再等等](https://i1.yuangezhizao.cn/Win-10/20191228023255.jpg!webp)
+![大功告成](https://i1.yuangezhizao.cn/Win-10/20191228025938.jpg!webp)
+
+挂起的`macOS`成功启动，并不用重新破解，看起来没什么大问题`hhh`，可以去睡觉了`.zZ……`
 
 ## 0x01.[VMware ESXi](https://www.vmware.com/products/esxi-and-esx.html)
 这玩楞就是传说中的把服务器整机都虚拟化的软件，之前用的`VMware Workstation`只是在本机跑虚拟机。而前者虚拟化完成之后并没有图形化界面，只能在另一台电脑上远程访问`Web`界面进行管理，比如创建多个虚拟机此类操作。所以，你懂得……
