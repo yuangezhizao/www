@@ -358,7 +358,7 @@ C:\Users\Public\t3\dataman\mongodb\app\AppRunner\soduz3vqhnnja46uvu3szq--1967207
 C:\Users\yuangezhizao\AppData\Local\t3\dataman\mongodb\app\AppRunner\soduz3vqhnnja46uvu3szq--\data.dat
 C:\Users\yuangezhizao\AppData\Local\Temp\t3\dataman\mongodb\app\AppRunner\soduz3vqhnnja46uvu3szq--.tmp
 ```
-4. `2019-12-5 16:31:28`更新：听说这玩楞某宝有百元一份来出售的，过草
+4. `2019-12-5 16:31:28`：听说这玩楞某宝有百元一份来出售的，过草
 
 ## 0x04.免责声明
 > 本文的目的只有一个就是学习更多的破解技巧和思路，如果有人利用本文技术去进行非法商业获取利益带来的法律责任都是操作者自己承担，和本文以及作者没关系

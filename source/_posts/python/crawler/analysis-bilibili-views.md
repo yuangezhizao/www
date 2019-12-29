@@ -129,7 +129,7 @@ TIME = str(datetime.now().strftime("%H:%M:%S"))
 ```
 ### 用数据
 等我数据屯足了再说吧
-`2017-7-1 20:09:24 更新`：懒得爬了，放假再说吧……
+`2017-7-1 20:09:24`：懒得爬了，放假再说吧……
 
 ## 0x02.结果
 [源码](https://github.com/yuangezhizao/python/blob/master/crawler/bilibili/analysis-bilibili-views.py)

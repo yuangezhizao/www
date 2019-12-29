@@ -41,7 +41,7 @@ key: 12
 压完感觉是失败之作，画面完全糊了，像素点根本没法看清，再想想 bilibili 再来个二圧，多半是废了，这一阶段就告一段落了……
 但是，居然有第二阶段，也就是昨晚新的画板开启了，本来打算继续录以备不时之需，但是发现视频分辨率不是原来的`1080P`了，居然下降为`720P`了，然而我还是在录……
 本地录制时不可能的（不要问我为什么），服务器上开`Chrome`录屏幕也是不可能的（只开浏览器就已经够卡的了）……那么问题来了，有没有什么比较好的方法，既省时又省力呢？
-`2017-8-18 10:43:01 更新`
+`2017-8-18 10:43:01`：
 
 标题 | 视频地址
 :---: | :---:
@@ -51,7 +51,7 @@ key: 12
 【120FPS】《夏日绘板》8.13-8.14 片段快放测试 | [av13342742](https://www.bilibili.com/video/av13342742)
 
 ## 0x01.查阅资料
-`2017-8-16 13:51:52 更新`
+`2017-8-16 13:51:52`：
 在[这里](https://intoli.com/blog/running-selenium-with-headless-chrome/)、[这里](https://www.ctolib.com/schnerd-chrome-headless-screenshots.html)、[这里](http://web.jobbole.com/91489/)和不知道是谁转谁的[这篇](https://segmentfault.com/a/1190000009353359)虽然看到了`HEADLESS CHROME`，但是跟我想的还是有点不太一样（其实是不会用），所以以后再考虑用这个吧，现在还是用`Selenium`吧……
 
 ## 0x02.[Selenium](http://www.seleniumhq.org/)+[Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/home)——`Screenshot`
@@ -126,7 +126,7 @@ for filename in os.listdir(r"./pic"):
     num += 1
     num = str(num)
 ```
-`2017-8-17 07:23:39 更新`
+`2017-8-17 07:23:39`：
 才发现写重复了，其实如下就可以了，怪不得跑起来怎么这么慢……
 ``` python
 # -*- coding: utf-8 -*-
