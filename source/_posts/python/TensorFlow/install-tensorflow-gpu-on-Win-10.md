@@ -82,7 +82,7 @@ C:\Windows\system32>
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```
-`2019-8-24 13:31:12`更新`：
+`2019-8-24 13:31:12`：
 ~~这里吐槽下科大其实用的是清华的源……~~已改为清华源
 
 
