@@ -17,7 +17,7 @@ key: 53
 <!-- more -->
 ## 0x00.安装或升级
 ### 封装含有`Realtek 8168`网卡驱动的离线包
-#### 1.`PowerShell`大法
+### 1.`PowerShell`大法
 设置`PowerShell`执行策略：`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
 安装`VMware PowerCLI`模块：`Install-Module -Name VMware.PowerCLI`
 然后竟然炸了？
@@ -153,7 +153,7 @@ PS C:\Users\yuangezhizao>
 ```
 </details>
 
-#### 2.下载`ESXi-Customizer-PS`脚本
+### 2.下载`ESXi-Customizer-PS`脚本
 [VMware Front Experience: ESXi-Customizer-PS](https://web.archive.org/web/20191227135715/https://www.v-front.de/p/esxi-customizer-ps.html)
 最新仍然是：`Version 2.6.0 (2018-04-18)`即`ESXi-Customizer-PS-v2.6.0.ps1`
 
@@ -675,7 +675,7 @@ Optional parameters:
 ```
 </details>
 
-#### 3.下载`ESXi`离线包
+### 3.下载`ESXi`离线包
 它的文件命名格式突然变了，现在的`ESXi670-201912001.zip`与之前的`update-from-esxi6.7-6.7_update03.zip`……
 ![ESXi670-201912001](https://i1.yuangezhizao.cn/Win-10/20191227214127.jpg!webp)
 ![最新到 1205](https://i1.yuangezhizao.cn/Win-10/20191227214501.jpg!webp)
@@ -699,7 +699,7 @@ SHA1SUM: e9761a1a8148d13af8a920decd9d729658d59f1c
 SHA256SUM: a480208411422076e7cb7fda83aed2198513deb5859d6087f56f931afb0aa399
 ```
 
-#### 4. 下载`Realtek 8168`网卡驱动
+### 4. 下载`Realtek 8168`网卡驱动
 在[Net55-r8168 - V-Front VIBSDepot Wiki](https://web.archive.org/web/20191227144530/https://vibsdepot.v-front.de/wiki/index.php/Net55-r8168)可以了解到
 > Supported Devices / PCI IDs
 10ec:8168, 1186:4300<br>
@@ -707,7 +707,7 @@ SHA256SUM: a480208411422076e7cb7fda83aed2198513deb5859d6087f56f931afb0aa399
 
 下载这个：[net55-r8168-8.045a-napi-offline_bundle.zip](http://vibsdepot.v-front.de/depot/bundles/net55-r8168-8.045a-napi-offline_bundle.zip)
 
-#### 5.封装
+### 5.封装
 ![终于成功](https://i1.yuangezhizao.cn/Win-10/20191228012436.jpg!webp)
 
 ``` powershell
@@ -741,14 +741,14 @@ All done.
 PS D:\yuangezhizao\Documents\ESXi>
 ```
 
-#### 6.烧录
+### 6.烧录
 亲测使用`balenaEtcher`烧录之后的`U`盘并不能成功启动，于是采用[官网](https://rufus.ie/)←的[rufus](https://github.com/pbatard/rufus)该工具
 ![？](https://i1.yuangezhizao.cn/Win-10/20191228024213.jpg!webp)
 ![选择镜像和盘](https://i1.yuangezhizao.cn/Win-10/20191228021735.jpg!webp)
 
 注意如果提示啥启动项过于老旧可能不会成功需要联网下载新版请点**是**，第一次没截图现在不出弹提示了草
 
-#### 7.启动
+### 7.启动
 机子搬回屋子里，菊花插上显示器、键盘和盘……开机`BIOS`设置项里选盘启动！
 
 ![BIOS](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_021245.jpg!webp)

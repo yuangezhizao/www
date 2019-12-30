@@ -33,7 +33,7 @@ c. JetBrains Pycharm 2017.3.2 x64 Professional
 和`PIL（Python Imaginary Library）`的支持，所以要先安装这两个包。
 
 ## 0x02.安装
-#### 1. 安装[PIL](http://www.pythonware.com/products/pil/)
+### 1. 安装[PIL](http://www.pythonware.com/products/pil/)
 不要用上面那个链接，那个`PIL`官方提供的`PIL`二进制安装库包都是`32`位的，我们需要`64`位的。或者直接使用`Pillow`来代替，使用方法基本没有什么区别，我选择后者。
 地址：[http://www.lfd.uci.edu/~gohlke/pythonlibs/#pillow](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pillow)
 下载：`Pillow‑5.0.0‑cp27‑cp27m‑win_amd64.whl`，然后`pip`安装之。
@@ -41,13 +41,13 @@ c. JetBrains Pycharm 2017.3.2 x64 Professional
 > 存档原文：
 tesseract本身不支持png，jpg这样图片格式，pytesser需要利用PIL将这种图片转换成tif格式，这是安装PIL的目的之一。sudo pip install PIL
 
-#### 2. 安装[tesseract-ocr](https://github.com/tesseract-ocr/tesseract/wiki)
+### 2. 安装[tesseract-ocr](https://github.com/tesseract-ocr/tesseract/wiki)
 `Win`下，需要在[Tesseract at UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki)下载，我选择`tesseract-ocr-setup-3.05.01.exe`，因为`tesseract-ocr-setup-4.0.0-alpha.20180109.exe(experimental)`没好使。
 
 > 存档原文：
 在`Mac`下安装方法极其简单，`brew install tesseract`，附：语言包在`/usr/local/share/tessdata`,这样子就安装好了，可以在终端输入`tesseract`试试
 
-#### 3. 安装[pytesseract](https://code.google.com/archive/p/pytesser/downloads)
+### 3. 安装[pytesseract](https://code.google.com/archive/p/pytesser/downloads)
 只有`pytesser_v0.0.1.zip`的版本，不过我好像是`pip`安装的，有点记不清了。
 
 > 存档原文：

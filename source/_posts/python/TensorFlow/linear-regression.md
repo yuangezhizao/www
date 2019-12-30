@@ -21,12 +21,12 @@ key: 16
 ![](https://i1.yuangezhizao.cn/Win-10/20170820112332.jpg!webp)
 
 ## 0x01.引用
-#### 1.0 `TensorFlow`实现线性回归模型代码
-#### 1.1 前期准备
+### 1.0 `TensorFlow`实现线性回归模型代码
+### 1.1 前期准备
 `TensorFlow`相关`API`可以到在实验`TensorFlow - 相关 API `中学习。
 ![](https://i1.yuangezhizao.cn/Win-10/20170820112953.jpg!webp)
 
-#### 1.2 模型构建
+### 1.2 模型构建
 现在您可以在`/home/ubuntu`目录下创建源文件`linear_regression_model.py`，内容可参考：
 ``` python
 #!/usr/bin/python
@@ -104,7 +104,7 @@ class linearRegressionModel:
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820113127.jpg!webp)
 
-#### 1.3 训练模型并和`sklearn`库线性回归模型对比
+### 1.3 训练模型并和`sklearn`库线性回归模型对比
 现在您可以在`/home/ubuntu`目录下创建源文件`run.py`，内容可参考：
 ``` python
 #!/usr/bin/python

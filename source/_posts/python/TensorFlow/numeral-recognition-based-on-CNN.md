@@ -22,13 +22,13 @@ key: 15
 ![](https://i1.yuangezhizao.cn/Win-10/20170820095001.jpg!webp)
 
 ## 0x01.引用
-#### 1.0 TensorFlow 实现基于 CNN 数字识别的代码
-#### 1.1 前期准备
+### 1.0 TensorFlow 实现基于 CNN 数字识别的代码
+### 1.1 前期准备
 `TensorFlow`相关`API`可以到在实验`TensorFlow - 相关 API `中学习。
 唔，这就尴尬了，这节课我还没看呢……
 ![](https://i1.yuangezhizao.cn/Win-10/20170820095142.jpg!webp)
 
-#### 1.2 `CNN`模型构建
+### 1.2 `CNN`模型构建
 现在您可以在`/home/ubuntu`目录下创建源文件`mnist_model.py`，内容可参考：
 ``` python
 #!/usr/bin/python
@@ -115,7 +115,7 @@ def bias_variable(shape):
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820095558.jpg!webp)
 
-#### 1.3 训练 CNN 模型
+### 1.3 训练 CNN 模型
 现在您可以在`/home/ubuntu`目录下创建源文件`train_mnist_model.py`，内容可参考：
 ``` python
 #!/usr/bin/python
@@ -230,7 +230,7 @@ test accuracy 0.9862
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820100145.jpg!webp)
 
-#### 1.4 测试 CNN 模型
+### 1.4 测试 CNN 模型
 下载测试图片
 下载`test_num.zip`
 `cd /home/ubuntu`

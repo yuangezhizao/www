@@ -20,8 +20,8 @@ key: 17
 ![](https://i1.yuangezhizao.cn/Win-10/20170820114510.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170820114657.jpg!webp)
 ## 0x01.引用
-#### 1.0 `TensorFlow`相关函数理解
-#### 1.1 `tf.truncated_normal`
+### 1.0 `TensorFlow`相关函数理解
+### 1.1 `tf.truncated_normal`
 ``` python
 truncated_normal(
     shape,
@@ -59,7 +59,7 @@ print tf.Session().run(initial)
 将得到一个取值范围`[-2, 2]`的`3 * 3`矩阵
 ![](https://i1.yuangezhizao.cn/Win-10/20170820115501.jpg!webp)
 
-#### 1.2 `tf.constant`
+### 1.2 `tf.constant`
 ``` python
 constant(
     value,
@@ -119,7 +119,7 @@ f: 2x3x2 维张量；
 g: 2x2x2 维张量。
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820120131.jpg!webp)
-#### 1.3 `tf.placeholder`
+### 1.3 `tf.placeholder`
 ``` python
 placeholder(
     dtype,
@@ -155,7 +155,7 @@ with tf.Session() as sess:
 执行结果：
 输出一个`10x10`维的张量
 ![](https://i1.yuangezhizao.cn/Win-10/20170820120515.jpg!webp)
-#### 1.4 `tf.nn.bias_add`
+### 1.4 `tf.nn.bias_add`
 ``` python
 bias_add(
     value,
@@ -199,7 +199,7 @@ print sess.run(tf.add(a, c))
 `3`个`3x2`维张量
 ![](https://i1.yuangezhizao.cn/Win-10/20170820120747.jpg!webp)
 
-#### 1.5 `tf.reduce_mean`
+### 1.5 `tf.reduce_mean`
 ``` python
 reduce_mean(
     input_tensor,
@@ -247,7 +247,7 @@ with tf.Session() as sess:
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820120953.jpg!webp)
 
-#### 1.6 `tf.squared_difference`
+### 1.6 `tf.squared_difference`
 ``` python
 squared_difference(
     x,
@@ -291,7 +291,7 @@ with tf.Session() as sess:
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820121213.jpg!webp)
 
-#### 1.7 `tf.square`
+### 1.7 `tf.square`
 ``` python
 square(
     x,
@@ -330,8 +330,8 @@ with tf.Session() as sess:
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170820121439.jpg!webp)
 
-#### 2.0 `TensorFlow`相关类理解
-#### 2.1 `tf.Variable`
+### 2.0 `TensorFlow`相关类理解
+### 2.1 `tf.Variable`
 ``` python
 __init__(
     initial_value=None,
@@ -378,18 +378,18 @@ with tf.Session() as sess:
     print ("##################(2)################")
     print sess.run(W[:2,:2])
     op = W[:2,:2].assign(22.*tf.ones((2,2)))
-    print ("###################(3)###############")
+    print ("###################(3)################")
     print sess.run(op)
-    print ("###################(4)###############")
+    print ("###################(4)################")
     print (W.eval(sess)) #computes and returns the value of this variable
-    print ("####################(5)##############")
+    print ("####################(5)################")
     print (W.eval())  #Usage with the default session
-    print ("#####################(6)#############")
+    print ("#####################(6)################")
     print W.dtype
     print sess.run(W.initial_value)
     print sess.run(W.op)
     print W.shape
-    print ("###################(7)###############")
+    print ("###################(7)################")
     print sess.run(X)
 ```
 然后执行:
@@ -397,7 +397,7 @@ with tf.Session() as sess:
 ![](https://i1.yuangezhizao.cn/Win-10/20170820122118.jpg!webp)
 ```
 ubuntu@VM-45-55-ubuntu:~$ python /home/ubuntu/Variable.py
-##################(1)################
+##################(1)################")
 [[-0.05158469  0.42488426 -1.06051874  0.05041981 -0.59257025  0.75912011
    0.13238901  1.4264127   0.3660301  -0.34660342]
  [-0.58076793 -0.34156471  1.80603182 -0.63527924 -1.37761962  0.23985045
@@ -418,10 +418,10 @@ ubuntu@VM-45-55-ubuntu:~$ python /home/ubuntu/Variable.py
    1.58433104 -0.50077403 -1.70408487 -0.78402525]
  [-0.3279908   0.34578505 -0.4665527   0.71424776  0.48050362 -0.6924966
    0.05213421 -0.02890863  1.6275624  -1.1187917 ]]
-##################(2)################
+##################(2)################")
 [[-0.05158469  0.42488426]
  [-0.58076793 -0.34156471]]
-###################(3)###############
+###################(3)################")
 [[ 22.          22.          -1.06051874   0.05041981  -0.59257025
     0.75912011   0.13238901   1.4264127    0.3660301   -0.34660342]
  [ 22.          22.           1.80603182  -0.63527924  -1.37761962
@@ -442,7 +442,7 @@ ubuntu@VM-45-55-ubuntu:~$ python /home/ubuntu/Variable.py
    -1.1408062    1.58433104  -0.50077403  -1.70408487  -0.78402525]
  [ -0.3279908    0.34578505  -0.4665527    0.71424776   0.48050362
    -0.6924966    0.05213421  -0.02890863   1.6275624   -1.1187917 ]]
-###################(4)###############
+###################(4)################")
 [[ 22.          22.          -1.06051874   0.05041981  -0.59257025
     0.75912011   0.13238901   1.4264127    0.3660301   -0.34660342]
  [ 22.          22.           1.80603182  -0.63527924  -1.37761962
@@ -508,7 +508,7 @@ ubuntu@VM-45-55-ubuntu:~$ python /home/ubuntu/Variable.py
    0.27707765  0.4924351   1.13253677 -0.55417466]]
 None
 (10, 10)
-###################(7)###############
+###################(7)################")
 [[ 1.  1.]
  [ 2.  2.]]
 ```

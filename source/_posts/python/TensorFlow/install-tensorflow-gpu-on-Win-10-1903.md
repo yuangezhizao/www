@@ -29,7 +29,7 @@ d. GeForce GTX 965M
 
 ## 0x02.安装
 写流水账开始了啊，具体的细节自己去翻那篇吧。
-#### 1. 去[TF 官网](https://www.tensorflow.org/install/gpu)
+### 1. 去[TF 官网](https://www.tensorflow.org/install/gpu)
 ![CUDA 9.0](https://i1.yuangezhizao.cn/Win-10/20190314183605.jpg!webp)
 
 卧槽，然后我就被坑了，都下完了突然想到为啥不试试`CUDA 10.0`？可官网没写支持啊？况且在其他地方我也看到了说不支持的，XD……
@@ -44,7 +44,7 @@ d. GeForce GTX 965M
 卧槽，切换按钮在页面最右下角，绝了！
 ![Windows setup](https://i1.yuangezhizao.cn/Win-10/20190314192253.jpg!webp)
 
-#### 2. 安装[CUDA](https://developer.nvidia.com/cuda-downloads)
+### 2. 安装[CUDA](https://developer.nvidia.com/cuda-downloads)
 算力要`3.5`以上才可以，我的是`5.2`
 ![GeForce GTX 965M](https://i1.yuangezhizao.cn/Win-10/20190314192616.jpg!webp)
 ![最新 10.1](https://i1.yuangezhizao.cn/Win-10/20190314185122.jpg!webp)
@@ -65,11 +65,11 @@ d. GeForce GTX 965M
 补充：`10.1`的报错截图：
 ![Fuck u 10.1](https://i1.yuangezhizao.cn/Win-10/20190314214628.jpg!webp)
 
-#### 3. 安装[cuDNN](https://developer.nvidia.com/cudnn)
+### 3. 安装[cuDNN](https://developer.nvidia.com/cudnn)
 ![下载 10.0](https://i1.yuangezhizao.cn/Win-10/20190314203508.jpg!webp)
 ![主要部分还是这个 DLL，不要管截图中的 10.1，自己去下 10.0](https://i1.yuangezhizao.cn/Win-10/20190314210804.jpg!webp)
 
-#### 4. 安装[TensorRT 5.0](https://developer.nvidia.com/tensorrt)
+### 4. 安装[TensorRT 5.0](https://developer.nvidia.com/tensorrt)
 ![下载](https://i1.yuangezhizao.cn/Win-10/20190314211033.jpg!webp)
 ![下载](https://i1.yuangezhizao.cn/Win-10/20190314211717.jpg!webp)
 ![安装](https://i1.yuangezhizao.cn/Win-10/20190314211329.jpg!webp)
@@ -77,7 +77,7 @@ d. GeForce GTX 965M
 安装方法和`cuDNN`同理，只把`/lib`目录下的全部内容复制到`/bin`目录下嘛
 ![这个最新的倒是只有 10.0](https://i1.yuangezhizao.cn/Win-10/20190314211934.jpg!webp)
 
-#### 5. 终于完事儿了
+### 5. 终于完事儿了
 ![可海星](https://i1.yuangezhizao.cn/Win-10/20190314225747.jpg!webp)
 
 未完待续……

@@ -32,7 +32,7 @@ key: 43
 ![实验结果](https://i1.yuangezhizao.cn/Win-10/20190310132527.jpg!raw)
 
 ## 0x03.QA
-#### 1.GaiaResourceOutstrippedException
+### 1.GaiaResourceOutstrippedException
 ![失败](https://i1.yuangezhizao.cn/Win-10/20190310130043.jpg!webp)
 ![四连](https://i1.yuangezhizao.cn/Win-10/20190310130124.jpg!webp)
 ![资源超限](https://i1.yuangezhizao.cn/Win-10/20190310130153.jpg!webp)

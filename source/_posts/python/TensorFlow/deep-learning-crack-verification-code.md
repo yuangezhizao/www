@@ -21,10 +21,10 @@ key: 13
 ![](https://i1.yuangezhizao.cn/Win-10/20170817082115.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170817082133.jpg!webp)
 ## 0x01.引用
-#### 1.0 简介
+### 1.0 简介
 验证码主要用于防刷，传统的验证码识别算法一般需要把验证码分割为单个字符，然后逐个识别，如果字符之间相互重叠，传统的算法就然并卵了，本文采用`cnn`对验证码进行整体识别。通过本文的学习，大家可以学到几点：1.`captcha`库生成验证码；2.如何将验证码识别问题转化为分类问题；3.可以训练自己的验证码识别模型。
 
-#### 1.1 安装`captcha`库
+### 1.1 安装`captcha`库
 `sudo pip install captcha`
 ``` python
 Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-105-generic x86_64)
@@ -51,10 +51,10 @@ Successfully installed captcha
 Cleaning up...
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170817082247.jpg!webp)
-#### 2.0 生成验证码训练数据
+### 2.0 生成验证码训练数据
 所有的模型训练，数据是王道，本文采用`captcha`库生成验证码，`captcha`可以生成语音和图片验证码，我们采用生成图片验证码功能，验证码是由数字、大写字母、小写字母组成（当然你也可以根据自己的需求调整，比如添加一些特殊字符），长度为`4`，所以总共有`62^4`种组合验证码。
 
-#### 2.1 验证码生成器
+### 2.1 验证码生成器
 采用`python`中生成器方式来生成我们的训练数据，这样的好处是，不需要提前生成大量的数据，训练过程中生成数据，并且可以无限生成数据。
 现在您可以在`/home/ubuntu`目录下创建源文件`generate_captcha.py`，内容可参考：
 ``` python
@@ -119,7 +119,7 @@ class generateCaptcha():
 在`/home/ubuntu`目录下查看生成的验证码，`jpg`格式的图片可以点击查看。
 ![](https://i1.yuangezhizao.cn/Win-10/20170817083016.jpg!webp)
 
-#### 3.0 验证码识别模型
+### 3.0 验证码识别模型
 将验证码识别问题转化为分类问题，总共`62^4`种类型，采用`4`个`one-hot`编码分别表示`4`个字符取值。
 `cnn`验证码识别模型
 `3`层隐藏层、`2`层全连接层，对每层都进行`dropout`。`input——>conv——>pool——>dropout——>conv——>pool——>dropout——>conv——>pool——>dropout——>fully connected layer——>dropout——>fully connected layer——>output`
@@ -203,7 +203,7 @@ class captchaModel():
         return y_conv        
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170817083158.jpg!webp)
-#### 3.1 训练`cnn`验证码识别模型
+### 3.1 训练`cnn`验证码识别模型
 每批次采用`64`个训练样本，每`100`次循环采用`100`个测试样本检查识别准确度，当准确度大于`99%`时，训练结束，采用`GPU`需要`5-6`个小时左右，`CPU`大概需要`20`个小时左右。
 注：作为实验，你可以通过调整`train_captcha.py`文件中`if acc > 0.99:`代码行的准确度节省训练时间(比如将`0.99`为`0.01`)；同时，我们已经通过长时间的训练得到了一个训练集，可以通过如下命令将训练集下载到本地。
 `wget http://tensorflow-1253902462.cosgz.myqcloud.com/captcha/capcha_model.zip`
@@ -386,7 +386,7 @@ step:99,loss:1.101533
 step:100,loss:1.099733
 ###############################################step:100,accuracy:0.012500
 ```
-#### 3.2 测试`cnn`验证码识别模型
+### 3.2 测试`cnn`验证码识别模型
 ``` python
 #!/usr/bin/python
 

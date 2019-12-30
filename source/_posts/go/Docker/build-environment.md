@@ -18,8 +18,8 @@ key: 23
 ![](https://i1.yuangezhizao.cn/Win-10/20170823121055.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170823121138.jpg!webp)
 ## 0x01.引用
-#### 1.0 安装与配置`Docker`
-#### 1.1 安装`Docker`
+### 1.0 安装与配置`Docker`
+### 1.1 安装`Docker`
 `Docker`软件包已经包括在默认的`CentOS-Extras`软件源里。因此想要安装`docker`，只需要运行下面的`yum`命令：
 `yum install docker-io -y`
 直接`yum`安装，安装成功后查看版本
@@ -30,7 +30,7 @@ key: 23
 `chkconfig docker on`
 ![](https://i1.yuangezhizao.cn/Win-10/20170823121641.jpg!webp)
 
-#### 1.2 配置`Docker`
+### 1.2 配置`Docker`
 因为国内访问`Docker Hub`较慢, 可以使用腾讯云提供的国内镜像源, 加速访问`Docker Hub`
 依次执行以下命令
 `echo "OPTIONS='--registry-mirror=https://mirror.ccs.tencentyun.com'" >> /etc/sysconfig/docker`
@@ -38,14 +38,14 @@ key: 23
 `service docker restart`
 ![](https://i1.yuangezhizao.cn/Win-10/20170823122515.jpg!webp)
 
-#### 2.0 下载镜像
+### 2.0 下载镜像
 下载一个官方的`CentOS`镜像到本地
 `docker pull centos`
 下载好的镜像就会出现在镜像列表里
 `docker images`
 ![](https://i1.yuangezhizao.cn/Win-10/20170823122656.jpg!webp)
 
-#### 2.1 运行容器
+### 2.1 运行容器
 这时我们可以在刚才下载的`CentOS`镜像生成的容器内操作了。
 生成一个`centos`镜像为模板的容器并使用`bash shell`
 `docker run -it centos /bin/bash`
@@ -60,7 +60,7 @@ key: 23
 `ls /data`
 ![](https://i1.yuangezhizao.cn/Win-10/20170823122918.jpg!webp)
 
-#### 2.2 保存容器
+### 2.2 保存容器
 查看所有的容器信息，能获取容器的`id`
 `docker ps -a`
 然后执行如下命令（请自行将 -m 后面的信息改成自己的容器的信息），保存镜像：

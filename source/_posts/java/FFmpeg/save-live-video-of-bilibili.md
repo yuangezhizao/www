@@ -16,52 +16,52 @@ key: 10
     内含视频福利……（7-31 updated）
 <!-- more -->
 ## 0x00.先行版
-#### 【720P】拔剑神曲
+### 【720P】拔剑神曲
 <video controls="controls" poster="https://i1.yuangezhizao.cn/403.png!webp" src="https://v1.yuangezhizao.cn/av12421316.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【1080P】夜舞
+### 【1080P】夜舞
 <video controls="controls" poster="https://i1.yuangezhizao.cn/Win-10/20170724112021.jpg!webp" src="https://v1.yuangezhizao.cn/av12524206.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【1080P】追光使者
+### 【1080P】追光使者
 <video controls="controls" poster="https://i1.yuangezhizao.cn/Win-10/20170724112319.jpg!webp" src="https://v1.yuangezhizao.cn/av12524302.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【1080P】CONNECT
+### 【1080P】CONNECT
 <video controls="controls" poster="https://i1.yuangezhizao.cn/Win-10/20170802181613.jpg!webp" src="https://v1.yuangezhizao.cn/5086-2017-07-21-17-16-27_pr-1.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【1080P】ONE WEEK
+### 【1080P】ONE WEEK
 <video controls="controls" poster="https://i1.yuangezhizao.cn/Win-10/20170802181008.jpg!webp" src="https://v1.yuangezhizao.cn/5086-2017-07-21-17-16-27_pr-2.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【1080P】Poker Face
+### 【1080P】Poker Face
 <video controls="controls" poster="https://i1.yuangezhizao.cn/Win-10/20170802181423.jpg!webp" src="https://v1.yuangezhizao.cn/5086-2017-07-21-17-31-38_pr-2.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【1080P】*（不会打日文）
+### 【1080P】*（不会打日文）
 <video controls="controls" src="https://v1.yuangezhizao.cn/5086-2017-07-21-17-31-38_pr-1.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【720P】极乐净土
+### 【720P】极乐净土
 <video controls="controls" src="https://v1.yuangezhizao.cn/5086-2017-7-23-12-26-24_pr.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【1080P】BML 开场
+### 【1080P】BML 开场
 <video controls="controls" poster="https://i1.yuangezhizao.cn/Win-10/20170802181916.jpg!webp" src="https://v1.yuangezhizao.cn/5086-2017-07-23-16-51-54_pr.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
 
-#### 【720P】2233
+### 【720P】2233
 <video controls="controls" poster="https://i1.yuangezhizao.cn/Win-10/20170802181756.jpg!webp" src="https://v1.yuangezhizao.cn/20006-2017-7-22-9-48-26_AVS.mp4" preload="none">
 您的浏览器不支持 video 标签。
 </video>
@@ -73,16 +73,16 @@ key: 10
 
 ## 0x02.三种方法
 
-#### 1. [liverecord.groovy](https://gist.github.com/sunny00123/4e69283b930f0f3a36244237797be9d0)
+### 1. [liverecord.groovy](https://gist.github.com/sunny00123/4e69283b930f0f3a36244237797be9d0)
 来自`av4568222`评论
 
 关于如何在`Win`下配置`Groovy`环境请参考此文章：
 > http://www.jianshu.com/p/777cc61a6202
 
-#### 2. [biliroku](https://github.com/zyzsdy/biliroku)——`bilibili`生放送（直播）录制
+### 2. [biliroku](https://github.com/zyzsdy/biliroku)——`bilibili`生放送（直播）录制
 开源，地址如上所示
 
-#### 3. [B站录播机](http://live.weibo333.com)——不再错过每一场直播
+### 3. [B站录播机](http://live.weibo333.com)——不再错过每一场直播
 闭源，录制两个以上房间 or 下载弹幕需要付费
 
 ## 0x03.优缺点

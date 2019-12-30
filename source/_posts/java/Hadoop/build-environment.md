@@ -18,18 +18,18 @@ key: 21
 ![](https://i1.yuangezhizao.cn/Win-10/20170822154210.jpg!webp)
 ![](https://i1.yuangezhizao.cn/Win-10/20170822154406.jpg!webp)
 ## 0x01.引用
-#### 1.0 教程环境和说明
+### 1.0 教程环境和说明
 软硬件环境
 - CentOS 7.2 64位
 - OpenJDK-1.7
 - Hadoop-2.7.1
 
 ![](https://i1.yuangezhizao.cn/Win-10/20170822154804.jpg!webp)
-#### 1.1 关于本教程的说明
+### 1.1 关于本教程的说明
 云实验室云主机自动使用`root`账户登录系统，因此本教程中所有的操作都是以`root`用户来执行的。若要在自己的云主机上进行本教程的实验，为了系统安全，建议新建一个账户登录后再进行后续操作。
 ![](https://i1.yuangezhizao.cn/Win-10/20170822155020.jpg!webp)
-#### 2.0 安装`SSH`客户端
-#### 2.1 安装`SSH`
+### 2.0 安装`SSH`客户端
+### 2.1 安装`SSH`
 安装`SSH`：
 `sudo yum install openssh-clients openssh-server`
 安装完成后，可以使用下面命令进行测试：
@@ -37,13 +37,13 @@ key: 21
 输入`root`账户的密码，如果可以正常登录，则说明`SSH`安装没有问题。测试正常后使用`exit`命令退出`ssh`。
 ![](https://i1.yuangezhizao.cn/Win-10/20170822155410.jpg!webp)
 
-#### 3.0 安装`JAVA`环境
-#### 3.1 安装`JDK`
+### 3.0 安装`JAVA`环境
+### 3.1 安装`JDK`
 使用`yum`来安装`1.7`版本`OpenJDK`：
 `sudo yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel`
 安装完成后，输入`java`和`javac`命令，如果能输出对应的命令帮助，则表明`jdk`已正确安装。
 ![](https://i1.yuangezhizao.cn/Win-10/20170822155707.jpg!webp)
-#### 3.2 配置`JAVA`环境变量
+### 3.2 配置`JAVA`环境变量
 执行命令:
 编辑`~/.bashrc`，在结尾追加：
 `export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk`
@@ -65,12 +65,12 @@ OpenJDK 64-Bit Server VM (build 24.141-b02, mixed mode)
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170822155847.jpg!webp)
 
-#### 4.0 安装`Hadoop`
-#### 4.1 下载`Hadoop`
+### 4.0 安装`Hadoop`
+### 4.1 下载`Hadoop`
 本教程使用`hadoop-2.7.1`版本，使用`wget`工具在线下载：
 `wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz`
 ![](https://i1.yuangezhizao.cn/Win-10/20170822160101.jpg!webp)
-#### 4.2 安装`Hadoop`
+### 4.2 安装`Hadoop`
 将`Hadoop`安装到`/usr/local`目录下:
 `tar -zxf hadoop-2.7.1.tar.gz -C /usr/local`
 对安装的目录进行重命名，便于后续操作方便:
@@ -90,9 +90,9 @@ This command was run using /usr/local/hadoop/share/hadoop/common/hadoop-common-2
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170822160225.jpg!webp)
 
-#### 5.0 `Hadoop`伪分布式环境配置
+### 5.0 `Hadoop`伪分布式环境配置
 `Hadoop`伪分布式模式使用多个守护线程模拟分布的伪分布运行模式。
-#### 5.1 设置`Hadoop`的环境变量
+### 5.1 设置`Hadoop`的环境变量
 编辑`~/.bashrc`，在结尾追加如下内容：
 ```
 export HADOOP_HOME=/usr/local/hadoop
@@ -107,7 +107,7 @@ export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 使`Hadoop`环境变量配置生效:
 `source ~/.bashrc`
 ![](https://i1.yuangezhizao.cn/Win-10/20170822160443.jpg!webp)
-#### 5.2 修改 Hadoop 的配置文件
+### 5.2 修改 Hadoop 的配置文件
 `Hadoop`的配置文件位于安装目录的`/etc/hadoop`目录下，在本教程中即位于`/url/local/hadoop/etc/hadoop`目录下，需要修改的配置文件为如下两个:
 `/usr/local/hadoop/etc/hadoop/core-site.xml`
 `/usr/local/hadoop/etc/hadoop/hdfs-site.xml`
@@ -143,7 +143,7 @@ export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 </configuration>
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170822160726.jpg!webp)
-#### 5.3 格式化`NameNode`
+### 5.3 格式化`NameNode`
 格式化`NameNode`:
 `/usr/local/hadoop/bin/hdfs namenode -format`
 在输出信息中看到如下信息，则表示格式化成功:
@@ -153,7 +153,7 @@ Exiting with status 0
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170822160837.jpg!webp)
 
-#### 5.4 启动`NameNode`和`DataNode`守护进程
+### 5.4 启动`NameNode`和`DataNode`守护进程
 启动`NameNode`和`DataNode`进程:
 `/usr/local/hadoop/sbin/start-dfs.sh`
 执行过程中会提示输入用户密码，输入`root`用户密码即可。另外，启动时`ssh`会显示警告提示是否继续连接，输入`yes`即可。
@@ -194,9 +194,9 @@ our platform... using builtin-java classes where applicable
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170822161210.jpg!webp)
 
-#### 6.0 运行`Hadoop`伪分布式实例
+### 6.0 运行`Hadoop`伪分布式实例
 `Hadoop`自带了丰富的例子，包括`wordcount`、`grep`、`sort` 等。下面我们将以`grep`例子为教程，输入一批文件，从中筛选出符合正则表达式`dfs[a-z.]+`的单词并统计出现的次数。
-#### 6.1 查看`Hadoop`自带的例子
+### 6.1 查看`Hadoop`自带的例子
 `Hadoop`附带了丰富的例子, 执行下面命令可以查看：
 `cd /usr/local/hadoop`
 `./bin/hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar`
@@ -231,7 +231,7 @@ Pi.
   wordstandarddeviation: A map/reduce program that counts the standard deviation of thelength of the words in the input files.
 ```
 
-#### 6.2 在 HDFS 中创建用户目录
+### 6.2 在 HDFS 中创建用户目录
 在 HDFS 中创建用户目录 hadoop：
 `/usr/local/hadoop/bin/hdfs dfs -mkdir -p /user/hadoop`
 ![](https://i1.yuangezhizao.cn/Win-10/20170822161635.jpg!webp)
@@ -243,7 +243,7 @@ Pi.
 ```
 这就很尴尬了……
 
-#### 6.3 准备实验数据
+### 6.3 准备实验数据
 本教程中，我们将以`Hadoop`所有的`xml`配置文件作为输入数据来完成实验。执行下面命令在`HDFS`中新建一个`input`文件夹并将 `hadoop`配置文件上传到该文件夹下：
 ```
 cd /usr/local/hadoop
@@ -260,7 +260,7 @@ emmm……翻车了
 [root@VM_36_253_centos hadoop]# ./bin/hdfs dfs -put ./etc/hadoop/*.xml /user/hadoop/input
 17/08/22 16:18:28 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 ```
-#### 6.4 运行实验
+### 6.4 运行实验
 运行实验:
 `cd /usr/local/hadoop`
 `./bin/hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar grep /user/hadoop/input /user/hadoop/output 'dfs[a-z.]+'`
@@ -620,7 +620,7 @@ emmm……翻车了
         File Output Format Counters
                 Bytes Written=77
 ```
-#### 6.5 查看运行结果
+### 6.5 查看运行结果
 上述例子完成后的结果保存在`HDFS`中，通过下面命令查看结果:
 `/usr/local/hadoop/bin/hdfs dfs -cat /user/hadoop/output/*`
 如果运行成功，可以看到如下结果:
@@ -632,7 +632,7 @@ emmm……翻车了
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170822162330.jpg!webp)
 
-#### 6.6 删除`HDFS`上的输出结果
+### 6.6 删除`HDFS`上的输出结果
 删除`HDFS`中的结果目录:
 `/usr/local/hadoop/bin/hdfs dfs -rm -r /user/hadoop/output`
 运行`Hadoop`程序时，为了防止覆盖结果，程序指定的输出目录不能存在，否则会提示错误，因此在下次运行前需要先删除输出目录。
@@ -644,7 +644,7 @@ Deleted /user/hadoop/output
 ```
 ![](https://i1.yuangezhizao.cn/Win-10/20170822162525.jpg!webp)
 
-#### 6.7 关闭`Hadoop`进程
+### 6.7 关闭`Hadoop`进程
 关闭`Hadoop`进程：
 `/usr/local/hadoop/sbin/stop-dfs.sh`
 再起启动只需要执行下面命令：
