@@ -785,6 +785,67 @@ PS D:\yuangezhizao\Documents\ESXi>
 更改用户权限的页面藏在了这里，找了半天才发现，实在是太反人类了……
 ![permission](https://i1.yuangezhizao.cn/Win-10/20190728002659.jpg!webp)
 
+`web`页面每`900s`会强制下线草，可以在`高级设置`中修改至`0`
+![超时](https://i1.yuangezhizao.cn/Win-10/20200104185106.jpg!webp)
+![逼死强逼症患者](https://i1.yuangezhizao.cn/Win-10/20200104192656.jpg!webp)
+
+参照[为 ESXi 6.0 主机配置 CA 签名证书 (2113926)](https://kb.vmware.com/s/article/2113926?lang=zh_CN)
+![即替换证书](https://i1.yuangezhizao.cn/Win-10/20200104191844.jpg!webp)
+![腾讯云申请免费证书](https://i1.yuangezhizao.cn/Win-10/20200104192115.jpg!webp)
+
+重命名为`rui.crt`、`rui.key`，上传至`/etc/vmware/ssl`文件夹中
+![上传自己的证书](https://i1.yuangezhizao.cn/Win-10/20200104192534.png!webp)
+
+懒得重启了，于是
+`/etc/init.d/hostd restart`、`/etc/init.d/vpxa restart`
+![XShell](https://i1.yuangezhizao.cn/Win-10/20200104192831.jpg!webp)
+
+<details><summary>点击此处 ← 查看终端</summary>
+
+``` shell
+Copyright (c) 2002 NetSarang Computer, Inc. All rights reserved.
+
+Type `help' to learn how to use Xshell prompt.
+[D:\~]$ 
+
+Connecting to 192.168.25.249:22...
+Connection established.
+To escape to local shell, press 'Ctrl+Alt+]'.
+
+The time and date of this login have been sent to the system logs.
+
+WARNING:
+   All commands run on the ESXi shell are logged and may be included in
+   support bundles. Do not provide passwords directly on the command line.
+   Most tools can prompt for secrets or accept them from standard input.
+
+VMware offers supported, powerful system administration tools.  Please
+see www.vmware.com/go/sysadmintools for details.
+
+The ESXi Shell can be disabled by an administrative user. See the
+vSphere Security documentation for more information.
+[root@VM:~] cd /etc/vmware/ssl
+[root@VM:/etc/vmware/ssl] ls
+castore.pem               rui.crt                   vsan_kms_client.crt       vsanvp_castore.pem
+iofiltervp.pem            rui.key                   vsan_kms_client.key
+openssl.cnf               vsan_kms_castore.pem      vsan_kms_client_old.crt
+rui.bak                   vsan_kms_castore_old.pem  vsan_kms_client_old.key
+[root@VM:/etc/vmware/ssl] rm rui.crt rui.key 
+[root@VM:/etc/vmware/ssl] /etc/init.d/hostd restart
+watchdog-hostd: Terminating watchdog process with PID 2099465
+hostd stopped.
+hostd started.
+[root@VM:/etc/vmware/ssl] /etc/init.d/vpxa restart
+watchdog-vpxa: Terminating watchdog process with PID 2099054
+vpxa stopped.
+vpxa started.
+[root@VM:/etc/vmware/ssl] 
+```
+</details>
+
+![新增内网？解析](https://i1.yuangezhizao.cn/Win-10/20200104193727.jpg!webp)
+![完工爽到](https://i1.yuangezhizao.cn/Win-10/20200104193851.jpg!webp)
+
 ~~先给自己分配了一个虚拟机`hhh`~~`2019-12-28 00:51:40`该机子由于存储在坏掉的硬盘无法成功完全导出，最终只能重装……
 ![vms](https://i1.yuangezhizao.cn/Win-10/20190728003657.png!webp)
 ![+1s](https://i1.yuangezhizao.cn/Win-10/20190728004123.jpg!webp)
