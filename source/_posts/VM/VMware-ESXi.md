@@ -751,18 +751,18 @@ PS D:\yuangezhizao\Documents\ESXi>
 ### 7.启动
 机子搬回屋子里，菊花插上显示器、键盘和盘……开机`BIOS`设置项里选盘启动！
 
-![BIOS](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_021245.jpg!webp)
-![Installer](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022257.jpg!webp)
-![Enter](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022403.jpg!webp)
+![BIOS](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_021245.jpg!webp)
+![Installer](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022257.jpg!webp)
+![Enter](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022403.jpg!webp)
 
 这里让选在哪块硬盘上安装或升级`ESXi`，当时一愣选错就尴尬了……
 后来看到可以看详细信息，只有一块硬盘含有`ESX(I) Found：ESXi 6.7.0`
-![看硬盘详细信息](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022553.jpg!webp)
-![Upgrade](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022615.jpg!webp)
-![最终确认](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022633.jpg!webp)
-![升级中](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022643.jpg!webp)
-![升级完成](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022741.jpg!webp)
-![运行中](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_022928.jpg!webp)
+![看硬盘详细信息](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022553.jpg!webp)
+![Upgrade](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022615.jpg!webp)
+![最终确认](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022633.jpg!webp)
+![升级中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022643.jpg!webp)
+![升级完成](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022741.jpg!webp)
+![运行中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022928.jpg!webp)
 
 然后关机后把机子拿到客厅，插上电源和网线（主板上电自动开机
 回到卧室，进`web`一看
@@ -785,12 +785,13 @@ PS D:\yuangezhizao\Documents\ESXi>
 更改用户权限的页面藏在了这里，找了半天才发现，实在是太反人类了……
 ![permission](https://i1.yuangezhizao.cn/Win-10/20190728002659.jpg!webp)
 
-`web`页面每`900s`会强制下线草，可以在`高级设置`中修改至`0`
+`web`页面每`900s`会强制下线草，参照[为 ESXi Shell 和 vSphere Web Client 设置超时](https://web.archive.org/web/20200104172443/https://docs.vmware.com/cn/VMware-vSphere/6.0/com.vmware.vsphere.security.doc/GUID-E4EA7712-476A-458C-9DDA-5C6D260C6694.html)可以在`高级设置`中修改至`0`
+![官方文档](https://i1.yuangezhizao.cn/Win-10/20200104195521.jpg!webp)
 ![超时](https://i1.yuangezhizao.cn/Win-10/20200104185106.jpg!webp)
 ![逼死强逼症患者](https://i1.yuangezhizao.cn/Win-10/20200104192656.jpg!webp)
 
-参照[为 ESXi 6.0 主机配置 CA 签名证书 (2113926)](https://kb.vmware.com/s/article/2113926?lang=zh_CN)
-![即替换证书](https://i1.yuangezhizao.cn/Win-10/20200104191844.jpg!webp)
+参照[为 ESXi 6.0 主机配置 CA 签名证书 (2113926)](https://web.archive.org/web/20200104173200/https://kb.vmware.com/s/article/2113926?lang=zh_CN)
+![官方文档](https://i1.yuangezhizao.cn/Win-10/20200104191844.jpg!webp)
 ![腾讯云申请免费证书](https://i1.yuangezhizao.cn/Win-10/20200104192115.jpg!webp)
 
 重命名为`rui.crt`、`rui.key`，上传至`/etc/vmware/ssl`文件夹中
@@ -861,8 +862,8 @@ vpxa started.
 旧硬盘已炸（彻底报废？）替代硬盘已上，然后开机发现`web`连不上……出去看机子听到硬盘一直咔咔响……
 `WZ`大佬现身`Trouble Shooting`，发现那块硬盘连的是旧的`SATA`硬盘线，换上新的`1/元`根的线之后好了
 猜想之前的那块系统盘坏掉的原因也可能是因为这条线，草
-![机子](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_001521.jpg!webp)
-![那条硬盘线](https://i1.yuangezhizao.cn/Redmi-K20-Pro/IMG_20191228_002618.jpg!webp)
+![机子](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_001521.jpg!webp)
+![那条硬盘线](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_002618.jpg!webp)
 
 ## 0x02.Windows Server 2019 DataCenter
 爽到
