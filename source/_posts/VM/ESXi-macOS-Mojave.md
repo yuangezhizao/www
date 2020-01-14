@@ -32,7 +32,7 @@ key: 63
 ![VMs](https://i1.yuangezhizao.cn/Win-10/20191215030826.jpg!webp)
 ![苹果系统！](https://i1.yuangezhizao.cn/Win-10/20191215030849.jpg!webp)
 
-注：`unlocker`补丁（使非`ESXi`支持非`Apple`硬件等）记得最开始打上（之后重启`ESXi`
+注：`unlocker`补丁（使`ESXi`支持非`Apple`硬件等）记得最开始打上（之后重启`ESXi`
 ![sudo sh](https://i1.yuangezhizao.cn/Win-10/20191215030222.jpg!webp)
 ![命名](https://i1.yuangezhizao.cn/Win-10/20191215030916.jpg!webp)
 ![150 GB](https://i1.yuangezhizao.cn/Win-10/20191215031120.jpg!webp)
@@ -71,54 +71,54 @@ key: 63
 
 其实进安装之后本人就给恢复网络连接了，然后`tm`貌似卡住了？
 ![看日志发现果然在下载更新](https://i1.yuangezhizao.cn/Win-10/20191224202130.jpg!webp)
-![终于熬出头了](https://i1.yuangezhizao.cn/Win-10/20191224205641.jpg)
+![终于熬出头了](https://i1.yuangezhizao.cn/Win-10/20191224205641.jpg!webp)
 
 ## 0x03.配置
 突然巨大的一阵杂音，吓死我了（即使开着`QQ 音乐`
-![鼠标滚轮没反向好评](https://i1.yuangezhizao.cn/Win-10/20191224211517.jpg)
-![简体拼音](https://i1.yuangezhizao.cn/Win-10/20191224211632.jpg)
-![pass](https://i1.yuangezhizao.cn/Win-10/20191224211703.jpg)
+![鼠标滚轮没反向好评](https://i1.yuangezhizao.cn/Win-10/20191224211517.jpg!webp)
+![简体拼音](https://i1.yuangezhizao.cn/Win-10/20191224211632.jpg!webp)
+![pass](https://i1.yuangezhizao.cn/Win-10/20191224211703.jpg!webp)
 
 草，又被吓了一跳
-![立即静音](https://i1.yuangezhizao.cn/Win-10/20191224211805.jpg)
-![不传输](https://i1.yuangezhizao.cn/Win-10/20191224211935.jpg)
-![登录](https://i1.yuangezhizao.cn/Win-10/20191224212018.jpg)
-![二次验证好评](https://i1.yuangezhizao.cn/Win-10/20191224212136.jpg)
+![立即静音](https://i1.yuangezhizao.cn/Win-10/20191224211805.jpg!webp)
+![不传输](https://i1.yuangezhizao.cn/Win-10/20191224211935.jpg!webp)
+![登录](https://i1.yuangezhizao.cn/Win-10/20191224212018.jpg!webp)
+![二次验证好评](https://i1.yuangezhizao.cn/Win-10/20191224212136.jpg!webp)
 
 竟然卡在这里一直转圈圈……
-![那就先跳过好了](https://i1.yuangezhizao.cn/Win-10/20191224213040.jpg)
-![同意](https://i1.yuangezhizao.cn/Win-10/20191224213127.jpg)
-![创建账户](https://i1.yuangezhizao.cn/Win-10/20191224213409.jpg)
-![定位](https://i1.yuangezhizao.cn/Win-10/20191224213514.jpg)
-![但是，我拒绝](https://i1.yuangezhizao.cn/Win-10/20191224213544.jpg)
-![外观设置卡了下没截到，选的白色（毕竟虚拟机](https://i1.yuangezhizao.cn/Win-10/20191224213701.jpg)
+![那就先跳过好了](https://i1.yuangezhizao.cn/Win-10/20191224213040.jpg!webp)
+![同意](https://i1.yuangezhizao.cn/Win-10/20191224213127.jpg!webp)
+![创建账户](https://i1.yuangezhizao.cn/Win-10/20191224213409.jpg!webp)
+![定位](https://i1.yuangezhizao.cn/Win-10/20191224213514.jpg!webp)
+![但是，我拒绝](https://i1.yuangezhizao.cn/Win-10/20191224213544.jpg!webp)
+![外观设置卡了下没截到，选的白色（毕竟虚拟机](https://i1.yuangezhizao.cn/Win-10/20191224213701.jpg!webp)
 
 ## 0x04.运行
-![3 MB 显存，爆炸啊](https://i1.yuangezhizao.cn/Win-10/20191224214137.jpg)
-![安装不能](https://i1.yuangezhizao.cn/Win-10/20191224225344.jpg)
-![然后只能去下了个 darwin10_1.iso 手动安装](https://i1.yuangezhizao.cn/Win-10/20191224215147.jpg)
-![草](https://i1.yuangezhizao.cn/Win-10/20191224215402.jpg)
-![只敢更 10.14](https://i1.yuangezhizao.cn/Win-10/20191224221201.jpg)
-![再更](https://i1.yuangezhizao.cn/Win-10/20191224225429.jpg)
-![允许](https://i1.yuangezhizao.cn/Win-10/20191224215432.jpg)
-![重启见奇迹](https://i1.yuangezhizao.cn/Win-10/20191224215615.jpg)
-![128 MB 显存！](https://i1.yuangezhizao.cn/Win-10/20191224220032.jpg)
-![高分辨率全屏实在是太奇怪了](https://i1.yuangezhizao.cn/Win-10/20191224220245.png)
-![2h 警告](https://i1.yuangezhizao.cn/Win-10/20191224221228.jpg)
+![3 MB 显存，爆炸啊](https://i1.yuangezhizao.cn/Win-10/20191224214137.jpg!webp)
+![安装不能](https://i1.yuangezhizao.cn/Win-10/20191224225344.jpg!webp)
+![然后只能去下了个 darwin10_1.iso 手动安装](https://i1.yuangezhizao.cn/Win-10/20191224215147.jpg!webp)
+![草](https://i1.yuangezhizao.cn/Win-10/20191224215402.jpg!webp)
+![只敢更 10.14](https://i1.yuangezhizao.cn/Win-10/20191224221201.jpg!webp)
+![再更](https://i1.yuangezhizao.cn/Win-10/20191224225429.jpg!webp)
+![允许](https://i1.yuangezhizao.cn/Win-10/20191224215432.jpg!webp)
+![重启见奇迹](https://i1.yuangezhizao.cn/Win-10/20191224215615.jpg!webp)
+![128 MB 显存！](https://i1.yuangezhizao.cn/Win-10/20191224220032.jpg!webp)
+![高分辨率全屏实在是太奇怪了](https://i1.yuangezhizao.cn/Win-10/20191224220245.png!webp)
+![2h 警告](https://i1.yuangezhizao.cn/Win-10/20191224221228.jpg!webp)
 
 `2019-12-25 22:40:34`：
 `10.15`还是不可使用，因此只能`10.14`……
-![打完快照尝试 10.15](https://i1.yuangezhizao.cn/Win-10/20191225215552.jpg)
-![屏幕分辨率受限点不到继续](https://i1.yuangezhizao.cn/Win-10/20191225220128.jpg)
-![去 tm HIDPI](https://i1.yuangezhizao.cn/Win-10/20191225221031.jpg)
-![继续](https://i1.yuangezhizao.cn/Win-10/20191225221444.jpg)
-![同意](https://i1.yuangezhizao.cn/Win-10/20191225221550.jpg)
-![安装](https://i1.yuangezhizao.cn/Win-10/20191225221621.jpg)
-![继续](https://i1.yuangezhizao.cn/Win-10/20191225222246.jpg)
-![突然完成](https://i1.yuangezhizao.cn/Win-10/20191225222513.jpg)
-![果然已炸](https://i1.yuangezhizao.cn/Win-10/20191225223700.jpg)
-![日志](https://i1.yuangezhizao.cn/Win-10/20191225223743.jpg)
-![转到](https://i1.yuangezhizao.cn/Win-10/20191225223857.jpg)
+![打完快照尝试 10.15](https://i1.yuangezhizao.cn/Win-10/20191225215552.jpg!webp)
+![屏幕分辨率受限点不到继续](https://i1.yuangezhizao.cn/Win-10/20191225220128.jpg!webp)
+![去 tm HIDPI](https://i1.yuangezhizao.cn/Win-10/20191225221031.jpg!webp)
+![继续](https://i1.yuangezhizao.cn/Win-10/20191225221444.jpg!webp)
+![同意](https://i1.yuangezhizao.cn/Win-10/20191225221550.jpg!webp)
+![安装](https://i1.yuangezhizao.cn/Win-10/20191225221621.jpg!webp)
+![继续](https://i1.yuangezhizao.cn/Win-10/20191225222246.jpg!webp)
+![突然完成](https://i1.yuangezhizao.cn/Win-10/20191225222513.jpg!webp)
+![果然已炸](https://i1.yuangezhizao.cn/Win-10/20191225223700.jpg!webp)
+![日志](https://i1.yuangezhizao.cn/Win-10/20191225223743.jpg!webp)
+![转到](https://i1.yuangezhizao.cn/Win-10/20191225223857.jpg!webp)
 
 ## 0x05.引用
 > [求助，安装VM苹果，全屏分辨率自动变HiDPI](https://web.archive.org/web/20191225141257/http://tieba.baidu.com/p/5460378749?red_tag=c0777425807)
