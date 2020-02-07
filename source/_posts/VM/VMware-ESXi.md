@@ -850,7 +850,7 @@ vpxa started.
 ~~先给自己分配了一个虚拟机`hhh`~~`2019-12-28 00:51:40`该机子由于存储在坏掉的硬盘无法成功完全导出，最终只能重装……
 ![vms](https://i1.yuangezhizao.cn/Win-10/20190728003657.png!webp)
 ![+1s](https://i1.yuangezhizao.cn/Win-10/20190728004123.jpg!webp)
-> [PY 云新增 CentOS 7.7 64 位](https://www.yuangezhizao.cn/articles/Linux/CentOS/py.html)
+> [PY 云新增 CentOS 7.7 64 位](../Linux/CentOS/py.html)
 
 ![c7](https://i1.yuangezhizao.cn/Win-10/20191116191625.jpg!webp)
 

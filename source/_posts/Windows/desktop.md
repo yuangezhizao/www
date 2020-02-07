@@ -15,7 +15,7 @@ key: 57
     突然就配爽了台式机 2333 以及 AMD YES！
 <!-- more -->
 ## 0x00.前言
-> 原文地址：https://www.yuangezhizao.cn/articles/Windows/laptop.html#0x01-组台式机
+> 原文地址：[神舟 HASEE 战神 Z7M-i78172D1 笔记本#0x01-组台式机](./laptop.html#0x01-组台式机)
   原文作者：远哥制造
 
 > **起因**：直到最近，进入公司拿到了`T480`同样都是安装`Python`发现了其时间上的差距，回来问了`WZ`发现自己的电脑过时了……

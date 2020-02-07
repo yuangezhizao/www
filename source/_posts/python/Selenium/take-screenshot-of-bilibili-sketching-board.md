@@ -30,7 +30,7 @@ key: 12
     难得做一次活动页 _(•̀ᴗ•́ 」∠ ❀)_
 -->
 ```
-本来比较早就看到了这项活动，不过没放在心上，后来随着画板内容的爆满，才意识到可以尝试记录一下这项活动，正巧看到了[av13032452](https://www.bilibili.com/video/av13032452/)，原理在简介里写的很清楚了：`制作流程：使用autohotkey脚本每10秒截屏一次，然后使用irfanview批量裁剪+时间戳，最后使用ffmpeg压制，参数crf=0，yuv444，码率小于1500，测试b站能否通过。`。但是这流程并不适合我，首先`autohotkey`就不会用……但是原视频效果很好，可以非常清楚地看到像素点的移动。过了一天发现居然有单独的直播间`24h`开放记录着，这就再好不过了，[用 FFmpeg 保存 bilibili 直播视频](https://www.yuangezhizao.cn/articles/java/FFmpeg/save-live-video-of-bilibili.html)。但是不久就忘记自己还在服务器上录制着，前几天突然想起来了，赶紧登上去看下，结果录制了`80h`了，文件`10GB`，这……`1M`小水管就不拖到本地吧，云端处理好得了，贴下`media info`：
+本来比较早就看到了这项活动，不过没放在心上，后来随着画板内容的爆满，才意识到可以尝试记录一下这项活动，正巧看到了[av13032452](https://www.bilibili.com/video/av13032452/)，原理在简介里写的很清楚了：`制作流程：使用autohotkey脚本每10秒截屏一次，然后使用irfanview批量裁剪+时间戳，最后使用ffmpeg压制，参数crf=0，yuv444，码率小于1500，测试b站能否通过。`。但是这流程并不适合我，首先`autohotkey`就不会用……但是原视频效果很好，可以非常清楚地看到像素点的移动。过了一天发现居然有单独的直播间`24h`开放记录着，这就再好不过了，[用 FFmpeg 保存 bilibili 直播视频](../../java/FFmpeg/save-live-video-of-bilibili.html)。但是不久就忘记自己还在服务器上录制着，前几天突然想起来了，赶紧登上去看下，结果录制了`80h`了，文件`10GB`，这……`1M`小水管就不拖到本地吧，云端处理好得了，贴下`media info`：
 ![处理前视频 media info](https://i1.yuangezhizao.cn/Win-10/20170811194120.jpg!webp)
 
 起初是在百度云服务器处理，就是`ffmpeg 加速视频播放`，参考[这里](http://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video)，[这里](http://blog.csdn.net/matrix_laboratory/article/details/53158307)有中文版，即在控制台运行`ffmpeg -i "in.flv" -an -filter:v "setpts=0.002*PTS" out.flv`，但是太慢了，于是就`ftp`传到了阿里云服务器（目前本人手中 CPU 性能最好的云服务器），好在时间在可以忍受的范围之内，几个小时便处理完了，把`80`多小时的视频缩短到了不到`10 min`。

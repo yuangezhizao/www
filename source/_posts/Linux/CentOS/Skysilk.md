@@ -197,8 +197,8 @@ Max upload size: 5.2 TB
 状态：`systemctl status firewalld`
 于是依赖于`firewalld`的`fail2ban`就变成摆设了……
 
-## 0x08. 编译安装[python380](https://www.python.org/downloads/release/python-380/)环境
-https://www.yuangezhizao.cn/articles/Linux/CentOS/server.html#0x04-编译安装python380环境
+## 0x08. 编译安装[python381](https://www.python.org/downloads/release/python-381/)环境
+[换新系统之腾讯云学生机 CentOS 7.6 64 位#0x04-编译安装python381环境](../CentOS/server.html#0x04-编译安装python381环境)
 
 ## 0x09. 测速工具[SPEEDTEST CLI](https://speedtest.net/apps/cli#fedora)
 ![然后竟然出了官方版](https://i1.yuangezhizao.cn/Win-10/20191120191325.jpg!webp)
