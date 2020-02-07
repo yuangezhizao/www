@@ -184,4 +184,4 @@ live2d:
 
 lazy_load:
   enable: true
-  all: true
+  all: false
