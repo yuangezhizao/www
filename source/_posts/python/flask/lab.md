@@ -6,7 +6,7 @@ tags:
   - Apache24
   - mod_wsgi
   - TLSv1.3
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.292 2019-LTSC
 browser: 0
@@ -352,5 +352,27 @@ from run import app
 # Initialize WSGI app object
 application = app
 ```
-## 0x03.后记
+
+## 0x03.[RabbitMQ](https://www.rabbitmq.com/)
+看到日志文件竟有十兆之大，本能地随手就给打开了：`C:/Users/Administrator/AppData/Roaming/RabbitMQ/log/rabbit@cn-tx-bj1-w2d.log`
+然后前面都是正常的，结果从`code`的预览就能看到后面全是一样的，每`5s`一条的：
+`2020-02-14 19:29:12.010 [error] <0.513.0> Could not find handle.exe, please install from sysinternals`
+谷歌一下子就搜到了解决方案，[Could you help me to clarify what this error means?"Could not find handle.exe, please install from sysinternals"](https://web.archive.org/web/20200214115027/https://community.pivotal.io/s/question/0D50e000069X77hCAC/could-you-help-me-to-clarify-what-this-error-means-could-not-find-handleexe-please-install-from-sysinternals)
+![第一个就解决了，好评](https://i1.yuangezhizao.cn/Win-10/20200214194614.jpg!webp)
+
+> Eddie Murphy (Employee)
+2 months ago<br>
+When you first log in to the RabbitMQ web dashboard, under the Overview tab you will notice that in the File descriptors field there is a question mark about the missing Handle.exe. Handle.exe enables RabbitMQ to monitor the local file system. Download it from here: https://docs.microsoft.com/en-us/sysinternals/downloads/handle
+> - Extract this file. It is important that you keep a note of the extracted path as we will need to add it to PATH environment variable so it is available to RabbitMQ.
+> - Open the Environment Variables Windows, scroll down to the System Variables -> Path variable and click on Edit. At the end of the Variable Value, add the path to the Handle.exe by the path above
+> - Restart the RabbitMQ
+> - rabbitmq-service.bat stop
+> - rabbitmq-service.bat start
+
+于是下载[Handle v4.22](https://docs.microsoft.com/en-us/sysinternals/downloads/handle)，才`701 KB`……解压之后将其路径加入环境变量，重启服务问题解决`(^_−)☆`
+> You can also get a GUI-based version of this program, Process Explorer, here at Sysinternals.
+
+然后看到`Process Explorer`竟然是一个基于它的图形化程序，惊了
+
+## 0x04.后记
 未完待续……
