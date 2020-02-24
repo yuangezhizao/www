@@ -47,9 +47,9 @@ CPU | [AMD Ryzen 7 3700X](https://item.jd.com/100006391078.html) | JD 正品 | �
 鼠标 | [ASUS ROG Gladius](https://item.jd.com/12440466577.html) | JD 抽奖 | ~~¥239~~¥0
 键盘 | [USCORSAIR K70 LUX](https://item.jd.com/41756364735.html) | WZ 二手 | ~~699~~¥200
 内存 | [Kingston Fury DDR4 3200 16G](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
-显示器 | 【待定】4K？ | WZ 暂借 | ¥0
+显示器 | [AOC U2790PQU 27英寸 4K IPS](https://item.jd.com/100001071956.html) | JD 正品 | ¥1749
  | | | 
-总计 | | | ¥8595.08
+总计 | | | ¥10344.08
 
 #### 详情
 ![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/Win-10/20190815205532.png!webp)
