@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -31,14 +31,10 @@ txy.yuangezhizao.cn
 [root@txy ~]# reboot
 ```
 
-## 0x01.更新
+## 0x01.软件
 ``` bash
 yum update -y
-```
-
-## 0x02.软件
-``` bash
-yum install htop git axel -y
+yum install htop screen git axel iftop lsof -y
 ```
 1. `nfs-utils`：暂时`10G`免费
 ![腾讯云文件系统](https://i1.yuangezhizao.cn/Win-10/20190509232645.jpg!webp)
@@ -52,82 +48,97 @@ yum install htop git axel -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python380](https://www.python.org/downloads/release/python-380/)环境
+## 0x04.编译安装[python382](https://www.python.org/downloads/release/python-382/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
-python: /usr/bin/python /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/share/man/man1/python.1.gz
+python: /usr/bin/python /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/local/python3/bin/python3.8-config /usr/local/python3/bin/python3.8 /usr/share/man/man1/python.1.gz
 ```
 2. 安装编译工具
+~~`yum groupinstall 'Development Tools' -y`~~
 ``` bash
-yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel
+yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel -y
 ```
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-``` bash
-wget --no-check-certificate https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz
-```
+~~`wget --no-check-certificate https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
+``` bash
+CloudFlare：
+wget https://v2.yuangezhizao.cn/dl/Python-3.8.2.tar.xz
+Skysilk：
+wget http://proxy.yuangezhizao.cn/dl/Python-3.8.2.tar.xz
+```
 4. 解压
 ``` bash
-tar xvJf Python-3.8.0.tar.xz
-cd Python-3.8.0
+tar xvJf Python-3.8.2.tar.xz
+cd Python-3.8.2
 ```
 5. 编译
+注：开启了`编译器优化`之后的编译速度会较慢，但理论上编译产物的运行效率？会提高
 ``` bash
-sudo ./configure --prefix=/usr/local/python3
-sudo make && make install
+rm -rf /usr/local/python3
+./configure --prefix=/usr/local/python3 --enable-optimizations
+make && make install
 ```
 6. 创建软链接（`python3`&`pip3`）
 此法不会破坏自带`py`环境，因此无需修改任何`yum`文件
-注：更改`yum`配置
-``` bash
-vim /usr/bin/yum 
-vim /usr/libexec/urlgrabber-ext-down 
-vim /bin/yum-config-manager
-```
-把`#! /usr/bin/python`修改为`#! /usr/bin/python2`
+~~注：更改`yum`配置~~
+~~`vim /usr/bin/yum`~~
+~~`vim /usr/libexec/urlgrabber-ext-down`~~
+~~`vim /bin/yum-config-manager`~~
+~~把`#! /usr/bin/python`修改为`#! /usr/bin/python2`~~
 ``` bash
 ……
+Collecting setuptools
+Collecting pip
 Installing collected packages: setuptools, pip
 Successfully installed pip-19.2.3 setuptools-41.2.0
-[root@txy Python-3.8.0]# sudo ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-[root@txy Python-3.8.0]# sudo ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
-[root@txy Python-3.8.0]# python -V
+[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+ln: failed to create symbolic link ‘/usr/bin/python3’: File exists
+[root@txy Python-3.8.2]# rm -rf /usr/bin/python3
+[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
+ln: failed to create symbolic link ‘/usr/bin/pip3’: File exists
+[root@txy Python-3.8.2]# rm -rf /usr/bin/pip3
+[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
+[root@txy Python-3.8.2]# python -V
 Python 2.7.5
-[root@txy Python-3.8.0]# python2 -V
+[root@txy Python-3.8.2]# python2 -V
 Python 2.7.5
-[root@txy Python-3.8.0]# python3 -V
-Python 3.8.0
-[root@txy Python-3.8.0]# pip -V
+[root@txy Python-3.8.2]# python3 -V
+Python 3.8.2
+[root@txy Python-3.8.2]# pip -V
 -bash: pip: command not found
-[root@txy Python-3.8.0]# pip2 -V
+[root@txy Python-3.8.2]# pip2 -V
 -bash: pip2: command not found
-[root@txy Python-3.8.0]# pip3 -V
+[root@txy Python-3.8.2]# pip3 -V
 pip 19.2.3 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
-[root@txy ~]# python3
-Python 3.8.0 (default, Nov  8 2019, 19:13:51) 
+[root@txy Python-3.8.2]# python3
+Python 3.8.2 (default, Feb 27 2020, 22:56:59) 
 [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> exit()
+>>> 
+[1]+  Stopped                 python3
+[root@txy Python-3.8.2]# 
 ```
 > 这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`
 
 7. 升级`pip3`
 你云环境下会自动配置镜像源
 ``` bash
-[root@txy ~]# pip3 install --upgrade pip
+[root@txy Python-3.8.2]# pip3 install --upgrade pip
 Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
 Collecting pip
-  Downloading http://mirrors.tencentyun.com/pypi/packages/00/b6/9cfa56b4081ad13874b0c6f96af8ce16cfbc1cb06bedf8e9164ce5551ec1/pip-19.3.1-py2.py3-none-any.whl (1.4MB)
-     |████████████████████████████████| 1.4MB 670kB/s 
+  Downloading http://mirrors.tencentyun.com/pypi/packages/54/0c/d01aa759fdc501a58f431eb594a17495f15b88da142ce14b5845662c13f3/pip-20.0.2-py2.py3-none-any.whl (1.4MB)
+     |████████████████████████████████| 1.4MB 661kB/s 
 Installing collected packages: pip
   Found existing installation: pip 19.2.3
     Uninstalling pip-19.2.3:
       Successfully uninstalled pip-19.2.3
-Successfully installed pip-19.3.1
+Successfully installed pip-20.0.2
 ```
 安装`pip3`的另一种方法
 ``` bash
