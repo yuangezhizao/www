@@ -751,18 +751,18 @@ PS D:\yuangezhizao\Documents\ESXi>
 ### 7.启动
 机子搬回屋子里，菊花插上显示器、键盘和盘……开机`BIOS`设置项里选盘启动！
 
-![BIOS](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_021245.jpg!webp)
-![Installer](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022257.jpg!webp)
-![Enter](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022403.jpg!webp)
+![BIOS](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_021245-sc.jpg!webp)
+![Installer](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022257-sc.jpg!webp)
+![Enter](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022403-sc.jpg!webp)
 
 这里让选在哪块硬盘上安装或升级`ESXi`，当时一愣选错就尴尬了……
 后来看到可以看详细信息，只有一块硬盘含有`ESX(I) Found：ESXi 6.7.0`
-![看硬盘详细信息](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022553.jpg!webp)
-![Upgrade](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022615.jpg!webp)
-![最终确认](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022633.jpg!webp)
-![升级中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022643.jpg!webp)
-![升级完成](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022741.jpg!webp)
-![运行中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022928.jpg!webp)
+![看硬盘详细信息](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022553-sc.jpg!webp)
+![Upgrade](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022615-sc.jpg!webp)
+![最终确认](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022633-sc.jpg!webp)
+![升级中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022643-sc.jpg!webp)
+![升级完成](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022741-sc.jpg!webp)
+![运行中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022928-sc.jpg!webp)
 
 然后关机后把机子拿到客厅，插上电源和网线（主板上电自动开机
 回到卧室，进`web`一看
