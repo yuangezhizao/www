@@ -41,8 +41,8 @@ key: 69
 ![配送巨慢](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_130243.jpg!webp)
 ![果然南山](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_124942.jpg!webp)
 ![开箱](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_125058.jpg!webp)
-![配件](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_125742.jpg!webp)
-![上电](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_130011.jpg!webp)
+![配件](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_125742-sc.jpg!webp)
+![上电](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_130011-sc.jpg!webp)
 
 ## 0x02.[Keil](https://www.keil.com/download/product/)
 ![版本对比](https://i1.yuangezhizao.cn/Win-10/20200118161815.jpg!webp)
@@ -65,8 +65,8 @@ key: 69
 ![芯片信息](https://i1.yuangezhizao.cn/Win-10/20200118171146.jpg!webp)
 
 官网：https://keilpack.azureedge.net/pack/Keil.STM32L4xx_DFP.2.3.0.pack
-CloudFlare：https://v2.yuangezhizao.cn/dl/Keil.STM32L4xx_DFP.2.3.0.pack
-Skysilk：http://proxy.yuangezhizao.cn/dl/Keil.STM32L4xx_DFP.2.3.0.pack
+~~CloudFlare：https://v2.yuangezhizao.cn/dl/Keil.STM32L4xx_DFP.2.3.0.pack~~
+~~Skysilk：http://proxy.yuangezhizao.cn/dl/Keil.STM32L4xx_DFP.2.3.0.pack~~
 ![运行 .pack 文件导入支持包](https://i1.yuangezhizao.cn/Win-10/20200118164029.jpg!webp)
 
 ## 0x03.[ST-LINK](https://jsproxy.yuangezhizao.workers.dev/-----https://www.st.com/content/st_com/zh/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-utilities/stsw-link009.html)

@@ -38,7 +38,7 @@ key: 71
 ~~`0415`警觉，区号？~~然后就摸索`App`发现没插存储卡，然后……没找着插槽（一脸黑人问号`⊙▃⊙`
 翻了半天开始怀疑人生自己是不是买错了，结果后来搜索到了结果（`(╯°Д°)╯︵┻━┻`
 
-![这个 SD 卡槽的位置真是绝了](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200122_183010.jpg!webp)
+![这个 SD 卡槽的位置真是绝了](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200122_183010-sc.jpg!webp)
 ![草](https://i1.yuangezhizao.cn/Win-10/20191016005155.jpg!webp)
 
 （忘记先断电就直接）插……入……，之后提示异常，格式化之后就能使了（之前这张卡是给`rpi`做`OSMC`系统的
@@ -614,12 +614,14 @@ sudo samba restart
 ![选设备](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-20-43-48-689_com.xiaomi.sma.jpg!webp)
 ![选文件夹](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-20-44-07-472_com.xiaomi.sma.jpg!webp)
 ![同步设置](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-21-09-12-674_com.xiaomi.sma.jpg!webp)
+![传输正常](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-22-58-56-173_com.xiaomi.sma.jpg!webp)
 
 这里的显示有问题……亲测选择实时之后就会立即传输了（大概每次传输`7M`进行分割
+然后更改设置之后，需要手动关闭再开启`视频存储`开关
 ![Windows 挂载](https://i1.yuangezhizao.cn/Win-10/20200122211129.jpg!webp)
 
 因此，现在只能`cp -r xiaomi_camera_videos/ /tmp/cosfs/`之后清空视频文件了
-![Windows 挂载](https://i1.yuangezhizao.cn/Win-10/20200122213122.png!webp)
+![COS](https://i1.yuangezhizao.cn/Win-10/20200122213122.png!webp)
 
 设置`1h`的频率然后写个脚本扔`cron`里就`ok`了
 > 至此，全文目的已达成`(๑╹◡╹)ﾉ"""`
