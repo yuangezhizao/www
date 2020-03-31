@@ -3,7 +3,7 @@ title: 米家摄像机云台版同步腾讯云 COS
 date: 2020-1-22 19:07:58
 tags:
   - Mi
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.973 2019-LTSC
 browser: 0
@@ -28,11 +28,11 @@ key: 71
 
 ## 0x01.上电
 `5V 1A`插菊花，然后这玩楞就突然发出响（语）声（音）草，倒是可海星没有太沙雕，掏出手机扫码再把屏幕上的码给摄像头扫（互扫嘛）就`ok`了`(＾＿－)`
-其中还不支持`5G WiFi`还是有点儿遗憾（都上`H.265`视频编码了就不能支持下`5G`么草
+其中还不支持`5G WiFi`还是有点儿遗憾（~~都上`H.265`视频编码了就不能支持下`5G`么草~~，后来才想到`5G`穿墙硬伤
 
 ![no 5G](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-18-15-38-682_com.xiaomi.sma.jpg!webp)
 
-然后就日常升级固件到最新（毕竟新电子产品拿到手的第一步基本上都是更到最新
+然后就日常升级固件到最新（毕竟新电子产品拿到手的第一步基本上都是更到最新，即使这并不一定是一个好习惯
 ![3.5.8_0415](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-18-23-01-189_com.xiaomi.sma.jpg!webp)
 
 ~~`0415`警觉，区号？~~然后就摸索`App`发现没插存储卡，然后……没找着插槽（一脸黑人问号`⊙▃⊙`
@@ -624,12 +624,42 @@ sudo samba restart
 ![COS](https://i1.yuangezhizao.cn/Win-10/20200122213122.png!webp)
 
 设置`1h`的频率然后写个脚本扔`cron`里就`ok`了
-> 至此，全文目的已达成`(๑╹◡╹)ﾉ"""`
+> 至此本文使命完成
 
 ![去 tm 的云存储 VIP](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-21-18-02-533_com.xiaomi.sma.jpg!webp)
 
 ## 0x03.后记
 姿势不对，后期探索`ヽ(^_−)ﾉ`
 初见竟然`2.5h`就写完了全文，「五星好评，下次还来」
+`2020-3-31 21:27:16`：
+去翻了下现在的文件夹列表
+![5ce50c592cb6](https://i1.yuangezhizao.cn/Win-10/20200331212901.png!webp)
 
-未完待续……
+因为去年白嫖的资源包明天到期。。。
+![200.00 GB](https://i1.yuangezhizao.cn/Win-10/20200331213606.jpg!webp)
+
+其实也只用到了`163 GB`而已，而`rpi`就占了`55 GB`
+![数据监控](https://i1.yuangezhizao.cn/Win-10/20200331213649.jpg!webp)
+![存储桶数据概览](https://i1.yuangezhizao.cn/Win-10/20200331213757.jpg!webp)
+
+于是去看看氪金的价格，**归档存储**倒是不贵
+![产品定价](https://i1.yuangezhizao.cn/Win-10/20200331213450.jpg!webp)
+![COS资源包](https://i1.yuangezhizao.cn/Win-10/20200331215954.jpg!webp)
+![COS资源包](https://i1.yuangezhizao.cn/Win-10/20200331214520.jpg!webp)
+
+然后去翻活动页面，氪了个`1`元`50 GB`的`6`个月时长的标准存储包（自然就没有买归档包
+![好活动](https://i1.yuangezhizao.cn/Win-10/20200331215032.jpg!webp)
+![还不错](https://i1.yuangezhizao.cn/Win-10/20200331214854.jpg!webp)
+![1](https://i1.yuangezhizao.cn/Win-10/20200331214929.jpg!webp)
+![50.00GB](https://i1.yuangezhizao.cn/Win-10/20200331215302.jpg!webp)
+![25](https://i1.yuangezhizao.cn/Win-10/20200331221325.jpg!webp)
+
+在加上之前的`50 GB`额度就正好凑足`100 GB`了，然后前天莫名提示`90%`？？？
+![老用户福利](https://i1.yuangezhizao.cn/Win-10/20200331220448.jpg!webp)
+![？](https://i1.yuangezhizao.cn/Win-10/20200331220705.jpg!webp)
+
+于是现在的任务就变成了干掉`63.56 GB`……先从`81.15GB`的`video`存储桶下手吧，为什么是它呢？因为之前测试转存的时候屯了一个超多分`P`的`maimai`手元视频
+屯完之后懒得管，不过现在是时候处理下了……
+![刷屏草](https://i1.yuangezhizao.cn/Win-10/20200331221714.jpg!webp)
+![前缀搜索](https://i1.yuangezhizao.cn/Win-10/20200331221819.png!webp)
+![搞定](https://i1.yuangezhizao.cn/Win-10/20200331222705.jpg!webp)
