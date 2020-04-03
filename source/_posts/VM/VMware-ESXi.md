@@ -1,11 +1,11 @@
 ---
-title: VMware ESXi 6.7.0 服务器虚拟化
+title: VMware ESXi 7.0.0 服务器虚拟化
 date: 2019-7-28 01:58:51
 tags:
   - VM
   - VMware
   - ESXi
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -16,6 +16,389 @@ key: 53
     VMware ESXi: The Purpose-Built Bare Metal Hypervisor
 <!-- more -->
 ## 0x00.安装或升级
+### `ESXCLI`使用`Zip`文件更新`ESXi`主机
+### 1.下载
+![7.0](https://i1.yuangezhizao.cn/Win-10/20200404011121.jpg!webp)
+
+下载链接来源未知，请自行鉴别安全性
+> `VMware vSphere Hypervisor（ESXi）`脱机捆绑包
+链接： [VMware-ESXi-7.0.0-15843807-depot.zip](https://cld14.irans3.com/dlir-s3/VMware-ESXi-7.0.0-15843807-depot.zip)
+档案大小： `344 MB`
+MD5： `d3e7d11daaa98d235694201b367dfdb2`
+SHA1： `84c27637f0f48f11f7638425c9e106d68c27f6fc`
+
+下完之后扔到存储上
+
+### 2.`ESXCLI`
+![官方中文教程](https://i1.yuangezhizao.cn/Win-10/20200404010548.jpg!webp)
+
+挂起全部虚拟机之后进入**维护模式**
+``` bash
+[yuangezhizao@VM:~] vim-cmd hostsvc/maintenance_mode_enter
+Operation timed out.
+[yuangezhizao@VM:~] vim-cmd hostsvc/maintenance_mode_enter
+[yuangezhizao@VM:~] 
+```
+![维护中](https://i1.yuangezhizao.cn/Win-10/20200404011523.jpg!webp)
+
+然后命令行升级，注意需要全路径
+``` bash
+[yuangezhizao@VM:~] cd /vmfs/volumes/5d5d97d2-f9f4fe8f-7361-2c56dc945d15
+[yuangezhizao@VM:/vmfs/volumes/5d5d97d2-f9f4fe8f-7361-2c56dc945d15] esxcli software vib update -d VMware-ESXi-7.0.0-15843807-depot.zip 
+ [MetadataDownloadError]
+ Could not download from depot at zip:/var/log/vmware/VMware-ESXi-7.0.0-15843807-depot.zip?index.xml, skipping (('zip:/var/log/vmware/VMware-ESXi-7.0.0-15843807-depot.zip?index.xml', '', "Error extracting index.xml from /var/log/vmware/VMware-ESXi-7.0.0-15843807-depot.zip: [Errno 2] No such file or directory: '/var/log/vmware/VMware-ESXi-7.0.0-15843807-depot.zip'"))
+        url = zip:/var/log/vmware/VMware-ESXi-7.0.0-15843807-depot.zip?index.xml
+ Please refer to the log file for more details.
+[yuangezhizao@VM:/vmfs/volumes/5d5d97d2-f9f4fe8f-7361-2c56dc945d15] esxcli software vib update -d /vmfs/volumes/5d5d97d2-f9f4fe8f-7361-2c56dc945d15/VMware-ESXi-7.0.0-15843807-depot.zip 
+ [DependencyError]
+ VIB Realtek_bootbank_net55-r8168_8.045a-napi requires vmkapi_2_2_0_0, but the requirement cannot be satisfied within the ImageProfile.
+ VIB Realtek_bootbank_net55-r8168_8.045a-napi requires com.vmware.driverAPI-9.2.2.0, but the requirement cannot be satisfied within the ImageProfile.
+ Please refer to the log file for more details.
+```
+结果有冲突，没错（螃蟹网卡）还未支持？
+![Dependencies and Restrictions](https://i1.yuangezhizao.cn/Win-10/20200404013211.jpg!webp)
+
+然后去看下网卡信息
+``` bash
+[yuangezhizao@VM:~] esxcli network nic list
+Name    PCI Device    Driver  Admin Status  Link Status  Speed  Duplex  MAC Address         MTU  Description
+------  ------------  ------  ------------  -----------  -----  ------  -----------------  ----  -------------------------------------------------
+vmnic0  0000:07:00.0  igbn    Up            Up            1000  Full    00:13:32:08:f7:d4  1500  Intel Corporation I211 Gigabit Network Connection
+vmnic1  0000:09:00.0  igbn    Up            Up            1000  Full    00:13:32:08:f7:d5  1500  Intel Corporation I211 Gigabit Network Connection
+[yuangezhizao@VM:~] esxcli network nic get -n vmnic0
+   Advertised Auto Negotiation: true
+   Advertised Link Modes: Auto, 1000BaseT/Full, 100BaseT/Full, 10BaseT/Full
+   Auto Negotiation: true
+   Cable Type: Twisted Pair
+   Current Message Level: 0
+   Driver Info: 
+         Bus Info: 0000:07:00:0
+         Driver: igbn
+         Firmware Version: 0.6-5
+         Version: 0.1.1.0
+   Link Detected: true
+   Link Status: Up 
+   Name: vmnic0
+   PHYAddress: 0
+   Pause Autonegotiate: false
+   Pause RX: false
+   Pause TX: false
+   Supported Ports: TP
+   Supports Auto Negotiation: true
+   Supports Pause: false
+   Supports Wakeon: true
+   Transceiver: internal
+   Virtual Address: 00:50:56:50:0a:c0
+   Wakeon: MagicPacket(tm)
+```
+现在用的是`Intel`的网卡哈哈哈，看下全部`VIB`列表
+
+<details><summary>点击此处 ← 查看终端</summary>
+
+``` bash
+[yuangezhizao@VM:~] esxcli software vib list
+Name                           Version                               Vendor   Acceptance Level    Install Date
+-----------------------------  ------------------------------------  -------  ------------------  ------------
+net55-r8168                    8.045a-napi                           Realtek  CommunitySupported  2019-12-27
+ata-libata-92                  3.00.9.2-16vmw.670.0.0.8169922        VMW      VMwareCertified     2019-12-27
+ata-pata-amd                   0.3.10-3vmw.670.0.0.8169922           VMW      VMwareCertified     2019-12-27
+ata-pata-atiixp                0.4.6-4vmw.670.0.0.8169922            VMW      VMwareCertified     2019-12-27
+ata-pata-cmd64x                0.2.5-3vmw.670.0.0.8169922            VMW      VMwareCertified     2019-12-27
+ata-pata-hpt3x2n               0.3.4-3vmw.670.0.0.8169922            VMW      VMwareCertified     2019-12-27
+ata-pata-pdc2027x              1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+ata-pata-serverworks           0.4.3-3vmw.670.0.0.8169922            VMW      VMwareCertified     2019-12-27
+ata-pata-sil680                0.4.8-3vmw.670.0.0.8169922            VMW      VMwareCertified     2019-12-27
+ata-pata-via                   0.3.3-2vmw.670.0.0.8169922            VMW      VMwareCertified     2019-12-27
+block-cciss                    3.6.14-10vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+bnxtnet                        20.6.101.7-24vmw.670.3.73.14320388    VMW      VMwareCertified     2019-12-27
+bnxtroce                       20.6.101.0-20vmw.670.1.28.10302608    VMW      VMwareCertified     2019-12-27
+brcmfcoe                       11.4.1078.25-14vmw.670.3.73.14320388  VMW      VMwareCertified     2019-12-27
+char-random                    1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+ehci-ehci-hcd                  1.0-4vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+elxiscsi                       11.4.1174.0-2vmw.670.0.0.8169922      VMW      VMwareCertified     2019-12-27
+elxnet                         11.4.1097.0-5vmw.670.3.73.14320388    VMW      VMwareCertified     2019-12-27
+hid-hid                        1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+i40en                          1.8.1.9-2vmw.670.3.73.14320388        VMW      VMwareCertified     2019-12-27
+iavmd                          1.2.0.1011-2vmw.670.0.0.8169922       VMW      VMwareCertified     2019-12-27
+igbn                           0.1.1.0-5vmw.670.3.73.14320388        VMW      VMwareCertified     2019-12-27
+ima-qla4xxx                    2.02.18-1vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+ipmi-ipmi-devintf              39.1-5vmw.670.1.28.10302608           VMW      VMwareCertified     2019-12-27
+ipmi-ipmi-msghandler           39.1-5vmw.670.1.28.10302608           VMW      VMwareCertified     2019-12-27
+ipmi-ipmi-si-drv               39.1-5vmw.670.1.28.10302608           VMW      VMwareCertified     2019-12-27
+iser                           1.0.0.0-1vmw.670.1.28.10302608        VMW      VMwareCertified     2019-12-27
+ixgben                         1.7.1.16-1vmw.670.3.73.14320388       VMW      VMwareCertified     2019-12-27
+lpfc                           11.4.33.25-14vmw.670.3.73.14320388    VMW      VMwareCertified     2019-12-27
+lpnic                          11.4.59.0-1vmw.670.0.0.8169922        VMW      VMwareCertified     2019-12-27
+lsi-mr3                        7.708.07.00-3vmw.670.3.73.14320388    VMW      VMwareCertified     2019-12-27
+lsi-msgpt2                     20.00.06.00-2vmw.670.3.73.14320388    VMW      VMwareCertified     2019-12-27
+lsi-msgpt35                    09.00.00.00-5vmw.670.3.73.14320388    VMW      VMwareCertified     2019-12-27
+lsi-msgpt3                     17.00.02.00-1vmw.670.3.73.14320388    VMW      VMwareCertified     2019-12-27
+misc-cnic-register             1.78.75.v60.7-1vmw.670.0.0.8169922    VMW      VMwareCertified     2019-12-27
+misc-drivers                   6.7.0-2.48.13006603                   VMW      VMwareCertified     2019-12-27
+mtip32xx-native                3.9.8-1vmw.670.1.28.10302608          VMW      VMwareCertified     2019-12-27
+ne1000                         0.8.4-2vmw.670.2.48.13006603          VMW      VMwareCertified     2019-12-27
+nenic                          1.0.29.0-1vmw.670.3.73.14320388       VMW      VMwareCertified     2019-12-27
+net-bnx2                       2.2.4f.v60.10-2vmw.670.0.0.8169922    VMW      VMwareCertified     2019-12-27
+net-bnx2x                      1.78.80.v60.12-2vmw.670.0.0.8169922   VMW      VMwareCertified     2019-12-27
+net-cdc-ether                  1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+net-cnic                       1.78.76.v60.13-2vmw.670.0.0.8169922   VMW      VMwareCertified     2019-12-27
+net-e1000                      8.0.3.1-5vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+net-e1000e                     3.2.2.1-2vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+net-enic                       2.1.2.38-2vmw.670.0.0.8169922         VMW      VMwareCertified     2019-12-27
+net-fcoe                       1.0.29.9.3-7vmw.670.0.0.8169922       VMW      VMwareCertified     2019-12-27
+net-forcedeth                  0.61-2vmw.670.0.0.8169922             VMW      VMwareCertified     2019-12-27
+net-igb                        5.0.5.1.1-5vmw.670.0.0.8169922        VMW      VMwareCertified     2019-12-27
+net-ixgbe                      3.7.13.7.14iov-20vmw.670.0.0.8169922  VMW      VMwareCertified     2019-12-27
+net-libfcoe-92                 1.0.24.9.4-8vmw.670.0.0.8169922       VMW      VMwareCertified     2019-12-27
+net-mlx4-core                  1.9.7.0-1vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+net-mlx4-en                    1.9.7.0-1vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+net-nx-nic                     5.0.621-5vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+net-tg3                        3.131d.v60.4-2vmw.670.0.0.8169922     VMW      VMwareCertified     2019-12-27
+net-usbnet                     1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+net-vmxnet3                    1.1.3.0-3vmw.670.3.89.15160138        VMW      VMwareCertified     2019-12-27
+nfnic                          4.0.0.29-0vmw.670.3.73.14320388       VMW      VMwareCertified     2019-12-27
+nhpsa                          2.0.22-3vmw.670.1.28.10302608         VMW      VMwareCertified     2019-12-27
+nmlx4-core                     3.17.13.1-1vmw.670.2.48.13006603      VMW      VMwareCertified     2019-12-27
+nmlx4-en                       3.17.13.1-1vmw.670.2.48.13006603      VMW      VMwareCertified     2019-12-27
+nmlx4-rdma                     3.17.13.1-1vmw.670.2.48.13006603      VMW      VMwareCertified     2019-12-27
+nmlx5-core                     4.17.13.1-1vmw.670.3.73.14320388      VMW      VMwareCertified     2019-12-27
+nmlx5-rdma                     4.17.13.1-1vmw.670.2.48.13006603      VMW      VMwareCertified     2019-12-27
+ntg3                           4.1.3.2-1vmw.670.1.28.10302608        VMW      VMwareCertified     2019-12-27
+nvme                           1.2.2.28-1vmw.670.3.73.14320388       VMW      VMwareCertified     2019-12-27
+nvmxnet3-ens                   2.0.0.21-1vmw.670.0.0.8169922         VMW      VMwareCertified     2019-12-27
+nvmxnet3                       2.0.0.29-1vmw.670.1.28.10302608       VMW      VMwareCertified     2019-12-27
+ohci-usb-ohci                  1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+pvscsi                         0.1-2vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+qcnic                          1.0.2.0.4-1vmw.670.0.0.8169922        VMW      VMwareCertified     2019-12-27
+qedentv                        2.0.6.4-10vmw.670.1.28.10302608       VMW      VMwareCertified     2019-12-27
+qfle3                          1.0.50.11-9vmw.670.0.0.8169922        VMW      VMwareCertified     2019-12-27
+qfle3f                         1.0.25.0.2-14vmw.670.0.0.8169922      VMW      VMwareCertified     2019-12-27
+qfle3i                         1.0.2.3.9-3vmw.670.0.0.8169922        VMW      VMwareCertified     2019-12-27
+qflge                          1.1.0.11-1vmw.670.0.0.8169922         VMW      VMwareCertified     2019-12-27
+sata-ahci                      3.0-26vmw.670.0.0.8169922             VMW      VMwareCertified     2019-12-27
+sata-ata-piix                  2.12-10vmw.670.0.0.8169922            VMW      VMwareCertified     2019-12-27
+sata-sata-nv                   3.5-4vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+sata-sata-promise              2.12-3vmw.670.0.0.8169922             VMW      VMwareCertified     2019-12-27
+sata-sata-sil24                1.1-1vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+sata-sata-sil                  2.3-4vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+sata-sata-svw                  2.3-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+scsi-aacraid                   1.1.5.1-9vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+scsi-adp94xx                   1.0.8.12-6vmw.670.0.0.8169922         VMW      VMwareCertified     2019-12-27
+scsi-aic79xx                   3.1-6vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+scsi-bnx2fc                    1.78.78.v60.8-1vmw.670.0.0.8169922    VMW      VMwareCertified     2019-12-27
+scsi-bnx2i                     2.78.76.v60.8-1vmw.670.0.0.8169922    VMW      VMwareCertified     2019-12-27
+scsi-fnic                      1.5.0.45-3vmw.670.0.0.8169922         VMW      VMwareCertified     2019-12-27
+scsi-hpsa                      6.0.0.84-3vmw.670.0.0.8169922         VMW      VMwareCertified     2019-12-27
+scsi-ips                       7.12.05-4vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+scsi-iscsi-linux-92            1.0.0.2-3vmw.670.0.0.8169922          VMW      VMwareCertified     2019-12-27
+scsi-libfc-92                  1.0.40.9.3-5vmw.670.0.0.8169922       VMW      VMwareCertified     2019-12-27
+scsi-megaraid-mbox             2.20.5.1-6vmw.670.0.0.8169922         VMW      VMwareCertified     2019-12-27
+scsi-megaraid-sas              6.603.55.00-2vmw.670.0.0.8169922      VMW      VMwareCertified     2019-12-27
+scsi-megaraid2                 2.00.4-9vmw.670.0.0.8169922           VMW      VMwareCertified     2019-12-27
+scsi-mpt2sas                   19.00.00.00-2vmw.670.0.0.8169922      VMW      VMwareCertified     2019-12-27
+scsi-mptsas                    4.23.01.00-10vmw.670.0.0.8169922      VMW      VMwareCertified     2019-12-27
+scsi-mptspi                    4.23.01.00-10vmw.670.0.0.8169922      VMW      VMwareCertified     2019-12-27
+scsi-qla4xxx                   5.01.03.2-7vmw.670.0.0.8169922        VMW      VMwareCertified     2019-12-27
+sfvmk                          1.0.0.1003-6vmw.670.3.73.14320388     VMW      VMwareCertified     2019-12-27
+shim-iscsi-linux-9-2-1-0       6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-iscsi-linux-9-2-2-0       6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-libata-9-2-1-0            6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-libata-9-2-2-0            6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-libfc-9-2-1-0             6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-libfc-9-2-2-0             6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-libfcoe-9-2-1-0           6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-libfcoe-9-2-2-0           6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-vmklinux-9-2-1-0          6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-vmklinux-9-2-2-0          6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+shim-vmklinux-9-2-3-0          6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+smartpqi                       1.0.1.553-28vmw.670.3.73.14320388     VMW      VMwareCertified     2019-12-27
+uhci-usb-uhci                  1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+usb-storage-usb-storage        1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+usbcore-usb                    1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+vmkata                         0.1-1vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+vmkfcoe                        1.0.0.1-1vmw.670.1.28.10302608        VMW      VMwareCertified     2019-12-27
+vmkplexer-vmkplexer            6.7.0-0.0.8169922                     VMW      VMwareCertified     2019-12-27
+vmkusb                         0.1-1vmw.670.3.89.15160138            VMW      VMwareCertified     2019-12-27
+vmw-ahci                       1.2.8-1vmw.670.3.73.14320388          VMW      VMwareCertified     2019-12-27
+xhci-xhci                      1.0-3vmw.670.0.0.8169922              VMW      VMwareCertified     2019-12-27
+cpu-microcode                  6.7.0-3.77.15018017                   VMware   VMwareCertified     2019-12-27
+elx-esx-libelxima.so           11.4.1184.2-3.89.15160138             VMware   VMwareCertified     2019-12-27
+esx-base                       6.7.0-3.89.15160138                   VMware   VMwareCertified     2019-12-27
+esx-dvfilter-generic-fastpath  6.7.0-0.0.8169922                     VMware   VMwareCertified     2019-12-27
+esx-ui                         1.33.4-14093553                       VMware   VMwareCertified     2019-12-27
+esx-update                     6.7.0-3.89.15160138                   VMware   VMwareCertified     2019-12-27
+esx-xserver                    6.7.0-3.73.14320388                   VMware   VMwareCertified     2019-12-27
+lsu-hp-hpsa-plugin             2.0.0-16vmw.670.1.28.10302608         VMware   VMwareCertified     2019-12-27
+lsu-intel-vmd-plugin           1.0.0-2vmw.670.1.28.10302608          VMware   VMwareCertified     2019-12-27
+lsu-lsi-drivers-plugin         1.0.0-1vmw.670.2.48.13006603          VMware   VMwareCertified     2019-12-27
+lsu-lsi-lsi-mr3-plugin         1.0.0-13vmw.670.1.28.10302608         VMware   VMwareCertified     2019-12-27
+lsu-lsi-lsi-msgpt3-plugin      1.0.0-9vmw.670.2.48.13006603          VMware   VMwareCertified     2019-12-27
+lsu-lsi-megaraid-sas-plugin    1.0.0-9vmw.670.0.0.8169922            VMware   VMwareCertified     2019-12-27
+lsu-lsi-mpt2sas-plugin         2.0.0-7vmw.670.0.0.8169922            VMware   VMwareCertified     2019-12-27
+lsu-smartpqi-plugin            1.0.0-3vmw.670.1.28.10302608          VMware   VMwareCertified     2019-12-27
+native-misc-drivers            6.7.0-3.89.15160138                   VMware   VMwareCertified     2019-12-27
+qlnativefc                     3.1.8.0-5vmw.670.3.73.14320388        VMware   VMwareCertified     2019-12-27
+rste                           2.0.2.0088-7vmw.670.0.0.8169922       VMware   VMwareCertified     2019-12-27
+vmware-esx-esxcli-nvme-plugin  1.2.0.36-2.48.13006603                VMware   VMwareCertified     2019-12-27
+vsan                           6.7.0-3.89.14840357                   VMware   VMwareCertified     2019-12-27
+vsanhealth                     6.7.0-3.89.14840358                   VMware   VMwareCertified     2019-12-27
+tools-light                    11.0.1.14773994-15160134              VMware   VMwareCertified     2019-12-27
+```
+
+</details>
+
+不难看出`Intel`用的是`igbn`这个库，于是大胆移除`net55-r8168`
+``` bash
+[yuangezhizao@VM:~] esxcli software vib get -n net55-r8168
+Realtek_bootbank_net55-r8168_8.045a-napi
+   Name: net55-r8168
+   Version: 8.045a-napi
+   Type: bootbank
+   Vendor: Realtek
+   Acceptance Level: CommunitySupported
+   Summary: Driver for Realtek 8111/8168
+   Description: Recent driver for Realtek 8111/8168. Based on original Realtek drivers
+   ReferenceURLs: kb|https://vibsdepot.v-front.de/wiki/index.php/Net55-r8168
+   Creation Date: 2018-04-16
+   Depends: vmkapi_2_2_0_0, com.vmware.driverAPI-9.2.2.0
+   Conflicts: net51-drivers
+   Replaces: net-r8168
+   Provides: 
+   Maintenance Mode Required: True
+   Hardware Platforms Required: 
+   Live Install Allowed: False
+   Live Remove Allowed: False
+   Stateless Ready: True
+   Overlay: False
+   Tags: driver, module
+   Payloads: net55-r8
+[yuangezhizao@VM:~] esxcli software vib remove -n net55-r8168
+Removal Result
+   Message: The update completed successfully, but the system needs to be rebooted for the changes to be effective.
+   Reboot Required: true
+   VIBs Installed: 
+   VIBs Removed: Realtek_bootbank_net55-r8168_8.045a-napi
+   VIBs Skipped: 
+```
+立即重新升级
+``` bash
+[yuangezhizao@VM:~] esxcli software vib update -d /vmfs/volumes/5d5d97d2-f9f4fe8f-7361-2c56dc945d15/VMware-ESXi-7.0.0
+-15843807-depot.zip 
+Installation Result
+   Message: The update completed successfully, but the system needs to be rebooted for the changes to be effective.
+   Reboot Required: true
+   VIBs Installed: VMW_bootbank_bnxtnet_216.0.50.0-4vmw.700.1.0.15843807, VMW_bootbank_bnxtroce_216.0.58.0-1vmw.700.1.0.15843807, VMW_bootbank_brcmfcoe_12.0.1500.0-1vmw.700.1.0.15843807, VMW_bootbank_elxiscsi_12.0.1200.0-1vmw.700.1.0.15843807, VMW_bootbank_elxnet_12.0.1250.0-5vmw.700.1.0.15843807, VMW_bootbank_i40en_1.8.1.16-1vmw.700.1.0.15843807, VMW_bootbank_iavmd_2.0.0.1055-3vmw.700.1.0.15843807, VMW_bootbank_igbn_0.1.1.0-6vmw.700.1.0.15843807, VMW_bootbank_iser_1.1.0.0-1vmw.700.1.0.15843807, VMW_bootbank_ixgben_1.7.1.26-1vmw.700.1.0.15843807, VMW_bootbank_lpfc_12.4.293.3-5vmw.700.1.0.15843807, VMW_bootbank_lpnic_11.4.62.0-1vmw.700.1.0.15843807, VMW_bootbank_lsi-mr3_7.712.50.00-1vmw.700.1.0.15843807, VMW_bootbank_lsi-msgpt2_20.00.06.00-2vmw.700.1.0.15843807, VMW_bootbank_lsi-msgpt35_13.00.12.00-1vmw.700.1.0.15843807, VMW_bootbank_lsi-msgpt3_17.00.10.00-1vmw.700.1.0.15843807, VMW_bootbank_mtip32xx-native_3.9.8-1vmw.700.1.0.15843807, VMW_bootbank_ne1000_0.8.4-10vmw.700.1.0.15843807, VMW_bootbank_nenic_1.0.29.0-1vmw.700.1.0.15843807, VMW_bootbank_nfnic_4.0.0.44-1vmw.700.1.0.15843807, VMW_bootbank_nhpsa_2.0.50-1vmw.700.1.0.15843807, VMW_bootbank_nmlx4-core_3.19.16.7-1vmw.700.1.0.15843807, VMW_bootbank_nmlx4-en_3.19.16.7-1vmw.700.1.0.15843807, VMW_bootbank_nmlx4-rdma_3.19.16.7-1vmw.700.1.0.15843807, VMW_bootbank_nmlx5-core_4.19.16.7-1vmw.700.1.0.15843807, VMW_bootbank_nmlx5-rdma_4.19.16.7-1vmw.700.1.0.15843807, VMW_bootbank_ntg3_4.1.4.1-1vmw.700.1.0.15843807, VMW_bootbank_nvmxnet3-ens_2.0.0.22-1vmw.700.1.0.15843807, VMW_bootbank_nvmxnet3_2.0.0.30-1vmw.700.1.0.15843807, VMW_bootbank_pvscsi_0.1-2vmw.700.1.0.15843807, VMW_bootbank_qcnic_1.0.15.0-8vmw.700.1.0.15843807, VMW_bootbank_qedentv_3.12.1.0-23vmw.700.1.0.15843807, VMW_bootbank_qfle3_1.0.66.0-5vmw.700.1.0.15843807, VMW_bootbank_qfle3f_1.0.51.0-12vmw.700.1.0.15843807, VMW_bootbank_qfle3i_1.0.15.0-6vmw.700.1.0.15843807, VMW_bootbank_qflge_1.1.0.11-1vmw.700.1.0.15843807, VMW_bootbank_rste_2.0.2.0088-7vmw.700.1.0.15843807, VMW_bootbank_sfvmk_2.0.0.1004-3vmw.700.1.0.15843807, VMW_bootbank_smartpqi_1.0.4.3011-1vmw.700.1.0.15843807, VMW_bootbank_vmkata_0.1-1vmw.700.1.0.15843807, VMW_bootbank_vmkfcoe_1.0.0.2-1vmw.700.1.0.15843807, VMW_bootbank_vmkusb_0.1-1vmw.700.1.0.15843807, VMW_bootbank_vmw-ahci_1.3.9-1vmw.700.1.0.15843807, VMware_bootbank_cpu-microcode_7.0.0-1.0.15843807, VMware_bootbank_elx-esx-libelxima.so_12.0.1200.0-2vmw.700.1.0.15843807, VMware_bootbank_esx-base_7.0.0-1.0.15843807, VMware_bootbank_esx-dvfilter-generic-fastpath_7.0.0-1.0.15843807, VMware_bootbank_esx-ui_1.34.0-15603211, VMware_bootbank_esx-update_7.0.0-1.0.15843807, VMware_bootbank_esx-xserver_7.0.0-1.0.15843807, VMware_bootbank_lsuv2-hpv2-hpsa-plugin_1.0.0-2vmw.700.1.0.15843807, VMware_bootbank_lsuv2-intelv2-nvme-vmd-plugin_1.0.0-2vmw.700.1.0.15843807, VMware_bootbank_lsuv2-lsiv2-drivers-plugin_1.0.0-2vmw.700.1.0.15843807, VMware_bootbank_lsuv2-smartpqiv2-plugin_1.0.0-3vmw.700.1.0.15843807, VMware_bootbank_native-misc-drivers_7.0.0-1.0.15843807, VMware_bootbank_qlnativefc_4.0.1.0-3vmw.700.1.0.15843807, VMware_bootbank_vmware-esx-esxcli-nvme-plugin_1.2.0.37-1vmw.700.1.0.15843807, VMware_bootbank_vsan_7.0.0-1.0.15843807, VMware_bootbank_vsanhealth_7.0.0-1.0.15843807, VMware_locker_tools-light_11.0.5.15389592-15843807
+   VIBs Removed: VMW_bootbank_ata-libata-92_3.00.9.2-16vmw.670.0.0.8169922, VMW_bootbank_ata-pata-amd_0.3.10-3vmw.670.0.0.8169922, VMW_bootbank_ata-pata-atiixp_0.4.6-4vmw.670.0.0.8169922, VMW_bootbank_ata-pata-cmd64x_0.2.5-3vmw.670.0.0.8169922, VMW_bootbank_ata-pata-hpt3x2n_0.3.4-3vmw.670.0.0.8169922, VMW_bootbank_ata-pata-pdc2027x_1.0-3vmw.670.0.0.8169922, VMW_bootbank_ata-pata-serverworks_0.4.3-3vmw.670.0.0.8169922, VMW_bootbank_ata-pata-sil680_0.4.8-3vmw.670.0.0.8169922, VMW_bootbank_ata-pata-via_0.3.3-2vmw.670.0.0.8169922, VMW_bootbank_block-cciss_3.6.14-10vmw.670.0.0.8169922, VMW_bootbank_bnxtnet_20.6.101.7-24vmw.670.3.73.14320388, VMW_bootbank_bnxtroce_20.6.101.0-20vmw.670.1.28.10302608, VMW_bootbank_brcmfcoe_11.4.1078.25-14vmw.670.3.73.14320388, VMW_bootbank_char-random_1.0-3vmw.670.0.0.8169922, VMW_bootbank_ehci-ehci-hcd_1.0-4vmw.670.0.0.8169922, VMW_bootbank_elxiscsi_11.4.1174.0-2vmw.670.0.0.8169922, VMW_bootbank_elxnet_11.4.1097.0-5vmw.670.3.73.14320388, VMW_bootbank_hid-hid_1.0-3vmw.670.0.0.8169922, VMW_bootbank_i40en_1.8.1.9-2vmw.670.3.73.14320388, VMW_bootbank_iavmd_1.2.0.1011-2vmw.670.0.0.8169922, VMW_bootbank_igbn_0.1.1.0-5vmw.670.3.73.14320388, VMW_bootbank_ima-qla4xxx_2.02.18-1vmw.670.0.0.8169922, VMW_bootbank_ipmi-ipmi-devintf_39.1-5vmw.670.1.28.10302608, VMW_bootbank_ipmi-ipmi-msghandler_39.1-5vmw.670.1.28.10302608, VMW_bootbank_ipmi-ipmi-si-drv_39.1-5vmw.670.1.28.10302608, VMW_bootbank_iser_1.0.0.0-1vmw.670.1.28.10302608, VMW_bootbank_ixgben_1.7.1.16-1vmw.670.3.73.14320388, VMW_bootbank_lpfc_11.4.33.25-14vmw.670.3.73.14320388, VMW_bootbank_lpnic_11.4.59.0-1vmw.670.0.0.8169922, VMW_bootbank_lsi-mr3_7.708.07.00-3vmw.670.3.73.14320388, VMW_bootbank_lsi-msgpt2_20.00.06.00-2vmw.670.3.73.14320388, VMW_bootbank_lsi-msgpt35_09.00.00.00-5vmw.670.3.73.14320388, VMW_bootbank_lsi-msgpt3_17.00.02.00-1vmw.670.3.73.14320388, VMW_bootbank_misc-cnic-register_1.78.75.v60.7-1vmw.670.0.0.8169922, VMW_bootbank_misc-drivers_6.7.0-2.48.13006603, VMW_bootbank_mtip32xx-native_3.9.8-1vmw.670.1.28.10302608, VMW_bootbank_ne1000_0.8.4-2vmw.670.2.48.13006603, VMW_bootbank_nenic_1.0.29.0-1vmw.670.3.73.14320388, VMW_bootbank_net-bnx2_2.2.4f.v60.10-2vmw.670.0.0.8169922, VMW_bootbank_net-bnx2x_1.78.80.v60.12-2vmw.670.0.0.8169922, VMW_bootbank_net-cdc-ether_1.0-3vmw.670.0.0.8169922, VMW_bootbank_net-cnic_1.78.76.v60.13-2vmw.670.0.0.8169922, VMW_bootbank_net-e1000_8.0.3.1-5vmw.670.0.0.8169922, VMW_bootbank_net-e1000e_3.2.2.1-2vmw.670.0.0.8169922, VMW_bootbank_net-enic_2.1.2.38-2vmw.670.0.0.8169922, VMW_bootbank_net-fcoe_1.0.29.9.3-7vmw.670.0.0.8169922, VMW_bootbank_net-forcedeth_0.61-2vmw.670.0.0.8169922, VMW_bootbank_net-igb_5.0.5.1.1-5vmw.670.0.0.8169922, VMW_bootbank_net-ixgbe_3.7.13.7.14iov-20vmw.670.0.0.8169922, VMW_bootbank_net-libfcoe-92_1.0.24.9.4-8vmw.670.0.0.8169922, VMW_bootbank_net-mlx4-core_1.9.7.0-1vmw.670.0.0.8169922, VMW_bootbank_net-mlx4-en_1.9.7.0-1vmw.670.0.0.8169922, VMW_bootbank_net-nx-nic_5.0.621-5vmw.670.0.0.8169922, VMW_bootbank_net-tg3_3.131d.v60.4-2vmw.670.0.0.8169922, VMW_bootbank_net-usbnet_1.0-3vmw.670.0.0.8169922, VMW_bootbank_net-vmxnet3_1.1.3.0-3vmw.670.3.89.15160138, VMW_bootbank_nfnic_4.0.0.29-0vmw.670.3.73.14320388, VMW_bootbank_nhpsa_2.0.22-3vmw.670.1.28.10302608, VMW_bootbank_nmlx4-core_3.17.13.1-1vmw.670.2.48.13006603, VMW_bootbank_nmlx4-en_3.17.13.1-1vmw.670.2.48.13006603, VMW_bootbank_nmlx4-rdma_3.17.13.1-1vmw.670.2.48.13006603, VMW_bootbank_nmlx5-core_4.17.13.1-1vmw.670.3.73.14320388, VMW_bootbank_nmlx5-rdma_4.17.13.1-1vmw.670.2.48.13006603, VMW_bootbank_ntg3_4.1.3.2-1vmw.670.1.28.10302608, VMW_bootbank_nvme_1.2.2.28-1vmw.670.3.73.14320388, VMW_bootbank_nvmxnet3-ens_2.0.0.21-1vmw.670.0.0.8169922, VMW_bootbank_nvmxnet3_2.0.0.29-1vmw.670.1.28.10302608, VMW_bootbank_ohci-usb-ohci_1.0-3vmw.670.0.0.8169922, VMW_bootbank_pvscsi_0.1-2vmw.670.0.0.8169922, VMW_bootbank_qcnic_1.0.2.0.4-1vmw.670.0.0.8169922, VMW_bootbank_qedentv_2.0.6.4-10vmw.670.1.28.10302608, VMW_bootbank_qfle3_1.0.50.11-9vmw.670.0.0.8169922, VMW_bootbank_qfle3f_1.0.25.0.2-14vmw.670.0.0.8169922, VMW_bootbank_qfle3i_1.0.2.3.9-3vmw.670.0.0.8169922, VMW_bootbank_qflge_1.1.0.11-1vmw.670.0.0.8169922, VMW_bootbank_sata-ahci_3.0-26vmw.670.0.0.8169922, VMW_bootbank_sata-ata-piix_2.12-10vmw.670.0.0.8169922, VMW_bootbank_sata-sata-nv_3.5-4vmw.670.0.0.8169922, VMW_bootbank_sata-sata-promise_2.12-3vmw.670.0.0.8169922, VMW_bootbank_sata-sata-sil24_1.1-1vmw.670.0.0.8169922, VMW_bootbank_sata-sata-sil_2.3-4vmw.670.0.0.8169922, VMW_bootbank_sata-sata-svw_2.3-3vmw.670.0.0.8169922, VMW_bootbank_scsi-aacraid_1.1.5.1-9vmw.670.0.0.8169922, VMW_bootbank_scsi-adp94xx_1.0.8.12-6vmw.670.0.0.8169922, VMW_bootbank_scsi-aic79xx_3.1-6vmw.670.0.0.8169922, VMW_bootbank_scsi-bnx2fc_1.78.78.v60.8-1vmw.670.0.0.8169922, VMW_bootbank_scsi-bnx2i_2.78.76.v60.8-1vmw.670.0.0.8169922, VMW_bootbank_scsi-fnic_1.5.0.45-3vmw.670.0.0.8169922, VMW_bootbank_scsi-hpsa_6.0.0.84-3vmw.670.0.0.8169922, VMW_bootbank_scsi-ips_7.12.05-4vmw.670.0.0.8169922, VMW_bootbank_scsi-iscsi-linux-92_1.0.0.2-3vmw.670.0.0.8169922, VMW_bootbank_scsi-libfc-92_1.0.40.9.3-5vmw.670.0.0.8169922, VMW_bootbank_scsi-megaraid-mbox_2.20.5.1-6vmw.670.0.0.8169922, VMW_bootbank_scsi-megaraid-sas_6.603.55.00-2vmw.670.0.0.8169922, VMW_bootbank_scsi-megaraid2_2.00.4-9vmw.670.0.0.8169922, VMW_bootbank_scsi-mpt2sas_19.00.00.00-2vmw.670.0.0.8169922, VMW_bootbank_scsi-mptsas_4.23.01.00-10vmw.670.0.0.8169922, VMW_bootbank_scsi-mptspi_4.23.01.00-10vmw.670.0.0.8169922, VMW_bootbank_scsi-qla4xxx_5.01.03.2-7vmw.670.0.0.8169922, VMW_bootbank_sfvmk_1.0.0.1003-6vmw.670.3.73.14320388, VMW_bootbank_shim-iscsi-linux-9-2-1-0_6.7.0-0.0.8169922, VMW_bootbank_shim-iscsi-linux-9-2-2-0_6.7.0-0.0.8169922, VMW_bootbank_shim-libata-9-2-1-0_6.7.0-0.0.8169922, VMW_bootbank_shim-libata-9-2-2-0_6.7.0-0.0.8169922, VMW_bootbank_shim-libfc-9-2-1-0_6.7.0-0.0.8169922, VMW_bootbank_shim-libfc-9-2-2-0_6.7.0-0.0.8169922, VMW_bootbank_shim-libfcoe-9-2-1-0_6.7.0-0.0.8169922, VMW_bootbank_shim-libfcoe-9-2-2-0_6.7.0-0.0.8169922, VMW_bootbank_shim-vmklinux-9-2-1-0_6.7.0-0.0.8169922, VMW_bootbank_shim-vmklinux-9-2-2-0_6.7.0-0.0.8169922, VMW_bootbank_shim-vmklinux-9-2-3-0_6.7.0-0.0.8169922, VMW_bootbank_smartpqi_1.0.1.553-28vmw.670.3.73.14320388, VMW_bootbank_uhci-usb-uhci_1.0-3vmw.670.0.0.8169922, VMW_bootbank_usb-storage-usb-storage_1.0-3vmw.670.0.0.8169922, VMW_bootbank_usbcore-usb_1.0-3vmw.670.0.0.8169922, VMW_bootbank_vmkata_0.1-1vmw.670.0.0.8169922, VMW_bootbank_vmkfcoe_1.0.0.1-1vmw.670.1.28.10302608, VMW_bootbank_vmkplexer-vmkplexer_6.7.0-0.0.8169922, VMW_bootbank_vmkusb_0.1-1vmw.670.3.89.15160138, VMW_bootbank_vmw-ahci_1.2.8-1vmw.670.3.73.14320388, VMW_bootbank_xhci-xhci_1.0-3vmw.670.0.0.8169922, VMware_bootbank_cpu-microcode_6.7.0-3.77.15018017, VMware_bootbank_elx-esx-libelxima.so_11.4.1184.2-3.89.15160138, VMware_bootbank_esx-base_6.7.0-3.89.15160138, VMware_bootbank_esx-dvfilter-generic-fastpath_6.7.0-0.0.8169922, VMware_bootbank_esx-ui_1.33.4-14093553, VMware_bootbank_esx-update_6.7.0-3.89.15160138, VMware_bootbank_esx-xserver_6.7.0-3.73.14320388, VMware_bootbank_lsu-hp-hpsa-plugin_2.0.0-16vmw.670.1.28.10302608, VMware_bootbank_lsu-intel-vmd-plugin_1.0.0-2vmw.670.1.28.10302608, VMware_bootbank_lsu-lsi-drivers-plugin_1.0.0-1vmw.670.2.48.13006603, VMware_bootbank_lsu-lsi-lsi-mr3-plugin_1.0.0-13vmw.670.1.28.10302608, VMware_bootbank_lsu-lsi-lsi-msgpt3-plugin_1.0.0-9vmw.670.2.48.13006603, VMware_bootbank_lsu-lsi-megaraid-sas-plugin_1.0.0-9vmw.670.0.0.8169922, VMware_bootbank_lsu-lsi-mpt2sas-plugin_2.0.0-7vmw.670.0.0.8169922, VMware_bootbank_lsu-smartpqi-plugin_1.0.0-3vmw.670.1.28.10302608, VMware_bootbank_native-misc-drivers_6.7.0-3.89.15160138, VMware_bootbank_qlnativefc_3.1.8.0-5vmw.670.3.73.14320388, VMware_bootbank_rste_2.0.2.0088-7vmw.670.0.0.8169922, VMware_bootbank_vmware-esx-esxcli-nvme-plugin_1.2.0.36-2.48.13006603, VMware_bootbank_vsan_6.7.0-3.89.14840357, VMware_bootbank_vsanhealth_6.7.0-3.89.14840358, VMware_locker_tools-light_11.0.1.14773994-15160134
+   VIBs Skipped: VMW_bootbank_brcmnvmefc_12.4.293.2-3vmw.700.1.0.15843807, VMW_bootbank_i40iwn_1.1.2.5-1vmw.700.1.0.15843807, VMW_bootbank_nvme-pcie_1.2.2.13-1vmw.700.1.0.15843807, VMW_bootbank_nvmerdma_1.0.0.0-1vmw.700.1.0.15843807, VMW_bootbank_qedrntv_3.12.1.2-12vmw.700.1.0.15843807, VMware_bootbank_crx_7.0.0-1.0.15843807, VMware_bootbank_loadesx_7.0.0-1.0.15843807, VMware_bootbank_lsuv2-nvme-pcie-plugin_1.0.0-1vmw.700.1.0.15843807, VMware_bootbank_lsuv2-oem-dell-plugin_1.0.0-1vmw.700.1.0.15843807, VMware_bootbank_lsuv2-oem-hp-plugin_1.0.0-1vmw.700.1.0.15843807, VMware_bootbank_lsuv2-oem-lenovo-plugin_1.0.0-1vmw.700.1.0.15843807, VMware_bootbank_vdfs_7.0.0-1.0.15843807
+```
+重启
+``` bash
+[yuangezhizao@VM:~] reboot
+[yuangezhizao@VM:~] Connection closing...Socket close.
+
+Connection closed by foreign host.
+
+Disconnected from remote host(ESXi) at 01:46:40.
+
+Type `help' to learn how to use Xshell prompt.
+[D:\~]$ 
+```
+开机之后重新查看列表确信升级完成，退出**维护模式**
+
+<details><summary>点击此处 ← 查看终端</summary>
+
+``` bash
+Host 'esxi.yuangezhizao.cn' resolved to 192.168.25.249.
+Connecting to 192.168.25.249:22...
+Connection established.
+To escape to local shell, press 'Ctrl+Alt+]'.
+
+The time and date of this login have been sent to the system logs.
+
+WARNING:
+   All commands run on the ESXi shell are logged and may be included in
+   support bundles. Do not provide passwords directly on the command line.
+   Most tools can prompt for secrets or accept them from standard input.
+
+VMware offers supported, powerful system administration tools.  Please
+see www.vmware.com/go/sysadmintools for details.
+
+The ESXi Shell can be disabled by an administrative user. See the
+vSphere Security documentation for more information.
+[yuangezhizao@VM:~] esxcli software vib list
+Name                           Version                            Vendor  Acceptance Level  Install Date
+-----------------------------  ---------------------------------  ------  ----------------  ------------
+bnxtnet                        216.0.50.0-4vmw.700.1.0.15843807   VMW     VMwareCertified   2020-04-03
+bnxtroce                       216.0.58.0-1vmw.700.1.0.15843807   VMW     VMwareCertified   2020-04-03
+brcmfcoe                       12.0.1500.0-1vmw.700.1.0.15843807  VMW     VMwareCertified   2020-04-03
+elxiscsi                       12.0.1200.0-1vmw.700.1.0.15843807  VMW     VMwareCertified   2020-04-03
+elxnet                         12.0.1250.0-5vmw.700.1.0.15843807  VMW     VMwareCertified   2020-04-03
+i40en                          1.8.1.16-1vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+iavmd                          2.0.0.1055-3vmw.700.1.0.15843807   VMW     VMwareCertified   2020-04-03
+igbn                           0.1.1.0-6vmw.700.1.0.15843807      VMW     VMwareCertified   2020-04-03
+iser                           1.1.0.0-1vmw.700.1.0.15843807      VMW     VMwareCertified   2020-04-03
+ixgben                         1.7.1.26-1vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+lpfc                           12.4.293.3-5vmw.700.1.0.15843807   VMW     VMwareCertified   2020-04-03
+lpnic                          11.4.62.0-1vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+lsi-mr3                        7.712.50.00-1vmw.700.1.0.15843807  VMW     VMwareCertified   2020-04-03
+lsi-msgpt2                     20.00.06.00-2vmw.700.1.0.15843807  VMW     VMwareCertified   2020-04-03
+lsi-msgpt35                    13.00.12.00-1vmw.700.1.0.15843807  VMW     VMwareCertified   2020-04-03
+lsi-msgpt3                     17.00.10.00-1vmw.700.1.0.15843807  VMW     VMwareCertified   2020-04-03
+mtip32xx-native                3.9.8-1vmw.700.1.0.15843807        VMW     VMwareCertified   2020-04-03
+ne1000                         0.8.4-10vmw.700.1.0.15843807       VMW     VMwareCertified   2020-04-03
+nenic                          1.0.29.0-1vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+nfnic                          4.0.0.44-1vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+nhpsa                          2.0.50-1vmw.700.1.0.15843807       VMW     VMwareCertified   2020-04-03
+nmlx4-core                     3.19.16.7-1vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+nmlx4-en                       3.19.16.7-1vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+nmlx4-rdma                     3.19.16.7-1vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+nmlx5-core                     4.19.16.7-1vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+nmlx5-rdma                     4.19.16.7-1vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+ntg3                           4.1.4.1-1vmw.700.1.0.15843807      VMW     VMwareCertified   2020-04-03
+nvmxnet3-ens                   2.0.0.22-1vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+nvmxnet3                       2.0.0.30-1vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+pvscsi                         0.1-2vmw.700.1.0.15843807          VMW     VMwareCertified   2020-04-03
+qcnic                          1.0.15.0-8vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+qedentv                        3.12.1.0-23vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+qfle3                          1.0.66.0-5vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+qfle3f                         1.0.51.0-12vmw.700.1.0.15843807    VMW     VMwareCertified   2020-04-03
+qfle3i                         1.0.15.0-6vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+qflge                          1.1.0.11-1vmw.700.1.0.15843807     VMW     VMwareCertified   2020-04-03
+rste                           2.0.2.0088-7vmw.700.1.0.15843807   VMW     VMwareCertified   2020-04-03
+sfvmk                          2.0.0.1004-3vmw.700.1.0.15843807   VMW     VMwareCertified   2020-04-03
+smartpqi                       1.0.4.3011-1vmw.700.1.0.15843807   VMW     VMwareCertified   2020-04-03
+vmkata                         0.1-1vmw.700.1.0.15843807          VMW     VMwareCertified   2020-04-03
+vmkfcoe                        1.0.0.2-1vmw.700.1.0.15843807      VMW     VMwareCertified   2020-04-03
+vmkusb                         0.1-1vmw.700.1.0.15843807          VMW     VMwareCertified   2020-04-03
+vmw-ahci                       1.3.9-1vmw.700.1.0.15843807        VMW     VMwareCertified   2020-04-03
+cpu-microcode                  7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+elx-esx-libelxima.so           12.0.1200.0-2vmw.700.1.0.15843807  VMware  VMwareCertified   2020-04-03
+esx-base                       7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+esx-dvfilter-generic-fastpath  7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+esx-ui                         1.34.0-15603211                    VMware  VMwareCertified   2020-04-03
+esx-update                     7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+esx-xserver                    7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+lsuv2-hpv2-hpsa-plugin         1.0.0-2vmw.700.1.0.15843807        VMware  VMwareCertified   2020-04-03
+lsuv2-intelv2-nvme-vmd-plugin  1.0.0-2vmw.700.1.0.15843807        VMware  VMwareCertified   2020-04-03
+lsuv2-lsiv2-drivers-plugin     1.0.0-2vmw.700.1.0.15843807        VMware  VMwareCertified   2020-04-03
+lsuv2-smartpqiv2-plugin        1.0.0-3vmw.700.1.0.15843807        VMware  VMwareCertified   2020-04-03
+native-misc-drivers            7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+qlnativefc                     4.0.1.0-3vmw.700.1.0.15843807      VMware  VMwareCertified   2020-04-03
+vmware-esx-esxcli-nvme-plugin  1.2.0.37-1vmw.700.1.0.15843807     VMware  VMwareCertified   2020-04-03
+vsan                           7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+vsanhealth                     7.0.0-1.0.15843807                 VMware  VMwareCertified   2020-04-03
+tools-light                    11.0.5.15389592-15843807           VMware  VMwareCertified   2020-04-03
+[yuangezhizao@VM:~] vim-cmd hostsvc/maintenance_mode_exit
+[yuangezhizao@VM:~] 
+```
+
+</details>
+
+最后分配个许可证就搞定了
+
+![7.0.0 (Build 15843807)](https://i1.yuangezhizao.cn/Win-10/20200404020258.jpg!webp)
+![JJ2WR-25L9P-H71A8-6J20P-C0K3F](https://i1.yuangezhizao.cn/Win-10/20200404020428.jpg!webp)
+
 ### 封装含有`Realtek 8168`网卡驱动的离线包
 ### 1.`PowerShell`大法
 设置`PowerShell`执行策略：`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
