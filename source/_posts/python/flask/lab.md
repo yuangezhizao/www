@@ -1,12 +1,12 @@
 ---
-title: 实验室站 Python 3.7.2 + Flask 1.0.2 + mod_wsgi 4.6.5 + Apache 2.4.38 + HTTP/2 + TLSv1.3 + brotli
+title: 实验室站 Python 3.8.2 + Flask 1.1.2 + mod_wsgi 4.7.1 + Apache 2.4.43 + HTTP/2 + TLSv1.3 + brotli
 date: 2019-2-11 22:23:09
 tags:
   - Flask
   - Apache24
   - mod_wsgi
   - TLSv1.3
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.292 2019-LTSC
 browser: 0
@@ -14,14 +14,15 @@ browser_1: 71.0.3578.98 Stable
 place: 家
 key: 42
 ---
-    又开始折腾升级了……
+    年更系列，又开始折腾升级了……
 <!-- more -->
 ## 0x00.前言
 看见[esterTion](https://weibo.com/lcz970)大佬的[BiliPlus](https://www.biliplus.com)上了`TLSv1.3`，正巧[实验室](https://lab.yuangezhizao.cn/)站证书也快一年该续签了，于是大折腾开始了
 
 ## 0x01.[Python](https://www.python.org/)
-今天先把本地配好了`2.7.15`、`3.6.8`、`3.7.2`、`3.8.0a1`，版本的选择靠`环境变量`的先后顺序决定，`PyCharm`里倒是可以单独选择
-![与官网相同步](https://i1.yuangezhizao.cn/Win-10/20190211223934.jpg!webp)
+`2.7.17`、`3.8.2`
+~~今天先把本地配好了`2.7.15`、`3.6.8`、`3.7.2`、`3.8.0a1`，版本的选择靠`环境变量`的先后顺序决定，`PyCharm`里倒是可以单独选择~~
+![与官网相同步](https://i1.yuangezhizao.cn/Win-10/20200404194934.jpg!webp)
 ![py 骨灰级玩家](https://i1.yuangezhizao.cn/Win-10/20190211223414.jpg!webp)
 
 然后服务器是腾讯云的一元机
@@ -43,28 +44,34 @@ key: 42
 还是惯例配好`pipy`阿里云镜像，升级`pip`
 
 ## 0x01.[Apache24](https://httpd.apache.org/)
-![Download](https://i1.yuangezhizao.cn/Win-10/20190212111352.jpg!webp)
-![Files for Microsoft Windows](https://i1.yuangezhizao.cn/Win-10/20190212111454.jpg!webp)
-![windows](https://i1.yuangezhizao.cn/Win-10/20190212111542.jpg!webp)
+![Download](https://i1.yuangezhizao.cn/Win-10/20200404191251.jpg!webp)
+![Files for Microsoft Windows](https://i1.yuangezhizao.cn/Win-10/20200404191404.jpg!webp)
+![windows](https://i1.yuangezhizao.cn/Win-10/20200404191441.jpg!webp)
 
-我个人使用的就是第一个，有`br`压缩，第二个木有……虽然第一个是`VC14`，第二个是`VC15`……
-![apachehaus](https://i1.yuangezhizao.cn/Win-10/20190212111752.jpg!webp)
+我个人使用的就是第一个，有`br`压缩，第二个木有……~~虽然第一个是`VC14`，第二个是`VC15`……~~
+![apachehaus](https://i1.yuangezhizao.cn/Win-10/20200404190635.jpg!webp)
 
-下载这个`11.9 MB`大小的`httpd-2.4.38-o111a-x64-vc14.zip`，含有`with OpenSSL 1.1.1a, brotli 1.0.7, nghttp 1.36.0, Zlib 1.2.10, PCRE 8.42, APR 1.6.5, APR-Util 1.6.1`，虽然有`LibreSSL`版本以及`OpenSSL 1.0.2`、`OpenSSL 1.1.0`，但是我还是选择了这个，并不是下载量第一的`1.0.2`，
-![apachelounge](https://i1.yuangezhizao.cn/Win-10/20190212124746.jpg!webp)
+下载这个`12.1 MB`大小的`httpd-2.4.43-o111f-x64-vc15.zip`，含有`with LibreSSL 3.0.2, brotli 1.0.7, nghttp 1.40.0, Zlib 1.2.10, PCRE 8.44, APR 1.7.0, APR-Util 1.6.1`，目前`LibreSSL`和`OpenSSL`版本均含有`br`库
+~~下载这个`11.9 MB`大小的`httpd-2.4.38-o111a-x64-vc14.zip`，含有`with OpenSSL 1.1.1a, brotli 1.0.7, nghttp 1.36.0, Zlib 1.2.10, PCRE 8.42, APR 1.6.5, APR-Util 1.6.1`，虽然有`LibreSSL`版本以及`OpenSSL 1.0.2`、`OpenSSL 1.1.0`，但是我还是选择了这个，并不是下载量第一的`1.0.2`，~~
 
-`VC15`
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![apachelounge](https://i1.yuangezhizao.cn/Win-10/20200404192026.jpg!webp)
+
+`VS16`
 ![wamp](https://i1.yuangezhizao.cn/Win-10/20190212124919.jpg!webp)
 
 `bitnami`的这个是一个`PHP`大软件环境……
 
-![WAMPSERVER](https://i1.yuangezhizao.cn/Win-10/20190212125227.jpg!webp)
+![WAMPSERVER](https://i1.yuangezhizao.cn/Win-10/20200404195741.jpg!webp)
 
 玩具？
 
 ![XAMPP](https://i1.yuangezhizao.cn/Win-10/20190212125256.jpg!webp)
 
 只有`32`位的还是算了吧……
+
+</details>
 
 ### 修改配置文件：
 #### `/extra/httpd.ahssl.conf`
@@ -88,7 +95,7 @@ CustomLog "${SRVROOT}/logs/ssl_request.log" \
     SSLCertificateChainFile "${SRVROOT}/conf/ssl/1_root_bundle.crt"
     DocumentRoot C:\LAB
 
-    Header always set Strict-Transport-Security "max-age=60"
+    Header always set Strict-Transport-Security "max-age=10"
     Header always set X-XSS-Protection "1; mode=block"
     Header always set x-content-type-options nosniff
     Header always set X-Frame-Options SAMEORIGIN
@@ -140,21 +147,21 @@ ExtendedStatus On
 
 ``` bash
 <VirtualHost *:80>
-    DocumentRoot C:\Apache24\webui-aria2
+    DocumentRoot "${SRVROOT}/htdocs/webui-aria2"
     DirectoryIndex  index.html
     ServerName aria2.yuangezhizao.cn
 
-    <Directory C:\Apache24\webui-aria2>
+    <Directory "${SRVROOT}/htdocs/webui-aria2">
     	Require all granted
     </Directory>
 </VirtualHost>
 
 <VirtualHost *:80>
-    DocumentRoot C:\Apache24\status-page
+    DocumentRoot "${SRVROOT}/htdocs/status-page"
     DirectoryIndex  index.html
     ServerName status.yuangezhizao.cn
 
-    <Directory C:\Apache24\status-page>
+    <Directory "${SRVROOT}/htdocs/status-page">
     	Require all granted
     </Directory>
 </VirtualHost>
@@ -170,7 +177,7 @@ LoadModule headers_module modules/mod_headers.so
 取消注释`LoadModule proxy_module modules/mod_proxy.so`、`LoadModule proxy_http_module modules/mod_proxy_http.so`备用，
 取消注释`LoadModule rewrite_module modules/mod_rewrite.so`，
 取消注释`LoadModule vhost_alias_module modules/mod_vhost_alias.so`，
-增加`LoadModule wsgi_module modules/mod_wsgi.cp37-win_amd64.pyd`，
+增加`LoadModule wsgi_module modules/mod_wsgi.cp38-win_amd64.pyd`，
 修改`ServerAdmin root@yuangezhizao.cn`、`ServerName lab.yuangezhizao.cn`，
 取消注释`Include conf/extra/httpd-vhosts.conf`、`Include conf/extra/httpd-default.conf`，
 最后是`br`压缩：
@@ -189,11 +196,14 @@ AddOutputFilterByType BROTLI_COMPRESS application/json
 ```
 
 ## 0x02.[mod_wsgi](https://github.com/GrahamDumpleton/mod_wsgi)
-`Latest release`是`mod_wsgi-4.6.5`版本，
-![巧了，我没下这个版本的](https://i1.yuangezhizao.cn/Win-10/20190212153434.jpg!webp)
+`Latest release`是`mod_wsgi-4.7.1`版本
+![巧了，没下这个版本的](https://i1.yuangezhizao.cn/Win-10/20200404193838.jpg!webp)
 
-尝试安装
-```
+历史安装失败，限于版面折叠
+
+<details><summary>点击此处 ← 查看终端</summary>
+
+``` bash
 (LAB-HVyfm2Bd) D:\yuangezhizao\Documents\PycharmProjects\LAB>pipenv install mod_wsgi
 Installing mod_wsgi…
 Looking in indexes: https://pypi.python.org/simple
@@ -212,10 +222,8 @@ Error:  An error occurred while installing mod_wsgi!
 Command "python setup.py egg_info" failed with error code 1 in C:\Users\YUANGE~1\AppData\Local\Temp\pip-install-aabgv042\mod-wsgi\
 ```
 哦，设定环境变量
-```
+``` bash
 (LAB-HVyfm2Bd) D:\yuangezhizao\Documents\PycharmProjects\LAB>SET MOD_WSGI_APACHE_ROOTDIR=D:\Apache24
-```
-```
 (LAB-HVyfm2Bd) D:\yuangezhizao\Documents\PycharmProjects\LAB>pipenv install mod_wsgi
 Installing mod_wsgi…
 Looking in indexes: https://pypi.python.org/simple
@@ -324,11 +332,16 @@ Command "c:\users\yuangezhizao\.virtualenvs\lab-hvyfm2bd\scripts\python.exe -u -
 d C:\Users\YUANGE~1\AppData\Local\Temp\pip-record-h7vjkitd\install-record.txt --single-version-externally-managed --compile --install-headers c:\users\yuangezhizao\.virtualenv
 s\lab-hvyfm2bd\include\site\python3.8\mod-wsgi" failed with error code 1 in C:\Users\YUANGE~1\AppData\Local\Temp\pip-install-48e8tnl_\mod-wsgi\
 ```
-它……自动用`VS2017`编译了……
-[Running mod_wsgi on Windows](https://github.com/GrahamDumpleton/mod_wsgi/blob/develop/win32/README.rst)
-果然还是不行……
-![4.4.12 是最后一个提供了 Windows binaries 的版本](https://i1.yuangezhizao.cn/Win-10/20190212181911.jpg!webp)
-![才发现这里有 4.6.5](https://i1.yuangezhizao.cn/Win-10/20190212182403.jpg!webp)
+它……自动用`VS2017`编译了……果然还是不行……
+
+</details>
+
+![4.4.12 是最后一个提供了 Windows binaries 的版本](https://i1.yuangezhizao.cn/Win-10/20200404193224.jpg!webp)
+然后就去下载`whl`了
+![lfd](https://i1.yuangezhizao.cn/Win-10/20200404193513.png!webp)
+
+[Running mod_wsgi on Windows](https://github.com/GrahamDumpleton/mod_wsgi/blob/develop/win32/README.rst)这个上古教程实在是太老了……
+![神网站](https://i1.yuangezhizao.cn/Win-10/20200404193614.jpg!webp)
 
 `pip`安装即可，顺便解压找到`mod_wsgi.cp37-win_amd64.pyd`扔到`models`目录里
 附上`wgsi.py`文件
