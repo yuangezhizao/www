@@ -6,7 +6,7 @@ tags:
   - VMware
   - ESXI
   - CentOS 
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -22,13 +22,13 @@ key: 59
 ## 0x01.安装
 ![官网](https://i1.yuangezhizao.cn/Win-10/20191028220326.jpg!webp)
 ![下载](https://i1.yuangezhizao.cn/Win-10/20191028220305.jpg!webp)
-![选择 7，昨天装了 8 然而软件源？](https://i1.yuangezhizao.cn/Win-10/20191028220441.jpg!webp)
+![选择 7，昨天装了 8 然而软件源已炸故 Revoke](https://i1.yuangezhizao.cn/Win-10/20191028220441.jpg!webp)
 ![清华 mini 镜像](https://i1.yuangezhizao.cn/Win-10/20191028220529.jpg!webp)
 ![Minimal 也接近 1G 了](https://i1.yuangezhizao.cn/Win-10/20191028220607.jpg!webp)
 ![IDM 跑满电信下行](https://i1.yuangezhizao.cn/Win-10/20191028220733.jpg!webp)
 ![比起 WebUI 还是这里熟悉](https://i1.yuangezhizao.cn/Win-10/20191028220958.jpg!webp)
 ![下一步](https://i1.yuangezhizao.cn/Win-10/20191028221030.jpg!webp)
-![下一步](https://i1.yuangezhizao.cn/Win-10/20191028221056.jpg!webp)
+![VMs](https://i1.yuangezhizao.cn/Win-10/20191028221056.jpg!webp)
 ![macOS 惊了](https://i1.yuangezhizao.cn/Win-10/20191028221120.jpg!webp)
 ![标准格式命名（你 b](https://i1.yuangezhizao.cn/Win-10/20191028221145.jpg!webp)
 ![50G](https://i1.yuangezhizao.cn/Win-10/20191028221205.jpg!webp)
@@ -48,5 +48,10 @@ key: 59
 ![开机！](https://i1.yuangezhizao.cn/Win-10/20191028224147.jpg!webp)
 ![草](https://i1.yuangezhizao.cn/Win-10/20191028224241.jpg!webp)
 ![续……](https://i1.yuangezhizao.cn/Win-10/20191028224844.jpg!webp)
+
+> [PY 云新增 CentOS 7.7 64 位](../../Linux/CentOS/py.html)
+
+![c7](https://i1.yuangezhizao.cn/Win-10/20200404184251.png!webp)
+![存档](https://i1.yuangezhizao.cn/Win-10/20191116191625.jpg!webp)
 
 > 至此本文使命完成
