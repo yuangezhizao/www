@@ -30,7 +30,7 @@ key: 31
 最后，需要将`/etc/hosts`中`127.0.0.1`对应的老主机名更换为新的主机名
 `vim /etc/hosts`
 但是并没有找到老主机名，手动添加，如下（`+`那行）……
-``` shell
+``` bash
 127.0.0.1       localhost
 + 127.0.0.1       Ubuntu
 # The following lines are desirable for IPv6 capable hosts
@@ -46,20 +46,20 @@ ff02::2 ip6-allrouters
 
 ## 0x03.更新一波
 自带的源就是阿里云的，速度很快不需要修改
-``` shell
+``` bash
 apt-get update
 apt-get upgrade
 ```
 ![上次选了默认，今天选了第一个](https://i1.yuangezhizao.cn/Win-10/20180223165258.jpg!webp)
 
 ## 0x04.安装图形化桌面
-``` shell
+``` bash
 apt-get install x-window-system-core
 apt-get install gnome-core
 apt-get install gdm
 ```
 运行`startx`启动图形化桌面（当然`XShell 里不能这么干`）
-``` shell
+``` bash
 root@Ubuntu:~# startx
 hostname: Name or service not known
 xauth:  file /root/.Xauthority does not exist
@@ -95,14 +95,14 @@ xauth: (argv):1:  bad display name "Ubuntu:0" in "remove" command
 ## 0x05.安装 realvnc 的 VNC Server
 ![下载VNC-Server-6.2.1-Linux-x64-ANY.tar.gz](https://i1.yuangezhizao.cn/Win-10/20180223170618.jpg!webp)
 
-``` shell
+``` bash
 cd Downloads/
 wget https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.2.1-Linux-x64-ANY.tar.gz
 tar zxvf VNC-Server-6.2.1-Linux-x64-ANY.tar.gz
 cd VNC-Server-6.2.1-Linux-x64/
 ./vncinstall
 ```
-``` shell
+``` bash
 systemctl enable vncserver-x11-serviced.service
 systemctl start vncserver-x11-serviced.service
 ```
@@ -116,7 +116,7 @@ systemctl start vncserver-x11-serviced.service
 然后去远程终端`startx`，然后发现居然有浏览器……
 但是并没有找到`realvnc`的应用程序，又看到这篇[Thread: How to install REALVNC gui in ubuntu 12.04?](https://ubuntuforums.org/showthread.php?t=2127898)
 又看到
-``` shell
+``` bash
 ############# Specify a VNC password for VNC Server #############
 # Mandatory for Home subscription (except Raspberry Pi). Not required for Professional or Enterprise subscription. More information:
 # man vncpasswd
@@ -126,7 +126,7 @@ sudo vncpasswd -service
 vncpasswd -virtual
 ```
 只能是前`8`位，但还是连不上，`The connection was refused by the computer`：
-``` shell
+``` bash
 root@Ubuntu:~/Downloads# vncpasswd -service
 Setting "Password" VNC parameter for Service Mode server
 Password:
@@ -139,7 +139,7 @@ entering the first 8 characters of this password only.
 ## 0x06.安装 vnc4server 
 `apt-get install vnc4server`
 启动 vncserver 会生成.vnc/xstarup 文件
-``` shell
+``` bash
 root@Ubuntu:~/Downloads# vncserver :1
 
 You will require a password to access your desktops.
@@ -159,7 +159,7 @@ Log file is /root/.vnc/Ubuntu:1.log
 安装`gnome 2`桌面：`apt-get install --no-install-recommends ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal -y`
 `vim ~/.vnc/xstartup`
 添加
-``` shell
+``` bash
 gnome-panel & 
 gnome-settings-daemon & 
 metacity & 
@@ -170,7 +170,7 @@ nautilus &
 
 ## 0x07.配置`history`命令显示操作时间、用户和登录`IP`
 在`/etc/profile`文件中添加
-``` shell
+``` bash
 HISTFILESIZE=4000  #默认保存命令是1000条，这里修改为4000条
 HISTSIZE=4000
 USER_IP=`who -u am i 2>/dev/null| awk '{print $NF}'|sed -e 's/[()]//g'` #取得登录客户端的IP
