@@ -1230,13 +1230,6 @@ vpxa started.
 ![新增内网？解析](https://i1.yuangezhizao.cn/Win-10/20200104193727.jpg!webp)
 ![完工爽到](https://i1.yuangezhizao.cn/Win-10/20200104193851.jpg!webp)
 
-~~先给自己分配了一个虚拟机`hhh`~~`2019-12-28 00:51:40`该机子由于存储在坏掉的硬盘无法成功完全导出，最终只能重装……
-![vms](https://i1.yuangezhizao.cn/Win-10/20190728003657.png!webp)
-![+1s](https://i1.yuangezhizao.cn/Win-10/20190728004123.jpg!webp)
-> [PY 云新增 CentOS 7.7 64 位](../Linux/CentOS/py.html)
-
-![c7](https://i1.yuangezhizao.cn/Win-10/20191116191625.jpg!webp)
-
 `2019-8-24 13:06:59`
 ![4TB 硬盘购买](https://i1.yuangezhizao.cn/Win-10/20190824130554.png!webp)
 ![NASdata 3TB](https://i1.yuangezhizao.cn/Win-10/20190824130337.jpg!webp)
@@ -1247,10 +1240,6 @@ vpxa started.
 猜想之前的那块系统盘坏掉的原因也可能是因为这条线，草
 ![机子](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_001521.jpg!webp)
 ![那条硬盘线](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_002618.jpg!webp)
-
-## 0x02.Windows Server 2019 DataCenter
-爽到
-![cn-py-dl-w9d](https://i1.yuangezhizao.cn/Win-10/20190728015602.png!webp)
 
 ## 0x03.后记
 这玩楞搁在了客厅的冰箱旁边和冰箱一起`24h`不断电工作，虽然主板以及其他位置都配置为了**节能**，但是感觉还是会比较费电……也不知道功耗能有多少诶？
