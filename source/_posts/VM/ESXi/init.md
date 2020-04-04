@@ -1241,9 +1241,9 @@ vpxa started.
 ![机子](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_001521.jpg!webp)
 ![那条硬盘线](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_002618.jpg!webp)
 
-## 0x03.后记
+## 0x02.后记
 这玩楞搁在了客厅的冰箱旁边和冰箱一起`24h`不断电工作，虽然主板以及其他位置都配置为了**节能**，但是感觉还是会比较费电……也不知道功耗能有多少诶？
 
-## 0x04.引用
+## 0x03.引用
 > [旧笔记本通过自定义整合网卡驱动安装 ESXi 6.7.0 u1](https://web.archive.org/web/20191227140613/https://www.jianshu.com/p/b0124a2c5e33)
 [命令行操作vSphere--VMware PowerCLI安装](https://web.archive.org/web/20191227151410/https://zerlong.com/739.html)
