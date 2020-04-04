@@ -1186,7 +1186,7 @@ PS D:\yuangezhizao\Documents\ESXi>
 
 <details><summary>点击此处 ← 查看终端</summary>
 
-``` shell
+``` bash
 Copyright (c) 2002 NetSarang Computer, Inc. All rights reserved.
 
 Type `help' to learn how to use Xshell prompt.

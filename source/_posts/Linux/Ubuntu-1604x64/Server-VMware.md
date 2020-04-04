@@ -82,7 +82,7 @@ key: 32
 `sudo apt-get upgrade`
 
 ## 0x03.修改时区
-``` shell
+``` bash
 yuangezhizao@Ubuntu:~$ tzselect
 Please identify a location so that time zone rules can be set correctly.
 Please select a continent, ocean, "coord", or "TZ".
