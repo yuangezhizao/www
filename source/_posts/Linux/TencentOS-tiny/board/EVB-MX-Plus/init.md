@@ -40,7 +40,7 @@ key: 69
 ![空运巨快](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_130306.jpg!webp)
 ![配送巨慢](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_130243.jpg!webp)
 ![果然南山](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_124942.jpg!webp)
-![开箱](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_125058.jpg!webp)
+![开箱](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_125058.jpg!view)
 ![配件](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_125742.jpg!view)
 ![上电](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200118_130011.jpg!view)
 

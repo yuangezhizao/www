@@ -31,10 +31,13 @@ key: 70
 ## 0x01.调试
 看了眼原理图发现了意外的收获，这个`智能路灯`的拓展板上不仅有灯还有`温、湿、亮`度传感器，太强了`(￣へ￣)`
 ![惊了](https://i1.yuangezhizao.cn/Win-10/20200119195721.jpg!webp)
-![这么小！](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200119_195907.jpg!webp)
+![这么小！](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200119_195907.jpg!view)
 
 ## 0x02.运行
 ![点了个灯](https://i1.yuangezhizao.cn/Win-10/20200119212212.png!webp)
 ![关了个灯](https://i1.yuangezhizao.cn/Win-10/20200119212224.png!webp)
+
+## 0x03.后记
+![这个时间点……除了春节放假之外是没有剩余了草](https://i1.yuangezhizao.cn/Win-10/20200120213011.jpg!webp)
 
 未完待续……

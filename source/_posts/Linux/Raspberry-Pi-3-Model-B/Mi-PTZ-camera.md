@@ -24,7 +24,7 @@ key: 71
 ![赶紧把快过期的红包勾上](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-01-22-00-13-12-025_com.jingdong.a.jpg!webp)
 
 预计下午配送，结果早上起来就发现到配送站了，于是立即`wx`联系说家里白天不会有人就扔蜂巢吧……晚上回来就拿到了`(￣▽￣)~*`
-![你米外包装](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200122_180749.jpg!webp)
+![你米外包装](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200122_180749.jpg!view)
 
 ## 0x01.上电
 `5V 1A`插菊花，然后这玩楞就突然发出响（语）声（音）草，倒是可海星没有太沙雕，掏出手机扫码再把屏幕上的码给摄像头扫（互扫嘛）就`ok`了`(＾＿－)`
