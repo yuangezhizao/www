@@ -38,7 +38,7 @@ key: 71
 ~~`0415`警觉，区号？~~然后就摸索`App`发现没插存储卡，然后……没找着插槽（一脸黑人问号`⊙▃⊙`
 翻了半天开始怀疑人生自己是不是买错了，结果后来搜索到了结果（`(╯°Д°)╯︵┻━┻`
 
-![这个 SD 卡槽的位置真是绝了](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200122_183010-sc.jpg!webp)
+![这个 SD 卡槽的位置真是绝了](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200122_183010.jpg!view)
 ![草](https://i1.yuangezhizao.cn/Win-10/20191016005155.jpg!webp)
 
 （忘记先断电就直接）插……入……，之后提示异常，格式化之后就能使了（之前这张卡是给`rpi`做`OSMC`系统的

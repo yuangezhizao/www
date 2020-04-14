@@ -23,14 +23,14 @@ key: 54
 但是是基于`Lua`语言的（写到这里想到了貌似也有基于`Python`的开发板，`py`大法好！
 `2019-8-18 20:54:41`又买了一套扔`WZ`屋里用
 ![19.4 一套](https://i1.yuangezhizao.cn/Win-10/20190818205558.jpg!webp)
-![未拆](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205754-sc.jpg!webp)
-![正面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205826-sc.jpg!webp)
-![背面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205905-sc.jpg!webp)
+![未拆](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205754.jpg!view)
+![正面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205826.jpg!view)
+![背面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190818_205905.jpg!view)
 
 `2019-9-21 23:15:41`由于中秋节自己带回去的那套扔家里了所以就又又买了一套给自己玩
 ![终于买继电器了](https://i1.yuangezhizao.cn/Win-10/20190921230857.jpg!webp)
-![正面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190921_234033-sc.jpg!webp)
-![背面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190921_234051-sc.jpg!webp)
+![正面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190921_234033.jpg!view)
+![背面](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190921_234051.jpg!view)
 
 ## 0x01.[NodeMCU](http://www.nodemcu.com/index_cn.html)
 > 超简单的物联网开发平台

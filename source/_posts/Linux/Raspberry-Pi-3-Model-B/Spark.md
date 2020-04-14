@@ -20,9 +20,9 @@ key: 45
 懒得打字，直接拍照
 
 ## 0x01.正文
-![P275](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153619-sc.jpg!webp)
-![P276](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153718-sc.jpg!webp)
-![P277](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153744-sc.jpg!webp)
-![P278](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153811-sc.jpg!webp)
-![P279](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153842-sc.jpg!webp)
-![P280](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153915-sc.jpg!webp)
+![P275](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153619.jpg!view)
+![P276](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153718.jpg!view)
+![P277](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153744.jpg!view)
+![P278](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153811.jpg!view)
+![P279](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153842.jpg!view)
+![P280](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_153915.jpg!view)
