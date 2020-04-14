@@ -1134,18 +1134,18 @@ PS D:\yuangezhizao\Documents\ESXi>
 ### 7.启动
 机子搬回屋子里，菊花插上显示器、键盘和盘……开机`BIOS`设置项里选盘启动！
 
-![BIOS](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_021245-sc.jpg!webp)
-![Installer](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022257-sc.jpg!webp)
-![Enter](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022403-sc.jpg!webp)
+![BIOS](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_021245.jpg!view)
+![Installer](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022257.jpg!view)
+![Enter](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022403.jpg!view)
 
 这里让选在哪块硬盘上安装或升级`ESXi`，当时一愣选错就尴尬了……
 后来看到可以看详细信息，只有一块硬盘含有`ESX(I) Found：ESXi 6.7.0`
-![看硬盘详细信息](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022553-sc.jpg!webp)
-![Upgrade](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022615-sc.jpg!webp)
-![最终确认](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022633-sc.jpg!webp)
-![升级中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022643-sc.jpg!webp)
-![升级完成](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022741-sc.jpg!webp)
-![运行中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022928-sc.jpg!webp)
+![看硬盘详细信息](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022553.jpg!view)
+![Upgrade](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022615.jpg!view)
+![最终确认](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022633.jpg!view)
+![升级中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022643.jpg!view)
+![升级完成](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022741.jpg!view)
+![运行中](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_022928.jpg!view)
 
 然后关机后把机子拿到客厅，插上电源和网线（主板上电自动开机
 回到卧室，进`web`一看
@@ -1238,8 +1238,11 @@ vpxa started.
 旧硬盘已炸（彻底报废？）替代硬盘已上，然后开机发现`web`连不上……出去看机子听到硬盘一直咔咔响……
 `WZ`大佬现身`Trouble Shooting`，发现那块硬盘连的是旧的`SATA`硬盘线，换上新的`1/元`根的线之后好了
 猜想之前的那块系统盘坏掉的原因也可能是因为这条线，草
-![机子](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_001521.jpg!webp)
-![那条硬盘线](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_002618.jpg!webp)
+![机子](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_001521.jpg!view)
+![那条硬盘线](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20191228_002618.jpg!view)
+
+`2020-4-4 22:13:12`
+![VMware Tools Offline VIB Bundle](https://i1.yuangezhizao.cn/Win-10/20200404221234.jpg!webp)
 
 ## 0x02.后记
 这玩楞搁在了客厅的冰箱旁边和冰箱一起`24h`不断电工作，虽然主板以及其他位置都配置为了**节能**，但是感觉还是会比较费电……也不知道功耗能有多少诶？
@@ -1247,3 +1250,5 @@ vpxa started.
 ## 0x03.引用
 > [旧笔记本通过自定义整合网卡驱动安装 ESXi 6.7.0 u1](https://web.archive.org/web/20191227140613/https://www.jianshu.com/p/b0124a2c5e33)
 [命令行操作vSphere--VMware PowerCLI安装](https://web.archive.org/web/20191227151410/https://zerlong.com/739.html)
+[【下载】VMware vSphere 7.0 正式版](https://web.archive.org/web/20200404135838/https://www.azurew.com/vmware/4849.html)
+[升级ESXI到最新的6.7 U3版本](https://web.archive.org/web/20200404140207/https://lijie.org/2019/10/03/%E5%8D%87%E7%BA%A7esxi%E5%88%B0%E6%9C%80%E6%96%B0%E7%9A%84u3%E7%89%88%E6%9C%AC/)
