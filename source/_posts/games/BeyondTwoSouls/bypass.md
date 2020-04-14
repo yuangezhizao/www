@@ -4,7 +4,7 @@ date: 2020-3-13 21:45:32
 tags:
   - BeyondTwoSouls
   - BeyondTwoSoulsDemo
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
@@ -40,8 +40,15 @@ key: 78
 ## 0x02.bypass
 这里没放链接，懒得去考证了……
 ### 1.`Epic`商店下载`BeyondTwoSoulsDemo`
-注意并不能用国区账号，倒是可以改地区之后获取试玩版（反正没付费之前都是可以随意更改地区的），用`Epic`启动游戏，这里本人把`Demo`打完，反正这里打完之后也不用再打了
-之后就再也不用开`Epic`启动器了
+![Demos](https://i1.yuangezhizao.cn/Win-10/20200314010017.jpg!webp)
+![版本号](https://i1.yuangezhizao.cn/Win-10/20200314010632.jpg!webp)
+
+注意并不能用国区账号（因为锁国区），倒是可以改地区之后获取试玩版（反正没付费之前都是可以随意更改地区的），用`Epic`启动游戏，这里本人把`Demo`打完
+反正这里打完之后也不用再打了，之后就再也不用开`Epic`启动器了
+`2020-3-14 00:51:37`：只要启动了`Epic`，再进游戏就会提示弹框（白嫖周免游戏可以在`web`而无需`Epic`
+![需要网络连接](https://i1.yuangezhizao.cn/Win-10/20200314005433.jpg!webp)
+
+遇到过数次的`请使用Epic启动器来启动游戏。需要网络连接`，目前的解决方法就是重新执行全部步骤……
 
 ### 2.`3DM`论坛下载`3DMGAME-Beyond.Two.Souls.EpicStoreRip-3DM`
 下载`44.3 GB (47,623,598,080 字节)`的压缩包后解压
