@@ -5,7 +5,7 @@ tags:
   - TencentOS-tiny
   - EVB_MX_Plus
   - STM32L4
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.973 2019-LTSC
 browser: 0
@@ -24,7 +24,9 @@ key: 70
 
 上午社畜（没错周日）接近十二点的时候才看到的，去`gh`一看猛然发现竟然有两个`_sdk_data_template`，不禁一身冷汗`(╯°Д°)╯︵┻━┻`
 晚上回家才发现非常不巧地选错了，草`ヽ(｀Д´)ﾉ︵ ┻━┻ ┻━┻ `
+`2020-4-22 22:29:03`：是被`TencentOS_tiny定制开发板EVB_MX入门指南.pdf`误导了草……
 
+![tencent](https://i1.yuangezhizao.cn/Win-10/20200422223156.jpg!webp)
 ![更改联网信息](https://i1.yuangezhizao.cn/Win-10/20200119194217.png!webp)
 ![更改平台信息](https://i1.yuangezhizao.cn/Win-10/20200119194442.png!webp)
 
