@@ -5,7 +5,7 @@ tags:
   - TencentOS-tiny
   - EVB_MX_Plus
   - STM32L4
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.1158 2019-LTSC
 browser: 0
@@ -23,6 +23,7 @@ key: 86
 其实这阵子一直盯着[专栏](https://cloud.tencent.com/developer/column/79816)看投稿文章的方向性，印象里上周直至昨天还只有`4`篇，今天突然就多了数篇，看完大佬们已经提交的文章，感觉好多都是`LoRa`相关的
 虽然当初比赛申请的时候并不知道`RoLa`是什么，但是看完大佬们的文章也算是明白了它的基本使用方法吧，传输距离比`WiFi`远多了可是印象里最深刻的一点了
 最后说回自己申请的`32`板子，虽然是个半内行人但是拿到手也能看出这是一块好板子~~，拿到手之后真是爱不释手`hhh`~~
+而且还能脱离数据线仅使用锂电池供电（毕竟主打的低功耗`MCU`），不过某天晚上测试过一次不到`8h`就没电了（推测主要原因是`OLED`的耗电量巨大）
 
 ## 0x02.`EVB_MX_Plus`
 配套的联网模块使用`ESP8266`模组，这个用的再熟悉不过了，也赠送了`RoLa`模组，但是在公开的覆盖图上并没有看到市内有覆盖，因此暂时仍旧使用前者
@@ -47,6 +48,29 @@ key: 86
 
 然后就是小水泵了，这玩楞直接插`5V`流速实在是太快了（主要还是花盆太小了），而且不清楚能不能加上负反馈调节（学过的《自动控制原理》还略有印象）
 `1m`长的水管拿到手发现巨长，于是拿小刀割出`20cm`，足够使用了
+回头去翻商品详情发现了这么一段话，没错`绝对湿度值`并不适用于`土壤`
+![绝对湿度值](https://i1.yuangezhizao.cn/Win-10/20200421225320.jpg!webp)
+
+`2020-4-22 21:30:23`：晚上挖掘~~`E53_IA1.pdf`~~`E53_SC1.pdf`原理图
+首先要引入`E51`的概念，从原理图提供的信息可以得知这是国内自定的一个接口标准
+![E51](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200422_214907.jpg!view)
+![实物对照](https://i1.yuangezhizao.cn/Win-10/20200422221337.jpg!webp)
+
+正面左侧`SHT30`中间`LED`右侧`PT4211E23E`~~`BH1750`~~，`D2`橙色？的二极管还是可以辨识出来的，光照传感器仔细看也能看见上面的采集框
+![E53_SC1 正面](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200422_212842.jpg!view)
+
+背面`ERRPROM`，但是目前存储足够并没有需求使用
+![E53_SC1 背面](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200422_212736.jpg!view)
+
+~~然后就发现了有电机（水泵）预留位……~~
+~~因为图中标出了`motor sw`和`motor`，这不明显的拿前者控制后者嘛，并且猜测是拉低`motor sw`导致`motor`接地（实物中`D2`那么大的二极管搁那放着的呢……~~结果看错图草
+![E53 Interface IA1](https://i1.yuangezhizao.cn/Win-10/20200422213252.jpg!webp)
+
+~~另，之前的`基于TencentOS tiny开源项目的实践--从零开始快速打造IoT小应用.pdf`介绍中拓展板`E53_IA1`是实装有电机和`DHT11`的，这也解释了为什么源码中有`DHT11_BUS.c`但是并没有`SHT30`的设备驱动~~
+![E53_SC1](https://i1.yuangezhizao.cn/Win-10/20200422220433.jpg!webp)
+
+顺便吐槽下`DHT11`的湿度百分比竟然是个浮点数？？？之前一直都是只有整数位的……
+![湿度](https://i1.yuangezhizao.cn/Win-10/20200422221143.jpg!webp)
 
 最后的水位传感器，是准备放在储水容器之中来测量剩余可用水量
 
@@ -56,7 +80,13 @@ key: 86
 说到底还是`C51`的基础不够，搞一个编译`pass`都得排半天的错
 ![编译通过！](https://i1.yuangezhizao.cn/Win-10/20200420234447.jpg!webp)
 
-## 0x04.[腾讯云物联网开发平台](https://cloud.tencent.com/document/product/1081)
+## 0x04.[腾讯云物联网开发平台](https://web.archive.org/web/20200421114636/https://cloud.tencent.com/document/product/1081)
+来上云吧，进入[控制台](https://console.cloud.tencent.com/iotexplorer)，印象里早在公测的时候就申请到了名额
+![物联网开发平台](https://i1.yuangezhizao.cn/Win-10/20200421194538.jpg!webp)
+
+这里有两个项目：`智能灯`那个是板子的示例项目，`flower`是自己新建的项目
+![开发中心-产品开发](https://i1.yuangezhizao.cn/Win-10/20200421194743.jpg!webp)
+
 `EVB_MX_Plus`出厂的开关位置控制了`USB`接口插到`PC`上为**串口**使用，`CH340`驱动，烧录是用了另外的接口因此互不影响
 另外，如果接上`ST-Link`的话，就无法使用物理开关控制断电了，它会强制供电，烧录完成之后可以按下板子上的复位键来重启，就不需要拔插`ST-Link`了
 而只接`USB`线就可以使用物理开关，并且会给板子上的锂电池充电
