@@ -5,7 +5,7 @@ tags:
   - TencentOS-tiny
   - EVB_MX_Plus
   - STM32L4
-count: 4
+count: 5
 os: 0
 os_1: 10.0.17763.1158 2019-LTSC
 browser: 0
@@ -124,20 +124,24 @@ key: 86
 而只接`USB`线就可以使用物理开关，并且会给板子上的锂电池充电
 ![串口助手](https://i1.yuangezhizao.cn/Win-10/20200420233903.jpg!webp)
 
-## 0x04.连线图
+## 0x05.连线图
 ![完整图](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200424_000415.jpg!view)
 
-## 0x05.小程序
+## 0x06.小程序
 源码自带小程序端，照着模板不到半小时就能预览出来（顺便发现代码里明文`SECRET_ID`和`SECRET_KEY`……这个还是得拿`CAM`单独建个只读`API`密钥
 ![v0.2](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-04-23-23-27-24-879_com.tencent.mm.jpg!webp)
 
 也可以使用`腾讯连连`
 ![flower](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-04-24-00-14-46-415_com.tencent.mm.jpg!webp)
 
-## 0x06.实验室站
+## 0x07.实验室站
+这里的构想是通过`数据同步`将数据存储至私有库中，并使用`Grafana`之类的可视化工具查看
+此构想其他项目已实现，暂未实装
 
-## 0x07.HomeAssistant
+## 0x08.HomeAssistant
+这里的构想是接入`HomeAssistant`，可使用其进行查看，并配置`HomeKit`对接`IOS`家庭，即可用`Siri`语音控制
+此构想其他项目已实现，暂未实装
 
-## 0x08.后记
+## 0x09.后记
 总的来说收获还是巨大的（`wx`群里都是巨佬，瑟瑟发抖……
 未完待续……
