@@ -5,7 +5,7 @@ tags:
   - TencentOS-tiny
   - EVB_MX_Plus
   - STM32L4
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.1158 2019-LTSC
 browser: 0
@@ -19,8 +19,19 @@ key: 86
 还记得推上的那张曲线图嘛，越临近`deadline`效率越高（雾
 ![RT](https://i1.yuangezhizao.cn/Win-10/20200420224201.jpg!webp)
 
+`2020-4-23 23:35:25`：
+<details><summary>点击此处 ← 查看折叠</summary>
+
+本来想着直接在社区修改，结果预览的图片都`403`了……于是又转回来修改了
+![RT](https://i1.yuangezhizao.cn/Win-10/20200423231853.jpg!webp)
+
+又想起来`Coding Pages`今晚突然莫名炸了博客也进不来了……
+![0%](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-04-23-22-05-27-855_com.taobao.tao.jpg!webp)
+
+</details>
+
 ## 0x01.简介
-其实这阵子一直盯着[专栏](https://cloud.tencent.com/developer/column/79816)看投稿文章的方向性，印象里上周直至昨天还只有`4`篇，今天突然就多了数篇，看完大佬们已经提交的文章，感觉好多都是`LoRa`相关的
+其实这阵子一直盯着[专栏](https://cloud.tencent.com/developer/column/79816)看投稿文章的方向性，印象里上周直至昨天还只有`4`篇，今天突然就多了数十篇，看完大佬们已经提交的文章，感觉好多都是`LoRa`相关的
 虽然当初比赛申请的时候并不知道`RoLa`是什么，但是看完大佬们的文章也算是明白了它的基本使用方法吧，传输距离比`WiFi`远多了可是印象里最深刻的一点了
 最后说回自己申请的`32`板子，虽然是个半内行人但是拿到手也能看出这是一块好板子~~，拿到手之后真是爱不释手`hhh`~~
 而且还能脱离数据线仅使用锂电池供电（毕竟主打的低功耗`MCU`），不过某天晚上测试过一次不到`8h`就没电了（推测主要原因是`OLED`的耗电量巨大）
@@ -29,7 +40,7 @@ key: 86
 配套的联网模块使用`ESP8266`模组，这个用的再熟悉不过了，也赠送了`RoLa`模组，但是在公开的覆盖图上并没有看到市内有覆盖，因此暂时仍旧使用前者
 另外的拓展`E51`模块足够使用，也没有额外购买其他型号的（
 板子拿到手的那个周末就照着例程成功对接上了，见[EVB_MX_Plus 对接腾讯云物联网开发平台](../qcloud-iot-explorer.html)，不得不说`物联网开发平台`是真的方便（除了因自己没看好烧错例程无法对接之外），`demo`程序可以实现云端控制灯的开关（顺便吐槽下这个灯真是巨亮无比）
-然后去看板子上的其他传感器：`温、湿、光`应有尽有，另外在例程里也看到了`DHT11`的适配，估计找个`PIN`接上就也能使用了
+~~然后去看板子上的其他传感器：`温、湿、光`应有尽有，~~另外在例程里也看到了`DHT11`的适配，估计找个`PIN`接上就也能使用了
 作为个人业余开发者，并没有接触过工业（商业）产品的经验。所以觉得应该致力于解决贴近自己现实生活中的需求
 对于老生常谈的`温湿度监控`已经基于`NodeMCU`+`DHT11`实现，这里就围绕着另一个「课题」进行方案落地
 > 去年`tb`上买了一盆文竹，但是因为种种原因（懒）要么是好几天没浇水，要么是一浇就浇多了……
@@ -51,7 +62,14 @@ key: 86
 回头去翻商品详情发现了这么一段话，没错`绝对湿度值`并不适用于`土壤`
 ![绝对湿度值](https://i1.yuangezhizao.cn/Win-10/20200421225320.jpg!webp)
 
-`2020-4-22 21:30:23`：晚上挖掘~~`E53_IA1.pdf`~~`E53_SC1.pdf`原理图
+这水泵电流`120mA`，直接拿单片机`GPIO`口是驱动不了的，可以选择外接一个**三极管**搞定，并且不能长时间工作因为会影响到板子的供电？实测不大一会`mqtt`通信就报错断开了，串口输出还能看到路径乱码？？？
+目前的解决方法是，每次只接通`3s`之后就断开，这个水量也足够一次短暂的补充了
+![0.12](https://i1.yuangezhizao.cn/Win-10/20200423233914.jpg!webp)
+
+`2020-4-22 21:30:23`：
+<details><summary>点击此处 ← 查看折叠</summary>
+
+晚上挖掘~~`E53_IA1.pdf`~~`E53_SC1.pdf`原理图
 首先要引入`E51`的概念，从原理图提供的信息可以得知这是国内自定的一个接口标准
 ![E51](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200422_214907.jpg!view)
 ![实物对照](https://i1.yuangezhizao.cn/Win-10/20200422221337.jpg!webp)
@@ -72,11 +90,15 @@ key: 86
 顺便吐槽下`DHT11`的湿度百分比竟然是个浮点数？？？之前一直都是只有整数位的……
 ![湿度](https://i1.yuangezhizao.cn/Win-10/20200422221143.jpg!webp)
 
-最后的水位传感器，是准备放在储水容器之中来测量剩余可用水量
+</details>
+
+最后的水位传感器，是准备放在储水容器之中来测量剩余可用水量，目前并未实装
+
+`2020-4-23 23:42:42`：
+看到`DHT11_BUS.c`库还是忍不住把之前放在`NodeMCU`上的`DHT11`拔下来插到板子上了`hhh`
 
 ## 0x03.代码
-还没整理完，暂不放出
-[gh](https://github.com/yuangezhizao)
+[gh](https://github.com/yuangezhizao/EVB_MX_Plus)
 说到底还是`C51`的基础不够，搞一个编译`pass`都得排半天的错
 ![编译通过！](https://i1.yuangezhizao.cn/Win-10/20200420234447.jpg!webp)
 
@@ -86,19 +108,31 @@ key: 86
 
 这里有两个项目：`智能灯`那个是板子的示例项目，`flower`是自己新建的项目
 ![开发中心-产品开发](https://i1.yuangezhizao.cn/Win-10/20200421194743.jpg!webp)
+![数据模板](https://i1.yuangezhizao.cn/Win-10/20200423235158.jpg!webp)
+![设备开发](https://i1.yuangezhizao.cn/Win-10/20200423235245.jpg!webp)
+![交互开发](https://i1.yuangezhizao.cn/Win-10/20200423235311.jpg!webp)
+![面板配置](https://i1.yuangezhizao.cn/Win-10/20200423235343.png!webp)
+![设备调试](https://i1.yuangezhizao.cn/Win-10/20200423235412.jpg!webp)
+![设备信息](https://i1.yuangezhizao.cn/Win-10/20200423235517.png!webp)
+![下发指令](https://i1.yuangezhizao.cn/Win-10/20200423235607.jpg!webp)
+
+比较实用的还有`数据开发`功能，可以实现自己的逻辑
+![画图](https://i1.yuangezhizao.cn/Win-10/20200423235803.jpg!webp)
 
 `EVB_MX_Plus`出厂的开关位置控制了`USB`接口插到`PC`上为**串口**使用，`CH340`驱动，烧录是用了另外的接口因此互不影响
 另外，如果接上`ST-Link`的话，就无法使用物理开关控制断电了，它会强制供电，烧录完成之后可以按下板子上的复位键来重启，就不需要拔插`ST-Link`了
 而只接`USB`线就可以使用物理开关，并且会给板子上的锂电池充电
 ![串口助手](https://i1.yuangezhizao.cn/Win-10/20200420233903.jpg!webp)
-![设备调试](https://i1.yuangezhizao.cn/Win-10/20200420234007.png!webp)
 
 ## 0x04.连线图
-![主采集](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200414_223830.jpg!view)
+![完整图](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200424_000415.jpg!view)
 
 ## 0x05.小程序
 源码自带小程序端，照着模板不到半小时就能预览出来（顺便发现代码里明文`SECRET_ID`和`SECRET_KEY`……这个还是得拿`CAM`单独建个只读`API`密钥
-![v0.1](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-04-20-23-27-38-752_com.tencent.mm.jpg!webp)
+![v0.2](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-04-23-23-27-24-879_com.tencent.mm.jpg!webp)
+
+也可以使用`腾讯连连`
+![flower](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-04-24-00-14-46-415_com.tencent.mm.jpg!webp)
 
 ## 0x06.实验室站
 
