@@ -13,7 +13,7 @@ place: 家
 key: -1
 ---
 
-<blockquote>最后更新：2019-8-10 21:41:40</blockquote>
+<blockquote>最后更新：2020-4-24 17:20:03</blockquote>
 
 @column-2{
 
@@ -124,6 +124,16 @@ https://space.bilibili.com/25622031
 ###### 3 月 10 日 22:54:22
 
 从`腾讯云`迁移至`coding.net`
+
+}
+
+##### 2020
+
+@item{
+
+###### 4 月 24 日 17:18:16
+
+从`Coding 企业版`迁移至`TencentCloud Serverless`
 
 }
 
