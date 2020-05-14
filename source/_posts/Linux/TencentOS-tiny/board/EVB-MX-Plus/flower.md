@@ -142,15 +142,100 @@ key: 86
 ## 0x07.实验室站
 这里的构想是通过`数据同步`将数据存储至私有库中，并使用`Grafana`之类的可视化工具查看
 `数据同步`即将设备通过`MQTT`上报的数据以`HTTP`形式发送至自己的云主机上，通过`Flask`开一个接口接收并存储至`MySQL`就搞定了
-此构想其他项目已实现，暂未实装
+此构想其他项目已实现，~~暂未~~此处已实装
+![接收数据](https://i1.yuangezhizao.cn/Win-10/20200514232540.jpg!webp)
+
+示例`Flask`代码，上传接口未做来源验证，后期可以自行加个`token`做双方校验
+``` python
+@api.route('/IOT/flower', methods=['GET', 'POST'])
+def IOT_flower():
+    if 'upload' in request.args:
+        data = json.loads(request.get_data(as_text=True))
+        seq = data.get('seq')
+        timestamp = data.get('timestamp')
+        topic = data.get('topic')
+        productid = data.get('productid')
+        devicename = data.get('devicename')
+        brightness = data.get('payload').get('params').get('brightness')
+        humidity = data.get('payload').get('params').get('humidity')
+        temperature = data.get('payload').get('params').get('temperature')
+        soil_humi = data.get('payload').get('params').get('soil_humi')
+        light_switch = data.get('payload').get('params').get('light_switch')
+        motor_switch = data.get('payload').get('params').get('motor_switch')
+        return upload(seq, timestamp, topic, productid, devicename, brightness, humidity, temperature, soil_humi,
+                      light_switch, motor_switch)
+    elif 'devicename' in request.args:
+        devicename = request.args['devicename']
+        if devicename:
+            return get_multidata_from_mysql(devicename)
+        else:
+            return bad_request('参数值为空')
+    else:
+        return bad_request('非法参数')
+```
+![数据预览](https://i1.yuangezhizao.cn/Win-10/20200514233151.jpg!webp)
+
+即可用`https://lab.yuangezhizao.cn/api/v0.0.1/IOT/flower?devicename=dev001`接口进行访问
+![api](https://i1.yuangezhizao.cn/Win-10/20200514231423.jpg!webp)
+
+`Grafana`里选好数据源就也可以进行可视化了
+![datasources](https://i1.yuangezhizao.cn/Win-10/20200514232901.jpg!webp)
 
 ## 0x08.HomeAssistant
 这里的构想是接入`HomeAssistant`，可使用其进行查看，并配置`HomeKit`对接`IOS`家庭，即可用`Siri`语音控制
 方案一：结合上面的`数据同步`，数据就触手可及了，自有源也不必担心消耗过多的请求量
 `HomeAssistant`里有一种`sensor`平台是`command_line`，即把执行`shell`获取到的数据为数据来源，直接写个读`MySQL`的`shell`就`ok`了
 有这个`command_line`就可以任意对接了，爽到（
-方案二：连接到云上`MQTT`……
-此构想其他项目已实现，暂未实装
+~~方案二：连接到云上`MQTT`……~~
+此构想其他项目已实现，~~暂未~~此处已实装
+![文档](https://i1.yuangezhizao.cn/Win-10/20200514223316.jpg!webp)
+``` bash
+sensor:
+  - platform: command_line
+    name: soil_humi
+    command: python3 -c "import requests; print(requests.get('https://lab.yuangezhizao.cn/api/v0.0.1/IOT/flower?devicename=dev001').json()['data']['soil_humi'])"
+    unit_of_measurement: "%"
+
+  - platform: command_line
+    name: yuangezhizao's room temperature
+    command: python3 -c "import requests; print(requests.get('https://lab.yuangezhizao.cn/api/v0.0.1/IOT/flower?devicename=dev001').json()['data']['temperature'])"
+    unit_of_measurement: "°C"
+
+  - platform: command_line
+    name: yuangezhizao's room humidity
+    command: python3 -c "import requests; print(requests.get('https://lab.yuangezhizao.cn/api/v0.0.1/IOT/flower?devicename=dev001').json()['data']['humidity'])"
+    unit_of_measurement: "%"
+
+  - platform: command_line
+    name: brightness
+    command: python3 -c "import requests; print(requests.get('https://lab.yuangezhizao.cn/api/v0.0.1/IOT/flower?devicename=dev001').json()['data']['brightness'])"
+    unit_of_measurement: "lx"
+```
+![实际接入](https://i1.yuangezhizao.cn/iPad/img_2412.png!webp)
+
+## 0x09.HomeKit
+打开家庭可以同步看到传感器的状态，这里有个坑就是`温度`传感器可以显示，但是`湿度`不行，解决方法是自定义属性
+```
+sensor.soil_humi:
+  friendly_name: 土壤湿度
+  device_class: humidity
+
+sensor.brightness:
+  friendly_name: 光照强度
+
+sensor.yuangezhizao_s_room_humidity_2:
+  friendly_name: 房间湿度
+  device_class: humidity
+
+sensor.yuangezhizao_s_room_temperature_2:
+  friendly_name: 房间温度
+```
+![配置文件](https://i1.yuangezhizao.cn/Win-10/20200514234621.jpg!webp)
+![实际接入](https://i1.yuangezhizao.cn/iPad/img_2408.png!webp)
+
+也可以召唤`Siri`
+![实际接入](https://i1.yuangezhizao.cn/iPad/img_2410.png!webp)
+![实际接入](https://i1.yuangezhizao.cn/iPad/img_2411.png!webp)
 
 ## 0x09.后记
 总的来说收获还是巨大的（`wx`群里都是巨佬，瑟瑟发抖……
