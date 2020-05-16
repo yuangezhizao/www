@@ -2,8 +2,8 @@
 title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
-  - Raspberry-pi
-count: 6
+  - raspberrypi
+count: 7
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -17,30 +17,54 @@ key: 34
 > 成文时间仓促也不想细写，所以**不适合**无基础人士阅读！（请善用`Gitment`评论区
 
 ## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspbian/)
-> Raspbian Buster with desktop and recommended software，2019-09-26-raspbian-buster-full.img
+> Raspbian Buster with desktop and recommended software，2020-02-13-raspbian-buster-full.img
 
-![烧录](https://i1.yuangezhizao.cn/Win-10/20191013201158.jpg!webp)
-![验证](https://i1.yuangezhizao.cn/Win-10/20191013201546.jpg!webp)
+`2020-5-16 17:29:38`：
+新卡的写入速度翻番了草
+![烧录](https://i1.yuangezhizao.cn/Win-10/20200516172535.jpg!webp)
+![验证](https://i1.yuangezhizao.cn/Win-10/20200516172715.jpg!webp)
+![完成](https://i1.yuangezhizao.cn/Win-10/20200516173425.jpg!webp)
+结果在完成时弹出失败了，印象里之前用这工具也遇到过这种情况
 
-升级系统虽然`sudo apt-get update`，`sudo apt-get dist-upgrade`这两步就能解决，~~然而我是后看到的~~但是如果以前没安装某软件，就不能在更新中下载到它。所以还是重新烧录了最新版本的镜像。烧录完成创建一个可以是空的`ssh`文件放在`/boot`分区下以开启`ssh`服务（我没有显示器但是有网线）。所以，要记得插根网线。
+![DG](https://i1.yuangezhizao.cn/Win-10/20200516173755.jpg!webp)
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![旧卡](https://i1.yuangezhizao.cn/Win-10/20191013201158.jpg!webp)
+![旧卡](https://i1.yuangezhizao.cn/Win-10/20191013201546.jpg!webp)
+
+</details>
+
+升级系统虽然`sudo apt update`，`sudo apt dist-upgrade`这两步就能解决，但是如果以前没安装某软件，就不能在更新中下载到它。所以还是重新烧录了最新版本的镜像。烧录完成创建一个可以是空的`ssh`文件放在`/boot`分区下以开启`ssh`服务（有显示器也有网线）。所以，要记得插根网线
+默认地址：`raspberrypi.local`
 默认用户名：`pi`
 默认密码：`raspberry`
 之后修改密码
-![SSH](https://i1.yuangezhizao.cn/Win-10/20190624210639.jpg!webp)
+![SSH](https://i1.yuangezhizao.cn/Win-10/20200516175404.jpg!webp)
 
 ## 0x02.善于使用`raspi-config`
 `sudo raspi-config`
 ![你并不会看到这个图形化界面](https://i1.yuangezhizao.cn/Win-10/20180316232443.jpg!webp)
 
 ~~不全说了，只挑几个。~~修改地区，修改主机名为`rpi`，这样就能通过`rpi.local`访问，`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`256`，`A7 GL Griver`我选的~~第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`~~第一项`Legacy`。
+![VNC](https://i1.yuangezhizao.cn/Win-10/20200516175701.jpg!webp)
+![使用英文](https://i1.yuangezhizao.cn/Win-10/20200516175815.jpg!webp)
+![板载无线网卡已炸](https://i1.yuangezhizao.cn/Win-10/20200516175938.jpg!webp)
+![360 随身 WiFi 二代](https://i1.yuangezhizao.cn/Win-10/20200516180048.jpg!webp)
+
+但是`wlan0`的存在会导致`wlan1`无法正常使用，~~重启即可~~需要进行手动屏蔽
+![有线和无线](https://i1.yuangezhizao.cn/Win-10/20200516180630.jpg!webp)
 ![在这里也可以进](https://i1.yuangezhizao.cn/Win-10/20180317004332.jpg!webp)
 ![新壁纸](https://i1.yuangezhizao.cn/Win-10/20190625082338.png!webp)
 
-## 0x03.更换[科大源](https://mirrors.ustc.edu.cn/help/raspbian.html#id5)
-`2019-6-24 20:16:38`：` 清华大学开源软件镜像站`并没有`buster`版本的，所以……
+## 0x03.更换[科大源](https://mirrors.ustc.edu.cn/help/index.html)
+`2019-6-24 20:16:38`：` 清华大学开源软件镜像站`并没有`buster`版本的，所以选择了科大（
 `sudo sed -i 's|raspbian.raspberrypi.org|mirrors.ustc.edu.cn/raspbian|g' /etc/apt/sources.list`
-更新软件索引清单：`sudo apt-get update`
-比较索引清单更新依赖关系：`sudo apt-get upgrade -y`
+`sudo sed -i 's|//archive.raspberrypi.org|//mirrors.ustc.edu.cn/archive.raspberrypi.org|g' /etc/apt/sources.list.d/raspi.list`
+[Raspbian 源使用帮助](https://mirrors.ustc.edu.cn/help/raspbian.html)
+[Raspberrypi 源使用帮助](https://mirrors.ustc.edu.cn/help/archive.raspberrypi.org.html)
+更新软件索引清单：`sudo apt update`
+比较索引清单更新依赖关系：`sudo apt upgrade -y`
 
 ## 0x04.更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
 #### 安装
@@ -64,40 +88,124 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 #### 验证
 ``` bash
-pi@rpi:~ $ pip2 show pip
-DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
-Name: pip
-Version: 19.2.3
-Summary: The PyPA recommended tool for installing Python packages.
-Home-page: https://pip.pypa.io/
-Author: The pip developers
-Author-email: pypa-dev@groups.google.com
-License: MIT
-Location: /usr/local/lib/python2.7/dist-packages
-Requires: 
-Required-by: 
 pi@rpi:~ $ pip show pip
+WARNING: pip is being invoked by an old script wrapper. This will fail in a future version of pip.
+Please see https://github.com/pypa/pip/issues/5599 for advice on fixing the underlying issue.
+To avoid this problem you can invoke Python with '-m pip' instead of running pip directly.
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
 Name: pip
-Version: 19.2.3
+Version: 20.1
 Summary: The PyPA recommended tool for installing Python packages.
 Home-page: https://pip.pypa.io/
 Author: The pip developers
 Author-email: pypa-dev@groups.google.com
 License: MIT
-Location: /usr/local/lib/python3.7/dist-packages
+Location: /home/pi/.local/lib/python2.7/site-packages
 Requires: 
 Required-by: 
+pi@rpi:~ $ pip3 show pip
+WARNING: pip is being invoked by an old script wrapper. This will fail in a future version of pip.
+Please see https://github.com/pypa/pip/issues/5599 for advice on fixing the underlying issue.
+To avoid this problem you can invoke Python with '-m pip' instead of running pip directly.
+Name: pip
+Version: 20.1
+Summary: The PyPA recommended tool for installing Python packages.
+Home-page: https://pip.pypa.io/
+Author: The pip developers
+Author-email: pypa-dev@groups.google.com
+License: MIT
+Location: /home/pi/.local/lib/python3.7/site-packages
+Requires: 
+Required-by:
 ```
 
-## 0x05.修改交换分区大小
-因为默认`100M`编译`FFmpeg`会不够用，分他个`500M`应该够了，当然`2G`是最好的了……
-先看一眼，`free -h`
-`sudo vim /etc/dphys-swapfile`
-修改`CONF_SWAPSIZE`即可。
-`sudo /etc/init.d/dphys-swapfile restart`
-再看一眼，`free -h`
+## 0x05.安装常用软件
+`sudo apt install vim axel iftop iotop -y`
+存储卡测速：
+``` bash
+pi@rpi:~ $ sudo apt install hdparm
+pi@rpi:~ $ curl -fsSL http://www.nmacleod.com/public/sdbench.sh -o sdbench.sh
+pi@rpi:~ $ chmod +x sdbench.sh 
+pi@rpi:~ $ sudo ./sdbench.sh 
+CONFIG: 
+CLOCK : 50.000 MHz
+CORE  : 400 MHz, turbo=0
+DATA  : 512 MB, /root/test.dat
 
-## 0x06.安装`Aria2`以备远程下载
+HDPARM:
+======
+ HDIO_DRIVE_CMD(identify) failed: Invalid argument
+ Timing O_DIRECT disk reads:  68 MB in  3.08 seconds =  22.05 MB/sec
+ HDIO_DRIVE_CMD(identify) failed: Invalid argument
+ Timing O_DIRECT disk reads:  68 MB in  3.09 seconds =  22.02 MB/sec
+ HDIO_DRIVE_CMD(identify) failed: Invalid argument
+ Timing O_DIRECT disk reads:  68 MB in  3.08 seconds =  22.05 MB/sec
+
+WRITE:
+=====
+536870912 bytes (537 MB, 512 MiB) copied, 33.98 s, 15.8 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 43.9932 s, 12.2 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 31.7208 s, 16.9 MB/s
+
+READ:
+====
+536870912 bytes (537 MB, 512 MiB) copied, 23.1372 s, 23.2 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 23.0734 s, 23.3 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 23.2714 s, 23.1 MB/s
+
+RESULT (AVG):
+============
+Overlay config                      core_freq   turbo   overclock_50    WRITE        READ        HDPARM
+                                       400        0      50.000 MHz     inf MB/s     inf MB/s   22.06 MB/s
+```
+添加`dtparam=sd_overclock=100`至`/boot/config.txt`
+``` bash
+CONFIG: 
+CLOCK : 100.000 MHz
+CORE  : 400 MHz, turbo=0
+DATA  : 512 MB, /root/test.dat
+
+HDPARM:
+======
+ HDIO_DRIVE_CMD(identify) failed: Invalid argument
+ Timing O_DIRECT disk reads: 100 MB in  3.06 seconds =  32.69 MB/sec
+ HDIO_DRIVE_CMD(identify) failed: Invalid argument
+ Timing O_DIRECT disk reads:  98 MB in  3.00 seconds =  32.63 MB/sec
+ HDIO_DRIVE_CMD(identify) failed: Invalid argument
+ Timing O_DIRECT disk reads:  98 MB in  3.01 seconds =  32.56 MB/sec
+
+WRITE:
+=====
+536870912 bytes (537 MB, 512 MiB) copied, 46.8135 s, 11.5 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 36.7495 s, 14.6 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 40.3914 s, 13.3 MB/s
+
+READ:
+====
+536870912 bytes (537 MB, 512 MiB) copied, 15.337 s, 35.0 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 14.9874 s, 35.8 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 14.5736 s, 36.8 MB/s
+
+RESULT (AVG):
+============
+Overlay config                      core_freq   turbo   overclock_50    WRITE        READ        HDPARM
+                                       400        0     100.000 MHz     inf MB/s     inf MB/s   32.64 MB/s
+```
+结果只是读取速度从`20`提高到了`30`，写入速度反而变慢了草……
+
+## 0x06.修改交换分区大小
+因为默认`100M`编译`FFmpeg`会不够用，分他个`500M`应该够了，当然`2G`是最好的了……修改`CONF_SWAPSIZE`即可
+``` bsah
+pi@rpi:~ $ sudo vim /etc/dphys-swapfile
+pi@rpi:~ $ sudo /etc/init.d/dphys-swapfile restart
+[ ok ] Restarting dphys-swapfile (via systemctl): dphys-swapfile.service.
+pi@rpi:~ $ free -h
+              total        used        free      shared  buff/cache   available
+Mem:          747Mi       153Mi        79Mi        13Mi       514Mi       517Mi
+Swap:         2.0Gi          0B       2.0Gi
+```
+
+## 0x07.安装`Aria2`以备远程下载
 安装：`sudo apt-get install aria2 -y`
 创建配置文件夹：`sudo mkdir /etc/aria2`
 创建`session`和配置文件：`sudo touch /etc/aria2/aria2.session`，`sudo touch /etc/aria2/aria2.conf`
@@ -217,19 +325,24 @@ exit $RETVAL
 添加`/etc/init.d/aria2c start`到`/etc/rc.local`的`exit 0`之前
 ~~`apt-get -y install chkconfig`，`chkconfig --add aria2c`~~
 
-## 0x07.安装`Nginx`
+## 0x08.安装`Nginx`
 源于习惯本来想用`Apache`的，但是翻了翻感觉还是换个轻量级的较好，于是换成`Nginx`了。可以在上面放`webui-aria2`这种纯静态页面，但是后来被我移到腾讯云的`Apache`上了……（看到某人说的也就能支撑`100`用户在线……
-`sudo apt-get install nginx -y`
-`rm -rf /var/www/html`
-`git clone https://github.com/ziahamza/webui-aria2.git /var/www/html`
-`/etc/init.d/nginx start`
+```bash
+pi@rpi:~ $ sudo apt install nginx -y
+pi@rpi:~ $ sudo systemctl enable nginx
+Synchronizing state of nginx.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable nginx
+pi@rpi:~ $ sudo rm -rf /var/www/html
+pi@rpi:~ $ sudo git clone https://github.com/ziahamza/webui-aria2.git /var/www/html
+pi@rpi:~ $ sudo systemctl start nginx
+```
 ~~开机自启：编辑`/etc/rc.local`添加`/etc/init.d/nginx start`~~
 
-## 0x08.手动编译支持硬解的[FFmpeg](http://ffmpeg.org/)
+## 0x09.手动编译支持硬解的[FFmpeg](http://ffmpeg.org/)
 参考[引用第三条](#引用)
 上个版本系统可以编译出`ffplay`、`ffprobe`、`ffserver`。但是最新版本的系统编译`ffplay`的依赖处理关系又问题，暂时先搁置一段时间
 
-## 0x09.`GPIO`驱动`JLX12864G-086-PC`
+## 0x10.`GPIO`驱动`JLX12864G-086-PC`
 这显示屏原本是`51`单片机课设所用，官方有驱动文件，所以就移（复）植（制）过来了，后续还会单独发相关内容，所以就简单写了。
 我只用到了`wiringPiSetup()`、`pinMode`、`digitalWrite`和`digitalRead`这四个库函数。
 编译：`gcc -Wall -o 12864g-86-pc.c 12864g-86-pc -lwiringPi`
@@ -248,47 +361,129 @@ sudo ./12864g-86-pc
 `sudo vim /etc/rc.local`
 在`exit 0`之前添加如下内容：`路径/start.sh start`
 
-## 0x10.播放音频杂音问题
+## 0x11.播放音频杂音问题
 最新版本镜像该问题已不存在，参考[引用第十条](#引用)
 `sudo vim /boot/config.txt`
 `audio_pwm_mode = 2`
 重启生效，在之前的镜像中改变还是很明显的。
 
+## 0x12.安装`Docker`
+参照[Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/#install-using-the-repository)
+![安装](https://i1.yuangezhizao.cn/Win-10/20200516191822.jpg!webp)
 
-## 0x11.安装`Docker`
-最新版本`ok`
+> Raspbian users cannot use this method!<br>
+For Raspbian, installing using the repository is not yet supported. You must instead use the convenience script.
+
+也就是说只能通过脚本安装
 ``` bash
-pi@rpi:~ $ sudo apt-get update
-命中:1 http://mirrors.ustc.edu.cn/raspbian/raspbian buster InRelease
-命中:2 http://archive.raspberrypi.org/debian buster InRelease
-正在读取软件包列表... 完成
-pi@rpi:~ $ sudo apt-get upgrade -y
-正在读取软件包列表... 完成
-正在分析软件包的依赖关系树       
-正在读取状态信息... 完成       
-正在计算更新... 完成
-升级了 0 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。
-pi@rpi:~ $ sudo apt-get dist-upgrade
-正在读取软件包列表... 完成
-正在分析软件包的依赖关系树       
-正在读取状态信息... 完成       
-正在计算更新... 完成
-升级了 0 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。
-pi@rpi:~ $ 
-```
-``` bash
-pi@rpi:~ $ sudo curl -sSL https://get.docker.com | sh
-# Executing docker install script, commit: 2f4ae48
-+ sudo -E sh -c apt-get update -qq >/dev/null
-+ sudo -E sh -c apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
-+ sudo -E sh -c curl -fsSL "https://download.docker.com/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
+pi@rpi:~ $ curl -fsSL https://get.docker.com -o get-docker.sh
+pi@rpi:~ $ sudo sh get-docker.sh  --mirror Aliyun
+# Executing docker install script, commit: 26ff363bcf3b3f5a00498ac43694bf1c7d9ce16c
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sh -c curl -fsSL "https://mirrors.aliyun.com/docker-ce/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
 Warning: apt-key output should not be parsed (stdout is not a terminal)
-+ sudo -E sh -c echo "deb [arch=armhf] https://download.docker.com/linux/raspbian 10 stable" > /etc/apt/sources.list.d/docker.list
-+ sudo -E sh -c apt-get update -qq >/dev/null
-E: 仓库 “https://download.docker.com/linux/raspbian 10 Release” 没有 Release 文件。
++ sh -c echo "deb [arch=armhf] https://mirrors.aliyun.com/docker-ce/linux/raspbian buster stable" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get update -qq >/dev/null
++ [ -n  ]
++ sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
++ sh -c docker version
+Client: Docker Engine - Community
+ Version:           19.03.8
+ API version:       1.40
+ Go version:        go1.12.17
+ Git commit:        afacb8b
+ Built:             Wed Mar 11 01:35:24 2020
+ OS/Arch:           linux/arm
+ Experimental:      false
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          19.03.8
+  API version:      1.40 (minimum version 1.12)
+  Go version:       go1.12.17
+  Git commit:       afacb8b
+  Built:            Wed Mar 11 01:29:22 2020
+  OS/Arch:          linux/arm
+  Experimental:     false
+ containerd:
+  Version:          1.2.13
+  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429
+ runc:
+  Version:          1.0.0-rc10
+  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
+ docker-init:
+  Version:          0.18.0
+  GitCommit:        fec3683
+If you would like to use Docker as a non-root user, you should now consider
+adding your user to the "docker" group with something like:
+
+  sudo usermod -aG docker your-user
+
+Remember that you will have to log out and back in for this to take effect!
+
+WARNING: Adding a user to the "docker" group will grant the ability to run
+         containers which can be used to obtain root privileges on the
+         docker host.
+         Refer to https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
+         for more information.
+pi@rpi:~ $ sudo usermod -aG docker $USER
+pi@rpi:~ $ sudo systemctl enable docker
+Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable docker
+pi@rpi:~ $ mkdir -p /etc/docker
+pi@rpi:~ $ sudo tee /etc/docker/daemon.json <<-'EOF'
+> {
+>   "registry-mirrors":["https://docker.mirrors.ustc.edu.cn"]
+> }
+> EOF
+{
+  "registry-mirrors":["https://docker.mirrors.ustc.edu.cn"]
+}
+pi@rpi:~ $ sudo systemctl daemon-reload
+pi@rpi:~ $ sudo systemctl restart docker
+pi@rpi:~ $ docker run arm32v7/hello-world
+Unable to find image 'arm32v7/hello-world:latest' locally
+latest: Pulling from arm32v7/hello-world
+4ee5c797bcd7: Pull complete 
+Digest: sha256:d32a4c07ce3055032a8d2d59f49ca55fafc54a4e840483b590f7565769dc7e00
+Status: Downloaded newer image for arm32v7/hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (arm32v7)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+pi@rpi:~ $ docker pull portainer/portainer
+Using default tag: latest
+latest: Pulling from portainer/portainer
+d1e017099d17: Pull complete 
+860ebb866910: Pull complete 
+Digest: sha256:4ae7f14330b56ffc8728e63d355bc4bc7381417fa45ba0597e5dd32682901080
+Status: Downloaded newer image for portainer/portainer:latest
+docker.io/portainer/portainer:latest
+pi@rpi:~ $ docker volume create portainer_data
+portainer_data
+pi@rpi:~ $ docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+12bdd88e25911a45114caaf2e0a4c132e7aa0ed9993bcf86319e158ccc71c775
 ```
 
-## 0x12.Python 2、3 版本切换
+## 0x13.Python 2、3 版本切换
 原理其实就是软链接，建立如下的`.sh`文件并赋予可执行权限，即`sudo chmod +x <文件名>`
 ``` bash
 pi@rpi:~/Documents $ cat py2.sh 
@@ -310,9 +505,10 @@ echo "Finish create 3.7"
 pi@rpi:~/Documents $ 
 ```
 
-## 0x13.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
+## 0x14.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
 选择`Python 3.x + Tensorflow v1.13.1`：
 `sudo pip3 uninstall tensorflow`
+
 ``` bash
 pi@rpi:~/Downloads $ sudo pip3 install tensorflow-1.13.1-cp35-cp35m-linux_armv7l.whl 
 Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
@@ -392,13 +588,13 @@ pi@rpi:~/test $ python3 label_image.py \
 time:  0.19170689582824707
 ```
 
-## 0x14.禁用无线网卡
+## 0x15.禁用无线网卡
 无线网卡莫名坏掉了，可能是静电损坏……
 `sudo ifconfig eth0 down`：重启失效
 故使用配置文件禁用无线网卡驱动
-`sudo apt-get install lshw`
+`sudo apt install lshw`
 ``` bash
-pi@rpi:~$ sudo lshw
+pi@rpi:~ $ sudo lshw
 rpi                         
     description: ARMv7 Processor rev 4 (v7l)
     product: Raspberry Pi 3 Model B Rev 1.2
@@ -446,7 +642,7 @@ rpi
           size: 747MiB
   *-usbhost
        product: DWC OTG Controller
-       vendor: Linux 4.19.50-v7+ dwc_otg_hcd
+       vendor: Linux 4.19.97-v7+ dwc_otg_hcd
        physical id: 1
        bus info: usb@1
        logical name: usb1
@@ -468,7 +664,7 @@ rpi
              vendor: Standard Microsystems Corp.
              physical id: 1
              bus info: usb@1:1.1
-             logical name: enxb827eb05ffd4
+             logical name: eth0
              version: 2.00
              serial: <rm>
              size: 10Mbit/s
@@ -479,32 +675,34 @@ rpi
              description: Generic USB device
              product: 802.11 n WLAN
              vendor: MediaTek
-             physical id: 3
-             bus info: usb@1:1.3
+             physical id: 4
+             bus info: usb@1:1.4
              version: 0.00
              serial: 1.0
              capabilities: usb-2.01
              configuration: driver=mt7601u maxpower=160mA speed=480Mbit/s
-  *-network:0 DISABLED
+        *-usb:2
+             description: Generic USB device
+             product: USB2.0-Serial
+             vendor: QinHeng Electronics
+             physical id: 5
+             bus info: usb@1:1.5
+             version: 2.63
+             capabilities: usb-1.10
+             configuration: driver=ch341 maxpower=98mA speed=12Mbit/s
+  *-network
        description: Wireless interface
        physical id: 2
+       bus info: usb@1:1.4
        logical name: wlan0
        serial: <rm>
        capabilities: ethernet physical wireless
-       configuration: broadcast=yes driver=brcmfmac driverversion=7.45.98.38 firmware=01-e58d219f multicast=yes wireless=IEEE 802.11
-  *-network:1
-       description: Wireless interface
-       physical id: 3
-       bus info: usb@1:1.3
-       logical name: wlx00367607f60c
-       serial: <rm>
-       capabilities: ethernet physical wireless
-       configuration: broadcast=yes driver=mt7601u driverversion=4.19.50-v7+ firmware=N/A ip=192.168.123.56 link=yes multicast=yes wireless=IEEE 802.11
+       configuration: broadcast=yes driver=mt7601u driverversion=4.19.97-v7+ firmware=N/A ip=192.168.25.130 link=yes multicast=yes wireless=IEEE 802.11
 ```
 > 执行命令以后查看`network:0 description: Wireless interface`在这个里面找到`driver=brcmfmac`那么这个`brcmfmac`就是驱动名称
 记好你的机器显示的那个名称（我不确定大家是不是都一样），然后创建内容为`blacklist brcmfmac`的文件`/etc/modprobe.d/blacklist-brcmfmac.conf`
 
-## 0x15.查看版本
+## 0x16.查看版本
 ``` bash
 getconf LONG_BIT                            # 系统位数
 uname -a                                    # 内核版本
@@ -516,7 +714,8 @@ cat /etc/issue                              # Linux distro 版本
 cat /etc/debian_version                     # Debian 版本编号
 ```
 
-## 引用
+
+## 0x17.引用
 > [树莓派3B新版raspbian系统换国内源](https://web.archive.org/web/20190905062924/https://www.cnblogs.com/wangchuanyang/p/6434323.html)
 > [修改树莓派交换分区 SWAP 的正确姿势](https://web.archive.org/web/20190905063006/http://shumeipai.nxez.com/2017/12/18/how-to-modify-raspberry-pi-swap-partition.html)
 > [玩转树莓派02——搭建下载机](https://web.archive.org/web/20190905063051/https://www.jianshu.com/p/4cf37177fc62)
