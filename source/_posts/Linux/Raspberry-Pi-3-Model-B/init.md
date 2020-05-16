@@ -35,16 +35,16 @@ key: 34
 
 </details>
 
-升级系统虽然`sudo apt update`，`sudo apt dist-upgrade`这两步就能解决，但是如果以前没安装某软件，就不能在更新中下载到它。所以还是重新烧录了最新版本的镜像。烧录完成创建一个可以是空的`ssh`文件放在`/boot`分区下以开启`ssh`服务（有显示器也有网线）。所以，要记得插根网线
+升级系统虽然`sudo apt update`，`sudo apt dist-upgrade`这两步就能解决，但是如果以前没安装某软件，就不能在更新中下载到它。所以还是重新烧录了最新版本的镜像。烧录完成创建一个空的`ssh`文件放在`/boot`分区下以开启`ssh`服务（有显示器也有网线）。所以，要记得插根网线
 默认地址：`raspberrypi.local`
 默认用户名：`pi`
 默认密码：`raspberry`
-之后修改密码
+之后修改密码，这里奇怪的是`raspberrypi.local`解析到的是`ipv4`地址而不是`ipv6`地址？
 ![SSH](https://i1.yuangezhizao.cn/Win-10/20200516175404.jpg!webp)
 
 ## 0x02.善于使用`raspi-config`
 `sudo raspi-config`
-![你并不会看到这个图形化界面](https://i1.yuangezhizao.cn/Win-10/20180316232443.jpg!webp)
+![你并不会看到这个图形化界面](https://i1.yuangezhizao.cn/Win-10/20200516215831.jpg!webp)
 
 ~~不全说了，只挑几个。~~修改地区，修改主机名为`rpi`，这样就能通过`rpi.local`访问，`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`256`，`A7 GL Griver`我选的~~第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`~~第一项`Legacy`。
 ![VNC](https://i1.yuangezhizao.cn/Win-10/20200516175701.jpg!webp)
@@ -59,23 +59,23 @@ key: 34
 
 ## 0x03.更换[科大源](https://mirrors.ustc.edu.cn/help/index.html)
 `2019-6-24 20:16:38`：` 清华大学开源软件镜像站`并没有`buster`版本的，所以选择了科大（
-`sudo sed -i 's|raspbian.raspberrypi.org|mirrors.ustc.edu.cn/raspbian|g' /etc/apt/sources.list`
-`sudo sed -i 's|//archive.raspberrypi.org|//mirrors.ustc.edu.cn/archive.raspberrypi.org|g' /etc/apt/sources.list.d/raspi.list`
 [Raspbian 源使用帮助](https://mirrors.ustc.edu.cn/help/raspbian.html)
 [Raspberrypi 源使用帮助](https://mirrors.ustc.edu.cn/help/archive.raspberrypi.org.html)
+`sudo sed -i 's|raspbian.raspberrypi.org|mirrors.ustc.edu.cn/raspbian|g' /etc/apt/sources.list`
+`sudo sed -i 's|//archive.raspberrypi.org|//mirrors.ustc.edu.cn/archive.raspberrypi.org|g' /etc/apt/sources.list.d/raspi.list`
 更新软件索引清单：`sudo apt update`
 比较索引清单更新依赖关系：`sudo apt upgrade -y`
 
 ## 0x04.更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
-#### 安装
+### 1.安装
 `curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
 `sudo python3 get-pip.py --force-reinstall`
-#### 临时使用
+### 2.临时使用
 ```
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
 ```
 注意，`simple`不能少, 是`https`而不是`http`
-#### 设为默认
+### 3.设为默认
 升级`pip`到最新的版本`(>=10.0.0)`后进行配置：
 ```
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
@@ -86,7 +86,7 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```
-#### 验证
+### 4.验证
 ``` bash
 pi@rpi:~ $ pip show pip
 WARNING: pip is being invoked by an old script wrapper. This will fail in a future version of pip.
@@ -122,6 +122,20 @@ Required-by:
 ## 0x05.安装常用软件
 `sudo apt install vim axel iftop iotop -y`
 存储卡测速：
+关于`config.txt`的官网说明：https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
+奇怪的是并没有在[overclocking](https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md)中找到`sd_overclock`，全部配置项也就只有这些：
+- Memory
+- Licence Keys/Codecs
+- Video/Display
+- Audio
+- Camera
+- Boot
+- Ports and Device Tree
+- GPIOs
+- Overclocking
+- Conditional Filters
+- Miscellaneous
+
 ``` bash
 pi@rpi:~ $ sudo apt install hdparm
 pi@rpi:~ $ curl -fsSL http://www.nmacleod.com/public/sdbench.sh -o sdbench.sh
@@ -589,10 +603,8 @@ time:  0.19170689582824707
 ```
 
 ## 0x15.禁用无线网卡
-无线网卡莫名坏掉了，可能是静电损坏……
-`sudo ifconfig eth0 down`：重启失效
-故使用配置文件禁用无线网卡驱动
-`sudo apt install lshw`
+板载无线网卡莫名坏掉了，可能是静电损坏……反正那天在学校走廊拿出来，上电之后就再也连不上了草，`sudo ifconfig eth0 down`：重启失效……
+故使用配置文件禁用无线网卡驱动，`sudo apt install lshw`
 ``` bash
 pi@rpi:~ $ sudo lshw
 rpi                         
@@ -734,4 +746,4 @@ cat /etc/debian_version                     # Debian 版本编号
 > [树莓派永久禁用无线网卡](https://web.archive.org/web/20190905063621/https://aoenian.github.io/2017/02/16/rasp-disable-wireless-card/)
 > [[常見問與答] 如何看 Raspbian 的版本資訊？](https://web.archive.org/web/20190905063753/https://www.raspberrypi.com.tw/10400/check-what-raspbian-version-you-are-running-on-the-raspberry-pi/)
 
-https://github.com/markondej/fm_transmitter
+> [SD-Card-Overclock](https://web.archive.org/web/20200516140704/https://www.raspberrypi.org/forums/viewtopic.php?t=195895)
