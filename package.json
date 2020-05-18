@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "hexo": {
-    "version": "4.2.0"
+    "version": "4.2.1"
   },
   "scripts": {
     "dev": "hexo clean && hexo g && hexo s",
@@ -11,7 +11,7 @@
     "server": "hexo s"
   },
   "dependencies": {
-    "hexo": "^4.0.0",
+    "hexo": "^4.2.1",
     "hexo-all-minifier": "^0.5.3",
     "hexo-filter-date-from-git": "^0.1.2",
     "hexo-generator-archive": "^1.0.0",
