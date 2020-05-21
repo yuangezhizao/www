@@ -3,7 +3,7 @@ title: 用 Hexo 搭建博客
 date: 2018-2-20 15:39:14
 tags:
   - Hexo
-count: 2
+count: 3
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -68,10 +68,101 @@ hexo clean && hexo g && hexo s
 ![代码更新时自动部署静态网站](https://i1.yuangezhizao.cn/Win-10/20190825224750.jpg!webp)
 ![部署成功](https://i1.yuangezhizao.cn/Win-10/20190825224831.jpg!webp)
 
-顺便把`gh`的源码`clone`到了`CloudStudio`之中，~~这样上班太困了想摸鱼写写博客的话也是`ok`的，~~所谓的代码不落地可海星（Doge
+顺便把`gh`的源码`clone`到了`CloudStudio`之中，~~这样上班太困了想摸鱼写写博客的话也是`ok`的，~~所谓的代码不落地可海星（`Doge`
 ![CloudStudio](https://i1.yuangezhizao.cn/Win-10/20190825230738.jpg!webp)
 
-## 0x04.引用
+## 0x04.[Signing commits](https://help.github.com/en/github/authenticating-to-github/signing-commits)
+> You can sign your work locally using GPG or S/MIME. GitHub will verify these signatures so other people will know that your commits come from a trusted source. GitHub will automatically sign commits you make using the GitHub web interface.
+
+`web`上的提交会被`gh`自动签名，本地提交需要使用`GnuPG`进行签名
+官方文档[Managing commit signature verification](https://help.github.com/en/github/authenticating-to-github/managing-commit-signature-verification)，根据交互提示创建不少于`4096`（官方要求）位的公私钥对
+``` bash
+<rm>@<rm> MINGW64 ~
+$ gpg --list-secret-keys --keyid-format LONG
+gpg: keybox '/c/Users/<rm>/.gnupg/pubring.kbx' created
+gpg: /c/Users/<rm>/.gnupg/trustdb.gpg: trustdb created
+
+<rm>@<rm> MINGW64 ~
+$ gpg --list-secret-keys --keyid-format LONG
+
+<rm>@<rm> MINGW64 ~
+$ gpg --list-key
+
+<rm>@<rm> MINGW64 ~
+$ gpg --full-generate-key
+gpg (GnuPG) 2.2.16-unknown; Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 1
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 4096
+Requested keysize is 4096 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 1y
+Key expires at Fri, May 21, 2021  4:03:37 PM CST
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: yuangezhizao-workaccount
+Email address: [email protected]
+Comment:
+You selected this USER-ID:
+    "yuangezhizao-workaccount <[email protected]>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: key 7C5AD4EFEBE22E2C marked as ultimately trusted
+gpg: directory '/c/Users/<rm>/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/c/Users/<rm>/.gnupg/openpgp-revocs.d/529AB9F612C9EA2303836DCE7C5AD4EFEBE22E2C.rev'
+public and secret key created and signed.
+
+pub   rsa4096 2020-05-21 [SC] [expires: 2021-05-21]
+      529AB9F612C9EA2303836DCE7C5AD4EFEBE22E2C
+uid                      yuangezhizao-workaccount <[email protected]>
+sub   rsa4096 2020-05-21 [E] [expires: 2021-05-21]
+
+
+<rm>@<rm> MINGW64 ~
+$ gpg --list-secret-keys --keyid-format LONG
+/c/Users/<rm>/.gnupg/pubring.kbx
+----------------------------------------
+sec   rsa4096/7C5AD4EFEBE22E2C 2020-05-21 [SC] [expires: 2021-05-21]
+      529AB9F612C9EA2303836DCE7C5AD4EFEBE22E2C
+uid                 [ultimate] yuangezhizao-workaccount <[email protected]>
+ssb   rsa4096/1D59D7933E6D6D58 2020-05-21 [E] [expires: 2021-05-21]
+
+
+<rm>@<rm> MINGW64 ~
+$ gpg --list-key
+/c/Users/<rm>/.gnupg/pubring.kbx
+----------------------------------------
+pub   rsa4096 2020-05-21 [SC] [expires: 2021-05-21]
+      529AB9F612C9EA2303836DCE7C5AD4EFEBE22E2C
+uid           [ultimate] yuangezhizao-workaccount <[email protected]>
+sub   rsa4096 2020-05-21 [E] [expires: 2021-05-21]
+
+```
+
+## 0x05.引用
 > [使用Travis CI自动部署Hexo博客](https://web.archive.org/web/20190905064005/https://www.itfanr.cc/2017/08/09/using-travis-ci-automatic-deploy-hexo-blogs/)
 [使用 Travis CI 自动部署 HEXO 博客](https://web.archive.org/web/20190905064039/https://www.giuem.com/deploy-via-travis-ci/)
 [使用 travis-ci 持续集成 Hexo 静态博客](https://web.archive.org/web/20190905064103/https://www.pangjian.me/2016/05/25/travis-ci-hexo/)
