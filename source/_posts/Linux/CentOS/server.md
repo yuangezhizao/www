@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 4
+count: 5
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -14,7 +14,6 @@ key: 50
 ---
     然后原来的一元机就换系统了……
 <!-- more -->
-
 ## 0x00.修改主机名
 ``` bash
 [root@txy ~]# hostnamectl set-hostname txy.yuangezhizao.cn
@@ -48,7 +47,7 @@ yum install htop screen git axel iftop lsof -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python382](https://www.python.org/downloads/release/python-382/)环境
+## 0x04.编译安装[python383](https://www.python.org/downloads/release/python-383/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -62,28 +61,55 @@ yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel read
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-~~`wget --no-check-certificate https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tar.xz`~~
+~~`wget --no-check-certificate https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 ``` bash
 CloudFlare：
-wget https://v2.yuangezhizao.cn/dl/Python-3.8.2.tar.xz
+wget https://v2.yuangezhizao.cn/dl/Python-3.8.3.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.8.2.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.8.3.tar.xz
 ```
 4. 解压
 ``` bash
-tar xvJf Python-3.8.2.tar.xz
-cd Python-3.8.2
+tar xvJf Python-3.8.3.tar.xz
+cd Python-3.8.3
 ```
 5. 编译
-注：开启了`编译器优化`之后的编译速度会较慢，但理论上编译产物的运行效率？会提高
+注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
+不添加`--enable-shared`（生成动态链接库）编译会报错：`command 'gcc' failed with exit status 1`
 ``` bash
 rm -rf /usr/local/python3
-./configure --prefix=/usr/local/python3 --enable-optimizations
+./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations
 make && make install
 ```
-6. 创建软链接（`python3`&`pip3`）
+6. 修复
+添加`--enable-shared`编译之后会报找不到`so`的错误，此时可利用`ldd`工具查看详细
+``` bash
+[root@txy ~]# python3 -V
+python3: error while loading shared libraries: libpython3.8.so.1.0: cannot open shared object file: No such file or directory
+[root@txy ~]# cd /usr/local/python3/bin/
+[root@txy bin]# ls
+2to3  2to3-3.8  easy_install-3.8  idle3  idle3.8  pip3  pip3.8  pydoc3  pydoc3.8  python3  python3.8  python3.8-config  python3-config
+[root@txy bin]# ldd python3.8
+        linux-vdso.so.1 =>  (0x00007ffd24de9000)
+        libpython3.8.so.1.0 => not found
+        libcrypt.so.1 => /lib64/libcrypt.so.1 (0x00007f9e9dd3c000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f9e9db20000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x00007f9e9d91c000)
+        libutil.so.1 => /lib64/libutil.so.1 (0x00007f9e9d719000)
+        libm.so.6 => /lib64/libm.so.6 (0x00007f9e9d417000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007f9e9d049000)
+        libfreebl3.so => /lib64/libfreebl3.so (0x00007f9e9ce46000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f9e9df73000)
+```
+需要手动将所缺`so`库`libpython3.8.so.1.0`移至库目录下，具体生效路径为：`/usr/lib64/`，这里测试`/usr/lib/`、`/usr/local/lib/`、`/usr/local/lib64/`均无效……
+``` bash
+[root@txy ~]# cp libpython3.8.so.1.0 /usr/lib64/
+[root@txy ~]# python3 -V
+Python 3.8.3
+```
+7. 创建软链接（`python3`&`pip3`）
 此法不会破坏自带`py`环境，因此无需修改任何`yum`文件
 ~~注：更改`yum`配置~~
 ~~`vim /usr/bin/yum`~~
@@ -126,7 +152,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```
 > 这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`
 
-7. 升级`pip3`
+8. 升级`pip3`
 你云环境下会自动配置镜像源
 ``` bash
 [root@txy Python-3.8.2]# pip3 install --upgrade pip
@@ -145,7 +171,7 @@ Successfully installed pip-20.0.2
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
 ```
-8. 加入环境变量
+9. 加入环境变量
 ``` bash
 [root@txy ~]# cat ~/.bash_profile
 # .bash_profile
@@ -1011,4 +1037,5 @@ root      7915  0.0  0.0 112708   976 pts/0    S+   21:42   0:00 grep --color=au
 自启
 将`/usr/local/nginx/sbin/nginx`命令加入`/etc/rc.d/rc.local`文件并赋予权限`chmod +x /etc/rc.d/rc.local`
 
-未完待续……
+## 0x09.引用
+[python --enable-shared](https://www.cnblogs.com/Tommy-Yu/p/6144512.html)
