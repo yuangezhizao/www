@@ -1,0 +1,66 @@
+---
+title: Hexo 迁移至 Serverless
+date: 2020-5-22 14:15:39
+tags:
+  - Hexo
+  - Serverless
+count: 1
+os: 0
+os_1: 10.0.18363.720 Pro 1909
+browser: 0
+browser_1: 81.0.4044.138 Stable
+place: 软件园
+key: 89
+---
+    「摸🐟都丧失了兴趣是一种什么体验」
+<!-- more -->
+## 0x00.前言
+上个月因为`Coding 企业版`托管的页面长度均为`0`，排查到`Travis-CI`编译出的页面均为空，最终确认到是新版本`Node.js`的原因，正赶上提交比赛文章（总不能一直宕机吧……），于是临时手动指定`node_js: "13.13.0"`并直接迁至`TencentCloud Serverless`，最终自然是托管在`COS`上，毕竟是企业级产品，`SLA`应该是可以保障的，并且国内访问速度快了很多（
+随着`Hexo`的更新`bug`就被修复了，于是就又改了回去`node_js: node`随时等待再次暴毙，但是托管平台就没有再给换回去了（历史遗留原因实锤），其实`静态网站`一直用的也还好（除了`SLA`不能保证，毕竟是`HK`区域，网络随缘
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+> month / 5 4 3 2 1 12 11 10 9 8 7 6 5 4 3 2 1 
+count /3~~1~~ 5 3 2 4 03 02 03 0 3 2 0 5 1 4 2 2
+
+看了下之前`10`月份开始每个月都会发`2~5`篇文章，之前的`6、9`月份除外（可能是毕业季以及刚社畜过于忙就没有打理过），然后再就是这个月了，虽说平时鼓捣的东西大部分都以水文形式扔到[QZone](https://user.qzone.qq.com/954078278)里了，但是并没有正经人看以及读者范围也有局限性
+因此`blog`还是要回归的，其实`blog`和`QZone`的界限自己也在区分，`QZone`发多了就懒得再在`blog`整理了
+但是有些东西你不发`blog`的话，随着时间的推移可能就直接被淹没了，除非去翻记录，不然是留不下任何东西的……
+但如果`QZone`不发，攒到一起直接发`blog`的话，首先并不确定这个方向发`blog`合不合适，其次如果跨越时间太长的话非常容易遗忘也丧失了实时性
+矛与盾·太难了……所以目前仍以`QZone`水文为主，计划每周末选方向整理发`blog`，~~然而这个月的`周更`马上就要变成`月更`了草……~~水了两篇光速填平
+翻了半天`blog`目录发现分层结构还是太乱了，旧文早该整理、新文还没公开，不知道要写什么才好，于是在矛盾之中诞生了这篇文章
+<hr>
+
+终于又到了一年一度的狗东`618`活动，`518`开始的预热并且从今天`520`就开始一轮了，但是一张`bt`券都没有抢到，下次就再开个`txy`的竞价实例，最低配的`1C1G`就行，网卡`25万pps`的话就只有`AM2`系列了……菜到不会`Go`语言的链接复用、`Session`管理，就还得靠着`py`，估计下个月之前的最新`release`只有`383`了，自行编译倒是加了`--enable-optimizations`理论上会有性能加成
+日语课太难了……这次可是`零基础班`也没有理由解释文盲了，一节课提问次数高达**五次**逐渐开始怀疑人生，于是自然而然地导致了，每周有课的`周一`和`周三`全天非常心塞草
+音游厅上周三也终于恢复了，~~这周末可以摸过去了（可惜周五雷阵雨……~~然后周一又关门了，因为某会……
+
+</details>
+
+## 0x01.升级
+难得一次开会就去连了外网，升级下软件包版本
+``` bash
+Microsoft Windows [Version 10.0.18363.720]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\WINDOWS\system32>node -v
+v14.2.0
+
+C:\WINDOWS\system32>npm -v
+6.14.4
+```
+然后跑`build`的时候感受到了速度（`i7-8550U CPU @ 1.80Ghz`）之慢……
+``` bash
+INFO  Generated: css/fonts/fontawesome/fontawesome-webfont.svg
+INFO  519 files generated in 3.98 min
+INFO  Add lazy load attribute to all post
+```
+确信应该是遇到了玄学`bug`，再次重试就快多了
+``` bash
+INFO  Generated: css/fonts/fontawesome/fontawesome-webfont.svg
+INFO  521 files generated in 36 s
+INFO  Add lazy load attribute to all post
+```
+顺便惊奇地发现`https`协议的`git`可以拉取成功了，而不是连接失败，不知道是`Co.`的墙给放通端口了还是本来就可以使用`https`协议，但是`ssh`协议肯定是不行的……
+然而普通浏览器进`gh`会被拦截……不管了，反正能同步是好事情，这样就不用再在浏览器开`Cloud Studio`编辑了，拒绝每日`4h`限制，并且防止单域名访问量爆炸被`Co.`的`SC`课再次查水表（草
+未完待续……
