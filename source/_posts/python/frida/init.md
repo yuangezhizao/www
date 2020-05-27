@@ -3,7 +3,7 @@ title: Frida 初体验
 date: 2020-3-16 21:53:05
 tags:
   - frida
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
@@ -15,6 +15,13 @@ key: 79
     标题起成荤段子了草？！
 <!-- more -->
 ## 0x00.前言
+`2020-5-27 22:58:57`：
+`message=你因严重违规，账号已被封禁`，昨晚为了加快完整取一轮的速度把`feeds`分页参数改成了`450`（原本是`10`），结果今晚打开一看，被光速制裁（
+毕竟动态数量过于庞大，又没有存储历史分页数，没改代码逻辑也算是滥用了，懒得去联系解封（看不了别人的动态了就不看了
+
+![code=18001](https://i1.yuangezhizao.cn/Win-10/20200527225421.png!webp)
+![Toast](https://i1.yuangezhizao.cn/Redmi-K20Pro/Screenshot_2020-05-27-22-53-30-504_com.jd.campus.jpg!webp)
+
 > `cf6dbca95b470bd7392dfef9060adaeaa154f3603b857028c4f1c92c174563d9`，你懂得
 （并不是密钥，谁敢公开放那玩楞？
 
