@@ -31,7 +31,7 @@ key: 40
 </details>
 
 ## 0x03.原理
-`2020-5-29 21:15:56`：曲包详细定义见[MuseDash 排行榜数据存储#0x03-数据下载](./rank.html#0x03-数据下载)
+`2020-5-29 21:15:56`：曲包详细定义见[MuseDash 排行榜数据存储#0x02-数据下载](./rank.html#0x02-数据下载)
 [https://lab.yuangezhizao.cn/api/v0.0.1/musedash?unlock_all_for_wuhan](https://lab.yuangezhizao.cn/api/v0.0.1/musedash?unlock_all_for_wuhan)
 ``` python
 def unlock_all_for_wuhan():
