@@ -1,10 +1,10 @@
 ---
-title: 换新系统之腾讯云学生机 CentOS 7.6 64 位
+title: 换新系统之腾讯云学生机 CentOS 7.7 64 位
 date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 7
+count: 8
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -15,6 +15,18 @@ key: 50
     然后原来的一元机就换系统了……
 <!-- more -->
 ## 0x00.修改主机名
+如果在创建实例时**高级设置**里指定了**主机名**，则会自动配置
+``` bash
+[root@txy ~]# cat /etc/hosts
+127.0.0.1 txy txy
+127.0.0.1 localhost.localdomain localhost
+127.0.0.1 localhost4.localdomain4 localhost4
+
+::1 txy txy
+::1 localhost.localdomain localhost
+::1 localhost6.localdomain6 localhost6
+```
+否则，手动更改
 ``` bash
 [root@txy ~]# hostnamectl set-hostname txy.yuangezhizao.cn
 [root@txy ~]# hostname
@@ -30,10 +42,25 @@ txy.yuangezhizao.cn
 [root@txy ~]# reboot
 ```
 
-## 0x01.软件
+## 0x01.修改`ssh`端口
+改成非`22`端口防止爆破
+```
+[root@txy ~]# vim /etc/ssh/sshd_config 
+……
+# If you want to change the port on a SELinux system, you have to tell
+# SELinux about this change.
+# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
+#
+#Port 22
+……
+[root@txy ~]# systemctl restart sshd
+```
+注意一定要新开个`shell`测试新端口是否生效，生效则可关闭旧`shell`，否则需重新配置
+
+## 0x02.软件
 ``` bash
 yum update -y
-yum install htop screen git axel iftop lsof -y
+yum install htop screen git axel iftop -y
 ```
 1. `nfs-utils`：暂时`10G`免费
 ![腾讯云文件系统](https://i1.yuangezhizao.cn/Win-10/20190509232645.jpg!webp)
@@ -53,12 +80,13 @@ yum install htop screen git axel iftop lsof -y
 [root@txy ~]# whereis python
 python: /usr/bin/python /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/local/python3/bin/python3.8-config /usr/local/python3/bin/python3.8 /usr/share/man/man1/python.1.gz
 ```
+![现有路径](https://i1.yuangezhizao.cn/Win-10/20191107225633.jpg!webp)
+
 全新：
 ```
-[root@py ~]# whereis python
+[root@txy ~]# whereis python
 python: /usr/bin/python /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/share/man/man1/python.1.gz
 ```
-![全新路径](https://i1.yuangezhizao.cn/Win-10/20191107225633.jpg!webp)
 
 2. 安装编译工具
 ~~`yum groupinstall 'Development Tools' -y`~~
@@ -88,12 +116,6 @@ cd Python-3.8.3
 5. 编译
 注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
 ~~不添加`--enable-shared`（生成动态链接库）编译会报错：`command 'gcc' failed with exit status 1`~~
-`rm -rf /usr/local/python3`
-~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations`~~
-`./configure --prefix=/usr/local/python3 --enable-optimizations`
-`make && make install`
-6. 修复
-①`2020-5-22 00:06:54`：升级`gcc`至版本`8`即可解决
 ``` bash
 ……
 gcc -pthread -shared     -Wl,--no-as-needed -o libpython3.so -Wl,-hlibpython3.so libpython3.8.so
@@ -117,6 +139,14 @@ generate-posix-vars failed
 make[1]: *** [pybuilddir.txt] Error 1
 make[1]: Leaving directory `/root/Python-3.8.3'
 make: *** [profile-opt] Error 2
+```
+`rm -rf /usr/local/python3`
+~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations`~~
+`./configure --prefix=/usr/local/python3 --enable-optimizations`
+`make && make install`
+6. 修复
+①`2020-5-22 00:06:54`：升级`gcc`至版本`8`即可解决
+``` bash
 [root@py Python-3.8.3]# gcc -v
 Using built-in specs.
 COLLECT_GCC=gcc
@@ -125,33 +155,39 @@ Target: x86_64-redhat-linux
 Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux
 Thread model: posix
 gcc version 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC) 
-[root@py Python-3.8.3]# yum install centos-release-scl
+[root@py Python-3.8.3]# yum install centos-release-scl -y
 ……
 Complete!
-[root@py Python-3.8.3]# yum -y install devtoolset-8-gcc*
+[root@py Python-3.8.3]# yum install devtoolset-8-gcc* -y
 ……
 Dependencies Resolved
 
-========================================================================================================
- Package                               Arch          Version                Repository             Size
-========================================================================================================
+===================================================================================================================
+ Package                                 Arch            Version                     Repository               Size
+===================================================================================================================
 Installing:
- devtoolset-8-gcc                      x86_64        8.3.1-3.2.el7          centos-sclo-rh         30 M
- devtoolset-8-gcc-c++                  x86_64        8.3.1-3.2.el7          centos-sclo-rh         12 M
- devtoolset-8-gcc-gdb-plugin           x86_64        8.3.1-3.2.el7          centos-sclo-rh        123 k
- devtoolset-8-gcc-gfortran             x86_64        8.3.1-3.2.el7          centos-sclo-rh         12 M
- devtoolset-8-gcc-plugin-devel         x86_64        8.3.1-3.2.el7          centos-sclo-rh        1.4 M
+ devtoolset-8-gcc                        x86_64          8.3.1-3.2.el7               centos-sclo-rh           30 M
+ devtoolset-8-gcc-c++                    x86_64          8.3.1-3.2.el7               centos-sclo-rh           12 M
+ devtoolset-8-gcc-gdb-plugin             x86_64          8.3.1-3.2.el7               centos-sclo-rh          123 k
+ devtoolset-8-gcc-gfortran               x86_64          8.3.1-3.2.el7               centos-sclo-rh           12 M
+ devtoolset-8-gcc-plugin-devel           x86_64          8.3.1-3.2.el7               centos-sclo-rh          1.4 M
 Installing for dependencies:
- devtoolset-8-binutils                 x86_64        2.30-55.el7.2          centos-sclo-rh        5.5 M
- devtoolset-8-libquadmath-devel        x86_64        8.3.1-3.2.el7          centos-sclo-rh        155 k
- devtoolset-8-libstdc++-devel          x86_64        8.3.1-3.2.el7          centos-sclo-rh        2.7 M
- devtoolset-8-runtime                  x86_64        8.1-1.el7              centos-sclo-rh         20 k
- gmp-devel                             x86_64        1:6.0.0-15.el7         base                  181 k
- libgfortran5                          x86_64        8.3.1-2.1.1.el7        base                  796 k
- libmpc-devel                          x86_64        1.0.1-3.el7            base                   32 k
- libquadmath                           x86_64        4.8.5-39.el7           base                  190 k
- mpfr-devel                            x86_64        3.1.1-4.el7            base                   68 k
- scl-utils                             x86_64        20130529-19.el7        base                   24 k
+ audit-libs-python                       x86_64          2.8.5-4.el7                 os                       76 k
+ checkpolicy                             x86_64          2.5-8.el7                   os                      295 k
+ devtoolset-8-binutils                   x86_64          2.30-55.el7.2               centos-sclo-rh          5.5 M
+ devtoolset-8-libquadmath-devel          x86_64          8.3.1-3.2.el7               centos-sclo-rh          155 k
+ devtoolset-8-libstdc++-devel            x86_64          8.3.1-3.2.el7               centos-sclo-rh          2.7 M
+ devtoolset-8-runtime                    x86_64          8.1-1.el7                   centos-sclo-rh           20 k
+ gmp-devel                               x86_64          1:6.0.0-15.el7              os                      181 k
+ libcgroup                               x86_64          0.41-21.el7                 os                       66 k
+ libgfortran5                            x86_64          8.3.1-2.1.1.el7             os                      796 k
+ libmpc-devel                            x86_64          1.0.1-3.el7                 os                       32 k
+ libquadmath                             x86_64          4.8.5-39.el7                os                      190 k
+ libsemanage-python                      x86_64          2.5-14.el7                  os                      113 k
+ mpfr-devel                              x86_64          3.1.1-4.el7                 os                       68 k
+ policycoreutils-python                  x86_64          2.5-34.el7                  os                      457 k
+ python-IPy                              noarch          0.75-6.el7                  os                       32 k
+ setools-libs                            x86_64          3.3.8-4.el7                 os                      620 k
 
 ……
 Complete!
@@ -166,13 +202,22 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 再次编译，成功！
 ``` bash
-[root@py Python-3.8.3]# python3 
-Python 3.8.3 (default, May 22 2020, 00:01:19) 
+[root@txy Python-3.8.3]# python3
+Python 3.8.3 (default, May 31 2020, 21:31:58) 
 [GCC 8.3.1 20190311 (Red Hat 8.3.1-3)] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
 [1]+  Stopped                 python3
-[root@py Python-3.8.3]# 
+[root@txy ~]# ldd /usr/local/python3/bin/python3
+	linux-vdso.so.1 =>  (0x00007ffdfe1d7000)
+	libcrypt.so.1 => /lib64/libcrypt.so.1 (0x00007f58dfe8f000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f58dfc73000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00007f58dfa6f000)
+	libutil.so.1 => /lib64/libutil.so.1 (0x00007f58df86c000)
+	libm.so.6 => /lib64/libm.so.6 (0x00007f58df56a000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f58df19c000)
+	libfreebl3.so => /lib64/libfreebl3.so (0x00007f58def99000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f58e00c6000)
 ```
 ②旧法（不推荐使用）
 ~~添加`--enable-shared`编译之后会报找不到`so`的错误，此时可利用`ldd`工具查看详细~~
@@ -213,52 +258,47 @@ Collecting setuptools
 Collecting pip
 Installing collected packages: setuptools, pip
 Successfully installed pip-19.2.3 setuptools-41.2.0
-[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
 ln: failed to create symbolic link ‘/usr/bin/python3’: File exists
-[root@txy Python-3.8.2]# rm -rf /usr/bin/python3
-[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
+[root@txy Python-3.8.3]# rm -rf /usr/bin/python3
+[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
 ln: failed to create symbolic link ‘/usr/bin/pip3’: File exists
-[root@txy Python-3.8.2]# rm -rf /usr/bin/pip3
-[root@txy Python-3.8.2]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
-[root@txy Python-3.8.2]# python -V
+[root@txy Python-3.8.3]# rm -rf /usr/bin/pip3
+[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
+[root@txy Python-3.8.3]# python -V
 Python 2.7.5
-[root@txy Python-3.8.2]# python2 -V
+[root@txy Python-3.8.3]# python2 -V
 Python 2.7.5
-[root@txy Python-3.8.2]# python3 -V
-Python 3.8.2
-[root@txy Python-3.8.2]# pip -V
+[root@txy Python-3.8.3]# python3 -V
+Python 3.8.3
+[root@txy Python-3.8.3]# pip -V
 -bash: pip: command not found
-[root@txy Python-3.8.2]# pip2 -V
+[root@txy Python-3.8.3]# pip2 -V
 -bash: pip2: command not found
-[root@txy Python-3.8.2]# pip3 -V
+[root@txy Python-3.8.3]# pip3 -V
 pip 19.2.3 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
-[root@txy Python-3.8.2]# python3
-Python 3.8.2 (default, Feb 27 2020, 22:56:59) 
-[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> 
-[1]+  Stopped                 python3
-[root@txy Python-3.8.2]# 
 ```
 > 这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`
 
 8. 升级`pip3`
 你云环境下会自动配置镜像源
 ``` bash
-[root@py bin]# pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
-[root@py bin]# pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-Writing to /root/.config/pip/pip.conf
-[root@txy Python-3.8.2]# pip3 install --upgrade pip
-Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
+[root@txy ~]# pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
 Collecting pip
-  Downloading http://mirrors.tencentyun.com/pypi/packages/54/0c/d01aa759fdc501a58f431eb594a17495f15b88da142ce14b5845662c13f3/pip-20.0.2-py2.py3-none-any.whl (1.4MB)
-     |████████████████████████████████| 1.4MB 661kB/s 
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/43/84/23ed6a1796480a6f1a2d38f2802901d078266bda38388954d01d3f2e821d/pip-20.1.1-py2.py3-none-any.whl (1.5MB)
+     |████████████████████████████████| 1.5MB 36.9MB/s 
 Installing collected packages: pip
   Found existing installation: pip 19.2.3
     Uninstalling pip-19.2.3:
       Successfully uninstalled pip-19.2.3
-Successfully installed pip-20.0.2
+Successfully installed pip-20.1.1
+[root@txy ~]# pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+Writing to /root/.config/pip/pip.conf
+[root@txy ~]# pip3 install --upgrade pip
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Requirement already up-to-date: pip in /usr/local/python3/lib/python3.8/site-packages (20.1.1)
 ```
 安装`pip3`的另一种方法
 ``` bash
@@ -285,7 +325,7 @@ export PATH
 ## 0x05.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
 1. 卸载旧版本
 ``` bash
-sudo yum remove docker \
+$ sudo yum remove docker \
                   docker-client \
                   docker-client-latest \
                   docker-common \
@@ -295,21 +335,38 @@ sudo yum remove docker \
                   docker-engine
 ```
 2. 使用源安装
-`sudo yum install -y yum-utils device-mapper-persistent-data lvm2`
-`sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo`
+``` bash
+$ sudo yum install -y yum-utils
+
+$ sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+```
+因国外下载速度过慢不得不去看[Docker CE 源使用帮助](https://mirrors.ustc.edu.cn/help/docker-ce.html)
+> `CentOS、Fedora`等用户在下载`docker-ce.repo`文件后，还需要将该文件中的`download.docker.com`地址换成`mirrors.ustc.edu.cn/docker-ce`
+
+`yum clean all`再`yum makecache`后开始安装
 3. 安装
-`sudo yum install docker-ce docker-ce-cli containerd.io`
+`$ sudo yum install docker-ce docker-ce-cli containerd.io`
+根据[Docker Hub 源使用帮助](https://mirrors.ustc.edu.cn/help/dockerhub.html)
+``` bash
+[root@txy ~]# mkdir /etc/docker
+[root@txy ~]# cat /etc/docker/daemon.json
+{
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+}
+```
 4. 启动
-`sudo systemctl start docker`
+`$ sudo systemctl start docker`
 5. 测试
-`sudo docker run hello-world`
+`$ sudo docker run hello-world`
 输出如下：
 ``` bash
-[root@txy ~]# docker run hello-world
+[root@txy ~]#  docker run hello-world
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
-1b930d010525: Pull complete 
-Digest: sha256:6f744a2005b12a704d2608d8070a494ad1145636eeb74a570c56b94d94ccdbfc
+0e03bdcc26d7: Pull complete 
+Digest: sha256:6a65f928fb91fcfbc963f7aa6d57c8eeb426ad9a20c7ee045538ef34847f44f1
 Status: Downloaded newer image for hello-world:latest
 
 Hello from Docker!
@@ -333,9 +390,7 @@ Share images, automate workflows, and more with a free Docker ID:
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
-6. 加速器
-`curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://e6d6fb48.m.daocloud.io`
-7. 自启
+6. 自启
 `sudo systemctl enable docker`
 
 ## 0x06. 测速工具`speedtest-cli`
@@ -407,7 +462,54 @@ root      7915  0.0  0.0 112708   976 pts/0    S+   21:42   0:00 grep --color=au
 自启
 将`/usr/local/nginx/sbin/nginx`命令加入`/etc/rc.d/rc.local`文件并赋予权限`chmod +x /etc/rc.d/rc.local`
 
-## 0x09.引用
+## 0x09.测试延迟
+也就只能凑合看下，不过拿来对比应该是可以的
+①`cn-py-dl-c7`
+``` bash
+[root@py ~]# ping jrmkt.jd.com
+PING jrmkt.jd.com.gslb.qianxun.com (61.48.89.125) 56(84) bytes of data.
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=1 ttl=38 time=27.8 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=2 ttl=38 time=34.1 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=3 ttl=38 time=27.7 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=4 ttl=38 time=27.2 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=5 ttl=38 time=27.3 ms
+^C
+--- jrmkt.jd.com.gslb.qianxun.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 6565ms
+rtt min/avg/max/mdev = 27.242/28.895/34.189/2.664 ms
+```
+②`cn-tx-bj1-w2d`
+``` bash
+C:\LAB>ping jrmkt.jd.com
+
+正在 Ping jrmkt.jd.com.gslb.qianxun.com [49.7.26.66] 具有 32 字节的数据:
+来自 49.7.26.66 的回复: 字节=32 时间=4ms TTL=250
+来自 49.7.26.66 的回复: 字节=32 时间=4ms TTL=250
+来自 49.7.26.66 的回复: 字节=32 时间=4ms TTL=250
+来自 49.7.26.66 的回复: 字节=32 时间=4ms TTL=250
+
+49.7.26.66 的 Ping 统计信息:
+    数据包: 已发送 = 4，已接收 = 4，丢失 = 0 (0% 丢失)，
+往返行程的估计时间(以毫秒为单位):
+    最短 = 4ms，最长 = 4ms，平均 = 4ms
+```
+③`cn-tx-bj3-c7`
+``` bash
+[root@txy ~]# ping jrmkt.jd.com
+PING jrmkt.jd.com.gslb.qianxun.com (61.48.89.125) 56(84) bytes of data.
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=1 ttl=251 time=5.47 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=2 ttl=251 time=5.45 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=3 ttl=251 time=5.45 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=4 ttl=251 time=5.41 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=5 ttl=251 time=5.39 ms
+^C
+--- jrmkt.jd.com.gslb.qianxun.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4005ms
+rtt min/avg/max/mdev = 5.396/5.438/5.474/0.085 ms
+```
+由此可见家里肯定是最慢的了，另外**北京一区**比**北京三区**快`1ms`
+
+## 0x10.引用
 [python --enable-shared](https://web.archive.org/web/20200521142009/https://www.cnblogs.com/Tommy-Yu/p/6144512.html)
 [CentOS 7 升级gcc/g++编译器](https://web.archive.org/web/20200521161733/https://www.cnblogs.com/ToBeExpert/p/10297697.html)
 [3.7.0 build error with --enable-optimizations](https://web.archive.org/web/20200521161845/https://bugs.python.org/issue34112)
