@@ -145,7 +145,7 @@ make: *** [profile-opt] Error 2
 `./configure --prefix=/usr/local/python3 --enable-optimizations`
 `make && make install`
 6. 修复
-①`2020-5-22 00:06:54`：升级`gcc`至版本`8`即可解决
+①`2020-5-22 00:06:54`：`CentOS`自带`gcc`版本是`4`，升级至版本`8`即可解决（而之前在`ubuntu`编译的时候是版本`7`，因此可以直接编译通过
 ``` bash
 [root@py Python-3.8.3]# gcc -v
 Using built-in specs.
