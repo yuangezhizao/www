@@ -63,7 +63,7 @@ The basic process to get started with NodeMCU consists of the following three st
 ![要用谷歌邮箱，腾讯邮箱可不行](https://i1.yuangezhizao.cn/Win-10/20190818212200.jpg!webp)
 
 注意`master`和`dev`与`gh`上的代码库是同步的，因此随着时间的推移会有部分语法的差别（基本上网上的例程直接跑都会报错需要小修小改尤其是带`tmr`的），在这里暂时选择`1.5.4.1-final (frozen, for 512KB flash)`
-以上是花了半下午的时间~~（公司摸鱼）~~远程连接到家里的电脑之后反复编译，下载试出来的（到最后谷歌邮箱接收的固件直接`404`不让下载也是绝了`2333`
+以上是花了半下午的时间~~（`Co.`摸鱼）~~远程连接到家里的电脑之后反复编译，下载试出来的（到最后谷歌邮箱接收的固件直接`404`不让下载也是绝了`2333`
 ![勾选模块，注意红框](https://i1.yuangezhizao.cn/Win-10/20190818212437.jpg!webp)
 
 `DHT`和`HTTP`不是默认自带的，
