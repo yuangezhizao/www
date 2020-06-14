@@ -6,7 +6,7 @@ tags:
   - VMware
   - ESXi
   - macOS
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.914 2019-LTSC
 browser: 0
@@ -28,15 +28,34 @@ key: 63
 到最后也没能找到除了在实体`macOS`系统的机子上转换格式的方法……
 
 ## 0x01.创建
-![典型](https://i1.yuangezhizao.cn/Win-10/20191215030804.jpg!webp)
-![VMs](https://i1.yuangezhizao.cn/Win-10/20191215030826.jpg!webp)
-![苹果系统！](https://i1.yuangezhizao.cn/Win-10/20191215030849.jpg!webp)
+`2020-4-4 03:03:29`：
+应该是因为之前分的「厚制备」又赶上硬盘炸了。。。
+![](https://i1.yuangezhizao.cn/Win-10/20200404132147.png!webp)
+![](https://i1.yuangezhizao.cn/Win-10/20200404132227.png!webp)
+
+于是从零开始
+![](https://i1.yuangezhizao.cn/Win-10/20200404030653.jpg!webp)
+![](https://i1.yuangezhizao.cn/Win-10/20200404030735.jpg!webp)
+![](https://i1.yuangezhizao.cn/Win-10/20200404031222.jpg!webp)
+
+![](https://i1.yuangezhizao.cn/Win-10/20200404031325.jpg!webp)
+![](https://i1.yuangezhizao.cn/Win-10/20200404031401.jpg!webp)
+![](https://i1.yuangezhizao.cn/Win-10/20200404032453.jpg!webp)
+![](https://i1.yuangezhizao.cn/Win-10/20200404032600.jpg!webp)
 
 注：`unlocker`补丁（使`ESXi`支持非`Apple`硬件等）记得最开始打上（之后重启`ESXi`
 ![sudo sh](https://i1.yuangezhizao.cn/Win-10/20191215030222.jpg!webp)
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![典型](https://i1.yuangezhizao.cn/Win-10/20191215030804.jpg!webp)
+![VMs](https://i1.yuangezhizao.cn/Win-10/20191215030826.jpg!webp)
+![苹果系统！](https://i1.yuangezhizao.cn/Win-10/20191215030849.jpg!webp)
 ![命名](https://i1.yuangezhizao.cn/Win-10/20191215030916.jpg!webp)
 ![150 GB](https://i1.yuangezhizao.cn/Win-10/20191215031120.jpg!webp)
 ![完成](https://i1.yuangezhizao.cn/Win-10/20191215031825.jpg!webp)
+
+</details>
 
 ## 0x02.开机
 今天社畜回家突然想起这个，吃完饭直接去搜了个支持`EXSI`的`macOS 10.14`谷歌网盘镜像
