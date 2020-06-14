@@ -7,7 +7,7 @@ tags:
   - ESXi
   - Home Assistant
   - HA
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
@@ -50,5 +50,8 @@ key: 81
 
 ## 0x03.引用
 [如何在ESXI中安装Home Assistant](https://web.archive.org/web/20200405114005/https://lijie.org/2019/10/12/install-homeassistant-on-esxi/)
+[智能家居篇-3：ESP-01/01S 接入HomeAssistant，实现Siri控制](https://web.archive.org/web/20200614133438/https://codess.cc/archives/277.html)
+[ESPHome入门指引（伪）](https://web.archive.org/web/20200614133443/https://ljr.im/articles/esphome-getting-started-guide-pseudo/)
+[乐鑫ESP8266烧录固件、升级最新固件、刷MQTT固件](https://web.archive.org/web/20200614133452/http://www.piaoyi.org/iot/espressif-ESP8266-MQTT-AT.html)
 
 > 至此本文使命完成
