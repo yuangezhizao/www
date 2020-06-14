@@ -3,7 +3,7 @@ title: 用 Hexo 搭建博客
 date: 2018-2-20 15:39:14
 tags:
   - Hexo
-count: 3
+count: 4
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -71,11 +71,11 @@ hexo clean && hexo g && hexo s
 顺便把`gh`的源码`clone`到了`CloudStudio`之中，~~这样上班太困了想摸鱼写写博客的话也是`ok`的，~~所谓的代码不落地可海星（`Doge`
 ![CloudStudio](https://i1.yuangezhizao.cn/Win-10/20190825230738.jpg!webp)
 
-## 0x04.[Signing commits](https://help.github.com/en/github/authenticating-to-github/signing-commits)
+## 0x04.[Signing commits](https://web.archive.org/web/20200603140828/https://help.github.com/en/github/authenticating-to-github/signing-commits)
 > You can sign your work locally using GPG or S/MIME. GitHub will verify these signatures so other people will know that your commits come from a trusted source. GitHub will automatically sign commits you make using the GitHub web interface.
 
 `web`上的提交会被`gh`自动签名，本地提交需要使用`GnuPG`进行签名
-官方文档[Managing commit signature verification](https://help.github.com/en/github/authenticating-to-github/managing-commit-signature-verification)，根据交互提示创建不少于`4096`（官方要求）位的公私钥对
+官方文档[Managing commit signature verification](https://web.archive.org/web/20200603140752/https://help.github.com/en/github/authenticating-to-github/managing-commit-signature-verification)，根据交互提示创建不少于`4096`（官方要求）位的公私钥对
 ``` bash
 <rm>@<rm> MINGW64 ~
 $ gpg --list-secret-keys --keyid-format LONG
