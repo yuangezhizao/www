@@ -3,7 +3,7 @@ title: PY 云新增 CentOS 7.7 64 位
 date: 2019-10-28 23:13:25
 tags:
   - CentOS 
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -118,6 +118,8 @@ git config --global credential.helper store
 ```
 
 ## 0x04.`NTP`[配置](https://web.archive.org/web/20191107152042/https://cloud.tencent.com/document/product/213/30393)
+![NTPD](https://i1.yuangezhizao.cn/Win-10/20200619201038.jpg!webp)
+
 > 网络时间协议`（Network Time Protocol，NTP）`，用于同步网络中各个计算机的时间的协议。其用途是将计算机的时钟同步到世界协调时`UTC`。在`NTP`设计时考虑到了各种网络延迟，当您通过公共网络同步时，误差可以降低到`10`毫秒以内；当您通过本地网络同步时，误差可以降低到`1`毫秒
 腾讯云提供了内网`NTP`服务器供腾讯云内网设备使用，对于非腾讯云设备，可以使用腾讯云提供的公网`NTP`服务器
 
