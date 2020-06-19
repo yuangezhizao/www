@@ -16,7 +16,9 @@ key: 34
 ## 0x00.前言
 > 成文时间仓促也不想细写，所以**不适合**无基础人士阅读！（请善用`Gitment`评论区
 
-## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspbian/)
+## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspberry-pi-os/)
+`2020-02-13`之后的`2020-05-27`版本重命名为`Raspberry Pi OS (previously called Raspbian)`，并且明显标注出`Raspberry Pi OS (32-bit) with desktop and recommended software`暗示`64`位系统会`release`的，[更新日志](http://downloads.raspberrypi.org/raspios_armhf/release_notes.txt)
+
 > Raspbian Buster with desktop and recommended software，2020-02-13-raspbian-buster-full.img
 
 `2020-5-16 17:29:38`：
