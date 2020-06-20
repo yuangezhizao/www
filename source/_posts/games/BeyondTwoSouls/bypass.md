@@ -4,7 +4,8 @@ date: 2020-3-13 21:45:32
 tags:
   - BeyondTwoSouls
   - BeyondTwoSoulsDemo
-count: 2
+  - CODEX
+count: 3
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
@@ -16,7 +17,22 @@ key: 78
     有效性验证：2020-3-13 23:06:56
 <!-- more -->
 ## 0x00.前言
+`2020-6-20 23:39:25`：
+`Epic`一年独占终于结束了`2333`，换来的是`Steam`版无`D`加密爽到，上线`CODEX`即破解真是`xswl`
+![2020/6/18](https://i1.yuangezhizao.cn/Win-10/20200620231844.jpg!webp)
 ![crackwatch](https://i1.yuangezhizao.cn/Win-10/20200313231706.jpg!webp)
+
+昨天测试`CODEX`版底特律，启动游戏提示显卡驱动更新结果给鸽到了今天，还有一个诱因是远程桌面闪退也是由于显驱的锅
+![事件查看器](https://i1.yuangezhizao.cn/Win-10/20200620231602.jpg!webp)
+
+然后进`NVIDIA`控制面板这才想起当初新显示器和`madVR`一样并未重新配制，然后①开启了`10Bit`输出，②从`RGB`切换成`YCbCr444`，③`输出有限范围`无法选择**完全**因此还得拿工具修改草
+![NVIDIA](https://i1.yuangezhizao.cn/Win-10/20200620232343.jpg!webp)
+
+接下来更新驱动
+![GeForce](https://i1.yuangezhizao.cn/Win-10/20200620233549.jpg!webp)
+
+在更新完成`Game Ready`驱动之后意外发现竟然还有`Studio`版的
+![Studio](https://i1.yuangezhizao.cn/Win-10/20200620233657.jpg!webp)
 
 时间回到了大四，室友咸鱼购买了台`PS4`，但是并没有买很多游戏。印象里第一款到的是《底特律：变人》，接下来是《暴雨》和《超凡双生》
 首先打完了底特律的一个结局，然后《暴雨》和《超凡双生》正好是在同一个盒子中并且盘片是在上面的，因此《超凡双生》直到毕业都没有玩到。。。
@@ -37,7 +53,14 @@ key: 78
 超能杀机：两个灵魂 | 互动式电影、动作冒险 | `2013`年`10`月`8`日 | `PlayStation3`、`PlayStation4`、`Microsoft Windows` | 索尼电脑娱乐、`Quantic Dream`
 底特律：变人 | 互动式电影、动作冒险 | `2018`年`5`月`25`日 | `PlayStation4`、`Microsoft Windows` | 索尼互动娱乐、`Quantic Dream`
 
-## 0x02.bypass
+## 0x02.`CODEX`
+`2020-6-20 23:55:40`：
+鉴于已发布正经破解版因此不再推荐`bypass`法，[BEYOND: TWO SOULS – BUILD 5117920 + CONTROLLER FIX + LETTERBOX REMOVER](https://web.archive.org/web/20200620150541/https://fitgirl-repacks.site/beyond-two-souls/)
+![安装](https://i1.yuangezhizao.cn/Win-10/20200620230109.jpg!webp)
+![验证](https://i1.yuangezhizao.cn/Win-10/20200620230357.jpg!webp)
+![文件](https://i1.yuangezhizao.cn/Win-10/20200620230941.jpg!webp)
+
+## 0x03.`bypass`
 这里没放链接，懒得去考证了……
 ### 1.`Epic`商店下载`BeyondTwoSoulsDemo`
 ![Demos](https://i1.yuangezhizao.cn/Win-10/20200314010017.jpg!webp)
