@@ -5,7 +5,7 @@ tags:
   - BeyondTwoSouls
   - BeyondTwoSoulsDemo
   - CODEX
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
@@ -27,6 +27,10 @@ key: 78
 
 然后进`NVIDIA`控制面板这才想起当初新显示器和`madVR`一样并未重新配制，然后①开启了`10Bit`输出，②从`RGB`切换成`YCbCr444`，③`输出有限范围`无法选择**完全**因此还得拿工具修改草
 ![NVIDIA](https://i1.yuangezhizao.cn/Win-10/20200620232343.jpg!webp)
+
+然而即使全屏独占也没有输出`10 Bit`……
+![8](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200621_002339.jpg!view)
+![草](https://i1.yuangezhizao.cn/Win-10/20191016005155.jpg!webp)
 
 接下来更新驱动
 ![GeForce](https://i1.yuangezhizao.cn/Win-10/20200620233549.jpg!webp)
