@@ -4,7 +4,7 @@ date: 2019-3-27 16:07:16
 tags:
   - Raspberry-pi
   - YOLO
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.379 2019-LTSC
 browser: 0
@@ -21,16 +21,16 @@ key: 46
 懒得打字，直接拍照
 
 ## 0x01.正文
-![P311](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160228.jpg!webp)
-![P312](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160252.jpg!webp)
-![P313](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160304.jpg!webp)
-![P314](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160313.jpg!webp)
-![P315](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160329.jpg!webp)
-![P316](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160341.jpg!webp)
-![P317](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160355.jpg!webp)
+![P311](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160228.jpg!view)
+![P312](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160252.jpg!view)
+![P313](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160304.jpg!view)
+![P314](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160313.jpg!view)
+![P315](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160329.jpg!view)
+![P316](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160341.jpg!view)
+![P317](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190327_160355.jpg!view)
 
-![P107](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123804.jpg!webp)
-![P108](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123818.jpg!webp)
-![P109](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123827.jpg!webp)
-![P110](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123841.jpg!webp)
-![P111](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123847.jpg!webp)
+![P107](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123804.jpg!view)
+![P108](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123818.jpg!view)
+![P109](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123827.jpg!view)
+![P110](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123841.jpg!view)
+![P111](https://i1.yuangezhizao.cn/Lenovo-Z5/IMG_20190527_123847.jpg!view)
