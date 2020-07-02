@@ -10,6 +10,7 @@ browser: 0
 browser_1: 61.0.3163.91 Dev
 place: 宿舍
 key: 25
+gitment: true
 ---
     这是最近在写的个人在用一个小工具，感冒终于好转的说～
 <!-- more -->

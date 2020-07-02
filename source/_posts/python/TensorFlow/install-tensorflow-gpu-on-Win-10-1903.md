@@ -11,6 +11,7 @@ browser: 0
 browser_1: 71.0.3578.98 Stable
 place: 图书馆
 key: 44
+gitment: true
 ---
     1903 重置 1708 版（就算笔记本是 965M，我也要搞 TF-GPU！）
 <!-- more -->

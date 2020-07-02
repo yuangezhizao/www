@@ -11,6 +11,7 @@ browser: 0
 browser_1: 71.0.3578.98 Stable
 place: 家
 key: 41
+gitment: true
 ---
     『Can you hear me？』
 <!-- more -->

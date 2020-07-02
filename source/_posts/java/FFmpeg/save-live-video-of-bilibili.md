@@ -11,6 +11,7 @@ browser: 0
 browser_1: 61.0.3153.0 Dev
 place: 家
 key: 10
+gitment: true
 ---
     这就是我 7.21～23 这三天忙的事情……
     内含视频福利……（7-31 updated）

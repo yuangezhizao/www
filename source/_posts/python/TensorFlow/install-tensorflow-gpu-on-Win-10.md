@@ -11,6 +11,7 @@ browser: 0
 browser_1: 61.0.3153.0 Dev
 place: 家
 key: 11
+gitment: true
 ---
     已经是八月份了，暑假已经过了一半的说
 <!-- more -->

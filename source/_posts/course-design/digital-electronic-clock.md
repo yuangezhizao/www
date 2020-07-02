@@ -8,6 +8,7 @@ browser: 0
 browser_1: 58.0.3029.110 Stable
 place: 宿舍
 key: 08
+gitment: true
 ---
     拖更（because *****）……
     这就是传说中大二下学期最后两周的安排——课程设计！

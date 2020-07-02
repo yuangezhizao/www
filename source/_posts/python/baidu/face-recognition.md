@@ -10,6 +10,7 @@ browser: 0
 browser_1: 64.0.3282.140 Stable
 place: 宿舍
 key: 35
+gitment: true
 ---
     还是想测试一下效果，腾讯的早开始收费了……
 <!-- more -->

@@ -12,6 +12,7 @@ browser: 0
 browser_1: 74.0.3729.169 Stable
 place: 新家
 key: 53
+gitment: true
 ---
     VMware ESXi: The Purpose-Built Bare Metal Hypervisor
 <!-- more -->

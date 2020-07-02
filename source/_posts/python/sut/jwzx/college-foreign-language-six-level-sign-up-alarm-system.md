@@ -10,6 +10,7 @@ browser: 0
 browser_1: 56.0.2924.87 Stable
 place: 宿舍
 key: 05
+gitment: true
 ---
     该来的总是要来的
 <!-- more -->

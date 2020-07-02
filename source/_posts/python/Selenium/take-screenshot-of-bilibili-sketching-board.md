@@ -12,6 +12,7 @@ browser: 0
 browser_1: 61.0.3153.0 Dev
 place: 家
 key: 12
+gitment: true
 ---
     总计 103103 张截图
     还有两周就要回学校了……

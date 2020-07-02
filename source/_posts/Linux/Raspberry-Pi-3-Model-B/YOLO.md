@@ -11,6 +11,7 @@ browser: 0
 browser_1: 72.0.3626.121 Stable
 place: 宿舍
 key: 46
+gitment: true
 ---
     多图预警
 <!-- more -->
