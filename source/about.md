@@ -14,7 +14,7 @@ key: -1
 gitment: true
 ---
 
-<blockquote>最后更新：2020-4-24 17:20:03</blockquote>
+<blockquote>最后更新：2020-7-2 21:54:05</blockquote>
 
 @column-2{
 
@@ -23,8 +23,8 @@ gitment: true
 # 远哥
 `日`企社畜，
 常写`Python Web`
-看过`143+`部日漫
-音游狗最近打`maimai`
+看过`200+`部日漫
+音游狗周常打`maimai`
 
 https://space.bilibili.com/25622031
 
@@ -143,6 +143,14 @@ https://space.bilibili.com/25622031
 ###### 4 月 26 日 17:24:21
 
 `Roboto`字体更换至[JetBrainsMono](https://www.jetbrains.com/lp/mono/)
+
+}
+
+@item{
+
+###### 7 月 2 日 21:52:00
+
+[Gitment](https://github.com/yuangezhizao/gitment)评论系统更换至[Valine](https://github.com/xCss/Valine)
 
 }
 
