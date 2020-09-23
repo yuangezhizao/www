@@ -104,7 +104,7 @@ yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel read
 
 ``` bash
 CloudFlare：
-wget https://v2.yuangezhizao.cn/dl/Python-3.8.3.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.8.3.tar.xz
 Skysilk：
 wget http://proxy.yuangezhizao.cn/dl/Python-3.8.3.tar.xz
 ```

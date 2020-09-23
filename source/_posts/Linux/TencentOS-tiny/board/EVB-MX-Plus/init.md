@@ -52,7 +52,7 @@ key: 69
 ![代理启动！](https://i1.yuangezhizao.cn/Win-10/20200118160857.jpg!webp)
 
 官网：http://www.keil.com/fid/13wqr0wyie9j1wprs3w11xsq6mxyr1a99ijw11/files/eval/mdk529.exe
-~~CloudFlare：https://v2.yuangezhizao.cn/dl/mdk529.exe~~
+~~CloudFlare：https://proxy-cf.yuangezhizao.cn/dl/mdk529.exe~~
 ~~Skysilk：http://proxy.yuangezhizao.cn/dl/mdk529.exe~~
 
 ![安装](https://i1.yuangezhizao.cn/Win-10/20200118161335.jpg!webp)
@@ -65,7 +65,7 @@ key: 69
 ![芯片信息](https://i1.yuangezhizao.cn/Win-10/20200118171146.jpg!webp)
 
 官网：https://keilpack.azureedge.net/pack/Keil.STM32L4xx_DFP.2.3.0.pack
-~~CloudFlare：https://v2.yuangezhizao.cn/dl/Keil.STM32L4xx_DFP.2.3.0.pack~~
+~~CloudFlare：https://proxy-cf.yuangezhizao.cn/dl/Keil.STM32L4xx_DFP.2.3.0.pack~~
 ~~Skysilk：http://proxy.yuangezhizao.cn/dl/Keil.STM32L4xx_DFP.2.3.0.pack~~
 ![运行 .pack 文件导入支持包](https://i1.yuangezhizao.cn/Win-10/20200118164029.jpg!webp)
 
