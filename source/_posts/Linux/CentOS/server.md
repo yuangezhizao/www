@@ -1,10 +1,10 @@
 ---
-title: 换新系统之腾讯云学生机 CentOS 7.7 64 位
+title: 换新系统之腾讯云学生机 CentOS 8.0 64 位
 date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 8
+count: 9
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,18 +74,17 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python383](https://www.python.org/downloads/release/python-383/)环境
+## 0x04.编译安装[python386](https://www.python.org/downloads/release/python-386/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
-python: /usr/bin/python /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/local/python3/bin/python3.8-config /usr/local/python3/bin/python3.8 /usr/share/man/man1/python.1.gz
 ```
 ![现有路径](https://i1.yuangezhizao.cn/Win-10/20191107225633.jpg!webp)
 
 全新：
 ```
 [root@txy ~]# whereis python
-python: /usr/bin/python /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /etc/python /usr/include/python2.7 /usr/share/man/man1/python.1.gz
+python: /usr/bin/python3.6m /usr/bin/python3.6 /usr/lib/python3.6 /usr/lib64/python3.6 /usr/local/lib/python3.6 /usr/include/python3.6m /usr/share/man/man1/python.1.gz
 ```
 
 2. 安装编译工具
@@ -96,7 +95,7 @@ yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel read
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-~~`wget --no-check-certificate https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tar.xz`~~
+~~`wget --no-check-certificate https://www.python.org/ftp/python/3.8.6/Python-3.8.6.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或
@@ -104,102 +103,26 @@ yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel read
 
 ``` bash
 CloudFlare：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.8.3.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.8.6.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.8.3.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.8.6.tar.xz
 ```
 4. 解压
 ``` bash
-tar xvJf Python-3.8.3.tar.xz
-cd Python-3.8.3
+tar xvJf Python-3.8.6.tar.xz
+cd Python-3.8.6
 ```
 5. 编译
 注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
 ~~不添加`--enable-shared`（生成动态链接库）编译会报错：`command 'gcc' failed with exit status 1`~~
-``` bash
-……
-gcc -pthread -shared     -Wl,--no-as-needed -o libpython3.so -Wl,-hlibpython3.so libpython3.8.so
-gcc -pthread     -Xlinker -export-dynamic -o python Programs/python.o -L. -lpython3.8 -lcrypt -lpthread -ldl  -lutil -lm   -lm 
-LD_LIBRARY_PATH=/root/Python-3.8.3 ./python -E -S -m sysconfig --generate-posix-vars ;\
-if test $? -ne 0 ; then \
-	echo "generate-posix-vars failed" ; \
-	rm -f ./pybuilddir.txt ; \
-	exit 1 ; \
-fi
-Could not import runpy module
-Traceback (most recent call last):
-  File "/root/Python-3.8.3/Lib/runpy.py", line 15, in <module>
-    import importlib.util
-  File "/root/Python-3.8.3/Lib/importlib/util.py", line 14, in <module>
-    from contextlib import contextmanager
-  File "/root/Python-3.8.3/Lib/contextlib.py", line 4, in <module>
-    import _collections_abc
-SystemError: <built-in function compile> returned NULL without setting an error
-generate-posix-vars failed
-make[1]: *** [pybuilddir.txt] Error 1
-make[1]: Leaving directory `/root/Python-3.8.3'
-make: *** [profile-opt] Error 2
-```
 `rm -rf /usr/local/python3`
 ~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations`~~
 `./configure --prefix=/usr/local/python3 --enable-optimizations`
 `make && make install`
 6. 修复
-①`2020-5-22 00:06:54`：`CentOS`自带`gcc`版本是`4`，升级至版本`8`即可解决（而之前在`ubuntu`编译的时候是版本`7`，因此可以直接编译通过
-``` bash
-[root@py Python-3.8.3]# gcc -v
-Using built-in specs.
-COLLECT_GCC=gcc
-COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper
-Target: x86_64-redhat-linux
-Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux
-Thread model: posix
-gcc version 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC) 
-[root@py Python-3.8.3]# yum install centos-release-scl -y
-……
-Complete!
-[root@py Python-3.8.3]# yum install devtoolset-8-gcc* -y
-……
-Dependencies Resolved
+①`2020-9-7 23:33:59`：`CentOS 8`自带版本已为`8`
+~~`2020-5-22 00:06:54`：`CentOS`自带`gcc`版本是`4`，升级至版本`8`即可解决（而之前在`ubuntu`编译的时候是版本`7`，因此可以直接编译通过~~
 
-===================================================================================================================
- Package                                 Arch            Version                     Repository               Size
-===================================================================================================================
-Installing:
- devtoolset-8-gcc                        x86_64          8.3.1-3.2.el7               centos-sclo-rh           30 M
- devtoolset-8-gcc-c++                    x86_64          8.3.1-3.2.el7               centos-sclo-rh           12 M
- devtoolset-8-gcc-gdb-plugin             x86_64          8.3.1-3.2.el7               centos-sclo-rh          123 k
- devtoolset-8-gcc-gfortran               x86_64          8.3.1-3.2.el7               centos-sclo-rh           12 M
- devtoolset-8-gcc-plugin-devel           x86_64          8.3.1-3.2.el7               centos-sclo-rh          1.4 M
-Installing for dependencies:
- audit-libs-python                       x86_64          2.8.5-4.el7                 os                       76 k
- checkpolicy                             x86_64          2.5-8.el7                   os                      295 k
- devtoolset-8-binutils                   x86_64          2.30-55.el7.2               centos-sclo-rh          5.5 M
- devtoolset-8-libquadmath-devel          x86_64          8.3.1-3.2.el7               centos-sclo-rh          155 k
- devtoolset-8-libstdc++-devel            x86_64          8.3.1-3.2.el7               centos-sclo-rh          2.7 M
- devtoolset-8-runtime                    x86_64          8.1-1.el7                   centos-sclo-rh           20 k
- gmp-devel                               x86_64          1:6.0.0-15.el7              os                      181 k
- libcgroup                               x86_64          0.41-21.el7                 os                       66 k
- libgfortran5                            x86_64          8.3.1-2.1.1.el7             os                      796 k
- libmpc-devel                            x86_64          1.0.1-3.el7                 os                       32 k
- libquadmath                             x86_64          4.8.5-39.el7                os                      190 k
- libsemanage-python                      x86_64          2.5-14.el7                  os                      113 k
- mpfr-devel                              x86_64          3.1.1-4.el7                 os                       68 k
- policycoreutils-python                  x86_64          2.5-34.el7                  os                      457 k
- python-IPy                              noarch          0.75-6.el7                  os                       32 k
- setools-libs                            x86_64          3.3.8-4.el7                 os                      620 k
-
-……
-Complete!
-[root@py Python-3.8.3]# scl enable devtoolset-8 bash
-[root@py Python-3.8.3]# which gcc
-/opt/rh/devtoolset-8/root/usr/bin/gcc
-[root@py Python-3.8.3]# gcc --version
-gcc (GCC) 8.3.1 20190311 (Red Hat 8.3.1-3)
-Copyright (C) 2018 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-```
 再次编译，成功！
 ``` bash
 [root@txy Python-3.8.3]# python3
@@ -254,10 +177,11 @@ Python 3.8.3
 ~~把`#! /usr/bin/python`修改为`#! /usr/bin/python2`~~
 ``` bash
 ……
-Collecting setuptools
-Collecting pip
+Looking in links: /tmp/tmph0lw6sju
+Processing /tmp/tmph0lw6sju/setuptools-49.2.1-py3-none-any.whl
+Processing /tmp/tmph0lw6sju/pip-20.2.1-py2.py3-none-any.whl
 Installing collected packages: setuptools, pip
-Successfully installed pip-19.2.3 setuptools-41.2.0
+Successfully installed pip-20.2.1 setuptools-49.2.1
 [root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
 ln: failed to create symbolic link ‘/usr/bin/python3’: File exists
 [root@txy Python-3.8.3]# rm -rf /usr/bin/python3
@@ -267,19 +191,13 @@ ln: failed to create symbolic link ‘/usr/bin/pip3’: File exists
 [root@txy Python-3.8.3]# rm -rf /usr/bin/pip3
 [root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
 [root@txy Python-3.8.3]# python -V
-Python 2.7.5
-[root@txy Python-3.8.3]# python2 -V
-Python 2.7.5
+-bash: python: command not found
 [root@txy Python-3.8.3]# python3 -V
-Python 3.8.3
+Python 3.8.6
 [root@txy Python-3.8.3]# pip -V
--bash: pip: command not found
-[root@txy Python-3.8.3]# pip2 -V
--bash: pip2: command not found
-[root@txy Python-3.8.3]# pip3 -V
-pip 19.2.3 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
+pip 9.0.3 from /usr/lib/python3.6/site-packages (python 3.6)
 ```
-> 这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`
+> ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，这下`2`终于彻底没有了
 
 8. 升级`pip3`
 你云环境下会自动配置镜像源
@@ -287,18 +205,19 @@ pip 19.2.3 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
 [root@txy ~]# pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
 Collecting pip
-  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/43/84/23ed6a1796480a6f1a2d38f2802901d078266bda38388954d01d3f2e821d/pip-20.1.1-py2.py3-none-any.whl (1.5MB)
-     |████████████████████████████████| 1.5MB 36.9MB/s 
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/4e/5f/528232275f6509b1fff703c9280e58951a81abe24640905de621c9f81839/pip-20.2.3-py2.py3-none-any.whl (1.5 MB)
+     |████████████████████████████████| 1.5 MB 13.4 MB/s 
 Installing collected packages: pip
-  Found existing installation: pip 19.2.3
-    Uninstalling pip-19.2.3:
-      Successfully uninstalled pip-19.2.3
-Successfully installed pip-20.1.1
+  Attempting uninstall: pip
+    Found existing installation: pip 20.2.1
+    Uninstalling pip-20.2.1:
+      Successfully uninstalled pip-20.2.1
+Successfully installed pip-20.2.3
 [root@txy ~]# pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 Writing to /root/.config/pip/pip.conf
 [root@txy ~]# pip3 install --upgrade pip
 Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
-Requirement already up-to-date: pip in /usr/local/python3/lib/python3.8/site-packages (20.1.1)
+Requirement already up-to-date: pip in /usr/local/python3/lib/python3.8/site-packages (20.2.3)
 ```
 安装`pip3`的另一种方法
 ``` bash
@@ -325,20 +244,19 @@ export PATH
 ## 0x05.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
 1. 卸载旧版本
 ``` bash
-$ sudo yum remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-engine
+yum remove docker \
+    docker-client \
+    docker-client-latest \
+    docker-common \
+    docker-latest \
+    docker-latest-logrotate \
+    docker-logrotate \
+    docker-engine
 ```
 2. 使用源安装
 ``` bash
-$ sudo yum install -y yum-utils
-
-$ sudo yum-config-manager \
+yum install -y yum-utils
+yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 ```
@@ -346,8 +264,9 @@ $ sudo yum-config-manager \
 > `CentOS、Fedora`等用户在下载`docker-ce.repo`文件后，还需要将该文件中的`download.docker.com`地址换成`mirrors.ustc.edu.cn/docker-ce`
 
 `yum clean all`再`yum makecache`后开始安装
+
 3. 安装
-`$ sudo yum install docker-ce docker-ce-cli containerd.io`
+`yum install docker-ce docker-ce-cli containerd.io`
 根据[Docker Hub 源使用帮助](https://mirrors.ustc.edu.cn/help/dockerhub.html)
 ``` bash
 [root@txy ~]# mkdir /etc/docker
@@ -357,9 +276,9 @@ $ sudo yum-config-manager \
 }
 ```
 4. 启动
-`$ sudo systemctl start docker`
+`systemctl start docker`
 5. 测试
-`$ sudo docker run hello-world`
+`docker run hello-world`
 输出如下：
 ``` bash
 [root@txy ~]#  docker run hello-world
@@ -391,7 +310,7 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 6. 自启
-`sudo systemctl enable docker`
+`systemctl enable docker`
 
 ## 0x06. 测速工具`speedtest-cli`
 `pip3 install speedtest-cli`
@@ -493,19 +412,19 @@ C:\LAB>ping jrmkt.jd.com
 往返行程的估计时间(以毫秒为单位):
     最短 = 4ms，最长 = 4ms，平均 = 4ms
 ```
-③`cn-tx-bj3-c7`
+③`cn-tx-bj3-c8`
 ``` bash
 [root@txy ~]# ping jrmkt.jd.com
 PING jrmkt.jd.com.gslb.qianxun.com (61.48.89.125) 56(84) bytes of data.
-64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=1 ttl=251 time=5.47 ms
-64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=2 ttl=251 time=5.45 ms
-64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=3 ttl=251 time=5.45 ms
-64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=4 ttl=251 time=5.41 ms
-64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=5 ttl=251 time=5.39 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=1 ttl=251 time=7.03 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=2 ttl=251 time=7.00 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=3 ttl=251 time=7.02 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=4 ttl=251 time=7.01 ms
+64 bytes from 61.48.89.125 (61.48.89.125): icmp_seq=5 ttl=251 time=7.01 ms
 ^C
 --- jrmkt.jd.com.gslb.qianxun.com ping statistics ---
-5 packets transmitted, 5 received, 0% packet loss, time 4005ms
-rtt min/avg/max/mdev = 5.396/5.438/5.474/0.085 ms
+5 packets transmitted, 5 received, 0% packet loss, time 1005ms
+rtt min/avg/max/mdev = 7.004/7.012/7.029/0.092 ms
 ```
 由此可见家里肯定是最慢的了，另外**北京一区**比**北京三区**快`1ms`
 
