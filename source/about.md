@@ -4,7 +4,7 @@ title: 关于 & 留言板
 date: 2017-7-1 19:09:11
 description: 哈哈哈你又过来看了（雾
 reward: false
-count: 1
+count: 2
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
@@ -14,27 +14,25 @@ key: -1
 gitment: true
 ---
 
-<blockquote>最后更新：2020-7-2 21:54:05</blockquote>
+<blockquote>最后更新：2020-10-06 12:31:29</blockquote>
 
 @column-2{
 
 @card{
 
 # 远哥
-`日`企社畜，
-常写`Python Web`
-看过`200+`部日漫
-音游狗周常打`maimai`
-
-https://space.bilibili.com/25622031
+`日`企[社畜](https://space.bilibili.com/25622031)
+常写[Python Web](https://lab.yuangezhizao.cn)
+看过`200+`部[日漫](https://lab.yuangezhizao.cn/bangumi)
+音游狗周常打[maimai DX](https://lab.yuangezhizao.cn/maimai)
 
 }
 
 @card{
 
 # 制造
-`yuangezhizao.cn`已续费至`2024`年（`5`年后）
-![官方唯一域名](https://i1.yuangezhizao.cn/Win-10/20190401183620.png!webp)
+`yuangezhizao.cn`已续费至`2030`年（`10`年后）
+![官方唯一域名](https://i1.yuangezhizao.cn/macOS/QQ20201006-123456@2x.png!webp)
 
 }
 
@@ -118,7 +116,7 @@ https://space.bilibili.com/25622031
 
 接入`baidu`&`google`统计服务
 
-}   
+}
 
 @item{
 
