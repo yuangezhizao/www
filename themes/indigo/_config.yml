@@ -29,7 +29,7 @@ menu:
 #    target: _blank
   calendar:
     text: 时间轴
-    url: /archives
+    url: /archives/index.html
 #  tags:
 #    text: 标签
 #  th-list:
