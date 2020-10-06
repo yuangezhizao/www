@@ -8,9 +8,13 @@
 #    url: /about       链接，绝对或相对路径，必须。
 #    target: _blank    是否跳出，省略则在当前页面打开
 menu:
-  heartbeat:
-    text: 实验室
-    url: https://lab.yuangezhizao.cn
+  tv:
+    text: 我的所有追番
+    url: https://lab.yuangezhizao.cn/bangumi
+    target: _blank
+  music:
+    text: 周常出勤记录
+    url: https://lab.yuangezhizao.cn/maimai
     target: _blank
 #  camera-retro:
 #    text: 生活之美
