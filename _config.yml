@@ -6,14 +6,13 @@
 title: 远哥制造
 subtitle: 
 description: 远哥制造的博客站即主站，另有自建的实验室站请出门左转
-keywords: 远哥制造
+keywords: yuangezhizao,远哥制造,博客站,主站
 author: 远哥制造
 email: root@yuangezhizao.cn
 language: zh-CN
-timezone: PRC
+timezone: Asia/Shanghai
 
 # URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://www.yuangezhizao.cn
 root: /
 permalink: articles/:title.html
@@ -30,10 +29,11 @@ i18n_dir: :lang
 skip_render:
 
 # Writing
-new_post_name: :title.md # File name of new posts
+new_post_name: :title.md
 default_layout: post
-titlecase: false # Transform title into titlecase
-external_link: true # Open external links in new tab
+auto_spacing: true
+titlecase: false
+external_link: true
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
@@ -51,15 +51,12 @@ category_map:
 tag_map:
 
 # Date / Time format
-## Hexo uses Moment.js to parse and display date
-## You can customize the date format as defined in
-## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
+updated_option: date
 total_format: YYYY年MM月DD日 HH时mm分ss秒
 
 # Pagination
-## Set per_page to 0 to disable pagination
 per_page: 10
 pagination_dir: page
 
@@ -84,9 +81,11 @@ image_minifier:
   optimizationLevel: 2
   pngquant: false
   progressive: false
+
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
+
 theme: indigo
 
 feed:
