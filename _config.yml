@@ -53,7 +53,6 @@ tag_map:
 # Date / Time format
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
-updated_option: date
 total_format: YYYY年MM月DD日 HH时mm分ss秒
 
 # Pagination
