@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 3
+count: 4
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -357,6 +357,10 @@ pip 20.2.4 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
 </details>
 
 再再次上传之后“层”更新为版本`3`，访问成功！课题终于解决，原来是需要**相同版本**的`Python 3.6`运行环境
+
+### 3.响应数据压缩
+不论是`IIS`、`Apache`还是`Nginx`，都提供有压缩功能。毕竟自己在用的云主机外网上行只有`1M`带宽，压缩后对于缩短首屏时间的效果提升极为显著。对于`Serverless`，响应数据是通过`API Gateway`传输到客户端，那么压缩也应该是它所具备的能力（虽然外网速度大幅度提高，但是该压缩还是得压缩），然而并没有找到……看到某些`js`框架原生有提供压缩功能，于是打算添加`Flask`自行压缩的功能。简单来讲，通过订阅`@app.after_request`信号并调用第三方库`brotli`的`compress`方法即可（
+在写之前去`gh`上看看有没有现成的轮子拓展，果然有……刚开始用的是`Flask-Zipper`，后来换成`Flask-Compress`解决了问题
 
 ## 0x03.后记
 
