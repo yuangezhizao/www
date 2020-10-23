@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 1
+count: 3
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -20,7 +20,7 @@ key: 101
 ## 0x01.[Serverless Framework](https://web.archive.org/web/20201022123029/https://cloud.tencent.com/document/product/1154)
 > `Serverless Framework`是业界非常受欢迎的无服务器应用框架，开发者无需关心底层资源即可部署完整可用的`Serverless`应用架构。`Serverless Framework`具有资源编排、自动伸缩、事件驱动等能力，覆盖编码、调试、测试、部署等全生命周期，帮助开发者通过联动云资源，迅速构建 `Serverless`应用
 
-没错，就像几天前看到的《Serverless 之歌》里面所说：“I'm gonna reduce your ops”，它能大幅度减轻运维压力（也不得不佩服 aws
+没错，就像几天前看到的《`Serverless`之歌》里面所说`I'm gonna reduce your ops`，它能大幅度减轻运维压力（也不得不佩服`aws`
 那就开始动手吧！注意开发环境需`Node.js 10.0+`，一键全局安装：`npm install -g serverless`
 
 <details><summary>点击此处 ← 查看终端</summary>
@@ -71,18 +71,18 @@ Components: 3.2.4
 </details>
 
 注：其中`Python`云函数运行环境仅仅支持`2.7`和`3.6`，本来想在本地安装一个`3.6`的最新版本`Python 3.6.12 - Aug. 17, 2020`
-结果发现官网只提供有源代码而并没有`release`可执行文件，本地环境是最新的`Python 3.9.0 - Oct. 5, 2020`
-后来想到其实只需要注意下大的语法变更就`ok`了，基本上应该问题不大
+结果发现官网只提供源代码并没有`release`可执行文件，自己平日的开发环境是最新`Python 3.9.0 - Oct. 5, 2020`
+~~后来想到其实只需要注意下大的语法变更就`ok`了，基本上应该问题不大~~
 
 ## 0x02.[腾讯云 Flask Serverless Component](https://github.com/serverless-components/tencent-flask)
 > 腾讯云`Flask Serverless Component`，支持`Restful API`服务的部署，不支持`Flask Command`
 
-因为项目中并未实际使用`Flask Command`，因此相当于没有任何限制，惯例首先来部署`demo`吧
+本项目中并未实际使用`Flask Command`，故相当于没有任何限制，按照惯例首先来部署`demo`吧
 1. 本地`PyCharm`创建一个新的`Flask`项目
 ![Flask](https://i1.yuangezhizao.cn/macOS/QQ20201020-212721@2x.png!webp)
 
 2. 手动创建内容为`Flask`的`requirements.txt`
-3. 按照[配置文档](https://github.com/serverless-components/tencent-flask/blob/master/docs/configure.md)创建`serverless.yml`，这里贴出的是完整版，初次使用可自行酌情简化
+3. 按照[配置文档](https://github.com/serverless-components/tencent-flask/blob/master/docs/configure.md)创建`serverless.yml`，例如本项目实际使用的完整内容，初次使用可自行酌情简化
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
@@ -182,17 +182,17 @@ TENCENT_SECRET_KEY=<rm>
 
 </details>
 
-这样基于`Serverless`的`Flask`小`demo`就部署完成了，接下来可以继续按照自己的方式写剩下的代码了
+这样基于`Serverless`的`Flask`小`demo`就部署完成了，接下来继续按照自己的方式写剩下的代码
 
 ## 0x03.[maimai_DX_CN_probe](https://github.com/yuangezhizao/maimai_DX_CN_probe)
-这里就按照时间的顺序描述一下开发这个项目中过程中依次遇到的种种课题和解决方法
+接下来将按照时间的顺序依次叙述一下开发过程中遇到的种种课题以及解决思路
 
 ### 1.`Serverless Framework Component`配置文件
 纵观`Serverless Framework`，现在最新的是`V2`版本，也就是说不能沿袭之前版本的`serverless.yml`配置文件，需要重新对照文档修改
-之前版本的配置文件的可以参考这里：[实验室站迁移 TencentCloud Serverless 之路#0x03.部署 Python Flask 框架
+之前版本的配置文件可以参考这里：[实验室站迁移 TencentCloud Serverless 之路#0x03.部署 Python Flask 框架
 ](/init.html#2-配置Serverless)
-也正是因为这个版本变化，配置文件也有一处需要注意的地方
-①之前的版本会根据`requirements.txt`自动下载第三方库到项目目录下的`.serverless`文件夹下的`requirements`文件夹以参加最终的依赖打包，压缩成`zip`文件再最终上传至云函数运行环境
+也正是因为这个版本变化，导致配置文件有一处需要注意的地方
+①之前版本会根据`requirements.txt`自动下载第三方库到项目目录下的`.serverless`文件夹下的`requirements`文件夹以参加最终的依赖打包，压缩成`zip`文件再最终上传至云函数运行环境
 ②最新版本不再自动下载，需要自行处理。不过官方示例已经给写了参考用法：[hook](https://github.com/serverless-components/tencent-flask/blob/49bc914fad091bad9202ac481042760509342b3d/example/serverless.yml#L8-L17)
 ``` yml
   src:
@@ -206,10 +206,10 @@ TENCENT_SECRET_KEY=<rm>
       - .env
       - 'requirements/**'
 ```
-注释写的很清楚了，使用`hook`去根据`requirements.txt`下载第三方库到项目目录下的`requirements`文件夹，然后`include`中指定了项目目录下的`requirements`文件夹的`prefix`，避免第三方库导致本地文件夹管理混乱。到了云端的云函数运行环境，`requirements`文件夹中的第三方库和项目目录又是同级的，也可以正常导入使用。当然了，本地运行使用的是全局的第三方库，并未使用项目目录下的`requirements`文件夹（
+注释写的很清楚，使用`hook`去根据`requirements.txt`下载第三方库到项目目录下的`requirements`文件夹，避免第三方库导致本地文件夹管理混乱。然后`include`中指定了项目目录下的`requirements`文件夹在云端的`prefix`，即对于云端的云函数运行环境，`requirements`文件夹中的第三方库和项目目录是同级的，可以正常导入使用。当然了，本地运行使用的是全局的第三方库，并未用到项目目录下的`requirements`文件夹（
 
 ### 2.[层管理概述](https://web.archive.org/web/20201022122902/https://cloud.tencent.com/document/product/583/40159)
-前者是一个很合理的设计，不过在实践过程中出了新的问题。相同的配置文件
+前者（指②）是一个很合理的设计，不过在实际环境中却发现了新的问题。完全一致的配置文件
 ``` yml
   src:
     hook: 'pip3 install -r ./src/requirements.txt -t ./src/requirements'
@@ -220,9 +220,9 @@ TENCENT_SECRET_KEY=<rm>
     exclude:
       - .env
 ```
-自己在`macOS`下部署没有问题，在云端的云函数编辑器看到`requirements`文件夹中的第三方库和项目目录是同级的，的确没问题
-不过在`Windows`下部署完成之后，在云端的云函数编辑器看到了个单独的`requirements`文件夹，也就是说第三方库和项目目录非同级，于是运行起来自然就出现了`no module found`的导入报错了
-反复修改`prefix`到最后也没有调试成功，在这里有两种解决方法
+在`macOS`下成功部署之后，云端的云函数编辑器中看到`requirements`文件夹不存在，第三方库和项目目录是同级的，的确没问题
+不过在`Windows`下成功部署之后，云端的云函数编辑器中看到了`requirements`文件夹？也就是说第三方库和项目目录非同级，于是访问就会出现`no module found`的导入报错了……
+反复尝试修改`prefix`等配置项到最后也没有调试成功，因此在这里提出两种解决方法
 ①修改配置文件如下，让本地的第三方库和项目目录同级存在
 ``` yml
   src:
@@ -231,25 +231,23 @@ TENCENT_SECRET_KEY=<rm>
     exclude:
       - .env
 ```
-不过自己是拒绝的，可想而知随着项目和第三方库的扩大文件夹会越来越多，不便于后期管理
+不过这样做自己是拒绝的，可想而知随着项目和第三方库的扩大文件夹会越来越多，非常不便于管理
 ②使用云函数提供的`层`
-虽然`sls deploy`部署的速度很快，但是如果可以在部署时只上传项目代码而不去处理依赖不就更好了嘛，这样跨终端只需要关心项目代码就`ok`了
-再也不需要管理依赖！并且还有一点，在`SCF`控制台中在线编辑函数代码需要将部署程序包保持在`10MB`以下，不要以为十兆很大会用光也是可能的
+虽然`sls deploy`部署的速度很快，但是如果可以在部署时只上传项目代码而不去处理依赖不就更好了嘛，这样跨终协作端开发只需要关心项目代码就`ok`了
+再也不需要管理依赖！并且还有一点，想在`SCF`控制台中在线编辑函数代码需要将部署程序包保持在`10MB`以下，不要以为十兆很大，很快就用光也是可能的
 ![仅显示入口文件](https://i1.yuangezhizao.cn/macOS/QQ20201022-210610@2x.png!webp)
 
-怎么实现呢？那就是要将第三方库文件夹直接打包并创建为层，则在函数代码中可直接通过`import`引用，毕竟有些特殊库比如`Brotli`，`windows`下没有`vc++`的话就只能去下载`wheel`安装了
+具体如何操作呢？那就是要将第三方库文件夹直接打包并创建为层，则在函数代码中可直接通过`import`引用，毕竟有些特殊库比如`Brotli`，`windows`下没有`vc++`的话就只能去[https://lfd.uci.edu/~gohlke/pythonlibs](https://lfd.uci.edu/~gohlke/pythonlibs)下载`wheel`安装了
 `macOS`下正常安装之后会得到`_brotli.cpython-39-darwin.so`，`brotli.py`中再以`import _brotli`的形式导入
-不过又出新问题了，在`sls deploy`之后访问会报错`ModuleNotFoundError: No module named '_brotli'"`
+不过又出新问题了，云端会导入报错`ModuleNotFoundError: No module named '_brotli'"`
 > 当前`SCF`的执行环境建立在以下基础上：标准`CentOS 7.2`
 
-为了解决问题尝试在`linux`环境下打包，拿起手头的`CentOS 8.2`云主机开始一顿操作
-
+为了解决问题尝试在`linux`环境下打包，拿起手头的`CentOS 8.2`云主机开始操作
 ``` bash
 pip3 install -r requirements.txt -t ./layer --upgrade
 zip -r layer.zip ./layer
 ```
-
-然后就可以把`layer.zip`下载到本地再传上去了，暂时可以一劳永逸了（
+然后就可以把打包的`layer.zip`下载到本地再传上去了，暂时可以一劳永逸了（
 ![层详细信息](https://i1.yuangezhizao.cn/macOS/QQ20201022-234808@2x.png!webp)
 
 对了，配置文件可以移除`hook`并添加`layers`了
@@ -327,9 +325,9 @@ for file in dirs:
 
 layer
 ```
-这才恍然大悟，**需要在当前路径直接打包**
+这才恍然大悟，**打包时需要在当前路径直接打包**
 上传之后“层”更新为版本`2`，但是`ModuleNotFoundError: No module named '_brotli'`报错依旧，并且确认`_brotli.cpython-38-x86_64-linux-gnu.so`文件实际存在
-`CentOS`和`macOS`导入却均没有问题，这可就犯难了，又想到很有可能是`python`版本的问题，于是去寻找现成`3.6`的环境，比如这里
+而在`CentOS`和`macOS`上本地导入均没有问题，这可就犯难了，又想到很有可能是`python`版本的问题，于是去寻找现成`3.6`的环境，比如这里
 ![3.6.8](https://i1.yuangezhizao.cn/macOS/QQ20201022-233709@2x.png!webp)
 
 <details><summary>点击此处 ← 查看终端</summary>
@@ -358,7 +356,7 @@ pip 20.2.4 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
 
 </details>
 
-上传之后“层”更新为版本`3`，访问成功！课题终于解决，原来是需要**相同版本**的`Python 3.6`运行环境
+再再次上传之后“层”更新为版本`3`，访问成功！课题终于解决，原来是需要**相同版本**的`Python 3.6`运行环境
 
 ## 0x03.后记
 
