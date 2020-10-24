@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 5
+count: 6
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -361,7 +361,41 @@ pip 20.2.4 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
 
 再再次上传之后“层”更新为版本`3`，访问成功！课题终于解决，原来是需要**相同版本**的`Python 3.6`运行环境
 
-### 3.`url_for`输出`http`而非`https`的`URL`
+### 3.自定义入口文件
+[components](https://github.com/serverless-components)源码[tencent-flask/src/_shims/](https://github.com/serverless-components/tencent-flask/tree/master/src/_shims)中的文件每次都会被原封不动地重新打包上传到云端云函数中，目前有两个文件
+①`severless_wsgi.py`，作用是`converts an AWS API Gateway proxied request to a WSGI request.`
+`WSGI`的全称是`Python Web Server Gateway Interface`即`Web 服务器网关接口`，它是为`Python`语言定义的`Web`服务器和`Web`应用程序或框架之间的一种简单而通用的接口
+②`sl_handler.py`，就是默认的入口文件
+``` python
+import app  # Replace with your actual application
+import severless_wsgi
+
+# If you need to send additional content types as text, add then directly
+# to the whitelist:
+#
+# serverless_wsgi.TEXT_MIME_TYPES.append("application/custom+json")
+
+def handler(event, context):
+    return severless_wsgi.handle_request(app.app, event, context)
+```
+针对于自己的项目，使用了`Flask`的`工厂函数`，为了避免每次都要在云端云函数编辑器中重新修改，最好的方法是自定义入口文件：
+``` python
+import severless_wsgi
+
+from maimai_DX_CN_probe import create_app  # Replace with your actual application
+
+
+# If you need to send additional content types as text, add then directly
+# to the whitelist:
+#
+# serverless_wsgi.TEXT_MIME_TYPES.append("application/custom+json")
+
+def handler(event, context):
+    return severless_wsgi.handle_request(create_app(), event, context)
+```
+再指定`执行方法`为`serverless_handler.handler`，就`ok`了
+
+### 4.`url_for`输出`http`而非`https`的`URL`
 在视图函数中重定向到`url_for`所生成的链接都是`http`，而不是`https`……其实这个问题`Flask`的文档[Standalone WSGI Containers](https://flask.palletsprojects.com/en/1.1.x/deploying/wsgi-standalone/)有描述到
 说到底这并不是`Flask`的问题，而是`WSGI`环境所导致的问题，推荐的方法是使用**中间件**，官方也给出了`ProxyFix`
 ``` python
@@ -434,7 +468,7 @@ app = Flask(__name__)
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 ```
 
-### 4.响应数据压缩
+### 5.响应数据压缩
 不论是`IIS`、`Apache`还是`Nginx`，都提供有压缩功能。毕竟自己在用的云主机外网上行只有`1M`带宽，压缩后对于缩短首屏时间的效果提升极为显著。对于`Serverless`，响应数据是通过`API Gateway`传输到客户端，那么压缩也应该是它所具备的能力（虽然外网速度大幅度提高，但是该压缩还是得压缩），然而并没有找到……看到某些`js`框架原生有提供压缩功能，于是打算添加`Flask`自行压缩的功能。简单来讲，通过订阅`@app.after_request`信号并调用第三方库`brotli`的`compress`方法即可（
 在写之前去`gh`上看看有没有现成的轮子拓展，果然有……刚开始用的是`Flask-Zipper`，后来换成`Flask-Compress`解决了问题
 实测`3.1 MB`的数据采用`brotli`压缩算法减至`76.1 kB`
@@ -447,7 +481,7 @@ app.wsgi_app = ReverseProxied(app.wsgi_app)
 
 </details>
 
-### 5.`apigw`三种环境不同路径所产生的影响
+### 6.`apigw`三种环境不同路径所产生的影响
 默认的映射如下：
 
 ID | 环境名 | 访问路径
@@ -465,7 +499,7 @@ ID | 环境名 | 访问路径
 2 | 预发布 | prepub	
 3 | 测试 | test
 
-### 6.同时访问`私有网络`和`外网`
+### 7.同时访问`私有网络`和`外网`
 `云函数`中可以利用到的云端数据库有如下几种
 1. 云数据库`CDB`，需要`私有网络`访问，虽然可以通过外网访问但是能走内网就不走外网
 2. `PostgreSQL for Serverless（ServerlessDB）`，这个是官方给`Serverless`配的`pg`数据库
