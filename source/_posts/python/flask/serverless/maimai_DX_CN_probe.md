@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 6
+count: 7
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -98,37 +98,38 @@ inputs:
   functionName: maimai_DX_CN_probe # 云函数名称
   serviceName: maimai_DX_CN_probe # api网关服务名称
   runtime: Python3.6 # 运行环境
-  #  src: ./src # 第一种为string时，会打包src对应目录下的代码上传到默认cos上。
-  src:
+  handler: serverless_handler.handler
+    #  src: ./src # 第一种为string时，会打包src对应目录下的代码上传到默认cos上。
+    #  src:
     # TODO: 安装python项目依赖到项目当前目录
-    hook: 'pip3 install -r ./src/requirements.txt -t ./src/requirements'
-    dist: ./src
-    include:
-      - source: ./requirements
-        prefix: ../ # prefix, can make ./requirements files/dir to ./
-    exclude:
-      - .env
-      - 'src/requirements/**'
+    #    hook: 'pip3 install -r ./src/requirements.txt -t ./src/requirements'
+    #    dist: ./src
+  #    include:
+  #      - source: ./requirements
+  #        prefix: ../ # prefix, can make ./requirements files/dir to ./
+  #    exclude:
+  #      - .env
+  #      - 'requirements/**'
   # serviceId: service-np1uloxw # api网关服务ID
-  # src:  # 第二种，部署src下的文件代码，并打包成zip上传到bucket上
-  #   src: ./src  # 本地需要打包的文件目录
-  #   bucket: bucket01 # bucket name，当前会默认在bucket name后增加 appid 后缀, 本例中为 bucket01-appid
-  #   exclude:   # 被排除的文件或目录
-  #     - .env
-  #     - node_modules
-  # src: # 第三种，在指定存储桶bucket中已经存在了object代码，直接部署
-  #   bucket: bucket01 # bucket name，当前会默认在bucket name后增加 appid 后缀, 本例中为 bucket01-appid
-  #   object: cos.zip  # bucket key 指定存储桶内的文件
-  # layers:
-  #   - name: layerName #  layer名称
-  #     version: 1 #  版本
+  src: # 第二种，部署src下的文件代码，并打包成zip上传到bucket上
+    src: ./src  # 本地需要打包的文件目录
+    #       bucket: bucket01 # bucket name，当前会默认在bucket name后增加 appid 后缀, 本例中为 bucket01-appid
+    exclude: # 被排除的文件或目录
+      - .env
+      - '__pycache__/**'
+    # src: # 第三种，在指定存储桶bucket中已经存在了object代码，直接部署
+    #   bucket: bucket01 # bucket name，当前会默认在bucket name后增加 appid 后缀, 本例中为 bucket01-appid
+    #   object: cos.zip  # bucket key 指定存储桶内的文件
+  layers:
+    - name: maimai_DX_CN_probe #  layer名称
+      version: 4 #  版本
   functionConf: # 函数配置相关
     timeout: 10 # 超时时间，单位秒
     eip: true # 是否固定出口IP
     memorySize: 128 # 内存大小，单位MB
     environment: #  环境变量
       variables: #  环境变量数组
-        DEBUG: false
+        DEBUG: False
     vpcConfig: # 私有网络配置
       vpcId: 'vpc-mrg5ak88' # 私有网络的Id
       subnetId: 'subnet-hqwa51dh' # 子网ID
@@ -138,9 +139,9 @@ inputs:
     customDomains: # 自定义域名绑定
       - domain: maimai.yuangezhizao.cn # 待绑定的自定义的域名
         certificateId: hMMBPdz0 # 待绑定自定义域名的证书唯一 ID
-          # 如要设置自定义路径映射，请设置为 false
+        # 如要设置自定义路径映射，请设置为 false
         isDefaultMapping: false
-          # 自定义路径映射的路径。使用自定义映射时，可一次仅映射一个 path 到一个环境，也可映射多个 path 到多个环境。并且一旦使用自定义映射，原本的默认映射规则不再生效，只有自定义映射路径生效。
+        # 自定义路径映射的路径。使用自定义映射时，可一次仅映射一个 path 到一个环境，也可映射多个 path 到多个环境。并且一旦使用自定义映射，原本的默认映射规则不再生效，只有自定义映射路径生效。
         pathMappingSet:
           - path: /
             environment: release
@@ -154,7 +155,7 @@ inputs:
     protocols:
       #      - http
       - https
-    environment: test
+    environment: release
     serviceTimeout: 15
     # usagePlan: #  用户使用计划
     #   usagePlanId: 1111
@@ -184,10 +185,25 @@ TENCENT_SECRET_KEY=<rm>
 
 这样基于`Serverless`的`Flask`小`demo`就部署完成了，接下来继续按照自己的方式写剩下的代码
 
-## 0x03.[舞萌查分器](https://maimai.yuangezhizao.cn/)
-`gh`开源地址：[https://github.com/yuangezhizao/maimai_DX_CN_probe](https://github.com/yuangezhizao/maimai_DX_CN_probe)
+## 0x03.[maimai_DX](https://zh.wikipedia.org/wiki/Maimai)
+还是来简单地介绍一下[maimai](https://mzh.moegirl.org.cn/zh-hans/Maimai系列)这款街机音游吧，外语水平好的可以直接去看[日本官网](https://maimai.sega.jp/)&[海外官网](https://maimai.sega.com/)，介绍的还是比较专业的
+到底是个什么样子的游戏呢？在这里放一张动图自行体会一下，原始素材来自[【外录maimai】QZKago Requiem Re:MASTER ALLPERFECT Player : Ruri*R](https://www.bilibili.com/video/av457219654)
+![QZKago](https://i1.yuangezhizao.cn/macOS/QQ20201024-213604-HD.gif!webp)
 
-## 0x04.遇到的问题以及解决思路
+在国内，只能从**微信公众号**中查看成绩（因为每次进页面都需要微信的授权登录
+并且里面存储的记录有条数限制，`相册`只存最新十条，`游戏记录`只存最新五十条（就是一个队列，先进先出的那种
+这就是本项目的初衷，自己打出来的每一次成绩都应该保存好
+
+## 0x04.[舞萌查分器](https://maimai.yuangezhizao.cn/)
+接下来就是成果展示了，`gh`开源地址：[https://github.com/yuangezhizao/maimai_DX_CN_probe](https://github.com/yuangezhizao/maimai_DX_CN_probe)，后端`Flask`+`MySQL`，前端`Fomantic-UI`，欢迎`watch`、`star`、`fork`&`pr`！
+![首页](https://i1.yuangezhizao.cn/macOS/QQ20200515-185154@2x.png!webp)
+
+目前实装了如下功能：
+1. [wechat_archive](https://maimai.yuangezhizao.cn/wechat_archive)中包含`主页`，`游戏数据`，`相册`和`游戏记录`：对原始网页进行了修改，并且添加了`Highcharts`库可视化曲线显示变化
+2. [record](https://maimai.yuangezhizao.cn/record)包含`记录（分页）`和`差异（分页）`：即自写的快速预览页面，是查看历史记录和成绩变化的非常实用的功能
+3. [info](https://maimai.yuangezhizao.cn/info)包含`铺面列表`：即全部铺面基础信息，输出到一个页面中，方便页面内搜索
+
+## 0x05.发现&解决`BUG`
 接下来将按照时间的顺序依次叙述一下开发过程中遇到的种种课题以及解决思路
 
 ### 1.`Serverless Framework Component`配置文件
@@ -512,6 +528,7 @@ ID | 环境名 | 访问路径
 1. `http`强制跳转`https`
 2. 测试环境推送至生产环境
 
-## 0x05.后记
+## 0x06.后记
+昨晚出勤回来穿的少风又大，正好赶上今天`1024`嗓子疼略感冒……（然后还是尽可能地去写这篇文章
 
 未完待续……
