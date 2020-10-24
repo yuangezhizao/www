@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 4
+count: 5
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -184,7 +184,10 @@ TENCENT_SECRET_KEY=<rm>
 
 这样基于`Serverless`的`Flask`小`demo`就部署完成了，接下来继续按照自己的方式写剩下的代码
 
-## 0x03.[maimai_DX_CN_probe](https://github.com/yuangezhizao/maimai_DX_CN_probe)
+## 0x03.[舞萌查分器](https://maimai.yuangezhizao.cn/)
+`gh`开源地址：[https://github.com/yuangezhizao/maimai_DX_CN_probe](https://github.com/yuangezhizao/maimai_DX_CN_probe)
+
+## 0x04.遇到的问题以及解决思路
 接下来将按照时间的顺序依次叙述一下开发过程中遇到的种种课题以及解决思路
 
 ### 1.`Serverless Framework Component`配置文件
@@ -358,10 +361,123 @@ pip 20.2.4 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
 
 再再次上传之后“层”更新为版本`3`，访问成功！课题终于解决，原来是需要**相同版本**的`Python 3.6`运行环境
 
-### 3.响应数据压缩
+### 3.`url_for`输出`http`而非`https`的`URL`
+在视图函数中重定向到`url_for`所生成的链接都是`http`，而不是`https`……其实这个问题`Flask`的文档[Standalone WSGI Containers](https://flask.palletsprojects.com/en/1.1.x/deploying/wsgi-standalone/)有描述到
+说到底这并不是`Flask`的问题，而是`WSGI`环境所导致的问题，推荐的方法是使用**中间件**，官方也给出了`ProxyFix`
+``` python
+from werkzeug.middleware.proxy_fix import ProxyFix
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+```
+但是是从`X-Forwarded-Proto`中取的值，`apigw`中其为`http`，因此并不能直接使用这个`ProxyFix`
+因为`Flask`的社区还算完善，参考资料很多前人都铺好了路，所以直接去`Stack Overflow`搜解决方法，[Flask url_for generating http URL instead of https](https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https)
+问题出现的原因如图：`Browser ----- HTTPS ----> Reverse proxy（apigw） ----- HTTP ----> Flask`
+因为自己在`apigw`设置了`前端类型`仅`https`，也就是说`Browser`端是不可能使用`http`访问到的，通过打印`environ`可知
+``` json
+{
+  "CONTENT_LENGTH": "0",
+  "CONTENT_TYPE": "",
+  "PATH_INFO": "/",
+  "QUERY_STRING": "",
+  "REMOTE_ADDR": "",
+  "REMOTE_USER": "",
+  "REQUEST_METHOD": "GET",
+  "SCRIPT_NAME": "",
+  "SERVER_NAME": "maimai.yuangezhizao.cn",
+  "SERVER_PORT": "80",
+  "SERVER_PROTOCOL": "HTTP/1.1",
+  "wsgi.errors": <__main__.CustomIO object at 0x7feda2224630>,
+  "wsgi.input": <_io.BytesIO object at 0x7fed97093410>,
+  "wsgi.multiprocess": False,
+  "wsgi.multithread": False,
+  "wsgi.run_once": False,
+  "wsgi.url_scheme": "http",
+  "wsgi.version": (1, 0),
+  "serverless.authorizer": None,
+  "serverless.event": "<rm>",
+  "serverless.context": "<rm>",
+  "API_GATEWAY_AUTHORIZER": None,
+  "event": "<rm>",
+  "context": "<rm>",
+  "HTTP_ACCEPT": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+  "HTTP_ACCEPT_ENCODING": "gzip, deflate, br",
+  "HTTP_ACCEPT_LANGUAGE": "zh-CN,zh;q=0.9,en;q=0.8",
+  "HTTP_CONNECTION": "keep-alive",
+  "HTTP_COOKIE": "<rm>",
+  "HTTP_ENDPOINT_TIMEOUT": "15",
+  "HTTP_HOST": "maimai.yuangezhizao.cn",
+  "HTTP_SEC_FETCH_DEST": "document",
+  "HTTP_SEC_FETCH_MODE": "navigate",
+  "HTTP_SEC_FETCH_SITE": "none",
+  "HTTP_SEC_FETCH_USER": "?1",
+  "HTTP_UPGRADE_INSECURE_REQUESTS": "1",
+  "HTTP_USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36",
+  "HTTP_X_ANONYMOUS_CONSUMER": "true",
+  "HTTP_X_API_REQUESTID": "5bcb29af2ca18c1e6d7b1ec5ff7b5427",
+  "HTTP_X_API_SCHEME": "https",
+  "HTTP_X_B3_TRACEID": "5bcb29af2ca18c1e6d7b1ec5ff7b5427",
+  "HTTP_X_QUALIFIER": "$LATEST"
+}
+```
+`HTTP_X_FORWARDED_PROTO`对应`apigw`里的变量是`HTTP_X_API_SCHEME`，故解决方法如下：[app.wsgi_app = ReverseProxied(app.wsgi_app)](`https://github.com/yuangezhizao/maimai_DX_CN_probe/blob/4600b3d8212777cb6184c796c1967b3ea9b05997/src/maimai_DX_CN_probe/__init__.py#L36`)
+``` python
+class ReverseProxied(object):
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        scheme = environ.get('HTTP_X_FORWARDED_PROTO')
+        if scheme:
+            environ['wsgi.url_scheme'] = scheme
+        return self.app(environ, start_response)
+
+app = Flask(__name__)
+app.wsgi_app = ReverseProxied(app.wsgi_app)
+```
+
+### 4.响应数据压缩
 不论是`IIS`、`Apache`还是`Nginx`，都提供有压缩功能。毕竟自己在用的云主机外网上行只有`1M`带宽，压缩后对于缩短首屏时间的效果提升极为显著。对于`Serverless`，响应数据是通过`API Gateway`传输到客户端，那么压缩也应该是它所具备的能力（虽然外网速度大幅度提高，但是该压缩还是得压缩），然而并没有找到……看到某些`js`框架原生有提供压缩功能，于是打算添加`Flask`自行压缩的功能。简单来讲，通过订阅`@app.after_request`信号并调用第三方库`brotli`的`compress`方法即可（
 在写之前去`gh`上看看有没有现成的轮子拓展，果然有……刚开始用的是`Flask-Zipper`，后来换成`Flask-Compress`解决了问题
+实测`3.1 MB`的数据采用`brotli`压缩算法减至`76.1 kB`
 
-## 0x03.后记
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![压缩前](https://i1.yuangezhizao.cn/macOS/QQ20201023-223613@2x.png!webp)
+![压缩后](https://i1.yuangezhizao.cn/macOS/QQ20201023-224633@2x.png!webp)
+![br](https://i1.yuangezhizao.cn/macOS/QQ20201023-224722@2x.png!webp)
+
+</details>
+
+### 5.`apigw`三种环境不同路径所产生的影响
+默认的映射如下：
+
+ID | 环境名 | 访问路径
+:---: | :---: | :---:
+1 | 发布 | release
+2 | 预发布 | prepub	
+3 | 测试 | test
+
+因为配置的`static_url_path`为`""`，即`static`文件夹是映射到`/`路径下的，所以再加上`release`、`prepub`和`test`访问就自然`404`了
+因此绑定了`自定义域名`，`使用自定义路径映射`，并将`发布`环境的访问路径设置成`/`，这样再访问`发布`环境就没有问题了
+
+ID | 环境名 | 访问路径
+:---: | :---: | :---:
+1 | 发布 | /
+2 | 预发布 | prepub	
+3 | 测试 | test
+
+### 6.同时访问`私有网络`和`外网`
+`云函数`中可以利用到的云端数据库有如下几种
+1. 云数据库`CDB`，需要`私有网络`访问，虽然可以通过外网访问但是能走内网就不走外网
+2. `PostgreSQL for Serverless（ServerlessDB）`，这个是官方给`Serverless`配的`pg`数据库
+3. 云开发`TCB`中的`MongoDB`，没记错的话需要开通内测权限访问
+
+因为自己是从旧网站迁移过来的，数据暂时还没有迁移，因此直接访问原始云数据库`CDB`，在`云函数`配置`所属网络`和`所属子网`即可
+但是此时会无法访问外网，一种解决方法是开启`公网访问`和`公网固定IP`，就可以同时访问内网和外网资源了
+
+下列问题处于解决之中：
+1. `http`强制跳转`https`
+2. 测试环境推送至生产环境
+
+## 0x05.后记
 
 未完待续……
