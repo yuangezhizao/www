@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 7
+count: 8
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -523,6 +523,29 @@ ID | 环境名 | 访问路径
 
 因为自己是从旧网站迁移过来的，数据暂时还没有迁移，因此直接访问原始云数据库`CDB`，在`云函数`配置`所属网络`和`所属子网`即可
 但是此时会无法访问外网，一种解决方法是开启`公网访问`和`公网固定IP`，就可以同时访问内网和外网资源了
+关于配置文件，本项目是`单实例应用`也就是说`项目中只引入一个组件，部署时只生成一个组件实例`
+但是如果想引入数据库的话，就得新增组件了，目前在`Flask Components`中并没有提供数据库相关的配置项，因此需要`项目中引入多个组件，部署时生成多个组件实例`
+也很简单，创建一个含有`serverless.yml`的新文件夹，用来配置`postgresql`
+``` yml
+component: postgresql # (必填) 组件名称，此处为 postgresql
+name: maimai_DX_CN_probe # (必选) 组件实例名称.
+org: yuangezhizao # (可选) 用于记录组织信息，默认值为您的腾讯云账户 appid，必须为字符串
+app: yuangezhizao # (可选) 用于记录组织信息. 默认与name相同，必须为字符串
+stage: dev # (可选) 用于区分环境信息，默认值是 dev
+
+inputs:
+  region: ap-beijing # 可选 ap-guangzhou, ap-shanghai, ap-beijing
+  zone: ap-beijing-3 # 可选 ap-guangzhou-2, ap-shanghai-2, ap-beijing-3
+  dBInstanceName: maimai_DX_CN_probe
+  #  projectId: 0
+  dBVersion: 10.4
+  dBCharset: UTF8
+  vpcConfig:
+    vpcId: vpc-mrg5ak88
+    subnetId: subnet-hqwa51dh
+  extranetAccess: false
+```
+然后在终端`cd`到这个目录再执行`sls deploy`即可成功部署`postgresql`
 
 下列问题处于解决之中：
 1. `http`强制跳转`https`
