@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 8
+count: 9
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -546,6 +546,17 @@ inputs:
   extranetAccess: false
 ```
 然后在终端`cd`到这个目录再执行`sls deploy`即可成功部署`postgresql`
+``` bash
+yum install python3-devel postgresql-devel
+pip install psycopg2
+```
+结果
+``` python
+import psycopg2
+File "/opt/psycopg2/__init__.py", line 51, in &lt;module&gt;
+from psycopg2._psycopg import (                     # noqa
+ImportError: libpython3.6m.so.1.0: cannot open shared object file: No such file or directory
+```
 
 下列问题处于解决之中：
 1. `http`强制跳转`https`
