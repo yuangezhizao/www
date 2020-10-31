@@ -4,7 +4,7 @@ date: 2020-8-16 10:01:54
 tags:
   - DigitalOcean
   - Kubernetes
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.1397 2019-LTSC
 browser: 0
@@ -190,9 +190,131 @@ Complete!
 ![4K60 略卡](https://i1.yuangezhizao.cn/Win-10/20200816105135.jpg!webp)
 
 ## 0x07.Kubernetes
-后续补充（
+![Kubernetes in minutes](https://i1.yuangezhizao.cn/Win-10/20200816112833.jpg!webp)
+![Create a cluster](https://i1.yuangezhizao.cn/Win-10/20200816113340.jpg!webp)
+![30 刀月付](https://i1.yuangezhizao.cn/Win-10/20200816113619.jpg!webp)
+![1](https://i1.yuangezhizao.cn/Win-10/20200816113757.jpg!webp)
+![2](https://i1.yuangezhizao.cn/Win-10/20200816113926.jpg!webp)
+
+[install-kubectl](https://kubernetes.io/zh/docs/tasks/tools/install-kubectl/)
+``` bash
+[root@py ~]# cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+> [kubernetes]
+> name=Kubernetes
+> baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+> enabled=1
+> gpgcheck=1
+> repo_gpgcheck=1
+> gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+> EOF
+[root@py ~]# yum install -y kubectl
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+epel/x86_64/metalink                                                            | 3.2 kB  00:00:00     
+ * base: mirrors.neusoft.edu.cn
+ * centos-sclo-rh: mirrors.neusoft.edu.cn
+ * centos-sclo-sclo: mirrors.neusoft.edu.cn
+ * epel: my.mirrors.thegigabit.com
+ * extras: mirrors.neusoft.edu.cn
+ * updates: mirrors.neusoft.edu.cn
+base                                                                            | 3.6 kB  00:00:00     
+centos-sclo-rh                                                                  | 3.0 kB  00:00:00     
+centos-sclo-sclo                                                                | 3.0 kB  00:00:00     
+docker-ce-stable                                                                | 3.5 kB  00:00:00     
+epel                                                                            | 4.7 kB  00:00:00     
+extras                                                                          | 2.9 kB  00:00:00     
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 12] Timeout on https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: (28, 'Connection timed out after 30000 milliseconds')
+Trying other mirror.
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 12] Timeout on https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: (28, 'Connection timed out after 30000 milliseconds')
+Trying other mirror.
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 12] Timeout on https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: (28, 'Connection timed out after 30000 milliseconds')
+Trying other mirror.
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 14] curl#35 - "TCP connection reset by peer"
+Trying other mirror.
+
+
+ One of the configured repositories failed (Kubernetes),
+ and yum doesn't have enough cached data to continue. At this point the only
+ safe thing yum can do is fail. There are a few ways to work "fix" this:
+
+     1. Contact the upstream for the repository and get them to fix the problem.
+
+     2. Reconfigure the baseurl/etc. for the repository, to point to a working
+        upstream. This is most often useful if you are using a newer
+        distribution release than is supported by the repository (and the
+        packages for the previous distribution release still work).
+
+     3. Run the command with the repository temporarily disabled
+            yum --disablerepo=kubernetes ...
+
+     4. Disable the repository permanently, so yum won't use it by default. Yum
+        will then just ignore the repository until you permanently enable it
+        again or use --enablerepo for temporary usage:
+
+            yum-config-manager --disable kubernetes
+        or
+            subscription-manager repos --disable=kubernetes
+
+     5. Configure the failing repository to be skipped, if it is unavailable.
+        Note that yum will try to contact the repo. when it runs most commands,
+        so will have to try and fail each time (and thus. yum will be be much
+        slower). If it is a very temporary problem though, this is often a nice
+        compromise:
+
+            yum-config-manager --save --setopt=kubernetes.skip_if_unavailable=true
+
+failure: repodata/repomd.xml from kubernetes: [Errno 256] No more mirrors to try.
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 12] Timeout on https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: (28, 'Connection timed out after 30000 milliseconds')
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 12] Timeout on https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: (28, 'Connection timed out after 30000 milliseconds')
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 12] Timeout on https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: (28, 'Connection timed out after 30000 milliseconds')
+https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/repodata/repomd.xml: [Errno 14] curl#35 - "TCP connection reset by peer"
+[root@py ~]# export http_proxy="http://cn-py-dl-w9d:1081"
+```
+只好手动安装，`v1.18.8`
+![v1.18.8](https://i1.yuangezhizao.cn/Win-10/20200816115809.jpg!webp)
+
+``` bash
+wget https://dl.k8s.io/v1.18.8/kubernetes-client-linux-amd64.tar.gz
+tar -zxvf kubernetes-client-linux-amd64.tar.gz
+cd kubernetes/client/bin
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+草，需要相同版本，即`1.18.6`
+``` bash
+[root@py ~]# chmod +x ./kubectl
+[root@py ~]# mv ./kubectl /usr/local/bin/kubectl
+```
+下载`doctl`
+``` bash
+[root@py ~]# tar -zxvf doctl-1.46.0-linux-amd64.tar.gz 
+[root@py ~]# mv ./doctl /usr/local/bin/doctl
+```
+![3](https://i1.yuangezhizao.cn/Win-10/20200816121931.jpg!webp)
+
+[生成 token](https://github.com/digitalocean/doctl#authenticating-with-digitalocean)
+``` bash
+[root@py ~]# doctl auth init
+Please authenticate doctl for use with your DigitalOcean account. You can generate a token in the control panel at https://cloud.digitalocean.com/account/api/tokens
+
+Enter your access token: 
+Validating token... OK
+```
+[连接](https://www.digitalocean.com/docs/kubernetes/how-to/connect-to-cluster/)
+``` bash
+[root@py ~]# doctl kubernetes cluster kubeconfig save kubernetes
+Notice: Adding cluster credentials to kubeconfig file found in "/root/.kube/config"
+Notice: Setting current-context to do-sgp1-kubernetes
+[root@py ~]# kubectl config current-context
+do-sgp1-kubernetes
+[root@py ~]# kubectl config get-contexts
+CURRENT   NAME                 CLUSTER              AUTHINFO                   NAMESPACE
+*         do-sgp1-kubernetes   do-sgp1-kubernetes   do-sgp1-kubernetes-admin  
+```
+![4](https://i1.yuangezhizao.cn/Win-10/20200816122624.jpg!webp)
+![5](https://i1.yuangezhizao.cn/Win-10/20200816122640.jpg!webp)
 
 ## 0x08.后记
-用起来还是不错的，不过怎么一直没有扣费？？？
+用起来还是不错的，~~不过怎么一直没有扣费？？？~~隔日扣（白）费（嫖）
 
 未完待续……
