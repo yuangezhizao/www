@@ -5,7 +5,7 @@ tags:
   - Windows
   - server
   - Windows Server Admin
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.1369 2019-LTSC
 browser: 0
@@ -16,7 +16,7 @@ key: 95
     MongoDB 4.4.0 移除了 2012 R2 的支持，不得不去升级了云主机系统
 <!-- more -->
 ## 0x00.前言
-[Windows Server 2019 中的新增功能](https://docs.microsoft.com/zh-cn/windows-server/get-started-19/whats-new-19)：`Windows Admin Center`
+[Windows Server 2019 中的新增功能](https://web.archive.org/web/20200809105711/https://docs.microsoft.com/zh-cn/windows-server/get-started-19/whats-new-19)：`Windows Admin Center`
 ![whats-new-19](https://i1.yuangezhizao.cn/Win-10/20200809175205.jpg!webp)
 
 ## 0x01.`WinRM`
@@ -108,14 +108,15 @@ PS C:\Users\yuangezhizao> Enter-PSSession -computername lab.yuangezhizao.cn  -Cr
 ![输入凭证](https://i1.yuangezhizao.cn/Win-10/20200809181827.jpg!webp)
 ![成功登录](https://i1.yuangezhizao.cn/Win-10/20200809182000.jpg!webp)
 
-## 0x02.[WAC](https://docs.microsoft.com/zh-cn/windows-server/manage/windows-admin-center/overview)
-官方中文文档其实已经足够详细了，首先去[下载](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-admin-center)`msi`安装包
+## 0x02.[WAC](https://web.archive.org/web/20200809105833/https://docs.microsoft.com/zh-cn/windows-server/manage/windows-admin-center/overview)
+官方中文文档其实已经足够详细了，首先去[下载](https://web.archive.org/web/20200809110138/https://www.microsoft.com/en-us/evalcenter/evaluate-windows-admin-center)`WindowsAdminCenter2007.msi`
 ![下载](https://i1.yuangezhizao.cn/Win-10/20200809183003.jpg!webp)
 
+[官方入门](https://web.archive.org/web/20200809110432/https://docs.microsoft.com/zh-cn/windows-server/manage/windows-admin-center/use/get-started)
 安装完成之后就可以访问`6516`端口的服务了，首次访问是用的`AD`认证，毕竟微软爸爸，而且`Chrome`清除站点数据并不能清理掉认证信息，然后就去云主机删除了那个用户……
 但是自己的账户莫名登录不上，`日志查看器`中可以看到堆栈详细信息……不知道该怎么调查这个现象的原因
 ![登录不能](https://i1.yuangezhizao.cn/Win-10/20200809183239.png!webp)
 
 ## 0x3.引用
-> [走进winrm ---powershell远程连接的4个安全级别，详解](https://www.cnblogs.com/piapia/p/11897713.html)
-[Windows Server 2019开启Winrm服务](https://www.cnblogs.com/hicuiyang/p/11548901.html)
+> [走进winrm ---powershell远程连接的4个安全级别，详解](https://web.archive.org/web/20200809105839/https://www.cnblogs.com/piapia/p/11897713.html)
+[Windows Server 2019开启Winrm服务](https://web.archive.org/web/20200809110035/https://www.cnblogs.com/hicuiyang/p/11548901.html)
