@@ -1,10 +1,10 @@
 ---
-title: 重装系统之腾讯云学生机 Windows Server 2012 R2 数据中心版 64 位中文版
+title: 重装系统之腾讯云学生机 Windows Server 2019 数据中心版 64 位中文版
 date: 2019-5-9 10:14:46
 tags:
   - Windows
   - server
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -35,7 +35,7 @@ key: 49
 ![计算机全名](https://i1.yuangezhizao.cn/Win-10/20190509102418.jpg!webp)
 ![重启生效](https://i1.yuangezhizao.cn/Win-10/20190509102855.jpg!webp)
 
-## 0x02.软件清单
+## 0x03.软件清单
 1. `Everything`
 2. `7-Zip`
 3. `FileZilla Server for Windows`
@@ -43,7 +43,6 @@ key: 49
 5. `wget.exe`
 6. `mongodb-win32-x86_64-2008plus-ssl-4.0.9-signed.msi`，根据安装提示安装服务（放心没有坑），最后复制旧`data`文件夹全部内容即可成功导入（同`MySQL`数据导入
 ![数据导入成功](https://i1.yuangezhizao.cn/Win-10/20190509120921.jpg!webp)
-
 
 7. `redis`
 8. `phpStudy`
@@ -68,5 +67,17 @@ key: 49
 27. `SpaceSniffer.exe`
 28. `ChengDao.exe`
 29. `cosbrowser`
+
+## 0x04.安全性配置
+1. `RDP`修改端口
+2. `RDP`自动`fail2ban`
+3. 安装`Windows`宝塔面板方便管理，并开启`BasicAuth`认证，取消`安全入口`
+4. 开启自带的`防火墙`，`公用网络（使用中）`开启拦截，默认`阻止与规则不匹配的入站连接`，保存日志文件最大
+5. 自带的`Defender`并不会因为安装了其他杀毒软件（`火绒`）而自动关闭，因此会影响性能
+6. 导出`火绒`的日志供分析，暂时卸载
+![防火墙](https://i1.yuangezhizao.cn/Win-10/20201031162408.jpg!webp)
+![？](https://i1.yuangezhizao.cn/Win-10/20201031164124.jpg!webp)
+![75](https://i1.yuangezhizao.cn/Win-10/20201031164148.jpg!webp)
+![43531](https://i1.yuangezhizao.cn/Win-10/20201031170009.jpg!webp)
 
 未完待续……
