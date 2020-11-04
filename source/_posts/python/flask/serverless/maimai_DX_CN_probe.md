@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 9
+count: 10
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -468,7 +468,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
   "HTTP_X_QUALIFIER": "$LATEST"
 }
 ```
-`HTTP_X_FORWARDED_PROTO`对应`apigw`里的变量是`HTTP_X_API_SCHEME`，故解决方法如下：[app.wsgi_app = ReverseProxied(app.wsgi_app)](`https://github.com/yuangezhizao/maimai_DX_CN_probe/blob/4600b3d8212777cb6184c796c1967b3ea9b05997/src/maimai_DX_CN_probe/__init__.py#L36`)
+`HTTP_X_FORWARDED_PROTO`对应`apigw`里的变量是`HTTP_X_API_SCHEME`，故解决方法如下：[app.wsgi_app = ReverseProxied(app.wsgi_app)](https://github.com/yuangezhizao/maimai_DX_CN_probe/blob/4600b3d8212777cb6184c796c1967b3ea9b05997/src/maimai_DX_CN_probe/__init__.py#L36)
 ``` python
 class ReverseProxied(object):
     def __init__(self, app):
