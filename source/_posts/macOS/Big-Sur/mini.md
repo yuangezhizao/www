@@ -4,7 +4,7 @@ date: 2020-11-20 00:09:53
 tags:
   - macOS
   - macOS Big Sur
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.1577 2019-LTSC
 browser: 0
@@ -85,5 +85,7 @@ key: 104
 ![](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20201119_224423.jpg!view)
 ![](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20201119_224431.jpg!view)
 ![](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20201119_224908.jpg!view)
+![](https://i1.yuangezhizao.cn/Win-10/20201122122957.jpg!webp)
+![](https://i1.yuangezhizao.cn/Win-10/20201122124102.jpg!webp)
 
 未完待续……
