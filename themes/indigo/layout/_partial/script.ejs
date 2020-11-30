@@ -84,7 +84,8 @@ span_tree.innerHTML=health_message_tree
 <script src="<%- url_for(theme_js('/js/search', cache)) %>" async></script>
 <% } %>
 
-<script> console.log("远哥制造 © 2017 - 2020 All Rights Reserved！");</script>
+<script src="/js/pangu.min.js"></script>
+<script> pangu.spacingPage(); console.log("远哥制造 © 2017 - 2020 All Rights Reserved！");</script>
 
 <%- partial('plugins/mathjax') %>
 
