@@ -4,7 +4,7 @@ date: 2019-8-15 20:48:14
 tags:
   - AMD
   - EX920
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -35,18 +35,18 @@ key: 57
 
 硬件 | 型号 | 来源 | 价格
 :---: | :---: | :---: | :---:
-CPU | [AMD Ryzen 7 3700X](https://item.jd.com/100006391078.html) | JD 正品 | ¥2368
-显卡 | 泰索至尊 OC 1080 | WZ 二手 | ~~¥3600~~¥2500
-主板 | [MPG X570 GAMING EDGE WIFI](https://item.jd.com/100003809901.html) | JD 正品 | ¥1381
-硬盘 | [HP EX920 M.2 NvMe 1T](https://item.jd.com/6209326.html) | JD 正品 | ¥869
-硬盘 | [HP EX920 M.2 NvMe 1T](https://item.jd.com/6209326.html) | JD 正品 | ¥243
+CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html) | JD 正品 | ¥2368
+显卡 | `Zotac GTX 1080 Plus OC` | WZ 二手 | ~~¥3600~~¥2500
+主板 | [MSI MPG X570 Gaming Edge WiFi (MS-7C37)  (3 PCI-E x1, 2 PCI-E x16, 2 M.2, 4 DDR4 DIMM, Audio, Video, Gigabit LAN, WiFi)](https://item.jd.com/100003809901.html) | JD 正品 | ¥1381
+硬盘 | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥869
+硬盘 | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥243
 硬盘 | [Seagate BarraCuda 4TB 256MB 5400RPM](https://item.jd.com/4220257.html) | JD 正品 | ¥2.8
 机箱 | [SAMA 坦克 3](https://item.jd.com/100003124872.html) | JD 正品 | ¥203
 电源 | [Antec NEO650](https://item.jd.com/1039354.html) | WZ 二手 | ~~¥459~~¥200
 音箱 | [PHILIPS SPA1312](https://item.jd.com/172149.html) | JD 正品 | ¥98
 鼠标 | [ASUS ROG Gladius](https://item.jd.com/12440466577.html) | JD 抽奖 | ~~¥239~~¥0
 键盘 | [USCORSAIR K70 LUX](https://item.jd.com/41756364735.html) | WZ 二手 | ~~699~~¥200
-内存 | [Kingston Fury DDR4 3200 16G](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
+内存 | [Kingston HyperX KHX3200C18D4/16GX](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
 显示器 | [AOC U2790PQU 27英寸 4K IPS](https://item.jd.com/100001071956.html) | JD 正品 | ¥1749
  | | | 
 总计 | | | ¥10344.08
