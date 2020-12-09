@@ -5,7 +5,7 @@ tags:
   - Anime4K
   - Video2X
   - HIMEHINA
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.775 2019-LTSC
 browser: 0
@@ -16,6 +16,16 @@ key: 58
     《HIMEHINA 心灵的怒吼》直播源 720P 拉伸至 1080P 的尝试
 <!-- more -->
 ## 0x00.前言
+`2020-12-9 21:59:05`：
+`HH`两张`BD`均已由[kuchikirukia](https://nyaa.si/user/kuchikirukia)于`2020-12-05 09:12`和`2020-12-07 19:59`上传，至此本文使命完成
+
+No. | 名称 | 大小 | 地址
+:---: | :---: | :---: | :---:
+1 | HIMEHINA 1st One-Man Live 「心を叫べ」 2019.09.27 [BD 1080p Hi10P AAC][kuchikirukia].mkv | 22.6G | https://nyaa.si/view/1310762
+2 | HIMEHINA - 田中音楽堂オトナLIVE 2020 in TOKYO 「歌學革命宴」feat.鈴木文学堂 2020.02.28 [BD 1080p Hi10P AAC][kuchikirukia].mkv | 20.3G | https://nyaa.si/view/1311949
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
 > 原版：https://www.acfun.cn/v/ac11277880
 度盘：https://pan.baidu.com/s/1Sxkr64-KRTQTfo_cDmdGXw
 
@@ -71,7 +81,7 @@ const dp = new DPlayer({
                 type: 'hls',
             },
         ],
-        defaultQuality: v3,
+        defaultQuality: 'v3',
         preload: 'metadata'
     },
     // pluginOptions: {
@@ -86,6 +96,8 @@ const dp = new DPlayer({
 ![血赚](https://i1.yuangezhizao.cn/Win-10/20191007173222.jpg!webp)
 
 然后`PanDownload 2.1.3`屯到本地发现竟然是`720P`，于是想着拉到`1080P`试试看……
+
+</details>
 
 ## 0x01.[Video2X](https://github.com/k4yt3x/video2x)
 > A lossless video enlarger/video upscaler achieved with waifu2x and Anime4K. https://k4yt3x.github.io/video2x/
