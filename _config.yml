@@ -139,7 +139,9 @@ logger: true
 logger_format:
 
 sitemap:
-  path: sitemap.xml
+    path: sitemap.xml
+    tag: true
+    category: false
 
 neat_enable: false
 neat_html:
