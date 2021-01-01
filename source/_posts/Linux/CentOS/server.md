@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 9
+count: 10
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,7 +74,7 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python386](https://www.python.org/downloads/release/python-386/)环境
+## 0x04.编译安装[python391](https://www.python.org/downloads/release/python-391/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -95,7 +95,7 @@ yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel read
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-~~`wget --no-check-certificate https://www.python.org/ftp/python/3.8.6/Python-3.8.6.tar.xz`~~
+~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.1/Python-3.9.1.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或
@@ -103,14 +103,14 @@ yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel read
 
 ``` bash
 CloudFlare：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.8.6.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.1.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.8.6.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.9.1.tar.xz
 ```
 4. 解压
 ``` bash
-tar xvJf Python-3.8.6.tar.xz
-cd Python-3.8.6
+tar xvJf Python-3.9.1.tar.xz
+cd Python-3.9.1
 ```
 5. 编译
 注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
@@ -175,50 +175,26 @@ Python 3.8.3
 ~~`vim /usr/libexec/urlgrabber-ext-down`~~
 ~~`vim /bin/yum-config-manager`~~
 ~~把`#! /usr/bin/python`修改为`#! /usr/bin/python2`~~
-``` bash
-……
-Looking in links: /tmp/tmph0lw6sju
-Processing /tmp/tmph0lw6sju/setuptools-49.2.1-py3-none-any.whl
-Processing /tmp/tmph0lw6sju/pip-20.2.1-py2.py3-none-any.whl
-Installing collected packages: setuptools, pip
-Successfully installed pip-20.2.1 setuptools-49.2.1
-[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-ln: failed to create symbolic link ‘/usr/bin/python3’: File exists
-[root@txy Python-3.8.3]# rm -rf /usr/bin/python3
-[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
-ln: failed to create symbolic link ‘/usr/bin/pip3’: File exists
-[root@txy Python-3.8.3]# rm -rf /usr/bin/pip3
-[root@txy Python-3.8.3]# ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3
-[root@txy Python-3.8.3]# python -V
+
+①`rm -rf /usr/bin/python3`
+`ln -s /usr/local/python3/bin/python3 /usr/bin/python3`
+②`rm -rf /usr/bin/pip3`
+`ln -s /usr/local/python3/bin/pip3.8 /usr/bin/pip3`
+```
+[root@txy Python 3.9.1]# python -V
 -bash: python: command not found
-[root@txy Python-3.8.3]# python3 -V
-Python 3.8.6
-[root@txy Python-3.8.3]# pip -V
-pip 9.0.3 from /usr/lib/python3.6/site-packages (python 3.6)
+[root@txy Python 3.9.1]# python3 -V
+Python 3.9.1
+[root@txy Python 3.9.1]# pip3.9 -V
+pip 20.3.3 from /usr/local/python3/lib/python3.9/site-packages/pip (python 3.9)
 ```
 > ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，这下`2`终于彻底没有了
 
 8. 升级`pip3`
 你云环境下会自动配置镜像源
-``` bash
-[root@txy ~]# pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
-Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
-Collecting pip
-  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/4e/5f/528232275f6509b1fff703c9280e58951a81abe24640905de621c9f81839/pip-20.2.3-py2.py3-none-any.whl (1.5 MB)
-     |████████████████████████████████| 1.5 MB 13.4 MB/s 
-Installing collected packages: pip
-  Attempting uninstall: pip
-    Found existing installation: pip 20.2.1
-    Uninstalling pip-20.2.1:
-      Successfully uninstalled pip-20.2.1
-Successfully installed pip-20.2.3
-[root@txy ~]# pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-Writing to /root/.config/pip/pip.conf
-[root@txy ~]# pip3 install --upgrade pip
-Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
-Requirement already up-to-date: pip in /usr/local/python3/lib/python3.8/site-packages (20.2.3)
-```
+`pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U`
+`pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
+` pip3 install --upgrade pip`
 安装`pip3`的另一种方法
 ``` bash
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
