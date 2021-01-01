@@ -4,7 +4,7 @@ date: 2020-11-20 00:09:53
 tags:
   - macOS
   - macOS Big Sur
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.1577 2019-LTSC
 browser: 0
@@ -143,7 +143,7 @@ key: 104
 </details>
 
 ![色彩真丰富](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20201119_213833.jpg!view)
-![macOS 11.0](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20201119_213951.jpg!view)
+![macOS 11.1](https://i1.yuangezhizao.cn/macOS/20210102013454.png!webp)
 
 配置完成之后，看着空空如也的桌面，实在是懒得手动数据迁移，尝试自带应用`迁移助手`，新旧电脑都进入此`app`之后开始传输，黑苹果插着网线，`mini`连着`WiFi`，二三十兆的传输速度
 看到一直有提示`连接“以太网”线缆可以更快地传输数据`，直接把连着`AP`的网线拔下来插到`mini`上，过了会儿`mini`提示中断，又等了会儿识别到以太网了（之前从来没有插过网线）
