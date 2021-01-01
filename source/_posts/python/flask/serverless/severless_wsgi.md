@@ -3,7 +3,7 @@ title: 【云+社区年度征文】浅析基于 Serverless 的 maimai_DX 查分�
 date: 2020-12-24 23:24:04
 tags:
   - Serverless
-count: 3
+count: 4
 os: 1
 os_1: Big Sur 11.1 (20C69)
 browser: 0
@@ -15,6 +15,10 @@ key: 106
 <!-- more -->
 ## 0x00.前言
 整个上文，见[【1024，Serverless】maimai_DX 查分器](./maimai_DX_CN_probe.html)，本文针对部分内容进行再补充
+`2020-12-24 00:19:31`：意识到[回望2020，你在技术之路上，有什么收获和成长么？对于未来，你有什么期待么？云+社区年度征文，各种定制好礼等你！](https://web.archive.org/web/20201224152210/https://cloud.tencent.com/developer/article/1752258)征稿活动已经接近尾声
+无奈工作遇到`Deadline`今晚爆肝`jb`到了`21:00`后才骑车回家，本来准备放弃去睡觉，后来想想还是快速给写个大概吧
+`2020-12-24 23:17:05`：不知道是因为下午部门圣诞节分发的☕️一直喝到了晚上并爆肝`995 jb`，还是因为`熊熊勇闯异世界`第`12`话剧情实在是太沉重了，现在整个人都不好了……
+冥思苦想了几分钟才决定好本文到底该写些什么
 
 ## 0x01.[WSGI](https://wsgi.readthedocs.io/en/latest/index.html)
 说起`WSGI`，只要是写过`Python Web`的人多多少少都应该会听说过[Web服务器网关接口](https://zh.wikipedia.org/wiki/Web服务器网关接口)，先来看看维基的解释
