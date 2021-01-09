@@ -3,7 +3,7 @@ title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
   - raspberrypi
-count: 7
+count: 8
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -59,8 +59,14 @@ key: 34
 ![在这里也可以进](https://i1.yuangezhizao.cn/Win-10/20180317004332.jpg!webp)
 ![新壁纸](https://i1.yuangezhizao.cn/Win-10/20190625082338.png!webp)
 
-## 0x03.更换[科大源](https://mirrors.ustc.edu.cn/help/index.html)
-`2019-6-24 20:16:38`：` 清华大学开源软件镜像站`并没有`buster`版本的，所以选择了科大（
+## 0x03.`apt`使用自建代理访问
+`sudo apt -o Acquire::http::proxy="http://cn-py-dl-w9d:1081/" update`
+`sudo apt -o Acquire::http::proxy="http://cn-py-dl-w9d:1081/" upgrade -y`
+`sudo apt -o Acquire::http::proxy="http://cn-py-dl-w9d:1081/" dist-upgrade`
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+`2019-6-24 20:16:38`：` 清华大学开源软件镜像站`并没有`buster`版本的，所以选择了[科大源](https://mirrors.ustc.edu.cn/help/index.html)（
 [Raspbian 源使用帮助](https://mirrors.ustc.edu.cn/help/raspbian.html)
 [Raspberrypi 源使用帮助](https://mirrors.ustc.edu.cn/help/archive.raspberrypi.org.html)
 `sudo sed -i 's|raspbian.raspberrypi.org|mirrors.ustc.edu.cn/raspbian|g' /etc/apt/sources.list`
@@ -68,7 +74,14 @@ key: 34
 更新软件索引清单：`sudo apt update`
 比较索引清单更新依赖关系：`sudo apt upgrade -y`
 
-## 0x04.更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
+</details>
+
+## 0x04.`pip`使用自建代理访问
+举例：`pip3 install --proxy="http://cn-py-dl-w9d:1081/" -U requests`
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
 ### 1.安装
 `curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
 `sudo python3 get-pip.py --force-reinstall`
@@ -121,6 +134,8 @@ Requires:
 Required-by:
 ```
 
+</details>
+
 ## 0x05.安装常用软件
 `sudo apt install vim axel iftop iotop -y`
 存储卡测速：
@@ -151,61 +166,61 @@ DATA  : 512 MB, /root/test.dat
 HDPARM:
 ======
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  68 MB in  3.08 seconds =  22.05 MB/sec
+ Timing O_DIRECT disk reads:  64 MB in  3.02 seconds =  21.20 MB/sec
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  68 MB in  3.09 seconds =  22.02 MB/sec
+ Timing O_DIRECT disk reads:  64 MB in  3.07 seconds =  20.87 MB/sec
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  68 MB in  3.08 seconds =  22.05 MB/sec
+ Timing O_DIRECT disk reads:  62 MB in  3.00 seconds =  20.66 MB/sec
 
 WRITE:
 =====
-536870912 bytes (537 MB, 512 MiB) copied, 33.98 s, 15.8 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 43.9932 s, 12.2 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 31.7208 s, 16.9 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 45.4182 s, 11.8 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 36.4301 s, 14.7 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 41.0898 s, 13.1 MB/s
 
 READ:
 ====
-536870912 bytes (537 MB, 512 MiB) copied, 23.1372 s, 23.2 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 23.0734 s, 23.3 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 23.2714 s, 23.1 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 24.7424 s, 21.7 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 24.7327 s, 21.7 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 24.581 s, 21.8 MB/s
 
 RESULT (AVG):
 ============
 Overlay config                      core_freq   turbo   overclock_50    WRITE        READ        HDPARM
-                                       400        0      50.000 MHz     inf MB/s     inf MB/s   22.06 MB/s
+                                       400        0      50.000 MHz     inf MB/s     inf MB/s   20.90 MB/s
 ```
 添加`dtparam=sd_overclock=100`至`/boot/config.txt`
 ``` bash
 CONFIG: 
-CLOCK : 100.000 MHz
+CLOCK : 83.333 MHz
 CORE  : 400 MHz, turbo=0
 DATA  : 512 MB, /root/test.dat
 
 HDPARM:
 ======
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads: 100 MB in  3.06 seconds =  32.69 MB/sec
+ Timing O_DIRECT disk reads: 100 MB in  3.04 seconds =  32.89 MB/sec
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  98 MB in  3.00 seconds =  32.63 MB/sec
+ Timing O_DIRECT disk reads: 100 MB in  3.04 seconds =  32.87 MB/sec
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  98 MB in  3.01 seconds =  32.56 MB/sec
+ Timing O_DIRECT disk reads: 100 MB in  3.02 seconds =  33.12 MB/sec
 
 WRITE:
 =====
-536870912 bytes (537 MB, 512 MiB) copied, 46.8135 s, 11.5 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 36.7495 s, 14.6 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 40.3914 s, 13.3 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 46.0431 s, 11.7 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 35.1694 s, 15.3 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 33.3648 s, 16.1 MB/s
 
 READ:
 ====
-536870912 bytes (537 MB, 512 MiB) copied, 15.337 s, 35.0 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 14.9874 s, 35.8 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 14.5736 s, 36.8 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 13.6901 s, 39.2 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 13.6175 s, 39.4 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 13.6939 s, 39.2 MB/s
 
 RESULT (AVG):
 ============
 Overlay config                      core_freq   turbo   overclock_50    WRITE        READ        HDPARM
-                                       400        0     100.000 MHz     inf MB/s     inf MB/s   32.64 MB/s
+                                       400        0      83.333 MHz     inf MB/s     inf MB/s   32.96 MB/s
 ```
 结果只是读取速度从`20`提高到了`30`，写入速度反而变慢了草……
 
@@ -392,9 +407,34 @@ For Raspbian, installing using the repository is not yet supported. You must ins
 
 也就是说只能通过脚本安装
 ``` bash
+pi@rpi:~/Downloads $ sudo sh get-docker.sh  --mirror Aliyun
+# Executing docker install script, commit: 3d8fe77c2c46c5b7571f94b42793905e5b3e42e4
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sh -c curl -fsSL "https://mirrors.aliyun.com/docker-ce/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
+Warning: apt-key output should not be parsed (stdout is not a terminal)
++ sh -c echo "deb [arch=armhf] https://mirrors.aliyun.com/docker-ce/linux/raspbian buster stable" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get update -qq >/dev/null
++ [ -n  ]
++ sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
+E: Failed to fetch https://mirrors.aliyun.com/docker-ce/linux/raspbian/dists/buster/pool/stable/armhf/docker-ce_20.10.2~3-0~raspbian-buster_armhf.deb  Connection failed [IP: 59.47.225.222 443]
+```
+阿里云炸了草，那就换另一个
+```
+pi@rpi:~/Downloads $ sudo sh get-docker.sh  --mirror AzureChinaCloud
+# Executing docker install script, commit: 3d8fe77c2c46c5b7571f94b42793905e5b3e42e4
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sh -c curl -fsSL "https://mirror.azure.cn/docker-ce/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
+Warning: apt-key output should not be parsed (stdout is not a terminal)
+curl: (22) The requested URL returned error: 404 Not Found
+gpg: no valid OpenPGP data found.
+```
+`404`草，再换回来
+``` bash
 pi@rpi:~ $ curl -fsSL https://get.docker.com -o get-docker.sh
-pi@rpi:~ $ sudo sh get-docker.sh  --mirror Aliyun
-# Executing docker install script, commit: 26ff363bcf3b3f5a00498ac43694bf1c7d9ce16c
+pi@rpi:~/Downloads $ sudo sh get-docker.sh  --mirror Aliyun
+# Executing docker install script, commit: 3d8fe77c2c46c5b7571f94b42793905e5b3e42e4
 + sh -c apt-get update -qq >/dev/null
 + sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
 + sh -c curl -fsSL "https://mirrors.aliyun.com/docker-ce/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
@@ -405,32 +445,33 @@ Warning: apt-key output should not be parsed (stdout is not a terminal)
 + sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
 + sh -c docker version
 Client: Docker Engine - Community
- Version:           19.03.8
- API version:       1.40
- Go version:        go1.12.17
- Git commit:        afacb8b
- Built:             Wed Mar 11 01:35:24 2020
+ Version:           20.10.2
+ API version:       1.41
+ Go version:        go1.13.15
+ Git commit:        2291f61
+ Built:             Mon Dec 28 16:18:13 2020
  OS/Arch:           linux/arm
- Experimental:      false
+ Context:           default
+ Experimental:      true
 
 Server: Docker Engine - Community
  Engine:
-  Version:          19.03.8
-  API version:      1.40 (minimum version 1.12)
-  Go version:       go1.12.17
-  Git commit:       afacb8b
-  Built:            Wed Mar 11 01:29:22 2020
+  Version:          20.10.2
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.13.15
+  Git commit:       8891c58
+  Built:            Mon Dec 28 16:15:48 2020
   OS/Arch:          linux/arm
   Experimental:     false
  containerd:
-  Version:          1.2.13
-  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429
+  Version:          1.4.3
+  GitCommit:        269548fa27e0089a8b8278fc4fc781d7f65a939b
  runc:
-  Version:          1.0.0-rc10
-  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
+  Version:          1.0.0-rc92
+  GitCommit:        ff819c7e9184c13b7c2607fe6c30ae19403a7aff
  docker-init:
-  Version:          0.18.0
-  GitCommit:        fec3683
+  Version:          0.19.0
+  GitCommit:        de40ad0
 If you would like to use Docker as a non-root user, you should now consider
 adding your user to the "docker" group with something like:
 
@@ -448,13 +489,9 @@ pi@rpi:~ $ sudo systemctl enable docker
 Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable docker
 pi@rpi:~ $ mkdir -p /etc/docker
-pi@rpi:~ $ sudo tee /etc/docker/daemon.json <<-'EOF'
-> {
->   "registry-mirrors":["https://docker.mirrors.ustc.edu.cn"]
-> }
-> EOF
+pi@rpi:~ $ sudo vim /etc/docker/daemon.json
 {
-  "registry-mirrors":["https://docker.mirrors.ustc.edu.cn"]
+    "registry-mirrors":["https://docker.mirrors.ustc.edu.cn"]
 }
 pi@rpi:~ $ sudo systemctl daemon-reload
 pi@rpi:~ $ sudo systemctl restart docker
@@ -499,29 +536,7 @@ pi@rpi:~ $ docker run -d -p 9000:9000 --name portainer --restart always -v /var/
 12bdd88e25911a45114caaf2e0a4c132e7aa0ed9993bcf86319e158ccc71c775
 ```
 
-## 0x13.Python 2、3 版本切换
-原理其实就是软链接，建立如下的`.sh`文件并赋予可执行权限，即`sudo chmod +x <文件名>`
-``` bash
-pi@rpi:~/Documents $ cat py2.sh 
-#!/bin/bash
-echo "Start rm /usr/bin/python"
-rm /usr/bin/python
-echo "Finish rm /usr/bin/python"
-echo "Start create 2.7"
-sudo ln -s /usr/bin/python2.7 /usr/bin/python
-echo "Finish create 2.7"
-pi@rpi:~/Documents $ cat py3.sh
-#!/bin/bash
-echo "Start rm /usr/bin/python"
-rm /usr/bin/python
-echo "Finish rm /usr/bin/python"
-echo "Start create 3.7"
-sudo ln -s /usr/bin/python3.7 /usr/bin/python
-echo "Finish create 3.7"
-pi@rpi:~/Documents $ 
-```
-
-## 0x14.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
+## 0x13.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
 选择`Python 3.x + Tensorflow v1.13.1`：
 `sudo pip3 uninstall tensorflow`
 
@@ -604,7 +619,7 @@ pi@rpi:~/test $ python3 label_image.py \
 time:  0.19170689582824707
 ```
 
-## 0x15.禁用无线网卡
+## 0x14.禁用无线网卡
 板载无线网卡莫名坏掉了，可能是静电损坏……反正那天在学校走廊拿出来，上电之后就再也连不上了草，`sudo ifconfig eth0 down`：重启失效……
 故使用配置文件禁用无线网卡驱动，`sudo apt install lshw`
 ``` bash
@@ -716,7 +731,7 @@ rpi
 > 执行命令以后查看`network:0 description: Wireless interface`在这个里面找到`driver=brcmfmac`那么这个`brcmfmac`就是驱动名称
 记好你的机器显示的那个名称（我不确定大家是不是都一样），然后创建内容为`blacklist brcmfmac`的文件`/etc/modprobe.d/blacklist-brcmfmac.conf`
 
-## 0x16.查看版本
+## 0x15.查看版本
 ``` bash
 getconf LONG_BIT                            # 系统位数
 uname -a                                    # 内核版本
@@ -728,8 +743,7 @@ cat /etc/issue                              # Linux distro 版本
 cat /etc/debian_version                     # Debian 版本编号
 ```
 
-
-## 0x17.引用
+## 0x16.引用
 > [树莓派3B新版raspbian系统换国内源](https://web.archive.org/web/20190905062924/https://www.cnblogs.com/wangchuanyang/p/6434323.html)
 > [修改树莓派交换分区 SWAP 的正确姿势](https://web.archive.org/web/20190905063006/http://shumeipai.nxez.com/2017/12/18/how-to-modify-raspberry-pi-swap-partition.html)
 > [玩转树莓派02——搭建下载机](https://web.archive.org/web/20190905063051/https://www.jianshu.com/p/4cf37177fc62)
