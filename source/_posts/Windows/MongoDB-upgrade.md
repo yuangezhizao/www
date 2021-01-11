@@ -4,7 +4,7 @@ date: 2020-8-9 18:39:31
 tags:
   - Windows
   - MongoDB
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.1369 2019-LTSC
 browser: 0
@@ -54,10 +54,14 @@ db.auth(<user>, <pwd>)
 由于是重装了系统，因此需要重新配置文件夹的权限（不要说`Windows`下没有`Linux`的文件夹权限
 
 ## 0x02.升级姿势
-需要在旧版本中运行
+举个栗子，从`4.2`升级至`4.4`，需要在旧版本中运行
+查询：`db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } )`
+返回：`{ featureCompatibilityVersion: { version: '4.2' }, ok: 1 }`
+设定：`db.adminCommand( { setFeatureCompatibilityVersion: "4.4" } )`
+返回：`{ ok: 1 }`
+查询：`db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } )`
+返回：`{ featureCompatibilityVersion: { version: '4.4' }, ok: 1 }`
 
 ## 0x03.引用
 > [MongoDB设置用户名和密码](https://web.archive.org/web/20200809105504/https://www.jianshu.com/p/c5f778adfbb3)
 [创建mongodb副本集操作实例](https://web.archive.org/web/20200809105655/https://www.cnblogs.com/Joans/p/7680846.html)
-
-未完待续……
