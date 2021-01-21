@@ -4,7 +4,7 @@ title: 关于 & 留言板
 date: 2017-7-1 19:09:11
 description: 哈哈哈你又过来看了（雾
 reward: false
-count: 2
+count: 3
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
@@ -14,17 +14,17 @@ key: -1
 gitment: true
 ---
 
-<blockquote>最后更新：2020-10-06 12:31:29</blockquote>
+<blockquote>最后更新：2021-01-21 23:13:31</blockquote>
 
 @column-2{
 
 @card{
 
 # 远哥
-`日`企[社畜](https://space.bilibili.com/25622031)
+[I’m currently working at Cisco.](https://github.com/yuangezhizao/yuangezhizao)
 常写[Python Web](https://lab.yuangezhizao.cn)
 看过`200+`部[日漫](https://lab.yuangezhizao.cn/bangumi)
-音游狗周常打[maimai DX](https://lab.yuangezhizao.cn/maimai)
+[音游狗](https://space.bilibili.com/25622031)周常打[maimai DX](https://lab.yuangezhizao.cn/maimai)
 
 }
 
@@ -50,7 +50,7 @@ gitment: true
 
 ###### 2 月份
 
-出生
+`Born`
 
 }
 
@@ -60,7 +60,7 @@ gitment: true
 
 ###### 9 月份
 
-步入`SUT`
+[SUT](https://github.com/S-U-T)
 
 }
 
@@ -70,7 +70,17 @@ gitment: true
 
 ###### 7 月份
 
-`日`企社畜
+[日企](https://web.archive.org/web/20210121145927/http://www.alsi.cn/index.php/Cn/index.html)社畜
+
+}
+
+##### 2021
+
+@item{
+
+###### 1 月份
+
+社畜跑路，加入`Cisco`
 
 }
 
@@ -162,6 +172,6 @@ gitment: true
 
 # 留言板
 评论区，请！
-![](http://ip.ntrqq.net/images/lovelive.png?wd=6IO95Zyo5LqM5qyh5YWD6YeM6YGH6KeB5L2g5Lus55yf5piv5aSq5aW95LqGCnUncyBmb3JldmVy77yB)
+![](https://ip.ntrqq.net/images/lovelive.png?wd=6IO95Zyo5LqM5qyh5YWD6YeM6YGH6KeB5L2g5Lus55yf5piv5aSq5aW95LqGCnUncyBmb3JldmVy77yB)
 
 }
