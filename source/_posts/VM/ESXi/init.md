@@ -5,7 +5,7 @@ tags:
   - VM
   - VMware
   - ESXi
-count: 4
+count: 5
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -1181,7 +1181,7 @@ PS D:\yuangezhizao\Documents\ESXi>
 重命名为`rui.crt`、`rui.key`，上传至`/etc/vmware/ssl`文件夹中
 ![上传自己的证书](https://i1.yuangezhizao.cn/Win-10/20200104192534.png!webp)
 
-懒得重启了，于是
+无需重启主机，只需`Restart the ESXi host daemon and vCenter Agent services`：
 `/etc/init.d/hostd restart`、`/etc/init.d/vpxa restart`
 ![XShell](https://i1.yuangezhizao.cn/Win-10/20200104192831.jpg!webp)
 
