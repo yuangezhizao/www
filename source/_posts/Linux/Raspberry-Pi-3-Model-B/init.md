@@ -3,7 +3,7 @@ title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
   - raspberrypi
-count: 8
+count: 9
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -19,7 +19,7 @@ key: 34
 ## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspberry-pi-os/)
 `2020-02-13`之后的`2020-05-27`版本重命名为`Raspberry Pi OS (previously called Raspbian)`，并且明显标注出`Raspberry Pi OS (32-bit) with desktop and recommended software`暗示`64`位系统会`release`的，[更新日志](http://downloads.raspberrypi.org/raspios_armhf/release_notes.txt)
 
-> Raspbian Buster with desktop and recommended software，2020-02-13-raspbian-buster-full.img
+> Raspbian Buster with desktop and recommended software，2021-01-11-raspios-buster-armhf-full.img
 
 `2020-5-16 17:29:38`：
 新卡的写入速度翻番了草
@@ -48,7 +48,7 @@ key: 34
 `sudo raspi-config`
 ![你并不会看到这个图形化界面](https://i1.yuangezhizao.cn/Win-10/20200516215831.jpg!webp)
 
-~~不全说了，只挑几个。~~修改地区，修改主机名为`rpi`，这样就能通过`rpi.local`访问，`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`256`，`A7 GL Griver`我选的~~第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`~~第一项`Legacy`。
+~~不全说了，只挑几个。~~修改地区，修改主机名为`rpi-slave`，这样就能通过`rpi-slave.local`访问，`5`里的`VNC`就是`RealVNC`的，打开之后才能用`VNC`图形化连接，进去先连个`WiFi`，毕竟不是什么时候都有网线支持的，`7`中`A3 Memory Split`调到`64`~~`256`~~，`A7 GL Griver`我选的~~第二项`G2 GL（Fake KMS）`，第一项`VNC`分辨率一直保持默认的小窗口，更改不生效，窗口文字渲染部分会加重，感觉是个`Bug`~~第一项`Legacy`。
 ![VNC](https://i1.yuangezhizao.cn/Win-10/20200516175701.jpg!webp)
 ![使用英文](https://i1.yuangezhizao.cn/Win-10/20200516175815.jpg!webp)
 ![板载无线网卡已炸](https://i1.yuangezhizao.cn/Win-10/20200516175938.jpg!webp)
@@ -73,6 +73,7 @@ key: 34
 `sudo sed -i 's|//archive.raspberrypi.org|//mirrors.ustc.edu.cn/archive.raspberrypi.org|g' /etc/apt/sources.list.d/raspi.list`
 更新软件索引清单：`sudo apt update`
 比较索引清单更新依赖关系：`sudo apt upgrade -y`
+全量更新：`sudo apt full-upgrade -y`
 
 </details>
 
@@ -138,7 +139,8 @@ Required-by:
 
 ## 0x05.安装常用软件
 `sudo apt install vim axel iftop iotop -y`
-存储卡测速：
+
+## 0x06.存储卡测速
 关于`config.txt`的官网说明：https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
 奇怪的是并没有在[overclocking](https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md)中找到`sd_overclock`，全部配置项也就只有这些：
 - Memory
@@ -154,10 +156,10 @@ Required-by:
 - Miscellaneous
 
 ``` bash
-pi@rpi:~ $ sudo apt install hdparm
-pi@rpi:~ $ curl -fsSL http://www.nmacleod.com/public/sdbench.sh -o sdbench.sh
-pi@rpi:~ $ chmod +x sdbench.sh 
-pi@rpi:~ $ sudo ./sdbench.sh 
+pi@rpi-slave:~/Downloads $ sudo apt install hdparm -y
+pi@rpi-slave:~/Downloads $ curl -fsSL http://www.nmacleod.com/public/sdbench.sh -o sdbench.sh
+pi@rpi-slave:~/Downloads $ chmod +x sdbench.sh
+pi@rpi-slave:~/Downloads $ sudo ./sdbench.sh
 CONFIG: 
 CLOCK : 50.000 MHz
 CORE  : 400 MHz, turbo=0
@@ -166,77 +168,46 @@ DATA  : 512 MB, /root/test.dat
 HDPARM:
 ======
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  64 MB in  3.02 seconds =  21.20 MB/sec
+ Timing O_DIRECT disk reads:  64 MB in  3.08 seconds =  20.80 MB/sec
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  64 MB in  3.07 seconds =  20.87 MB/sec
+ Timing O_DIRECT disk reads:  64 MB in  3.05 seconds =  20.97 MB/sec
  HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads:  62 MB in  3.00 seconds =  20.66 MB/sec
+ Timing O_DIRECT disk reads:  64 MB in  3.05 seconds =  20.99 MB/sec
 
 WRITE:
 =====
-536870912 bytes (537 MB, 512 MiB) copied, 45.4182 s, 11.8 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 36.4301 s, 14.7 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 41.0898 s, 13.1 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 35.2385 s, 15.2 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 33.5212 s, 16.0 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 38.3053 s, 14.0 MB/s
 
 READ:
 ====
-536870912 bytes (537 MB, 512 MiB) copied, 24.7424 s, 21.7 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 24.7327 s, 21.7 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 24.581 s, 21.8 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 24.7405 s, 21.7 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 24.7725 s, 21.7 MB/s
+536870912 bytes (537 MB, 512 MiB) copied, 24.8219 s, 21.6 MB/s
 
 RESULT (AVG):
 ============
 Overlay config                      core_freq   turbo   overclock_50    WRITE        READ        HDPARM
-                                       400        0      50.000 MHz     inf MB/s     inf MB/s   20.90 MB/s
+                                       400        0      50.000 MHz     inf MB/s     inf MB/s   20.91 MB/s
 ```
-添加`dtparam=sd_overclock=100`至`/boot/config.txt`
-``` bash
-CONFIG: 
-CLOCK : 83.333 MHz
-CORE  : 400 MHz, turbo=0
-DATA  : 512 MB, /root/test.dat
 
-HDPARM:
-======
- HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads: 100 MB in  3.04 seconds =  32.89 MB/sec
- HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads: 100 MB in  3.04 seconds =  32.87 MB/sec
- HDIO_DRIVE_CMD(identify) failed: Invalid argument
- Timing O_DIRECT disk reads: 100 MB in  3.02 seconds =  33.12 MB/sec
+## 0x07.开启`64`位内核
+修改`/boot/config.txt`后重启：`arm_64bit=1`
 
-WRITE:
-=====
-536870912 bytes (537 MB, 512 MiB) copied, 46.0431 s, 11.7 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 35.1694 s, 15.3 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 33.3648 s, 16.1 MB/s
-
-READ:
-====
-536870912 bytes (537 MB, 512 MiB) copied, 13.6901 s, 39.2 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 13.6175 s, 39.4 MB/s
-536870912 bytes (537 MB, 512 MiB) copied, 13.6939 s, 39.2 MB/s
-
-RESULT (AVG):
-============
-Overlay config                      core_freq   turbo   overclock_50    WRITE        READ        HDPARM
-                                       400        0      83.333 MHz     inf MB/s     inf MB/s   32.96 MB/s
-```
-结果只是读取速度从`20`提高到了`30`，写入速度反而变慢了草……
-
-## 0x06.修改交换分区大小
+## 0x08.修改交换分区大小
 因为默认`100M`编译`FFmpeg`会不够用，分他个`500M`应该够了，当然`2G`是最好的了……修改`CONF_SWAPSIZE`即可
 ``` bsah
-pi@rpi:~ $ sudo vim /etc/dphys-swapfile
-pi@rpi:~ $ sudo /etc/init.d/dphys-swapfile restart
+pi@rpi-slave:~ $ sudo vim /etc/dphys-swapfile
+pi@rpi-slave:~ $ sudo /etc/init.d/dphys-swapfile restart
 [ ok ] Restarting dphys-swapfile (via systemctl): dphys-swapfile.service.
-pi@rpi:~ $ free -h
+pi@rpi-slave:~ $ free -h
               total        used        free      shared  buff/cache   available
-Mem:          747Mi       153Mi        79Mi        13Mi       514Mi       517Mi
+Mem:          924Mi       169Mi       349Mi        14Mi       405Mi       688Mi
 Swap:         2.0Gi          0B       2.0Gi
 ```
 
-## 0x07.安装`Aria2`以备远程下载
+## 0x09.安装`Aria2`以备远程下载
 安装：`sudo apt-get install aria2 -y`
 创建配置文件夹：`sudo mkdir /etc/aria2`
 创建`session`和配置文件：`sudo touch /etc/aria2/aria2.session`，`sudo touch /etc/aria2/aria2.conf`
@@ -356,7 +327,7 @@ exit $RETVAL
 添加`/etc/init.d/aria2c start`到`/etc/rc.local`的`exit 0`之前
 ~~`apt-get -y install chkconfig`，`chkconfig --add aria2c`~~
 
-## 0x08.安装`Nginx`
+## 0x10.安装`Nginx`
 源于习惯本来想用`Apache`的，但是翻了翻感觉还是换个轻量级的较好，于是换成`Nginx`了。可以在上面放`webui-aria2`这种纯静态页面，但是后来被我移到腾讯云的`Apache`上了……（看到某人说的也就能支撑`100`用户在线……
 ```bash
 pi@rpi:~ $ sudo apt install nginx -y
@@ -369,11 +340,11 @@ pi@rpi:~ $ sudo systemctl start nginx
 ```
 ~~开机自启：编辑`/etc/rc.local`添加`/etc/init.d/nginx start`~~
 
-## 0x09.手动编译支持硬解的[FFmpeg](http://ffmpeg.org/)
+## 0x11.手动编译支持硬解的[FFmpeg](http://ffmpeg.org/)
 参考[引用第三条](#引用)
 上个版本系统可以编译出`ffplay`、`ffprobe`、`ffserver`。但是最新版本的系统编译`ffplay`的依赖处理关系又问题，暂时先搁置一段时间
 
-## 0x10.`GPIO`驱动`JLX12864G-086-PC`
+## 0x12.`GPIO`驱动`JLX12864G-086-PC`
 这显示屏原本是`51`单片机课设所用，官方有驱动文件，所以就移（复）植（制）过来了，后续还会单独发相关内容，所以就简单写了。
 我只用到了`wiringPiSetup()`、`pinMode`、`digitalWrite`和`digitalRead`这四个库函数。
 编译：`gcc -Wall -o 12864g-86-pc.c 12864g-86-pc -lwiringPi`
@@ -392,13 +363,13 @@ sudo ./12864g-86-pc
 `sudo vim /etc/rc.local`
 在`exit 0`之前添加如下内容：`路径/start.sh start`
 
-## 0x11.播放音频杂音问题
+## 0x13.播放音频杂音问题
 最新版本镜像该问题已不存在，参考[引用第十条](#引用)
 `sudo vim /boot/config.txt`
 `audio_pwm_mode = 2`
 重启生效，在之前的镜像中改变还是很明显的。
 
-## 0x12.安装`Docker`
+## 0x14.安装`Docker`
 参照[Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/#install-using-the-repository)
 ![安装](https://i1.yuangezhizao.cn/Win-10/20200516191822.jpg!webp)
 
@@ -407,60 +378,36 @@ For Raspbian, installing using the repository is not yet supported. You must ins
 
 也就是说只能通过脚本安装
 ``` bash
-pi@rpi:~/Downloads $ sudo sh get-docker.sh  --mirror Aliyun
+pi@rpi-slave:~/Downloads $ ls
+pi@rpi-slave:~/Downloads $ curl -fsSL https://get.docker.com -o get-docker.sh
+pi@rpi-slave:~/Downloads $ sudo sh get-docker.sh
 # Executing docker install script, commit: 3d8fe77c2c46c5b7571f94b42793905e5b3e42e4
 + sh -c apt-get update -qq >/dev/null
 + sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
-+ sh -c curl -fsSL "https://mirrors.aliyun.com/docker-ce/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
++ sh -c curl -fsSL "https://download.docker.com/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
 Warning: apt-key output should not be parsed (stdout is not a terminal)
-+ sh -c echo "deb [arch=armhf] https://mirrors.aliyun.com/docker-ce/linux/raspbian buster stable" > /etc/apt/sources.list.d/docker.list
-+ sh -c apt-get update -qq >/dev/null
-+ [ -n  ]
-+ sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
-E: Failed to fetch https://mirrors.aliyun.com/docker-ce/linux/raspbian/dists/buster/pool/stable/armhf/docker-ce_20.10.2~3-0~raspbian-buster_armhf.deb  Connection failed [IP: 59.47.225.222 443]
-```
-阿里云炸了草，那就换另一个
-```
-pi@rpi:~/Downloads $ sudo sh get-docker.sh  --mirror AzureChinaCloud
-# Executing docker install script, commit: 3d8fe77c2c46c5b7571f94b42793905e5b3e42e4
-+ sh -c apt-get update -qq >/dev/null
-+ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
-+ sh -c curl -fsSL "https://mirror.azure.cn/docker-ce/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
-Warning: apt-key output should not be parsed (stdout is not a terminal)
-curl: (22) The requested URL returned error: 404 Not Found
-gpg: no valid OpenPGP data found.
-```
-`404`草，再换回来
-``` bash
-pi@rpi:~ $ curl -fsSL https://get.docker.com -o get-docker.sh
-pi@rpi:~/Downloads $ sudo sh get-docker.sh  --mirror Aliyun
-# Executing docker install script, commit: 3d8fe77c2c46c5b7571f94b42793905e5b3e42e4
-+ sh -c apt-get update -qq >/dev/null
-+ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
-+ sh -c curl -fsSL "https://mirrors.aliyun.com/docker-ce/linux/raspbian/gpg" | apt-key add -qq - >/dev/null
-Warning: apt-key output should not be parsed (stdout is not a terminal)
-+ sh -c echo "deb [arch=armhf] https://mirrors.aliyun.com/docker-ce/linux/raspbian buster stable" > /etc/apt/sources.list.d/docker.list
++ sh -c echo "deb [arch=armhf] https://download.docker.com/linux/raspbian buster stable" > /etc/apt/sources.list.d/docker.list
 + sh -c apt-get update -qq >/dev/null
 + [ -n  ]
 + sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
 + sh -c docker version
 Client: Docker Engine - Community
- Version:           20.10.2
+ Version:           20.10.5
  API version:       1.41
  Go version:        go1.13.15
- Git commit:        2291f61
- Built:             Mon Dec 28 16:18:13 2020
+ Git commit:        55c4c88
+ Built:             Tue Mar  2 20:18:46 2021
  OS/Arch:           linux/arm
  Context:           default
  Experimental:      true
 
 Server: Docker Engine - Community
  Engine:
-  Version:          20.10.2
+  Version:          20.10.5
   API version:      1.41 (minimum version 1.12)
   Go version:       go1.13.15
-  Git commit:       8891c58
-  Built:            Mon Dec 28 16:15:48 2020
+  Git commit:       363e9a8
+  Built:            Tue Mar  2 20:16:18 2021
   OS/Arch:          linux/arm
   Experimental:     false
  containerd:
@@ -484,18 +431,18 @@ WARNING: Adding a user to the "docker" group will grant the ability to run
          docker host.
          Refer to https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
          for more information.
-pi@rpi:~ $ sudo usermod -aG docker $USER
-pi@rpi:~ $ sudo systemctl enable docker
+pi@rpi-slave:~/Downloads $ sudo usermod -aG docker $USER
+pi@rpi-slave:~/Downloads $ sudo systemctl enable docker
 Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable docker
-pi@rpi:~ $ mkdir -p /etc/docker
-pi@rpi:~ $ sudo vim /etc/docker/daemon.json
+pi@rpi-slave:~ $ mkdir -p /etc/docker
+pi@rpi-slave:~ $ sudo vim /etc/docker/daemon.json
 {
     "registry-mirrors":["https://docker.mirrors.ustc.edu.cn"]
 }
-pi@rpi:~ $ sudo systemctl daemon-reload
-pi@rpi:~ $ sudo systemctl restart docker
-pi@rpi:~ $ docker run arm32v7/hello-world
+pi@rpi-slave:~ $ sudo systemctl daemon-reload
+pi@rpi-slave:~ $ sudo systemctl restart docker
+pi@rpi-slave:~ $ docker run arm32v7/hello-world
 Unable to find image 'arm32v7/hello-world:latest' locally
 latest: Pulling from arm32v7/hello-world
 4ee5c797bcd7: Pull complete 
@@ -522,21 +469,19 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
-pi@rpi:~ $ docker pull portainer/portainer
+
+pi@rpi-slave:~ $ docker pull portainer/portainer
 Using default tag: latest
 latest: Pulling from portainer/portainer
-d1e017099d17: Pull complete 
-860ebb866910: Pull complete 
-Digest: sha256:4ae7f14330b56ffc8728e63d355bc4bc7381417fa45ba0597e5dd32682901080
-Status: Downloaded newer image for portainer/portainer:latest
+Digest: sha256:f8c2b0a9ca640edf508a8a0830cf1963a1e0d2fd9936a64104b3f658e120b868
+Status: Image is up to date for portainer/portainer:latest
 docker.io/portainer/portainer:latest
-pi@rpi:~ $ docker volume create portainer_data
+pi@rpi-slave:~ $ docker volume create portainer_data
 portainer_data
-pi@rpi:~ $ docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-12bdd88e25911a45114caaf2e0a4c132e7aa0ed9993bcf86319e158ccc71c775
+pi@rpi-slave:~ $ docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 ```
 
-## 0x13.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
+## 0x15.安装[Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin)
 选择`Python 3.x + Tensorflow v1.13.1`：
 `sudo pip3 uninstall tensorflow`
 
@@ -619,17 +564,17 @@ pi@rpi:~/test $ python3 label_image.py \
 time:  0.19170689582824707
 ```
 
-## 0x14.禁用无线网卡
+## 0x16.禁用无线网卡
 板载无线网卡莫名坏掉了，可能是静电损坏……反正那天在学校走廊拿出来，上电之后就再也连不上了草，`sudo ifconfig eth0 down`：重启失效……
 故使用配置文件禁用无线网卡驱动，`sudo apt install lshw`
 ``` bash
-pi@rpi:~ $ sudo lshw
-rpi                         
-    description: ARMv7 Processor rev 4 (v7l)
+pi@rpi-slave:~ $ sudo lshw
+rpi-slave                   
+    description: Computer
     product: Raspberry Pi 3 Model B Rev 1.2
     serial: <rm>
     width: 32 bits
-    capabilities: smp
+    capabilities: smp cp15_barrier setend swp tagged_addr_disabled
   *-core
        description: Motherboard
        physical id: 0
@@ -640,7 +585,7 @@ rpi
           bus info: cpu@0
           size: 1200MHz
           capacity: 1200MHz
-          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+          capabilities: fp asimd evtstrm crc32 cpuid cpufreq
      *-cpu:1
           description: CPU
           product: cpu
@@ -648,7 +593,7 @@ rpi
           bus info: cpu@1
           size: 1200MHz
           capacity: 1200MHz
-          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+          capabilities: fp asimd evtstrm crc32 cpuid cpufreq
      *-cpu:2
           description: CPU
           product: cpu
@@ -656,7 +601,7 @@ rpi
           bus info: cpu@2
           size: 1200MHz
           capacity: 1200MHz
-          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+          capabilities: fp asimd evtstrm crc32 cpuid cpufreq
      *-cpu:3
           description: CPU
           product: cpu
@@ -664,18 +609,18 @@ rpi
           bus info: cpu@3
           size: 1200MHz
           capacity: 1200MHz
-          capabilities: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 cpufreq
+          capabilities: fp asimd evtstrm crc32 cpuid cpufreq
      *-memory
           description: System memory
           physical id: 4
-          size: 747MiB
+          size: 910MiB
   *-usbhost
        product: DWC OTG Controller
-       vendor: Linux 4.19.97-v7+ dwc_otg_hcd
+       vendor: Linux 5.10.17-v8+ dwc_otg_hcd
        physical id: 1
        bus info: usb@1
        logical name: usb1
-       version: 4.19
+       version: 5.10
        capabilities: usb-2.00
        configuration: driver=hub slots=1 speed=480Mbit/s
      *-usb
@@ -696,42 +641,32 @@ rpi
              logical name: eth0
              version: 2.00
              serial: <rm>
-             size: 10Mbit/s
              capacity: 100Mbit/s
              capabilities: usb-2.00 ethernet physical tp mii 10bt 10bt-fd 100bt 100bt-fd autonegotiation
-             configuration: autonegotiation=on broadcast=yes driver=smsc95xx driverversion=22-Aug-2005 duplex=half firmware=smsc95xx USB 2.0 Ethernet link=no maxpower=2mA multicast=yes port=MII speed=10Mbit/s
+             configuration: autonegotiation=on broadcast=yes driver=smsc95xx driverversion=5.10.17-v8+ firmware=smsc95xx USB 2.0 Ethernet link=no maxpower=2mA multicast=yes port=MII speed=480Mbit/s
         *-usb:1
              description: Generic USB device
              product: 802.11 n WLAN
              vendor: MediaTek
-             physical id: 4
-             bus info: usb@1:1.4
+             physical id: 5
+             bus info: usb@1:1.5
              version: 0.00
              serial: 1.0
              capabilities: usb-2.01
              configuration: driver=mt7601u maxpower=160mA speed=480Mbit/s
-        *-usb:2
-             description: Generic USB device
-             product: USB2.0-Serial
-             vendor: QinHeng Electronics
-             physical id: 5
-             bus info: usb@1:1.5
-             version: 2.63
-             capabilities: usb-1.10
-             configuration: driver=ch341 maxpower=98mA speed=12Mbit/s
   *-network
        description: Wireless interface
        physical id: 2
-       bus info: usb@1:1.4
+       bus info: usb@1:1.5
        logical name: wlan0
        serial: <rm>
        capabilities: ethernet physical wireless
-       configuration: broadcast=yes driver=mt7601u driverversion=4.19.97-v7+ firmware=N/A ip=192.168.25.130 link=yes multicast=yes wireless=IEEE 802.11
+       configuration: broadcast=yes driver=mt7601u driverversion=5.10.17-v8+ firmware=N/A ip=192.168.25.130 link=yes multicast=yes wireless=IEEE 802.11
 ```
 > 执行命令以后查看`network:0 description: Wireless interface`在这个里面找到`driver=brcmfmac`那么这个`brcmfmac`就是驱动名称
 记好你的机器显示的那个名称（我不确定大家是不是都一样），然后创建内容为`blacklist brcmfmac`的文件`/etc/modprobe.d/blacklist-brcmfmac.conf`
 
-## 0x15.查看版本
+## 0x17.查看版本
 ``` bash
 getconf LONG_BIT                            # 系统位数
 uname -a                                    # 内核版本
@@ -743,7 +678,7 @@ cat /etc/issue                              # Linux distro 版本
 cat /etc/debian_version                     # Debian 版本编号
 ```
 
-## 0x16.引用
+## 0x18.引用
 > [树莓派3B新版raspbian系统换国内源](https://web.archive.org/web/20190905062924/https://www.cnblogs.com/wangchuanyang/p/6434323.html)
 > [修改树莓派交换分区 SWAP 的正确姿势](https://web.archive.org/web/20190905063006/http://shumeipai.nxez.com/2017/12/18/how-to-modify-raspberry-pi-swap-partition.html)
 > [玩转树莓派02——搭建下载机](https://web.archive.org/web/20190905063051/https://www.jianshu.com/p/4cf37177fc62)
