@@ -2,9 +2,10 @@
 title: 树莓派基于 K3s 搭建 Kubernetes 集群
 date: 2021-03-06 21:14:51
 tags:
+  - RaspberryPi
   - K3s
   - Kubernetes
-count: 1
+count: 2
 os: 1
 os_1: Big Sur 11.2.2 (20D80)
 browser: 1
@@ -15,7 +16,7 @@ key: 109
     闲鱼一百五收了块二手 3B+ 板子
 <!-- more -->
 ## 0x00.前言
-上次写还是`18`年的这篇文章：[树莓派 3B 初始化](../Raspberry-Pi-3-Model-B/init.html)，但是这次变成了`树莓派 3B+ 初始化`草
+终于有两台`rpi`，可以组集群辣
 
 ## 0x01.修改`/etc/hosts`文件
 ①主节点：
@@ -223,5 +224,8 @@ Starting to serve on 127.0.0.1:8001
 ![](https://i1.yuangezhizao.cn/macOS/QQ20210306-232850@2x.png!webp)
 ![](https://i1.yuangezhizao.cn/macOS/QQ20210306-232931@2x.png!webp)
 
-## 0x05.引用
+## 0x05.后记
+就算是`3b+`，毕竟只有`1G`内存，即使不开启交换，搁着一天多就会**黄灯**常亮，还是性能不足？
+
+## 0x06.引用
 [访问K8s Dashboard的几种方式](https://segmentfault.com/a/1190000023130407)
