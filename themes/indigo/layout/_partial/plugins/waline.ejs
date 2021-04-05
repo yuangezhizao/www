@@ -1,17 +1,14 @@
-<% if (theme.valine ){ %>
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="vcomments"></div>
-    <!--<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
-    <!--<script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>-->
-    <!-- Valine Comments script -->
+<% if (theme.waline ){ %>
+    <!-- Waline Comments -->
+    <div id="waline"></div>
+    <script src='https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+    <!-- Waline Comments script -->
     <script>
-        new Valine({
-            el: '#vcomments',
-            appId: "<%= theme.valine.appId %>",
-            appKey: "<%= theme.valine.appKey %>",
-            placeholder: "",
+        new Waline({
+            el: '#waline',
             path: "<%- post.key %>",
+            serverURL: "<%- theme.waline.serverURL %>",
+            placeholder: "",
             visitor: true,
             emojiCDN: 'https://i0.hdslb.com/bfs/emote/', 
             emojiMaps: {
@@ -194,5 +191,5 @@
             requiredFields: ['nick','mail']
         })
     </script>
-    <!-- Valine Comments end -->
+    <!-- Waline Comments end -->
 <% } %>
