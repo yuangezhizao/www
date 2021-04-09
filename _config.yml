@@ -185,3 +185,11 @@ live2d:
 lazy_load:
   enable: true
   all: false
+
+archive_generator:
+  enabled: true
+  per_page: 0
+  yearly: true
+  monthly: true
+  daily: false
+  order_by: -date

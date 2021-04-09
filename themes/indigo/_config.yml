@@ -28,7 +28,7 @@ menu:
 #    url: http://bilibili.890m.com
 #    target: _blank
   calendar:
-    text: 时间轴
+    text: 归档时间轴
     url: /archives/index.html
 #  tags:
 #    text: 标签
@@ -54,7 +54,7 @@ color: '66CCFF'
 
 # 页面标题
 tags_title: 标 签
-archives_title: 时间轴
+archives_title: 归档时间轴
 categories_title: 分 类
 
 # 文章截断
