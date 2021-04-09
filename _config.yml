@@ -140,7 +140,7 @@ logger_format:
 
 sitemap:
     path: sitemap.xml
-    tag: true
+    tag: false
     category: false
 
 neat_enable: false
