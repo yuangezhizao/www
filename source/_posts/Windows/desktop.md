@@ -4,7 +4,7 @@ date: 2019-8-15 20:48:14
 tags:
   - AMD
   - EX920
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -30,14 +30,15 @@ key: 57
 > 吃土，草（指日语
 
 ## 0x01.配置
-#### 总览
-注：京东链接不含返利可放心点击，价格数据截止至`2019-8-15 21:16:12`
+### 总览
+注：京东链接不含返利可放心点击，价格数据于`2021-04-14 21:02:34`追加更新
 
 硬件 | 型号 | 来源 | 价格
 :---: | :---: | :---: | :---:
 CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html) | JD 正品 | ¥2368
-显卡 | `Zotac GTX 1080 Plus OC` | WZ 二手 | ~~¥3600~~¥2500
-主板 | [MSI MPG X570 Gaming Edge WiFi (MS-7C37)  (3 PCI-E x1, 2 PCI-E x16, 2 M.2, 4 DDR4 DIMM, Audio, Video, Gigabit LAN, WiFi)](https://item.jd.com/100003809901.html) | JD 正品 | ¥1381
+显卡 | [ZOTAC GTX 1080 Extreme Plus OC](https://www.techpowerup.com/gpu-specs/zotac-gtx-1080-extreme-plus-oc.b4139) | WZ 二手 | ~~¥3600~~¥2500
+ | [MSI MPG X570 Gaming Edge WiFi (MS-7C37)](https://item.jd.com/100003809901.html) | | 
+主板 | (3 PCI-E x1, 2 PCI-E x16, 2 M.2, 4 DDR4 DIMM, Audio, Video, Gigabit LAN, WiFi) | JD 正品 | ¥1381
 硬盘 | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥869
 硬盘 | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥243
 硬盘 | [Seagate BarraCuda 4TB 256MB 5400RPM](https://item.jd.com/4220257.html) | JD 正品 | ¥2.8
@@ -48,16 +49,16 @@ CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html
 键盘 | [USCORSAIR K70 LUX](https://item.jd.com/41756364735.html) | WZ 二手 | ~~699~~¥200
 内存 | [Kingston HyperX KHX3200C18D4/16GX](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
 显示器 | [AOC U2790PQU 27英寸 4K IPS](https://item.jd.com/100001071956.html) | JD 正品 | ¥1749
+内存 | [Kingston HyperX HX432C18FB/16-SP](https://item.jd.com/100005089420.html) | JD 正品 | ¥276.43
  | | | 
-总计 | | | ¥10344.08
+总计 | | | ¥10620.51
 
-#### 详情
-![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/Win-10/20190815205532.png!webp)
-![8.2 到的 EX920](https://i1.yuangezhizao.cn/Win-10/20190815205737.png!webp)
-![8.4 到的坦克 3](https://i1.yuangezhizao.cn/Win-10/20190815210231.png!webp)
-![并不能调低音的音箱](https://i1.yuangezhizao.cn/Win-10/20190815210414.png!webp)
-![本来想买 ADATA 的因为较便宜，结果第二天正好在下班时打电话说标错了无货要主动发个贵点的金士顿，可海星](https://i1.yuangezhizao.cn/Win-10/20190824122235.png!webp)
-
+### 详情
+![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/macOS/20210414211309.png!webp)
+![8.2 到的 EX920](https://i1.yuangezhizao.cn/macOS/20210414211445.png!webp)
+![8.4 到的坦克 3](https://i1.yuangezhizao.cn/macOS/20210414211624.png!webp)
+![并不能调低音的音箱](https://i1.yuangezhizao.cn/macOS/20210414211752.png!webp)
+![本来想买 ADATA 的因为较便宜，结果第二天正好在下班时打电话说标错了无货要主动发个贵点的金士顿，可海星](https://i1.yuangezhizao.cn/macOS/20210414212039.png!webp)
 `2019-9-1 00:00:00`领到了全品无门槛减`666`的优惠券（详见下表），于是下单购买
 
 日期 | 场次 | 结果
@@ -68,10 +69,15 @@ CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html
 9-1 | 20:00 | 无库存
 
 ![感谢狗东](https://i1.yuangezhizao.cn/Win-10/20190901232422.png!webp)
-![1T Games 盘回来了](https://i1.yuangezhizao.cn/Win-10/20190901232104.png!webp)
-![4T 冷备](https://i1.yuangezhizao.cn/Win-10/20190908175356.png!webp)
+![1T Games 盘回来了](https://i1.yuangezhizao.cn/macOS/20210414211034.png!webp)
+![4T 冷备](https://i1.yuangezhizao.cn/macOS/20210414210816.png!webp)
+![趁内存低价屯的](https://i1.yuangezhizao.cn/macOS/20210414210414.png!webp)
 
 ## 0x02.CPU
+![锐龙大师，自动超频](https://i1.yuangezhizao.cn/macOS/QQ20210414-212445@2x.png!webp)
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
 超频大法好！`3.99`逼死强逼症，神奇的是这个数字会跳回`4.00`……
 > 超频参数：
 `CPU Ratio：40.00`
@@ -80,5 +86,7 @@ CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html
 
 ![3.99GHz](https://i1.yuangezhizao.cn/Win-10/20190824123130.jpg!webp)
 ![4.00GHz](https://i1.yuangezhizao.cn/Win-10/20190824123301.jpg!webp)
+
+</details>
 
 未完待续……
