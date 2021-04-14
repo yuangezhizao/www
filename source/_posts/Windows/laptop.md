@@ -4,7 +4,7 @@ date: 2019-8-3 18:24:34
 tags:
   - HASEE
   - Z7M
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -19,17 +19,23 @@ gitment: true
 大一上的那个寒假之前让`lqw`帮自己选了台笔记本（也是人生中的第一台个人电脑），之前虽然接触过电脑但是并不是自己的……
 不过这倒是不耽误自己对于计算机的研究（之前一直在看《电脑爱好者》，怎么也有几十期了`hhh`
 最终选择了这台：`15.6`英寸游戏笔记本电脑(`i7-4720HQ` `8G` `1TB` `GTX965M` `2G`显存背光`1080P`)黑色
-![订单](https://i1.yuangezhizao.cn/Win-10/20190803182751.png!webp)
-![¥5484.00](https://i1.yuangezhizao.cn/Win-10/20190803185234.png!webp)
+![订单](https://i1.yuangezhizao.cn/macOS/20210414220557.png!webp)
+![¥5484.00](https://i1.yuangezhizao.cn/macOS/20210414221007.png!webp)
 ![如今已经看不到物流信息了](https://i1.yuangezhizao.cn/Win-10/20190803183408.jpg!webp)
 
 然后就是不断地升级硬件：
-1. 最开始的`1T`硬盘换成`2T`硬盘，`1T`放到硬盘盒里当成移动硬盘
-2. 内存`8G`加到`16G`容量
-3. `2T`硬盘更换，`2T`放到硬盘盒里当成移动硬盘
-没了。。。
-![机械](https://i1.yuangezhizao.cn/Win-10/20190803185726.jpg!webp)
-![内存条](https://i1.yuangezhizao.cn/Win-10/20190803185756.jpg!webp)
+1. `1T HDD`升至`2T HDD`，旧`1T`取出放至硬盘盒里作移动硬盘
+2. 内存`8G`升至`16G`
+3. `2T HDD`更换，旧`2T`取出放至硬盘盒里作移动硬盘
+4. 氪金加装`SSD`
+5. `SSD`炸裂更换
+6. `HDD`炸裂移除
+![机械](https://i1.yuangezhizao.cn/macOS/QQ20210414-221304@2x.png!webp)
+![内存条](https://i1.yuangezhizao.cn/macOS/QQ20210414-221531@2x.png!webp)
+![SSD](https://i1.yuangezhizao.cn/macOS/QQ20210414-221648@2x.png!webp)
+![SSD](https://i1.yuangezhizao.cn/macOS/20210414222319.png!webp)
+![二手东显示器](https://i1.yuangezhizao.cn/macOS/20210414223439.png!webp)
+![静音键盘](https://i1.yuangezhizao.cn/macOS/20210414222938.png!webp)
 
 然后就没有什么太大的变动了（除了清灰
 自从第一次清灰发现了巨大的灰尘团之后，清灰频率还算正常。然而一次也没有换过硅脂……
@@ -47,4 +53,9 @@ gitment: true
 因为要配置台式了，所以就准备把现在主力使用的笔记本的软件精简（卸载）下
 一个个卸载软件竟然把系统搞崩了，祭出还原点终于成功还原系统（蓝屏代码`WZ`遇到过几次直接重装了，太可怕了……），然后就懒了直接删除程序所在文件夹，到最后直接拷走重要文件给`C`盘格式化之后重装系统了……
 
+## 0x03.存储炸裂
+`SSD`和`HDD`相继去世……
+![炸裂的 HDD](https://i1.yuangezhizao.cn/macOS/QQ20210414-224211@2x.png!webp)
+
+再也不买西数了，买希捷（虽然可能并没有什么区别，但是自己是不会再买西数了……
 未完待续……
