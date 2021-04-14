@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 11
+count: 12
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -96,22 +96,22 @@ yum install gcc-c++
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tar.xz`~~
+~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或
 ![下载卡爆，proxy 中转爽到！](https://i1.yuangezhizao.cn/Win-10/20191107224750.jpg!webp)
 
 ``` bash
-CloudFlare：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.2.tar.xz
+CloudFlare[推荐]：
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.4.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.9.2.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.9.4.tar.xz
 ```
 4. 解压
 ``` bash
-tar xvJf Python-3.9.2.tar.xz
-cd Python-3.9.2
+tar xvJf Python-3.9.4.tar.xz
+cd Python-3.9.4
 ```
 5. 编译
 注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
