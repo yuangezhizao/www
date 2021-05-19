@@ -10,11 +10,11 @@
 menu:
   tv:
     text: 我的所有追番
-    url: https://lab.yuangezhizao.cn/bangumi
+    url: https://lab.yuangezhizao.cn/bangumi?from=0
     target: _blank
   music:
     text: 周常出勤记录
-    url: https://lab.yuangezhizao.cn/maimai
+    url: https://lab.yuangezhizao.cn/maimai?from=0
     target: _blank
 #  camera-retro:
 #    text: 生活之美
