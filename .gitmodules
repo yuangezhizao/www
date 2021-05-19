@@ -1,0 +1,3 @@
+[submodule "themes/indigo"]
+	path = themes/indigo
+	url = https://github.com/yuangezhizao/hexo-theme-indigo.git
