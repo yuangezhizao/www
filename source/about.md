@@ -14,14 +14,14 @@ key: -1
 gitment: true
 ---
 
-<blockquote>最后更新：2021-04-05 18:04:07</blockquote>
+<blockquote>最后更新：2021-05-27 00:08:01</blockquote>
 
 @column-2{
 
 @card{
 
 # 远哥
-[I’m currently working at Cisco.](https://github.com/yuangezhizao/yuangezhizao)
+[I am currently working at Cisco, engaged in python back-end development.](https://github.com/yuangezhizao/yuangezhizao)
 常写[Python Web](https://lab.yuangezhizao.cn)
 看过`200+`部[日漫](https://lab.yuangezhizao.cn/bangumi)
 [音游狗](https://space.bilibili.com/25622031)周常打[maimai DX](https://lab.yuangezhizao.cn/maimai)
