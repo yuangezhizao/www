@@ -2,8 +2,8 @@
 title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
-  - raspberrypi
-count: 9
+  - RaspberryPi
+count: 10
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -19,7 +19,7 @@ key: 34
 ## 0x01.[Etcher](https://www.balena.io/etcher/)烧录[镜像](https://www.raspberrypi.org/downloads/raspberry-pi-os/)
 `2020-02-13`之后的`2020-05-27`版本重命名为`Raspberry Pi OS (previously called Raspbian)`，并且明显标注出`Raspberry Pi OS (32-bit) with desktop and recommended software`暗示`64`位系统会`release`的，[更新日志](http://downloads.raspberrypi.org/raspios_armhf/release_notes.txt)
 
-> Raspbian Buster with desktop and recommended software，2021-01-11-raspios-buster-armhf-full.img
+> Raspbian Buster with desktop and recommended software，2021-03-04-raspios-buster-armhf-full.img
 
 `2020-5-16 17:29:38`：
 新卡的写入速度翻番了草
