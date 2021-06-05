@@ -209,6 +209,33 @@ Max upload size: 5.2 TB
 
 ## 0x08. 编译安装[python395](https://www.python.org/downloads/release/python-381/)环境
 [换新系统之腾讯云学生机 CentOS 7.6 64 位#0x04-编译安装python395环境](../CentOS/server.html#0x04-编译安装python395环境)
+注：`SystemError: <built-in function compile> returned NULL without setting an error generate-posix-vars failed`报错的解决方法
+安装`SCL`（`Software Collections`）：`yum install centos-release-scl-rh -y`
+搜索：`yum search "devtoolset"`
+安装：`yum install devtoolset-9-gcc-c++ devtoolset-9-gcc -y`
+使用：`scl enable devtoolset-9 bash`
+查看版本：`gcc -v`
+若需长期使用：`echo "source /opt/rh/devtoolset-9/enable" >>/etc/profile`
+``` bash
+[root@CentOS dl]# gcc -v
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC) 
+[root@CentOS dl]# scl enable devtoolset-9 bash
+[WARN] The Fuck will drop Python 2 support soon, more details https://github.com/nvbn/thefuck/issues/685
+[root@CentOS dl]# gcc -v
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/opt/rh/devtoolset-9/root/usr/libexec/gcc/x86_64-redhat-linux/9/lto-wrapper
+Target: x86_64-redhat-linux
+Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,fortran,lto --prefix=/opt/rh/devtoolset-9/root/usr --mandir=/opt/rh/devtoolset-9/root/usr/share/man --infodir=/opt/rh/devtoolset-9/root/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --with-default-libstdcxx-abi=gcc4-compatible --enable-plugin --enable-initfini-array --with-isl=/builddir/build/BUILD/gcc-9.3.1-20200408/obj-x86_64-redhat-linux/isl-install --disable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 9.3.1 20200408 (Red Hat 9.3.1-2) (GCC) 
+```
 
 ## 0x09. 测速工具[SPEEDTEST CLI](https://speedtest.net/apps/cli#fedora)
 ![然后竟然出了官方版](https://i1.yuangezhizao.cn/Win-10/20191120191325.jpg!webp)

@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 12
+count: 13
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,7 +74,7 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python392](https://www.python.org/downloads/release/python-392/)环境
+## 0x04.编译安装[python395](https://www.python.org/downloads/release/python-395/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -96,7 +96,7 @@ yum install gcc-c++
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tar.xz`~~
+~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或
@@ -104,14 +104,14 @@ yum install gcc-c++
 
 ``` bash
 CloudFlare[推荐]：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.4.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.5.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.9.4.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.9.5.tar.xz
 ```
 4. 解压
 ``` bash
-tar xvJf Python-3.9.4.tar.xz
-cd Python-3.9.4
+tar xvJf Python-3.9.5.tar.xz
+cd Python-3.9.5
 ```
 5. 编译
 注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
@@ -182,12 +182,12 @@ Python 3.8.3
 ②`rm -rf /usr/bin/pip3`
 `ln -s /usr/local/python3/bin/pip3.9 /usr/bin/pip3`
 ```
-[root@txy Python 3.9.1]# python -V
+[root@txy Python-3.9.5]# python -V
 -bash: python: command not found
-[root@txy Python 3.9.1]# python3 -V
-Python 3.9.1
-[root@txy Python 3.9.1]# pip3.9 -V
-pip 20.3.3 from /usr/local/python3/lib/python3.9/site-packages/pip (python 3.9)
+[root@txy Python-3.9.5]# python3 -V
+Python 3.9.5
+[root@txy Python-3.9.5]# pip3.9 -V
+pip 21.1.1 from /usr/local/python3/lib/python3.9/site-packages/pip (python 3.9)
 ```
 > ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，这下`2`终于彻底没有了
 
@@ -195,7 +195,7 @@ pip 20.3.3 from /usr/local/python3/lib/python3.9/site-packages/pip (python 3.9)
 你云环境下会自动配置镜像源
 `pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U`
 `pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
-` pip3 install --upgrade pip`
+`pip3 install --upgrade pip`
 安装`pip3`的另一种方法
 ``` bash
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -405,7 +405,64 @@ rtt min/avg/max/mdev = 7.004/7.012/7.029/0.092 ms
 ```
 由此可见家里肯定是最慢的了，另外**北京一区**比**北京三区**快`1ms`
 
-## 0x10.引用
+## 0x10.安装[Pyston](https://github.com/pyston/pyston)
+`wget https://proxy-cf.yuangezhizao.cn/dl/pyston_2.2_portable.tar.gz`
+`tar -zxvf pyston_2.2_portable.tar.gz`
+``` bash
+[root@txy ~]# ./pyston
+Python 3.8.8 (heads/rel2.2:6287d61, Apr 29 2021, 15:46:12)
+[Pyston 2.2.0, GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> ^Z
+[5]+  Stopped                 ./pyston
+```
+`./pyston -m venv pyston-venv`
+``` bash
+(pyston-venv) [root@txy jd]# pip --version`
+pip 20.2.3 from /root/jd/pyston-venv/lib/pyston3.8/site-packages/pip (python 3.8)
+(pyston-venv) [root@txy sku]# pyston JD_Sku_Demo.py 
+Traceback (most recent call last):
+  File "JD_Sku_Demo.py", line 3, in <module>
+    from JD_Sku.sku import SKu
+ImportError: cannot import name 'SKu' from 'JD_Sku.sku' (/root/jd/sku/JD_Sku/sku.py)
+(pyston-venv) [root@txy sku]# tree
+.
+├── cookies.txt
+├── examples
+│   ├── address.json
+│   └── stock.json
+├── JD_Sku
+│   ├── account.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── account.cpython-39.pyc
+│   │   ├── account.pyston-22.pyc
+│   │   ├── __init__.cpython-39.pyc
+│   │   ├── __init__.pyston-22.pyc
+│   │   ├── sku.cpython-39.pyc
+│   │   ├── sku.pyston-22.pyc
+│   │   ├── utf8logger.cpython-39.pyc
+│   │   └── utf8logger.pyston-22.pyc
+│   ├── sku.py
+│   └── utf8logger.py
+└── JD_Sku_Demo.py
+
+3 directories, 16 files
+(pyston-venv) [root@txy JD_Sku]# rm -rf JD_Sku/__pycache__/
+(pyston-venv) [root@txy JD_Sku]# cd ..
+(pyston-venv) [root@txy sku]# pyston JD_Sku_Demo.py 
+[2021-06-05 20:37:18,286][_get_nick_name:47]【INFO】远哥制造 cookies is OK
+[2021-06-05 20:37:18,290][normal_mode:27]【INFO】= = = 就 绪 = = =
+[2021-06-05 20:37:18,416][normal_mode:43]【INFO】4953.583314697265
+^CTraceback (most recent call last):
+  File "JD_Sku_Demo.py", line 10, in <module>
+    a.normal_mode('2021-06-05 22:00:00')
+  File "/root/jd/sku/JD_Sku/sku.py", line 44, in normal_mode
+    time.sleep(cha)
+KeyboardInterrupt
+```
+
+## 0x11.引用
 [python --enable-shared](https://web.archive.org/web/20200521142009/https://www.cnblogs.com/Tommy-Yu/p/6144512.html)
 [CentOS 7 升级gcc/g++编译器](https://web.archive.org/web/20200521161733/https://www.cnblogs.com/ToBeExpert/p/10297697.html)
 [3.7.0 build error with --enable-optimizations](https://web.archive.org/web/20200521161845/https://bugs.python.org/issue34112)
