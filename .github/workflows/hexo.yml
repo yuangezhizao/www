@@ -1,4 +1,3 @@
-# 参照：https://blog.csdn.net/huzhanfei/article/details/115190469
 name: Hexo Site CI
 
 on:
@@ -43,10 +42,10 @@ jobs:
 #         version: # optional
 
     - name: before_install
-      run: npm install hexo-cli -g
+      run: sudo npm install hexo-cli -g
 
     - name: install
-      run: npm install
+      run: sudo npm install
 
     - name: script
       run: hexo clean && hexo g
