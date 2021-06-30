@@ -1,0 +1,63 @@
+# 参照：https://blog.csdn.net/huzhanfei/article/details/115190469
+name: Hexo Site CI
+
+on:
+  push:
+    branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
+
+jobs:
+  deploy:
+    name: Deploy Blog
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with: 
+        ref: 'master'
+        submodules: true
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.2.0
+      with:
+        # Set always-auth in npmrc
+#         always-auth: # optional, default is false
+        # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+#         node-version: # optional
+        # Target architecture for Node to use. Examples: x86, x64. Will use system architecture by default.
+#         architecture: # optional
+        # Set this option if you want the action to check for the latest available version that satisfies the version spec
+#         check-latest: # optional
+        # Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file, and set up auth to read in from env.NODE_AUTH_TOKEN
+#         registry-url: # optional
+        # Optional scope for authenticating against scoped registries
+#         scope: # optional
+        # Used to pull node distributions from node-versions.  Since there's a default, this is typically not supplied by the user.
+#         token: # optional, default is ${{ github.token }}
+        # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn
+        cache: npm
+        # Deprecated. Use node-version instead. Will not be supported after October 1, 2019
+#         version: # optional
+
+    - name: before_install
+      run: npm install hexo-cli -g
+
+    - name: install
+      run: npm install
+
+    - name: script
+      run: hexo clean && hexo g
+
+    - name: Deploy to Tencent COS
+      env:
+        SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+        SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+        BUCKET: ${{ secrets.TENCENT_COS_BUCKET }}
+        REGION: ap-beijing
+      run: |
+        sudo pip install coscmd
+        coscmd config -a ${SECRET_ID} -s ${SECRET_KEY} -b ${BUCKET} -r ${REGION}
+        coscmd upload -rs --delete ./public/ / -f
