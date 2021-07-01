@@ -3,7 +3,7 @@ title: PY 云新增 CentOS 7.7 64 位
 date: 2019-10-28 23:13:25
 tags:
   - CentOS 
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -16,8 +16,8 @@ key: 60
 ## 0x00.前言
 > 还记得“续……”吗？
 ``` bash
-[root@localhost ~]# rpm -q centos-release
-centos-release-7-7.1908.0.el7.centos.x86_64
+[root@py ~]# rpm -q centos-release
+centos-release-7-9.2009.1.el7.centos.x86_64
 ```
 
 ## 0x01.配置
@@ -62,7 +62,7 @@ ONBOOT="yes"
 注：还不确定设定静态`ip`会不会有影响~~（其实是不会），所以就先不设了……~~这么简单的配置怎么好意思说不会呢？
 `2020-4-4 16:52:59`：配置如下
 ``` bash
-[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-ens192 
+[root@py ~]# cat /etc/sysconfig/network-scripts/ifcfg-ens192 
 TYPE="Ethernet"
 PROXY_METHOD="none"
 BROWSER_ONLY="no"
@@ -78,7 +78,7 @@ NAME="ens192"
 UUID="6bae1cb0-202e-4e92-a829-7df7c1f988b9"
 DEVICE="ens192"
 ONBOOT="yes"
-IPADDR=192.168.25.7
+IPADDR=192.168.25.237
 GATEWAY=192.168.25.254
 DNS1=192.168.25.30
 ```
@@ -578,34 +578,39 @@ Enjoy,
 ## 0x06.[SmartDNS](https://github.com/pymumu/smartdns)
 安装
 ``` bash
-[root@py ~]# dpkg -i smartdns.1.2020.02.25-2212.x86_64-linux-all.tar.gz 
--bash: dpkg: command not found
-[root@py ~]# tar zxf smartdns.1.2020.02.25-2212.x86_64-linux-all.tar.gz 
-[root@py ~]# cd smartdns
-[root@py smartdns]# chmod +x ./install
-[root@py smartdns]# ./install -i
-install: creating directory ‘/etc/smartdns’
-‘src/smartdns’ -> ‘/usr/sbin/smartdns’
-‘etc/smartdns/smartdns.conf’ -> ‘/etc/smartdns/smartdns.conf’
-‘etc/default/smartdns’ -> ‘/etc/default/smartdns’
-‘etc/init.d/smartdns’ -> ‘/etc/init.d/smartdns’
-‘systemd/smartdns.service’ -> ‘/usr/lib/systemd/system/smartdns.service’
-Created symlink from /etc/systemd/system/smartdns.service to /usr/lib/systemd/system/smartdns.service.
-Created symlink from /etc/systemd/system/multi-user.target.wants/smartdns.service to /usr/lib/systemd/system/smartdns.service.
-[root@py smartdns]# vim /etc/smartdns/smartdns.conf
-[root@py smartdns]# vim /etc/smartdns/smartdns.conf
-[root@py smartdns]# cd /var/log
-[root@py log]# mkdir smartdns
-[root@py log]# systemctl enable smartdns
-[root@py log]# systemctl status smartdns
+[root@cn-py-dl-c8 ~]# wget https://github.com/pymumu/smartdns/releases/download/Release33/smartdns.1.2020.09.08-2235.x86_64-linux-all.tar.gz
+[root@cn-py-dl-c8 ~]# ll
+total 1576
+-rw-------. 1 root root    1490 Mar 21 14:07 anaconda-ks.cfg
+-rw-r--r--. 1 root root 1606759 Sep  8  2020 smartdns.1.2020.09.08-2235.x86_64-linux-all.tar.gz
+[root@cn-py-dl-c8 ~]# tar zxf smartdns.1.2020.09.08-2235.x86_64-linux-all.tar.gz 
+[root@cn-py-dl-c8 ~]# cd smartdns
+[root@cn-py-dl-c8 smartdns]# chmod +x ./install
+[root@cn-py-dl-c8 smartdns]# ./install -i
+install: creating directory '/etc/smartdns'
+'usr/sbin/smartdns' -> '/usr/sbin/smartdns'
+'etc/smartdns/smartdns.conf' -> '/etc/smartdns/smartdns.conf'
+'etc/default/smartdns' -> '/etc/default/smartdns'
+'etc/init.d/smartdns' -> '/etc/init.d/smartdns'
+'systemd/smartdns.service' -> '/usr/lib/systemd/system/smartdns.service'
+Synchronizing state of smartdns.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable smartdns
+Created symlink /etc/systemd/system/smartdns.service → /usr/lib/systemd/system/smartdns.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/smartdns.service → /usr/lib/systemd/system/smartdns.service.
+[root@cn-py-dl-c8 smartdns]# vim /etc/smartdns/smartdns.conf
+[root@cn-py-dl-c8 smartdns]# cd /var/log
+[root@cn-py-dl-c8 log]# mkdir smartdns
+[root@cn-py-dl-c8 ~]# systemctl enable smartdns
+[root@cn-py-dl-c8 ~]# systemctl restart smartdns
+[root@cn-py-dl-c8 ~]# systemctl status smartdns
 ```
 配置文件
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
 ``` bash
- cat /etc/smartdns/smartdns.conf                                            ✔  pi@rpi  21:09:26 
-# dns server name, defaut is host name
+[root@cn-py-dl-c8 ~]# cat /etc/smartdns/smartdns.conf
+# dns server name, default is host name
 # server-name, 
 # example:
 #   server-name smartdns
@@ -629,6 +634,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/smartdns.servic
 #   -no-cache: skip cache.
 #   -no-rule-soa: Skip address SOA(#) rules.
 #   -no-dualstack-selection: Disable dualstack ip selection.
+#   -force-aaaa-soa: force AAAA query return SOA.
 # example: 
 #  IPV4: 
 #    bind :53
@@ -644,11 +650,29 @@ bind [::]:53
 # dns cache size
 # cache-size [number]
 #   0: for no cache
-cache-size 1024
+cache-size 4096
+
+# enable persist cache when restart
+# cache-persist yes
+
+# cache persist file
+# cache-file /tmp/smartdns.cache
 
 # prefetch domain
 # prefetch-domain [yes|no]
 prefetch-domain yes
+
+# cache serve expired 
+# serve-expired [yes|no]
+# serve-expired yes
+
+# cache serve expired TTL
+# serve-expired-ttl [num]
+# serve-expired-ttl 0
+
+# reply TTL value to use when replying with expired data
+# serve-expired-reply-ttl [num]
+# serve-expired-reply-ttl 30
 
 # List of hosts that supply bogus NX domain results 
 # bogus-nxdomain [ip/subnet]
@@ -670,7 +694,7 @@ prefetch-domain yes
 #   speed-check-mode none
 
 # force AAAA query return SOA
-# force-AAAA-SOA yes
+# force-AAAA-SOA [yes|no]
 
 # Enable IPV4, IPV6 dual stack IP optimization selection strategy
 # dualstack-ip-selection-threshold [num] (0~1000)
@@ -697,18 +721,26 @@ dualstack-ip-selection yes
 # log-size: size of each log file, support k,m,g
 # log-num: number of logs
 log-level info
-log-file /var/log/smartdns.log
-log-size 1024k
-log-num 10
+log-file /var/log/smartdns/smartdns.log
+log-size 100m
+log-num 90
 
 # dns audit
 # audit-enable [yes|no]: enable or disable audit.
 audit-enable yes
-# audit-SOA [yes|no]: enable or disalbe log soa result.
+# audit-SOA [yes|no]: enable or disable log soa result.
 # audit-size size of each audit file, support k,m,g
-audit-file /var/log/smartdns-audit.log
-audit-size 1024k
-audit-num 10
+audit-file /var/log/smartdns/smartdns-audit.log
+audit-size 100m
+audit-num 90
+
+# certificate file
+# ca-file [file]
+# ca-file /etc/ssl/certs/ca-certificates.crt
+
+# certificate path
+# ca-path [path]
+# ca-path /etc/ss/certs
 
 # remote udp dns server list
 # server [IP]:[PORT] [-blacklist-ip] [-whitelist-ip] [-check-edns] [-group [group] ...] [-exclude-default-group]
@@ -719,24 +751,28 @@ audit-num 10
 #   -group [group]: set server to group, use with nameserver /domain/group.
 #   -exclude-default-group: exclude this server from default group.
 # server 8.8.8.8 -blacklist-ip -check-edns -group g1 -group g2
-server 114.114.114.114
+# server 114.114.114.114
+server 172.64.36.1
+server 172.64.36.2
 server 1.1.1.1
 server 8.8.8.8
-server 192.168.25.248
 server 219.149.6.99
+
+server 2a06:98c1:54::1802
 server 240c::6666
 server 240e:41:c900:ffff::
 
 # remote tcp dns server list
 # server-tcp [IP]:[PORT] [-blacklist-ip] [-whitelist-ip] [-group [group] ...] [-exclude-default-group]
 # default port is 53
-# server-tcp 114.114.114.114 1.1.1.1 8.8.8.8 240c::6666
+# server-tcp 8.8.8.8
 
 # remote tls dns server list
 # server-tls [IP]:[PORT] [-blacklist-ip] [-whitelist-ip] [-spki-pin [sha256-pin]] [-group [group] ...] [-exclude-default-group]
 #   -spki-pin: TLS spki pin to verify.
-#   -tls-host-check: cert hostname to verify.
-#   -hostname: TLS sni hostname.
+#   -tls-host-verify: cert hostname to verify.
+#   -host-name: TLS sni hostname.
+#   -no-check-certificate: no check certificate.
 # Get SPKI with this command:
 #    echo | openssl s_client -connect '[ip]:853' | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
 # default port is 853
@@ -746,10 +782,12 @@ server 240e:41:c900:ffff::
 # remote https dns server list
 # server-https https://[host]:[port]/path [-blacklist-ip] [-whitelist-ip] [-spki-pin [sha256-pin]] [-group [group] ...] [-exclude-default-group]
 #   -spki-pin: TLS spki pin to verify.
-#   -tls-host-check: cert hostname to verify.
-#   -hostname: TLS sni hostname.
+#   -tls-host-verify: cert hostname to verify.
+#   -host-name: TLS sni hostname.
 #   -http-host: http host.
+#   -no-check-certificate: no check certificate.
 # default port is 443
+server-https https://9u12dgz3lz.cloudflare-gateway.com/dns-query
 server-https https://cloudflare-dns.com/dns-query
 server-https https://dns.google/dns-query
 
@@ -771,6 +809,15 @@ server-https https://dns.google/dns-query
 # ipset /domain/[ipset|-]
 # ipset /www.example.com/block, set ipset with ipset name of block 
 # ipset /www.example.com/-, ignore this domain
+
+# set domain rules
+# domain-rules /domain/ [-speed-check-mode [...]]
+# rules:
+#   -speed-check-mode [mode]: speed check mode
+#                             speed-check-mode [ping|tcp:port|none|,]
+#   -address [address|-]: same as address option
+#   -nameserver [group|-]: same as nameserver option
+#   -ipset [ipset|-]: same as ipset option
 ```
 
 </details>
