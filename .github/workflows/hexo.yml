@@ -3,6 +3,8 @@ name: Hexo Site CI
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
+    branches: [ master ]
 #   pull_request:
 #     branches: [ master ]
 
