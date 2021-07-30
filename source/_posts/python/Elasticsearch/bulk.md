@@ -3,13 +3,13 @@ title: Elasticsearch Bulk 调优
 date: 2021-07-30 00:00:00
 tags:
   - Elasticsearch
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.0 Beta (21A5294g)
 browser: 1
 browser_1: 92.0.4515.107 Stable
 place: 新家
-key: 116
+key: 117
 ---
     二八定律
 <!-- more -->
