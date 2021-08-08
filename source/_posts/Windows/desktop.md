@@ -4,7 +4,7 @@ date: 2019-8-15 20:48:14
 tags:
   - AMD
   - EX920
-count: 5
+count: 6
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -55,8 +55,9 @@ CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html
 主板 | [MSI B450M MORTAR MAX](https://item.jd.com/100007256670.html) | JD 正品 | ¥568.92
  | | 转售 WZ | -¥285
 功放 | [BRZHIFI功放解码一体机](https://item.taobao.com/item.htm?id=623298849520) | TB 企业店 | ¥502.06
+有源低音炮 | [BRZHIFI重低音炮家庭影院](https://item.taobao.com/item.htm?id=598781070189) | TB 企业店 | ¥403.46
  | | | 
-总计 | | | ¥7706.49
+总计 | | | ¥8109.95
 
 ### 详情
 ![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/macOS/20210414211309.png!webp)
@@ -85,6 +86,10 @@ CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html
 `2021-07-14 20:19:38`：
 因为`X570`突然时常开机前无限黑屏（硬重启可能会进系统），于是狗东售后，而那时还没有`mini`，氪金仅供临时用的（结果「原返」硬件哪也没坏，神`tm`缺少驱动草，血亏
 ![迫击炮](https://i1.yuangezhizao.cn/macOS/20210714201741.png!webp)
+
+`2021-07-17 16:19:53`：
+终于有低音炮了`2333`，简直要爽翻了
+![低音炮](https://i1.yuangezhizao.cn/macOS/20210808231213.png!webp)
 
 ## 0x02.CPU
 ![锐龙大师，自动超频](https://i1.yuangezhizao.cn/macOS/QQ20210414-212445@2x.png!webp)
