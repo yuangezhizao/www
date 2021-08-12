@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 10
+count: 11
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -209,7 +209,7 @@ TENCENT_SECRET_KEY=<rm>
 ### 1.`Serverless Framework Component`配置文件
 纵观`Serverless Framework`，现在最新的是`V2`版本，也就是说不能沿袭之前版本的`serverless.yml`配置文件，需要重新对照文档修改
 之前版本的配置文件可以参考这里：[实验室站迁移 TencentCloud Serverless 之路#0x03.部署 Python Flask 框架
-](/init.html#2-配置Serverless)
+](./init.html#2-配置Serverless)
 也正是因为这个版本变化，导致配置文件有一处需要注意的地方
 ①之前版本会根据`requirements.txt`自动下载第三方库到项目目录下的`.serverless`文件夹下的`requirements`文件夹以参加最终的依赖打包，压缩成`zip`文件再最终上传至云函数运行环境
 ②最新版本不再自动下载，需要自行处理。不过官方示例已经给写了参考用法：[hook](https://github.com/serverless-components/tencent-flask/blob/49bc914fad091bad9202ac481042760509342b3d/example/serverless.yml#L8-L17)
@@ -355,17 +355,20 @@ layer
 [root@txy ~]# rm -rf layer
 [root@txy ~]# mkdir layer && cd layer
 [root@txy layer]# vim requirements.txt
-[root@txy layer]# cat requirements.txt 
+[root@txy layer]# cat requirements.txt
 Flask
 Flask-SQLAlchemy
-Flask-Zipper
+Flask-Compress
 brotli
 python-dotenv
 pymysql
+psycopg2
+lxml
+PyYAML
 [root@txy layer]# python -V
 Python 3.8.6
 [root@txy layer]# pip -V
-pip 9.0.3 from /usr/lib/python3.6/site-packages (python 3.6)
+pip 21.2.4 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
 [root@txy layer]# pip3 -V
 pip 20.2.4 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
 [root@txy layer]# pip install -r requirements.txt -t . --upgrade
