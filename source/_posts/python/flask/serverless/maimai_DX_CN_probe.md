@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 11
+count: 12
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -353,9 +353,11 @@ layer
 
 ``` bash
 [root@txy ~]# rm -rf layer
-[root@txy ~]# mkdir layer && cd layer
-[root@txy layer]# vim requirements.txt
-[root@txy layer]# cat requirements.txt
+[root@txy ~]# python3 -m venv venv_layer
+[root@txy ~]# source venv_layer/bin/activate
+(venv_layer) [root@txy ~]# mkdir layer && cd layer
+(venv_layer) [root@txy layer]# vim requirements.txt
+(venv_layer) [root@txy layer]# cat requirements.txt 
 Flask
 Flask-SQLAlchemy
 Flask-Compress
@@ -365,15 +367,17 @@ pymysql
 psycopg2
 lxml
 PyYAML
-[root@txy layer]# python -V
-Python 3.8.6
-[root@txy layer]# pip -V
-pip 21.2.4 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
-[root@txy layer]# pip3 -V
-pip 20.2.4 from /usr/local/python3/lib/python3.8/site-packages/pip (python 3.8)
-[root@txy layer]# pip install -r requirements.txt -t . --upgrade
+(venv_layer) [root@txy layer]# python -V
+Python 3.6.8
+(venv_layer) [root@txy layer]# pip3 -V
+pip 9.0.3 from /root/venv_layer/lib64/python3.6/site-packages (python 3.6)
+(venv_layer) [root@txy layer]# pip install pip -U
 ……
-[root@txy layer]# zip -r layer.zip . -x requirements.txt
+(venv_layer) [root@txy layer]# pip3 -V
+pip 21.2.4 from /root/venv_layer/lib64/python3.6/site-packages/pip (python 3.6)
+(venv_layer) [root@txy layer]# pip install -r requirements.txt -t . --upgrade
+……
+(venv_layer) [root@txy layer]# zip -r layer.zip . -x requirements.txt
 ```
 
 </details>
