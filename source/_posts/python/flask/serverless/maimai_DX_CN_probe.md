@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 12
+count: 13
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -357,7 +357,7 @@ layer
 [root@txy ~]# source venv_layer/bin/activate
 (venv_layer) [root@txy ~]# mkdir layer && cd layer
 (venv_layer) [root@txy layer]# vim requirements.txt
-(venv_layer) [root@txy layer]# cat requirements.txt 
+(venv_layer) [root@txy layer]# cat requirements.txt
 Flask
 Flask-SQLAlchemy
 Flask-Compress
@@ -367,6 +367,8 @@ pymysql
 psycopg2
 lxml
 PyYAML
+Flask-Caching
+Redis
 (venv_layer) [root@txy layer]# python -V
 Python 3.6.8
 (venv_layer) [root@txy layer]# pip3 -V
@@ -375,9 +377,13 @@ pip 9.0.3 from /root/venv_layer/lib64/python3.6/site-packages (python 3.6)
 ……
 (venv_layer) [root@txy layer]# pip3 -V
 pip 21.2.4 from /root/venv_layer/lib64/python3.6/site-packages/pip (python 3.6)
-(venv_layer) [root@txy layer]# pip install -r requirements.txt -t . --upgrade
+(venv_layer) [root@txy layer]# pip install -r requirements.txt -t . -U
 ……
 (venv_layer) [root@txy layer]# zip -r layer.zip . -x requirements.txt
+(venv_layer) [root@txy layer]# pip install -r requirements.txt -U
+……
+(venv_layer) [root@txy layer]# pip freeze > requirements.txt
+(venv_layer) [root@txy layer]# cat requirements.txt
 ```
 
 </details>
