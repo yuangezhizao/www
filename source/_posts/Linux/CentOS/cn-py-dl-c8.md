@@ -3,7 +3,7 @@ title: CentOS 8 安装 Elasticsearch + Kibana + Metricbeat 全程开启 SSL 并�
 date: 2021-03-21 14:35:55
 tags:
   - CentOS
-count: 2
+count: 3
 os: 1
 os_1: Big Sur 11.2.3 (20D91)
 browser: 1
@@ -90,19 +90,16 @@ elasticsearch-7.14.0-x86_64.rpm: OK
 
 ## 0x02.配置[Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html)
 ### 1. [重要系统配置](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
-①[修改系统设置](https://www.elastic.co/guide/en/elasticsearch/reference/current/setting-system-settings.html)
-[文件描述符](https://www.elastic.co/guide/en/elasticsearch/reference/current/file-descriptors.html)
-[线程数](https://www.elastic.co/guide/en/elasticsearch/reference/current/max-number-of-threads.html)
-修改`/etc/security/limits.conf`，添加
+①参照[修改系统设置](https://www.elastic.co/guide/en/elasticsearch/reference/current/setting-system-settings.html)、[文件描述符](https://www.elastic.co/guide/en/elasticsearch/reference/current/file-descriptors.html)、[线程数](https://www.elastic.co/guide/en/elasticsearch/reference/current/max-number-of-threads.html)，修改`/etc/security/limits.conf`，添加仅对`elasticsearch`用户生效的配置
 ``` bash
 elasticsearch - nofile 65535
 elasticsearch - memlock unlimited
 elasticsearch - nproc 4096
 ```
+仅对`PAM`登录的用户生效，不对`systemd`等系统服务生效
 > This file sets the resource limits for the users logged in via PAM. It does not affect resource limits of the system services.
 
-即仅对`PAM`登录的用户生效，不对`systemd`等系统服务生效
-对于使用`RMP`包安装的情况，环境变量文件位于`/etc/sysconfig/elasticsearch`
+②对于使用`RMP`包安装的情况，环境变量文件位于`/etc/sysconfig/elasticsearch`
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
@@ -165,8 +162,20 @@ ES_STARTUP_SLEEP_TIME=5
 
 </details>
 
-服务文件位于`/usr/lib/systemd/system/elasticsearch.service`，这里插一句题外话，工作中遇到了一种情况就是修改`ES`配置文件中的`IP`之后，再启动的话会遇到启动不起来的情况
-现象是被`systemd`直接给`kill`掉了，猜测是因为更换环境之后启动时进行了某些检查导致启动时间巨长，还没等完全启动就被`systemd`杀掉了，没有调查到根本原因，暂时将`TimeoutStartSec=75`改成了`TimeoutStartSec=500`
+③然后服务文件位于`/usr/lib/systemd/system/elasticsearch.service`，需要关注的参数如下
+``` bash
+# Specifies the maximum file descriptor number that can be opened by this process
+LimitNOFILE=65535
+
+# Specifies the maximum number of processes
+LimitNPROC=4096
+
+# Specfies the memory not to be swapped out to disk
+LimitMEMLOCK=infinity
+```
+> 这里插一句题外话，工作中遇到了一种情况就是修改`ES`配置文件中的`IP`之后，重启会发生启动不能的情况，现象是被`systemd`直接给`kill`掉了
+猜测是因为更换环境之后启动时进行了某些额外检查导致启动时间巨长，还没等完全启动就被`systemd`杀掉了，没有调查到根本原因，暂时将`TimeoutStartSec=75`改成了`TimeoutStartSec=500`
+这个数值默认被设置到了`75`，详见[Set the systemd initial timeout to 75 seconds](https://web.archive.org/web/20210818132856/https://github.com/elastic/elasticsearch/commit/5937316d726812af3cfb35d4c510201f8e5ef7d3)
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
@@ -244,27 +253,33 @@ WantedBy=multi-user.target
 </details>
 
 ### 2. [关闭内存交换文件](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#disable-swap-files)
-临时：`swapoff -a`
-永久：`vim /etc/fstab`注释`swap`一行，重启
-或者[开启 bootstrap.memory_lockedit](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#bootstrap-memory_lock)
-即在配置文件添加`bootstrap.memory_lock: true`，并且服务文件添加
+1. - 临时：`swapoff -a`
+   - 永久：`vim /etc/fstab`注释`swap`一行，重启
+
+2. 或者[开启 bootstrap.memory_lockedit](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#bootstrap-memory_lock)，即在配置文件添加`bootstrap.memory_lock: true`，并且确认服务文件含有
 ``` bash
-Specfies the memory not to be swapped out to disk
+# Specfies the memory not to be swapped out to disk
 LimitMEMLOCK=infinity
 ```
+
 修改完毕之后可通过`GET _nodes?filter_path=**.mlockall`来验证
 
 ### 3. [虚拟内存](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html)
-临时：`sysctl -w vm.max_map_count=262144`
-永久：`vim /etc/sysctl.conf`添加`vm.max_map_count=262144`
+- 临时：`sysctl -w vm.max_map_count=262144`
+- 永久：`vim /etc/sysctl.conf`添加`vm.max_map_count=262144`
+
 修改完毕之后可通过`sysctl vm.max_map_count`来验证
 
 ### 4. [TCP 重传超时](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config-tcpretries.html)
-临时：`sysctl -w net.ipv4.tcp_retries2=5`
-永久：`vim /etc/sysctl.conf`添加`net.ipv4.tcp_retries2=5`
+此参数大多数`Linux`发行版默认为`15`，因为重传呈指数级，所以这`15`个重传超过`900`秒才能完成，这意味着检测出故障节点也需要这么长的时间……
+而`Windows`默认为只有`5`个重传，总计约为`6`秒，这里也设置成`5`
+需要注意的是这个参数的设置会影响到这台主机上所有的`TCP`连接而不仅仅是`ES`集群，另外当`ES`集群处于低质量的网络连接时也可适当提高此参数
+- 临时：`sysctl -w net.ipv4.tcp_retries2=5`
+- 永久：`vim /etc/sysctl.conf`添加`net.ipv4.tcp_retries2=5`
+
 修改完毕之后可通过`sysctl net.ipv4.tcp_retries2`来验证
 
-#### 5.[设置 JVM 堆上限](https://www.elastic.co/guide/en/elasticsearch/reference/current/advanced-configuration.html#set-jvm-heap-size)
+### 5.[设置 JVM 堆上限](https://www.elastic.co/guide/en/elasticsearch/reference/current/advanced-configuration.html#set-jvm-heap-size)
 在`/etc/elasticsearch/jvm.options.d/`路径下追加设置，不要修改`jvm.options`文件
 > Do not modify the root jvm.options file. Use files in jvm.options.d/ instead.
 
@@ -274,7 +289,7 @@ LimitMEMLOCK=infinity
 -Xmx31g
 ```
 
-#### 6. 修改`elasticsearch.yml`
+### 6. 修改`elasticsearch.yml`
 先来列一下目录
 ``` bash
 [root@cn-py-dl-c8 ~]# cd /etc/elasticsearch/
