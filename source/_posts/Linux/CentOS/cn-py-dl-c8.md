@@ -3,7 +3,7 @@ title: CentOS 8 安装 Elasticsearch + Kibana + Metricbeat 全程开启 SSL 并�
 date: 2021-03-21 14:35:55
 tags:
   - CentOS
-count: 1
+count: 2
 os: 1
 os_1: Big Sur 11.2.3 (20D91)
 browser: 1
@@ -15,10 +15,11 @@ key: 112
 <!-- more -->
 ## 0x00.前言
 本来是装在`cn-py-dl-w9d`上的服务，后来工作时发现装在`linux`上升级异常方便只需`yum update`就可以了
-而`windows`上还得手动去官网下载新版的`msi`安装包并进行`GUI`安装
+而`windows`上还得手动去官网下载新版的`msi`安装包并在`GUI`下安装，并且这内存大户放在`windows`里跑是在是太消耗资源了
 
 ## 0x01.安装[Elasticsearch](https://www.elastic.co/cn/elasticsearch/)
-从[Download Elasticsearch](https://www.elastic.co/cn/downloads/elasticsearch)可以看到目前是`7.12.0`版本，在这里使用[Package Managers](https://www.elastic.co/guide/en/elasticsearch/reference/7.12/rpm.html#rpm-repo)的安装方法
+从[Download Elasticsearch](https://www.elastic.co/cn/downloads/elasticsearch)可以看到目前的最新版本是`7.14.0`版本，安装有多种方法
+### 1.[从 RPM 仓库安装](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#rpm-repo)
 1. 首先，在`/etc/yum.repos.d/`路径下创建`elasticsearch.repo`
 ``` bash
 [root@cn-py-dl-c8 ~]# cd /etc/yum.repos.d/
@@ -49,7 +50,232 @@ proxy=http://192.168.25.248:1081
 3. 最后，安装
 `yum install --enablerepo=elasticsearch elasticsearch -y`
 
-## 0x02.配置[Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/7.12/settings.html)
+`2021-08-18 19:21:34`：
+官方文档中有这样一段`Note`
+> The configured repository is disabled by default. This eliminates the possibility of accidentally upgrading elasticsearch when upgrading the rest of the system. Each install or upgrade command must explicitly enable the repository as indicated in the sample commands above.
+
+奇怪的是，即使不显式指定`--enablerepo=elasticsearch`，仍然可以进行升级？这和说好的也不一样啊草
+``` bash
+[root@cn-py-dl-c8 ~]# yum install elasticsearch
+Last metadata expiration check: 3:03:13 ago on Wed 18 Aug 2021 04:17:43 PM CST.
+Package elasticsearch-7.13.2-1.x86_64 is already installed.
+Dependencies resolved.
+=========================================================================================
+ Package                 Architecture     Version             Repository            Size
+=========================================================================================
+Upgrading:
+ elasticsearch           x86_64           7.14.0-1            kibana-7.x           328 M
+
+Transaction Summary
+=========================================================================================
+Upgrade  1 Package
+
+Total download size: 328 M
+Is this ok [y/N]: n
+Operation aborted.
+```
+
+### 2.[手动下载 RPM 包安装](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#install-rpm)
+于是就有了这种方法
+``` bash
+[root@cn-py-dl-c8 ~]# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.14.0-x86_64.rpm
+……
+[root@cn-py-dl-c8 ~]# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.14.0-x86_64.rpm.sha512
+……
+[root@cn-py-dl-c8 ~]# shasum -a 512 -c elasticsearch-7.14.0-x86_64.rpm.sha512
+elasticsearch-7.14.0-x86_64.rpm: OK
+[root@cn-py-dl-c8 ~]# rpm -ivh elasticsearch-7.14.0-x86_64.rpm
+```
+注：`-ivh`：安装显示安装进度（`--install--verbose--hash`）
+
+## 0x02.配置[Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html)
+### 1. [重要系统配置](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
+①[修改系统设置](https://www.elastic.co/guide/en/elasticsearch/reference/current/setting-system-settings.html)
+[文件描述符](https://www.elastic.co/guide/en/elasticsearch/reference/current/file-descriptors.html)
+[线程数](https://www.elastic.co/guide/en/elasticsearch/reference/current/max-number-of-threads.html)
+修改`/etc/security/limits.conf`，添加
+``` bash
+elasticsearch - nofile 65535
+elasticsearch - memlock unlimited
+elasticsearch - nproc 4096
+```
+> This file sets the resource limits for the users logged in via PAM. It does not affect resource limits of the system services.
+
+即仅对`PAM`登录的用户生效，不对`systemd`等系统服务生效
+对于使用`RMP`包安装的情况，环境变量文件位于`/etc/sysconfig/elasticsearch`
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@cn-py-dl-c8 ~]# cat /etc/sysconfig/elasticsearch
+################################
+# Elasticsearch
+################################
+
+# Elasticsearch home directory
+#ES_HOME=/usr/share/elasticsearch
+
+# Elasticsearch Java path
+#ES_JAVA_HOME=
+
+# Elasticsearch configuration directory
+# Note: this setting will be shared with command-line tools
+ES_PATH_CONF=/etc/elasticsearch
+
+# Elasticsearch PID directory
+#PID_DIR=/var/run/elasticsearch
+
+# Additional Java OPTS
+#ES_JAVA_OPTS=
+
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+#RESTART_ON_UPGRADE=true
+
+################################
+# Elasticsearch service
+################################
+
+# SysV init.d
+#
+# The number of seconds to wait before checking if Elasticsearch started successfully as a daemon process
+ES_STARTUP_SLEEP_TIME=5
+
+################################
+# System properties
+################################
+
+# Specifies the maximum file descriptor number that can be opened by this process
+# When using Systemd, this setting is ignored and the LimitNOFILE defined in
+# /usr/lib/systemd/system/elasticsearch.service takes precedence
+#MAX_OPEN_FILES=65535
+
+# The maximum number of bytes of memory that may be locked into RAM
+# Set to "unlimited" if you use the 'bootstrap.memory_lock: true' option
+# in elasticsearch.yml.
+# When using systemd, LimitMEMLOCK must be set in a unit file such as
+# /etc/systemd/system/elasticsearch.service.d/override.conf.
+#MAX_LOCKED_MEMORY=unlimited
+
+# Maximum number of VMA (Virtual Memory Areas) a process can own
+# When using Systemd, this setting is ignored and the 'vm.max_map_count'
+# property is set at boot time in /usr/lib/sysctl.d/elasticsearch.conf
+#MAX_MAP_COUNT=262144
+[root@cn-py-dl-c8 ~]# 
+```
+
+</details>
+
+服务文件位于`/usr/lib/systemd/system/elasticsearch.service`，这里插一句题外话，工作中遇到了一种情况就是修改`ES`配置文件中的`IP`之后，再启动的话会遇到启动不起来的情况
+现象是被`systemd`直接给`kill`掉了，猜测是因为更换环境之后启动时进行了某些检查导致启动时间巨长，还没等完全启动就被`systemd`杀掉了，没有调查到根本原因，暂时将`TimeoutStartSec=75`改成了`TimeoutStartSec=500`
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@cn-py-dl-c8 ~]# cat /usr/lib/systemd/system/elasticsearch.service
+[Unit]
+Description=Elasticsearch
+Documentation=https://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+RuntimeDirectory=elasticsearch
+PrivateTmp=true
+Environment=ES_HOME=/usr/share/elasticsearch
+Environment=ES_PATH_CONF=/etc/elasticsearch
+Environment=PID_DIR=/var/run/elasticsearch
+Environment=ES_SD_NOTIFY=true
+EnvironmentFile=-/etc/sysconfig/elasticsearch
+
+WorkingDirectory=/usr/share/elasticsearch
+
+User=elasticsearch
+Group=elasticsearch
+
+ExecStart=/usr/share/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elasticsearch.pid --quiet
+
+# StandardOutput is configured to redirect to journalctl since
+# some error messages may be logged in standard output before
+# elasticsearch logging system is initialized. Elasticsearch
+# stores its logs in /var/log/elasticsearch and does not use
+# journalctl by default. If you also want to enable journalctl
+# logging, you can simply remove the "quiet" option from ExecStart.
+StandardOutput=journal
+StandardError=inherit
+
+# Specifies the maximum file descriptor number that can be opened by this process
+LimitNOFILE=65535
+
+# Specifies the maximum number of processes
+LimitNPROC=4096
+
+# Specifies the maximum size of virtual memory
+LimitAS=infinity
+
+# Specifies the maximum file size
+LimitFSIZE=infinity
+
+# Disable timeout logic and wait until process is stopped
+TimeoutStopSec=0
+
+# SIGTERM signal is used to stop the Java process
+KillSignal=SIGTERM
+
+# Send the signal only to the JVM rather than its control group
+KillMode=process
+
+# Java process is never killed
+SendSIGKILL=no
+
+# When a JVM receives a SIGTERM signal it exits with code 143
+SuccessExitStatus=143
+
+# Allow a slow startup before the systemd notifier module kicks in to extend the timeout
+TimeoutStartSec=75
+
+[Install]
+WantedBy=multi-user.target
+
+# Built for packages-7.14.0 (packages)
+[root@cn-py-dl-c8 ~]# 
+```
+
+</details>
+
+### 2. [关闭内存交换文件](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#disable-swap-files)
+临时：`swapoff -a`
+永久：`vim /etc/fstab`注释`swap`一行，重启
+或者[开启 bootstrap.memory_lockedit](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#bootstrap-memory_lock)
+即在配置文件添加`bootstrap.memory_lock: true`，并且服务文件添加
+``` bash
+Specfies the memory not to be swapped out to disk
+LimitMEMLOCK=infinity
+```
+修改完毕之后可通过`GET _nodes?filter_path=**.mlockall`来验证
+
+### 3. [虚拟内存](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html)
+临时：`sysctl -w vm.max_map_count=262144`
+永久：`vim /etc/sysctl.conf`添加`vm.max_map_count=262144`
+修改完毕之后可通过`sysctl vm.max_map_count`来验证
+
+### 4. [TCP 重传超时](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config-tcpretries.html)
+临时：`sysctl -w net.ipv4.tcp_retries2=5`
+永久：`vim /etc/sysctl.conf`添加`net.ipv4.tcp_retries2=5`
+修改完毕之后可通过`sysctl net.ipv4.tcp_retries2`来验证
+
+#### 5.[设置 JVM 堆上限](https://www.elastic.co/guide/en/elasticsearch/reference/current/advanced-configuration.html#set-jvm-heap-size)
+在`/etc/elasticsearch/jvm.options.d/`路径下追加设置，不要修改`jvm.options`文件
+> Do not modify the root jvm.options file. Use files in jvm.options.d/ instead.
+
+设置为`31G`，不要超过`32G`避免指针不压缩浪费内存
+``` bash
+-Xms31g
+-Xmx31g
+```
+
+#### 6. 修改`elasticsearch.yml`
+先来列一下目录
 ``` bash
 [root@cn-py-dl-c8 ~]# cd /etc/elasticsearch/
 [root@cn-py-dl-c8 elasticsearch]# ll
@@ -64,10 +290,7 @@ drwxr-s---. 2 root elasticsearch     6 Mar 18 14:30 jvm.options.d
 -rw-rw----. 1 root elasticsearch     0 Mar 18 14:26 users
 -rw-rw----. 1 root elasticsearch     0 Mar 18 14:26 users_roles
 ```
-①[关闭内存交换文件](https://www.elastic.co/guide/en/elasticsearch/reference/master/setup-configuration-memory.html#disable-swap-files)
-临时：`swapoff -a`
-永久：`vim /etc/fstab`注释`swap`一行，重启
-②修改`elasticsearch.yml`
+修改如下
 ``` bash
 # ---------------------------------- Cluster -----------------------------------
 # Use a descriptive name for your cluster:
@@ -77,7 +300,7 @@ cluster.name: elasticsearch
 node.name: cn-py-dl-c8
 # ----------------------------------- Memory -----------------------------------
 # Lock the memory on startup:
-#bootstrap.memory_lock: true
+bootstrap.memory_lock: true
 # Make sure that the heap size is set to about half the memory available
 # on the system and that the owner of the process is allowed to use this
 # limit.
