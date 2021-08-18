@@ -3,7 +3,7 @@ title: CentOS 8 安装 Elasticsearch + Kibana + Metricbeat 全程开启 SSL 并�
 date: 2021-03-21 14:35:55
 tags:
   - CentOS
-count: 3
+count: 4
 os: 1
 os_1: Big Sur 11.2.3 (20D91)
 browser: 1
@@ -89,8 +89,8 @@ elasticsearch-7.14.0-x86_64.rpm: OK
 注：`-ivh`：安装显示安装进度（`--install--verbose--hash`）
 
 ## 0x02.配置[Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html)
-### 1. [重要系统配置](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
-①参照[修改系统设置](https://www.elastic.co/guide/en/elasticsearch/reference/current/setting-system-settings.html)、[文件描述符](https://www.elastic.co/guide/en/elasticsearch/reference/current/file-descriptors.html)、[线程数](https://www.elastic.co/guide/en/elasticsearch/reference/current/max-number-of-threads.html)，修改`/etc/security/limits.conf`，添加仅对`elasticsearch`用户生效的配置
+### 1.[重要系统配置](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
+1. 参照[修改系统设置](https://www.elastic.co/guide/en/elasticsearch/reference/current/setting-system-settings.html)、[文件描述符](https://www.elastic.co/guide/en/elasticsearch/reference/current/file-descriptors.html)、[线程数](https://www.elastic.co/guide/en/elasticsearch/reference/current/max-number-of-threads.html)，修改`/etc/security/limits.conf`，添加仅对`elasticsearch`用户生效的配置
 ``` bash
 elasticsearch - nofile 65535
 elasticsearch - memlock unlimited
@@ -99,7 +99,7 @@ elasticsearch - nproc 4096
 仅对`PAM`登录的用户生效，不对`systemd`等系统服务生效
 > This file sets the resource limits for the users logged in via PAM. It does not affect resource limits of the system services.
 
-②对于使用`RMP`包安装的情况，环境变量文件位于`/etc/sysconfig/elasticsearch`
+2. 对于使用`RMP`包安装的情况，环境变量文件位于`/etc/sysconfig/elasticsearch`
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
@@ -162,7 +162,7 @@ ES_STARTUP_SLEEP_TIME=5
 
 </details>
 
-③然后服务文件位于`/usr/lib/systemd/system/elasticsearch.service`，需要关注的参数如下
+3. 然后服务文件位于`/usr/lib/systemd/system/elasticsearch.service`，需要关注的参数如下
 ``` bash
 # Specifies the maximum file descriptor number that can be opened by this process
 LimitNOFILE=65535
@@ -252,7 +252,7 @@ WantedBy=multi-user.target
 
 </details>
 
-### 2. [关闭内存交换文件](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#disable-swap-files)
+### 2.[关闭内存交换文件](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#disable-swap-files)
 1. - 临时：`swapoff -a`
    - 永久：`vim /etc/fstab`注释`swap`一行，重启
 
@@ -264,13 +264,13 @@ LimitMEMLOCK=infinity
 
 修改完毕之后可通过`GET _nodes?filter_path=**.mlockall`来验证
 
-### 3. [虚拟内存](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html)
+### 3.[虚拟内存](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html)
 - 临时：`sysctl -w vm.max_map_count=262144`
 - 永久：`vim /etc/sysctl.conf`添加`vm.max_map_count=262144`
 
 修改完毕之后可通过`sysctl vm.max_map_count`来验证
 
-### 4. [TCP 重传超时](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config-tcpretries.html)
+### 4.[设置 TCP 重传超时](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config-tcpretries.html)
 此参数大多数`Linux`发行版默认为`15`，因为重传呈指数级，所以这`15`个重传超过`900`秒才能完成，这意味着检测出故障节点也需要这么长的时间……
 而`Windows`默认为只有`5`个重传，总计约为`6`秒，这里也设置成`5`
 需要注意的是这个参数的设置会影响到这台主机上所有的`TCP`连接而不仅仅是`ES`集群，另外当`ES`集群处于低质量的网络连接时也可适当提高此参数
@@ -289,7 +289,7 @@ LimitMEMLOCK=infinity
 -Xmx31g
 ```
 
-### 6. 修改`elasticsearch.yml`
+### 6.修改`elasticsearch.yml`
 先来列一下目录
 ``` bash
 [root@cn-py-dl-c8 ~]# cd /etc/elasticsearch/
@@ -336,9 +336,8 @@ xpack.security.http.ssl.keystore.password: <rm>
 xpack.security.transport.ssl.enabled: true
 xpack.security.authc.api_key.enabled: true
 ```
-③启动
-`systemctl start elasticsearch`
-④配置密码
+### 7.启动并配置密码
+首先启动`systemctl start elasticsearch`
 ``` bash
 [root@cn-py-dl-c8 elasticsearch]# cd /usr/share/elasticsearch/bin/
 [root@cn-py-dl-c8 bin]# ll
@@ -389,7 +388,7 @@ Changed password for user [beats_system]
 Changed password for user [remote_monitoring_user]
 Changed password for user [elastic]
 ```
-⑤防火墙允许服务
+### 8.防火墙允许服务
 ```
 [root@cn-py-dl-c8 elasticsearch]# firewall-cmd --state
 running
@@ -399,10 +398,11 @@ success
 [root@cn-py-dl-c8 elasticsearch]# firewall-cmd --list-services
 cockpit dhcpv6-client elasticsearch ssh
 ```
-![访问](https://i1.yuangezhizao.cn/macOS/QQ20210328-152301@2x.png!webp)
+![访问](https://i1.yuangezhizao.cn/macOS/QQ20210818-235316@2x.png!webp)
 
 ## 0x03.安装[Kibana](https://www.elastic.co/cn/kibana/)
-从[Download Kibana](https://www.elastic.co/cn/downloads/kibana)可以看到目前是`7.12.0`版本，在这里同样使用[Package Managers](https://www.elastic.co/guide/en/kibana/7.12/rpm.html#rpm-repo)的安装方法
+从[Download Kibana](https://www.elastic.co/cn/downloads/kibana)可以看到目前的最新版本是`7.14.0`版本，安装有多种方法
+### 1.[从 RPM 仓库安装](https://www.elastic.co/guide/en/kibana/current/rpm.html#rpm-repo)
 1. 首先，在`/etc/yum.repos.d/`路径下创建`kibana.repo`
 ``` bash
 [root@cn-py-dl-c8 ~]# cd /etc/yum.repos.d/
@@ -420,8 +420,19 @@ type=rpm-md
 2. 然后，安装
 `yum install kibana -y`
 
+### 2.[手动下载 RPM 包安装](https://www.elastic.co/guide/en/kibana/current/rpm.html#install-rpm)
+``` bash
+[root@cn-py-dl-c8 ~]# wget https://artifacts.elastic.co/downloads/kibana/kibana-7.14.0-x86_64.rpm
+……
+[root@cn-py-dl-c8 ~]# wget https://artifacts.elastic.co/downloads/kibana/kibana-7.14.0-x86_64.rpm.sha512
+……
+[root@cn-py-dl-c8 ~]# shasum -a 512 kibana-7.14.0-x86_64.rpm
+……
+[root@cn-py-dl-c8 ~]# rpm --install kibana-7.14.0-x86_64.rpm
+```
+
 ## 0x04.配置[Kibana](https://www.elastic.co/guide/en/kibana/7.12/settings.html)
-①绑定`hosts`
+### 1.绑定`hosts`
 ``` bash
 [root@cn-py-dl-c8 kibana]# vim /etc/hosts
 [root@cn-py-dl-c8 kibana]# cat /etc/hosts
@@ -429,7 +440,11 @@ type=rpm-md
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 0.0.0.0 home.yuangezhizao.cn
 ```
-②修改`kibana.yml`
+### 2.修改`kibana.yml`
+参照[Set up minimal security for Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-minimal-setup.html)，当`ES`已经开启了安全特性之后，`Kibana`访问`ES`同样需要登录，此时需要使用的仍然是`elastic`超级用户
+而`kibana_system`用户并不能用来登录，它是`Kibana`为了执行某些后台任务所需的用户
+> Kibana performs some background tasks that require use of the kibana_system user.
+
 ``` bash
 [root@cn-py-dl-c8 ~]# cd /etc/kibana
 [root@cn-py-dl-c8 kibana]# ll
@@ -451,7 +466,7 @@ elasticsearch.hosts: ["https://home.yuangezhizao.cn:9200"]
 # index at startup. Your Kibana users still need to authenticate with Elasticsearch, which
 # is proxied through the Kibana server.
 elasticsearch.username: "kibana_system"
-elasticsearch.password: "<rm>"
+# elasticsearch.password: "<rm>"
 # Enables SSL and paths to the PEM-format SSL certificate and SSL key files, respectively.
 # These settings enable SSL for outgoing requests from the Kibana server to the browser.
 server.ssl.enabled: true
@@ -464,9 +479,20 @@ xpack.security.enabled: true
 xpack.encryptedSavedObjects.encryptionKey: "something_at_least_32_characters"
 xpack.ingestManager.fleet.tlsCheckDisabled: true
 ```
-③启动
+### 3.初始化`Kibana`的`keystore`
+注意`# elasticsearch.password: "<rm>"`并没有取消注释，因为明文存储不安全，`keystore`它不香吗？
+1. 首先，创建`Kibana`的`keystore`
+``` bash
+./bin/kibana-keystore create
+```
+2. 然后添加`kibana_system`用户对应的密码至`Kibana`的`keystore`中
+``` bash
+./bin/kibana-keystore add elasticsearch.password
+```
+
+### 4.启动
 `systemctl start kibana`
-④防火墙允许服务
+### 5.防火墙允许服务
 ``` bash
 [root@cn-py-dl-c8 kibana]# firewall-cmd --permanent --add-service=kibana
 success
