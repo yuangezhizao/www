@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 13
+count: 14
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -425,6 +425,9 @@ def handler(event, context):
 再指定`执行方法`为`serverless_handler.handler`，就`ok`了
 
 ### 4.`url_for`输出`http`而非`https`的`URL`
+> `2021-09-23 23:45:17`：
+`woc`你云把`HTTP_X_`开头的变量都给去掉了，再也取不到`HTTP_X_FORWARDED_PROTO`了
+
 在视图函数中重定向到`url_for`所生成的链接都是`http`，而不是`https`……其实这个问题`Flask`的文档[Standalone WSGI Containers](https://flask.palletsprojects.com/en/1.1.x/deploying/wsgi-standalone/)有描述到
 说到底这并不是`Flask`的问题，而是`WSGI`环境所导致的问题，推荐的方法是使用**中间件**，官方也给出了`ProxyFix`
 ``` python
@@ -448,37 +451,36 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
   "SERVER_NAME": "maimai.yuangezhizao.cn",
   "SERVER_PORT": "80",
   "SERVER_PROTOCOL": "HTTP/1.1",
-  "wsgi.errors": <__main__.CustomIO object at 0x7feda2224630>,
-  "wsgi.input": <_io.BytesIO object at 0x7fed97093410>,
-  "wsgi.multiprocess": False,
-  "wsgi.multithread": False,
-  "wsgi.run_once": False,
+  "wsgi.errors": "<__main__.CustomIO object at 0x7fcd61ae5710>",
+  "wsgi.input": "<_io.BytesIO object at 0x7fcd55be7af0>",
+  "wsgi.multiprocess": "False",
+  "wsgi.multithread": "False",
+  "wsgi.run_once": "False",
   "wsgi.url_scheme": "http",
-  "wsgi.version": (1, 0),
-  "serverless.authorizer": None,
+  "wsgi.version": "(1, 0)",
+  "serverless.authorizer": "None",
   "serverless.event": "<rm>",
   "serverless.context": "<rm>",
-  "API_GATEWAY_AUTHORIZER": None,
+  "API_GATEWAY_AUTHORIZER": "None",
   "event": "<rm>",
   "context": "<rm>",
   "HTTP_ACCEPT": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
   "HTTP_ACCEPT_ENCODING": "gzip, deflate, br",
   "HTTP_ACCEPT_LANGUAGE": "zh-CN,zh;q=0.9,en;q=0.8",
+  "HTTP_CACHE_CONTROL": "max-age=0",
   "HTTP_CONNECTION": "keep-alive",
   "HTTP_COOKIE": "<rm>",
-  "HTTP_ENDPOINT_TIMEOUT": "15",
+  "HTTP_DNT": "1",
   "HTTP_HOST": "maimai.yuangezhizao.cn",
+  "HTTP_SEC_CH_UA": "",
+  "HTTP_SEC_CH_UA_MOBILE": "?0",
+  "HTTP_SEC_CH_UA_PLATFORM": "",
   "HTTP_SEC_FETCH_DEST": "document",
   "HTTP_SEC_FETCH_MODE": "navigate",
   "HTTP_SEC_FETCH_SITE": "none",
   "HTTP_SEC_FETCH_USER": "?1",
   "HTTP_UPGRADE_INSECURE_REQUESTS": "1",
-  "HTTP_USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36",
-  "HTTP_X_ANONYMOUS_CONSUMER": "true",
-  "HTTP_X_API_REQUESTID": "5bcb29af2ca18c1e6d7b1ec5ff7b5427",
-  "HTTP_X_API_SCHEME": "https",
-  "HTTP_X_B3_TRACEID": "5bcb29af2ca18c1e6d7b1ec5ff7b5427",
-  "HTTP_X_QUALIFIER": "$LATEST"
+  "HTTP_USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
 }
 ```
 `HTTP_X_FORWARDED_PROTO`对应`apigw`里的变量是`HTTP_X_API_SCHEME`，故解决方法如下：[app.wsgi_app = ReverseProxied(app.wsgi_app)](https://github.com/yuangezhizao/maimai_DX_CN_probe/blob/4600b3d8212777cb6184c796c1967b3ea9b05997/src/maimai_DX_CN_probe/__init__.py#L36)
