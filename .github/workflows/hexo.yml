@@ -43,14 +43,17 @@ jobs:
         # Deprecated. Use node-version instead. Will not be supported after October 1, 2019
 #         version: # optional
 
-    - name: before_install
+    - name: Install hexo
       run: sudo npm install hexo-cli -g
 
-    - name: install
+    - name: Install dependencies
       run: sudo npm install
 
-    - name: script
+    - name: Generate blog
       run: hexo clean && hexo g
+
+    - name: Delete atom.xml
+      run: sudo rm -rf ./public/atom.xml
 
     - name: Deploy to Tencent COS
       env:
