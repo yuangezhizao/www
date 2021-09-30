@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 14
+count: 15
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,7 +74,7 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python396](https://www.python.org/downloads/release/python-396/)环境
+## 0x04.编译安装[python397](https://www.python.org/downloads/release/python-397/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -96,7 +96,7 @@ yum install gcc-c++
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tar.xz`~~
+~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或
@@ -104,14 +104,14 @@ yum install gcc-c++
 
 ``` bash
 CloudFlare[推荐]：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.6.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.7.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.9.6.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.9.7.tar.xz
 ```
 4. 解压
 ``` bash
-tar xvJf Python-3.9.6.tar.xz
-cd Python-3.9.6
+tar xvJf Python-3.9.7.tar.xz
+cd Python-3.9.7
 ```
 5. 编译
 注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
@@ -182,12 +182,12 @@ Python 3.8.3
 ②`rm -rf /usr/bin/pip3`
 `ln -s /usr/local/python3/bin/pip3.9 /usr/bin/pip3`
 ```
-[root@txy Python-3.9.6]# python -V
+[root@txy Python-3.9.7]# python -V
 -bash: python: command not found
-[root@txy Python-3.9.6]# python3 -V
-Python 3.9.6
-[root@txy Python-3.9.6]# pip3.9 -V
-pip 21.1.3 from /usr/local/python3/lib/python3.9/site-packages/pip (python 3.9)
+[root@txy Python-3.9.7]# python3 -V
+Python 3.9.7
+[root@txy Python-3.9.7]# pip3.9 -V
+pip 21.2.4 from /usr/local/python3/lib/python3.9/site-packages/pip (python 3.9)
 ```
 > ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，这下`2`终于彻底没有了
 
