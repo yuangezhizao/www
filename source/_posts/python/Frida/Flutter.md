@@ -5,7 +5,7 @@ tags:
   - Flutter
   - HTTPS
   - Frida
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.0 Beta (21A5304g)
 browser: 1
@@ -272,7 +272,7 @@ Interceptor.attach(Module.findExportByName(null, "connect"), {
 
 ## 0x06.引用
 本文表情包出自：[震惊！耗时还能这么优化？？](https://web.archive.org/web/20210825021942/https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzAwNDY1ODY2OQ%253D%253D%26mid%3D2649288229%26idx%3D1%26sn%3Dab95815670a0f2b833dbaadfeedc8b44)
-[MacOS 下 Wireshark 抓取 Chrome HTTPS](https://segmentfault.com/a/1190000021142289)
+[MacOS 下 Wireshark 抓取 Chrome HTTPS](https://web.archive.org/web/20210904144220/https://segmentfault.com/a/1190000021142289)
 [安卓11安装Burp证书](https://web.archive.org/web/20210827161535/https://blog.csdn.net/change518/article/details/118159132)
 [移动应用安全基础篇：APP抓包姿势总结](https://www.freebuf.com/articles/web/207041.html)
 

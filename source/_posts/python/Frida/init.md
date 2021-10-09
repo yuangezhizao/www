@@ -2,8 +2,8 @@
 title: Frida 初体验
 date: 2020-3-16 21:53:05
 tags:
-  - frida
-count: 4
+  - Frida
+count: 5
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
