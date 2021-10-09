@@ -4,7 +4,7 @@ date: 2019-5-12 20:53:55
 tags:
   - CentOS
   - server
-count: 7
+count: 8
 os: 0
 os_1: 10.0.17763.475 2019-LTSC
 browser: 0
@@ -207,8 +207,8 @@ Max upload size: 5.2 TB
 ~~状态：`systemctl status firewalld`~~
 ~~于是依赖于`firewalld`的`fail2ban`就变成摆设了……~~
 
-## 0x08. 编译安装[python395](https://www.python.org/downloads/release/python-381/)环境
-[换新系统之腾讯云学生机 CentOS 7.6 64 位#0x04-编译安装python395环境](../CentOS/server.html#0x04-编译安装python395环境)
+## 0x08. 编译安装[python397](https://www.python.org/downloads/release/python-397/)环境
+[换新系统之腾讯云学生机 CentOS 8.0 64 位#0x04-编译安装python397环境](../CentOS/cn-py-bj1-c8.html#0x04-编译安装python397环境)
 注：`SystemError: <built-in function compile> returned NULL without setting an error generate-posix-vars failed`报错的解决方法
 安装`SCL`（`Software Collections`）：`yum install centos-release-scl-rh -y`
 搜索：`yum search "devtoolset"`
@@ -882,5 +882,3 @@ zlib-devel.x86_64                                                               
 
 ## 0x14.引用
 > [从零开始的 Rust 学习笔记(10) —— Breezin](https://web.archive.org/web/20191204110834/https://blog.0xbbc.com/2019/12/rust-learning-from-zero-10/)
-
-未完待续……
