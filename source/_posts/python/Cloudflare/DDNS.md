@@ -1,10 +1,10 @@
 ---
-title: CloudFlare DDNS 脚本
+title: Cloudflare DDNS 脚本
 date: 2019-8-12 01:26:59
 tags:
-  - CloudFlare
+  - Cloudflare
   - DDNS
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -21,7 +21,7 @@ key: 56
 ## 0x01.代码
 ![核心接口](https://i1.yuangezhizao.cn/Win-10/20190812013626.jpg!webp)
 
-`CloudFlare_DDNS.py`
+`Cloudflare_DDNS.py`
 ``` python
 #!/usr/bin/env/ python3
 # -*- coding: utf-8 -*-
