@@ -3,7 +3,7 @@ title: PY 云新增 CentOS 7.7 64 位
 date: 2019-10-28 23:13:25
 tags:
   - CentOS 
-count: 4
+count: 5
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -896,7 +896,463 @@ portainer_data
 ```
 配置镜像源：https://web.archive.org/web/20200614132904/https://mirrors.ustc.edu.cn/help/dockerhub.html
 
-## 0x07.引用
+## 0x07.安装[SmokePing](https://oss.oetiker.ch/smokeping/index.en.html)
+参照[How to install SmokePing](https://web.archive.org/web/20210817144328/https://oss.oetiker.ch/smokeping/doc/smokeping_install.en.html)
+``` bash
+[root@cn-py-dl-c8 ~]# yum install rrdtool perl-rrdtool openssl-devel -y
+[root@cn-py-dl-c8 ~]# yum install perl-core fping curl gcc-c++ -y
+[root@cn-py-dl-c8 ~]# wget https://oss.oetiker.ch/smokeping/pub/smokeping-2.8.2.tar.gz
+[root@cn-py-dl-c8 ~]# tar -zxvf smokeping-2.8.2.tar.gz
+[root@cn-py-dl-c8 ~]# cd smokeping-2.8.2
+[root@cn-py-dl-c8 smokeping-2.8.2]# ./configure --prefix=/opt/smokeping
+[root@cn-py-dl-c8 smokeping-2.8.2]# make install
+```
+经过巨巨巨长的时间之后，安装完成了？
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@cn-py-dl-c8 smokeping-2.8.2]# make install
+Making install in lib
+make[1]: Entering directory '/root/smokeping-2.8.2/lib'
+make[2]: Entering directory '/root/smokeping-2.8.2/lib'
+make[2]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/opt/smokeping/lib'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/install -c -m 644  Smokeping/probes/EchoPingSmtp.pm Smokeping/probes/OpenSSHJunOSPing.pm Smokeping/probes/skel.pm Smokeping/probes/EchoPingWhois.pm Smokeping/probes/EchoPingHttp.pm Smokeping/probes/TelnetIOSPing.pm Smokeping/probes/EchoPingDiscard.pm Smokeping/probes/CiscoRTTMonDNS.pm Smokeping/probes/IOSPing.pm Smokeping/probes/AnotherCurl.pm Smokeping/probes/FPing.pm Smokeping/probes/TraceroutePing.pm Smokeping/probes/TacacsPlus.pm Smokeping/probes/RemoteFPing.pm Smokeping/probes/Curl.pm Smokeping/probes/basevars.pm Smokeping/probes/EchoPingIcp.pm Smokeping/probes/Qstat.pm Smokeping/probes/base.pm Smokeping/probes/WebProxyFilter.pm Smokeping/probes/basefork.pm Smokeping/probes/FPingContinuous.pm Smokeping/probes/TCPPing.pm Smokeping/probes/EchoPingLDAP.pm Smokeping/probes/SSH.pm Smokeping/probes/EchoPingHttps.pm Smokeping/probes/TelnetJunOSPing.pm Smokeping/probes/SendEmail.pm Smokeping/probes/passwordchecker.pm Smokeping/probes/EchoPing.pm Smokeping/probes/AnotherDNS.pm Smokeping/probes/CiscoRTTMonTcpConnect.pm Smokeping/probes/SipSak.pm Smokeping/probes/LDAP.pm Smokeping/probes/FPing6.pm Smokeping/probes/IRTT.pm Smokeping/probes/NFSping.pm Smokeping/probes/EchoPingPlugin.pm Smokeping/probes/Radius.pm Smokeping/probes/AnotherSSH.pm '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/sorters'
+ /usr/bin/install -c -m 644  Smokeping/sorters/base.pm Smokeping/sorters/Median.pm Smokeping/sorters/Max.pm Smokeping/sorters/Loss.pm Smokeping/sorters/StdDev.pm '/opt/smokeping/lib/Smokeping/sorters'
+ /usr/bin/install -c -m 644  BER.pm Smokeping.pm SNMP_util.pm SNMP_Session.pm '/opt/smokeping/lib/.'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/matchers'
+ /usr/bin/install -c -m 644  Smokeping/matchers/CheckLoss.pm Smokeping/matchers/Avgratio.pm Smokeping/matchers/CheckLatency.pm Smokeping/matchers/ConsecutiveLoss.pm Smokeping/matchers/base.pm Smokeping/matchers/Median.pm Smokeping/matchers/ExpLoss.pm Smokeping/matchers/Medratio.pm '/opt/smokeping/lib/Smokeping/matchers'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/install -c -m 644  Smokeping/probes/CiscoRTTMonEchoICMP.pm Smokeping/probes/EchoPingDNS.pm Smokeping/probes/DismanPing.pm Smokeping/probes/OpenSSHEOSPing.pm Smokeping/probes/DNS.pm Smokeping/probes/FTPtransfer.pm Smokeping/probes/EchoPingChargen.pm '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping'
+ /usr/bin/install -c -m 644  Smokeping/Slave.pm Smokeping/pingMIB.pm Smokeping/Graphs.pm Smokeping/ciscoRttMonMIB.pm Smokeping/RRDtools.pm Smokeping/Colorspace.pm Smokeping/Examples.pm Smokeping/Info.pm Smokeping/RRDhelpers.pm Smokeping/Config.pm Smokeping/Master.pm '/opt/smokeping/lib/Smokeping'
+make[2]: Leaving directory '/root/smokeping-2.8.2/lib'
+make[1]: Leaving directory '/root/smokeping-2.8.2/lib'
+Making install in thirdparty
+make[1]: Entering directory '/root/smokeping-2.8.2/thirdparty'
+echo "** Installing Dependencies using Carton install"
+** Installing Dependencies using Carton install
+test -f cpanfile-5.26.snapshot && cp cpanfile-5.26.snapshot ../cpanfile.snapshot || true
+test -x carton/bin/carton || PERL_CPANM_OPT= PERL_CPANM_HOME=/root/smokeping-2.8.2/thirdparty PERL_CARTON_PATH=/root/smokeping-2.8.2/thirdparty /usr/bin/perl bin/cpanm -q --notest --local-lib-contained /root/smokeping-2.8.2/thirdparty/carton Carton
+Successfully installed Module-CPANfile-1.1004
+Successfully installed ExtUtils-MakeMaker-CPANfile-0.09
+Successfully installed Parse-PMFile-0.43
+Successfully installed Win32-ShellQuote-0.003001
+Successfully installed ExtUtils-Helpers-0.026
+Successfully installed URI-5.09
+Successfully installed Capture-Tiny-0.48
+Successfully installed ExtUtils-Config-0.008
+Successfully installed ExtUtils-InstallPaths-0.012
+Successfully installed CPAN-DistnameInfo-0.12
+Successfully installed Tie-Handle-Offset-0.004
+Successfully installed Class-Tiny-1.008
+Successfully installed CPAN-Common-Index-0.010
+Successfully installed File-pushd-1.016
+Successfully installed File-Which-1.27
+Successfully installed IPC-Run3-0.048
+Successfully installed HTTP-Tinyish-0.17
+Successfully installed CPAN-Meta-Check-0.014
+Successfully installed String-ShellQuote-1.04
+Successfully installed local-lib-2.000024
+Successfully installed Menlo-1.9019
+Successfully installed Menlo-Legacy-1.9022
+Successfully installed Path-Tiny-0.118
+Successfully installed Try-Tiny-0.30
+Successfully installed Carton-v1.0.34
+25 distributions installed
+PERL_CPANM_OPT= PERL_CPANM_HOME=/root/smokeping-2.8.2/thirdparty PERL_CARTON_PATH=/root/smokeping-2.8.2/thirdparty PERL5LIB=/root/smokeping-2.8.2/thirdparty/carton/lib/perl5 /usr/bin/perl /root/smokeping-2.8.2/thirdparty/carton/bin/carton install
+Installing modules using /root/smokeping-2.8.2/cpanfile
+Successfully installed Net-SSLeay-1.90
+Successfully installed Mozilla-CA-20200520
+Successfully installed IO-Socket-SSL-2.072
+Successfully installed Cpanel-JSON-XS-4.26
+Successfully installed JSON-MaybeXS-1.004003
+Successfully installed Module-Build-0.4231
+Successfully installed InfluxDB-LineProtocol-1.014
+Successfully installed Net-OpenSSH-0.80
+Successfully installed Data-HexDump-0.04
+Successfully installed Net-IP-1.26
+Successfully installed Authen-Radius-0.32
+Successfully installed Convert-ASN1-0.31
+Successfully installed Text-Soundex-3.05
+Successfully installed URI-5.09
+Successfully installed perl-ldap-0.68
+Successfully installed Path-Tiny-0.118
+Successfully installed FCGI-0.82
+Successfully installed InfluxDB-HTTP-0.04
+Successfully installed IO-String-1.08
+
+gzip: stdin: unexpected end of file
+/usr/bin/tar: Child returned status 1
+/usr/bin/tar: Error is not recoverable: exiting now
+! The distribution doesn't have a proper Makefile.PL/Build.PL See /root/smokeping-2.8.2/thirdparty/work/1629212965.50837/build.log for details.
+Successfully installed Clone-0.45
+Successfully installed Task-Weaken-1.06
+Successfully installed PPI-1.270
+Successfully installed Keyword-Simple-0.04
+Successfully installed ExtUtils-MakeMaker-7.62 (upgraded from 7.24)
+Successfully installed ExtUtils-Depends-0.8001
+Successfully installed B-Hooks-OP-Check-0.22
+Successfully installed Sub-Name-0.26
+Successfully installed Test-Requires-0.11
+Successfully installed Sub-Exporter-Progressive-0.001013
+Successfully installed Try-Tiny-0.30
+Successfully installed Module-Runtime-0.016
+Successfully installed Module-Implementation-0.09
+Successfully installed Variable-Magic-0.62
+Successfully installed B-Hooks-EndOfScope-0.24
+Successfully installed Devel-Declare-0.006022
+Successfully installed ExtUtils-Helpers-0.026
+Successfully installed ExtUtils-Config-0.008
+Successfully installed ExtUtils-InstallPaths-0.012
+Successfully installed Module-Build-Tiny-0.039
+Successfully installed Const-Fast-0.014
+Successfully installed Devel-CheckCompiler-0.07
+Successfully installed Devel-PPPort-3.63 (upgraded from 3.35)
+Successfully installed Module-Build-XSUtil-0.19
+Successfully installed Mouse-v2.5.10
+Successfully installed Any-Moose-0.27
+Successfully installed Sub-Uplevel-0.2800
+Successfully installed Test-Warn-0.36
+Successfully installed Test-Exception-0.43
+Successfully installed Lexical-SealRequireHints-0.011
+Successfully installed Method-Signatures-20170211
+Successfully installed Object-Result-0.000003
+Successfully installed Socket6-0.29
+Successfully installed IO-Tty-1.16
+Successfully installed Config-Grammar-1.13
+Successfully installed Net-Telnet-3.05
+Successfully installed TimeDate-2.33
+Successfully installed Time-Local-1.30 (upgraded from 1.25)
+Successfully installed HTTP-Date-6.05
+Successfully installed WWW-RobotRules-6.02
+
+gzip: stdin: unexpected end of file
+/usr/bin/tar: Unexpected EOF in archive
+/usr/bin/tar: Error is not recoverable: exiting now
+! The distribution doesn't have a proper Makefile.PL/Build.PL See /root/smokeping-2.8.2/thirdparty/work/1629212965.50837/build.log for details.
+
+gzip: stdin: unexpected end of file
+/usr/bin/tar: Unexpected EOF in archive
+/usr/bin/tar: Error is not recoverable: exiting now
+! Installing Encode failed. See /root/smokeping-2.8.2/thirdparty/work/1629212965.50837/build.log for details. Retry with --force to force install it.
+Successfully installed IO-HTML-1.004
+Successfully installed LWP-MediaTypes-6.04
+Successfully installed Encode-Locale-1.05
+! Installing the dependencies failed: Installed version (2.97) of Encode is not in range '3.01'
+! Bailing out the installation for HTTP-Message-6.33.
+! Installing the dependencies failed: Module 'HTTP::Headers' is not installed
+! Bailing out the installation for HTTP-Negotiate-6.01.
+Successfully installed File-Listing-6.14
+Successfully installed Net-HTTP-6.21
+! Installing the dependencies failed: Module 'HTTP::Request' is not installed, Module 'HTTP::Headers::Util' is not installed
+! Bailing out the installation for HTTP-Cookies-6.10.
+! Installing the dependencies failed: Module 'HTTP::Request::Common' is not installed, Module 'HTTP::Negotiate' is not installed, Module 'HTTP::Request' is not installed, Module 'HTML::Entities' is not installed, Module 'HTTP::Response' is not installed, Module 'HTTP::Cookies' is not installed, Module 'HTML::HeadParser' is not installed, Module 'HTTP::Status' is not installed
+! Bailing out the installation for libwww-perl-6.56.
+! Installing the dependencies failed: Module 'HTML::Entities' is not installed
+! Bailing out the installation for CGI-4.53.
+Successfully installed Digest-HMAC-1.04
+Successfully installed Net-DNS-1.32
+! Installing the dependencies failed: Module 'CGI' is not installed
+! Bailing out the installation for CGI-Fast-2.15.
+Successfully installed Net-SNMP-v6.0.1
+! Installing the dependencies failed: Module 'LWP' is not installed, Module 'CGI' is not installed, Module 'CGI::Fast' is not installed
+! Bailing out the installation for /root/smokeping-2.8.2/.
+67 distributions installed
+Installing modules failed
+make[1]: *** [Makefile:432: cpanfile-5.26.snapshot] Error 25
+make[1]: Leaving directory '/root/smokeping-2.8.2/thirdparty'
+make: *** [Makefile:359: install-recursive] Error 1
+```
+
+</details>
+
+但是有报错草，于是又来了一遍`make install`
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@cn-py-dl-c8 smokeping-2.8.2]# make install
+Making install in lib
+make[1]: Entering directory '/root/smokeping-2.8.2/lib'
+make[2]: Entering directory '/root/smokeping-2.8.2/lib'
+make[2]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/opt/smokeping/lib'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/install -c -m 644  Smokeping/probes/EchoPingSmtp.pm Smokeping/probes/OpenSSHJunOSPing.pm Smokeping/probes/skel.pm Smokeping/probes/EchoPingWhois.pm Smokeping/probes/EchoPingHttp.pm Smokeping/probes/TelnetIOSPing.pm Smokeping/probes/EchoPingDiscard.pm Smokeping/probes/CiscoRTTMonDNS.pm Smokeping/probes/IOSPing.pm Smokeping/probes/AnotherCurl.pm Smokeping/probes/FPing.pm Smokeping/probes/TraceroutePing.pm Smokeping/probes/TacacsPlus.pm Smokeping/probes/RemoteFPing.pm Smokeping/probes/Curl.pm Smokeping/probes/basevars.pm Smokeping/probes/EchoPingIcp.pm Smokeping/probes/Qstat.pm Smokeping/probes/base.pm Smokeping/probes/WebProxyFilter.pm Smokeping/probes/basefork.pm Smokeping/probes/FPingContinuous.pm Smokeping/probes/TCPPing.pm Smokeping/probes/EchoPingLDAP.pm Smokeping/probes/SSH.pm Smokeping/probes/EchoPingHttps.pm Smokeping/probes/TelnetJunOSPing.pm Smokeping/probes/SendEmail.pm Smokeping/probes/passwordchecker.pm Smokeping/probes/EchoPing.pm Smokeping/probes/AnotherDNS.pm Smokeping/probes/CiscoRTTMonTcpConnect.pm Smokeping/probes/SipSak.pm Smokeping/probes/LDAP.pm Smokeping/probes/FPing6.pm Smokeping/probes/IRTT.pm Smokeping/probes/NFSping.pm Smokeping/probes/EchoPingPlugin.pm Smokeping/probes/Radius.pm Smokeping/probes/AnotherSSH.pm '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/sorters'
+ /usr/bin/install -c -m 644  Smokeping/sorters/base.pm Smokeping/sorters/Median.pm Smokeping/sorters/Max.pm Smokeping/sorters/Loss.pm Smokeping/sorters/StdDev.pm '/opt/smokeping/lib/Smokeping/sorters'
+ /usr/bin/install -c -m 644  BER.pm Smokeping.pm SNMP_util.pm SNMP_Session.pm '/opt/smokeping/lib/.'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/matchers'
+ /usr/bin/install -c -m 644  Smokeping/matchers/CheckLoss.pm Smokeping/matchers/Avgratio.pm Smokeping/matchers/CheckLatency.pm Smokeping/matchers/ConsecutiveLoss.pm Smokeping/matchers/base.pm Smokeping/matchers/Median.pm Smokeping/matchers/ExpLoss.pm Smokeping/matchers/Medratio.pm '/opt/smokeping/lib/Smokeping/matchers'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/install -c -m 644  Smokeping/probes/CiscoRTTMonEchoICMP.pm Smokeping/probes/EchoPingDNS.pm Smokeping/probes/DismanPing.pm Smokeping/probes/OpenSSHEOSPing.pm Smokeping/probes/DNS.pm Smokeping/probes/FTPtransfer.pm Smokeping/probes/EchoPingChargen.pm '/opt/smokeping/lib/Smokeping/probes'
+ /usr/bin/mkdir -p '/opt/smokeping/lib/Smokeping'
+ /usr/bin/install -c -m 644  Smokeping/Slave.pm Smokeping/pingMIB.pm Smokeping/Graphs.pm Smokeping/ciscoRttMonMIB.pm Smokeping/RRDtools.pm Smokeping/Colorspace.pm Smokeping/Examples.pm Smokeping/Info.pm Smokeping/RRDhelpers.pm Smokeping/Config.pm Smokeping/Master.pm '/opt/smokeping/lib/Smokeping'
+make[2]: Leaving directory '/root/smokeping-2.8.2/lib'
+make[1]: Leaving directory '/root/smokeping-2.8.2/lib'
+Making install in thirdparty
+make[1]: Entering directory '/root/smokeping-2.8.2/thirdparty'
+echo "** Installing Dependencies using Carton install"
+** Installing Dependencies using Carton install
+test -f cpanfile-5.26.snapshot && cp cpanfile-5.26.snapshot ../cpanfile.snapshot || true
+test -x carton/bin/carton || PERL_CPANM_OPT= PERL_CPANM_HOME=/root/smokeping-2.8.2/thirdparty PERL_CARTON_PATH=/root/smokeping-2.8.2/thirdparty /usr/bin/perl bin/cpanm -q --notest --local-lib-contained /root/smokeping-2.8.2/thirdparty/carton Carton
+PERL_CPANM_OPT= PERL_CPANM_HOME=/root/smokeping-2.8.2/thirdparty PERL_CARTON_PATH=/root/smokeping-2.8.2/thirdparty PERL5LIB=/root/smokeping-2.8.2/thirdparty/carton/lib/perl5 /usr/bin/perl /root/smokeping-2.8.2/thirdparty/carton/bin/carton install
+Installing modules using /root/smokeping-2.8.2/cpanfile
+Successfully installed Encode-3.12 (upgraded from 2.88)
+Successfully installed HTTP-Message-6.33
+Successfully installed HTTP-Cookies-6.10
+Successfully installed HTML-Tagset-3.20
+Successfully installed HTML-Parser-3.76
+Successfully installed HTTP-Negotiate-6.01
+Successfully installed libwww-perl-6.56
+Successfully installed CGI-4.53
+Successfully installed CGI-Fast-2.15
+9 distributions installed
+Complete! Modules were installed into /root/smokeping-2.8.2/thirdparty
+mv ../cpanfile.snapshot cpanfile-5.26.snapshot
+touch touch
+echo "** Installing Dependencies using cpanm and cpanfile-5.26.snapshot"
+** Installing Dependencies using cpanm and cpanfile-5.26.snapshot
+cp cpanfile-5.26.snapshot ../cpanfile.snapshot
+PERL_CPANM_OPT= PERL_CPANM_HOME=/root/smokeping-2.8.2/thirdparty PERL_CARTON_PATH=/root/smokeping-2.8.2/thirdparty /usr/bin/perl bin/cpanm -q --notest --local-lib-contained /root/smokeping-2.8.2/thirdparty --installdeps ..
+rm -f ../cpanfile.snapshot
+touch touch
+make[2]: Entering directory '/root/smokeping-2.8.2/thirdparty'
+make  install-exec-hook
+make[3]: Entering directory '/root/smokeping-2.8.2/thirdparty'
+cp -fr lib/perl5/* /opt/smokeping/lib
+make[3]: Leaving directory '/root/smokeping-2.8.2/thirdparty'
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/root/smokeping-2.8.2/thirdparty'
+make[1]: Leaving directory '/root/smokeping-2.8.2/thirdparty'
+Making install in bin
+make[1]: Entering directory '/root/smokeping-2.8.2/bin'
+make[2]: Entering directory '/root/smokeping-2.8.2/bin'
+ /usr/bin/mkdir -p '/opt/smokeping/bin'
+ /usr/bin/install -c smokeinfo smokeping smokeping_cgi tSmoke '/opt/smokeping/bin'
+make  install-exec-hook
+make[3]: Entering directory '/root/smokeping-2.8.2/bin'
+test "" = ""  || cd "/opt/smokeping/bin" && /usr/bin/perl -i -p -e 's{.*# PERL5LIB}{use lib (split /:/, q{}); # PERL5LIB}'  smokeinfo smokeping smokeping_cgi tSmoke
+cd "/opt/smokeping/bin" && /usr/bin/perl -i -p -e 's{.*# LIBDIR}{use lib qw(/opt/smokeping/lib); # LIBDIR}' smokeinfo smokeping smokeping_cgi tSmoke
+cd "/opt/smokeping/bin" && /usr/bin/perl -i -p -e 's{^#!.*perl.*}{#!/usr/bin/perl};'  smokeinfo smokeping smokeping_cgi tSmoke
+make[3]: Leaving directory '/root/smokeping-2.8.2/bin'
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/root/smokeping-2.8.2/bin'
+make[1]: Leaving directory '/root/smokeping-2.8.2/bin'
+Making install in doc
+make[1]: Entering directory '/root/smokeping-2.8.2/doc'
+pod2man --release=2.8.2 --center=SmokePing ../bin/smokeping --section 1 > smokeping.1
+pod2man --release=2.8.2 --center=SmokePing ../bin/smokeping_cgi --section 1 > smokeping_cgi.1
+pod2man --release=2.8.2 --center=SmokePing ../bin/tSmoke --section 1 > tSmoke.1
+pod2man --release=2.8.2 --center=SmokePing ../bin/smokeinfo --section 1 > smokeinfo.1
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingSmtp > Smokeping_probes_EchoPingSmtp.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingSmtp.pod --section 3 > Smokeping_probes_EchoPingSmtp.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::OpenSSHJunOSPing > Smokeping_probes_OpenSSHJunOSPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_OpenSSHJunOSPing.pod --section 3 > Smokeping_probes_OpenSSHJunOSPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::skel > Smokeping_probes_skel.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_skel.pod --section 3 > Smokeping_probes_skel.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingWhois > Smokeping_probes_EchoPingWhois.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingWhois.pod --section 3 > Smokeping_probes_EchoPingWhois.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingHttp > Smokeping_probes_EchoPingHttp.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingHttp.pod --section 3 > Smokeping_probes_EchoPingHttp.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::TelnetIOSPing > Smokeping_probes_TelnetIOSPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_TelnetIOSPing.pod --section 3 > Smokeping_probes_TelnetIOSPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingDiscard > Smokeping_probes_EchoPingDiscard.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingDiscard.pod --section 3 > Smokeping_probes_EchoPingDiscard.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::CiscoRTTMonDNS > Smokeping_probes_CiscoRTTMonDNS.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_CiscoRTTMonDNS.pod --section 3 > Smokeping_probes_CiscoRTTMonDNS.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::IOSPing > Smokeping_probes_IOSPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_IOSPing.pod --section 3 > Smokeping_probes_IOSPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::AnotherCurl > Smokeping_probes_AnotherCurl.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_AnotherCurl.pod --section 3 > Smokeping_probes_AnotherCurl.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::FPing > Smokeping_probes_FPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_FPing.pod --section 3 > Smokeping_probes_FPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::TraceroutePing > Smokeping_probes_TraceroutePing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_TraceroutePing.pod --section 3 > Smokeping_probes_TraceroutePing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::TacacsPlus > Smokeping_probes_TacacsPlus.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_TacacsPlus.pod --section 3 > Smokeping_probes_TacacsPlus.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::RemoteFPing > Smokeping_probes_RemoteFPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_RemoteFPing.pod --section 3 > Smokeping_probes_RemoteFPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::Curl > Smokeping_probes_Curl.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_Curl.pod --section 3 > Smokeping_probes_Curl.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::basevars > Smokeping_probes_basevars.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_basevars.pod --section 3 > Smokeping_probes_basevars.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingIcp > Smokeping_probes_EchoPingIcp.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingIcp.pod --section 3 > Smokeping_probes_EchoPingIcp.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::Qstat > Smokeping_probes_Qstat.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_Qstat.pod --section 3 > Smokeping_probes_Qstat.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::base > Smokeping_probes_base.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_base.pod --section 3 > Smokeping_probes_base.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::WebProxyFilter > Smokeping_probes_WebProxyFilter.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_WebProxyFilter.pod --section 3 > Smokeping_probes_WebProxyFilter.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::basefork > Smokeping_probes_basefork.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_basefork.pod --section 3 > Smokeping_probes_basefork.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::FPingContinuous > Smokeping_probes_FPingContinuous.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_FPingContinuous.pod --section 3 > Smokeping_probes_FPingContinuous.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::TCPPing > Smokeping_probes_TCPPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_TCPPing.pod --section 3 > Smokeping_probes_TCPPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingLDAP > Smokeping_probes_EchoPingLDAP.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingLDAP.pod --section 3 > Smokeping_probes_EchoPingLDAP.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::SSH > Smokeping_probes_SSH.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_SSH.pod --section 3 > Smokeping_probes_SSH.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingHttps > Smokeping_probes_EchoPingHttps.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingHttps.pod --section 3 > Smokeping_probes_EchoPingHttps.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::TelnetJunOSPing > Smokeping_probes_TelnetJunOSPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_TelnetJunOSPing.pod --section 3 > Smokeping_probes_TelnetJunOSPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::SendEmail > Smokeping_probes_SendEmail.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_SendEmail.pod --section 3 > Smokeping_probes_SendEmail.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::passwordchecker > Smokeping_probes_passwordchecker.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_passwordchecker.pod --section 3 > Smokeping_probes_passwordchecker.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPing > Smokeping_probes_EchoPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPing.pod --section 3 > Smokeping_probes_EchoPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::AnotherDNS > Smokeping_probes_AnotherDNS.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_AnotherDNS.pod --section 3 > Smokeping_probes_AnotherDNS.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::CiscoRTTMonTcpConnect > Smokeping_probes_CiscoRTTMonTcpConnect.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_CiscoRTTMonTcpConnect.pod --section 3 > Smokeping_probes_CiscoRTTMonTcpConnect.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::SipSak > Smokeping_probes_SipSak.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_SipSak.pod --section 3 > Smokeping_probes_SipSak.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::LDAP > Smokeping_probes_LDAP.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_LDAP.pod --section 3 > Smokeping_probes_LDAP.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::FPing6 > Smokeping_probes_FPing6.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_FPing6.pod --section 3 > Smokeping_probes_FPing6.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::IRTT > Smokeping_probes_IRTT.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_IRTT.pod --section 3 > Smokeping_probes_IRTT.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::NFSping > Smokeping_probes_NFSping.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_NFSping.pod --section 3 > Smokeping_probes_NFSping.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingPlugin > Smokeping_probes_EchoPingPlugin.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingPlugin.pod --section 3 > Smokeping_probes_EchoPingPlugin.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::Radius > Smokeping_probes_Radius.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_Radius.pod --section 3 > Smokeping_probes_Radius.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::AnotherSSH > Smokeping_probes_AnotherSSH.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_AnotherSSH.pod --section 3 > Smokeping_probes_AnotherSSH.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::CiscoRTTMonEchoICMP > Smokeping_probes_CiscoRTTMonEchoICMP.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_CiscoRTTMonEchoICMP.pod --section 3 > Smokeping_probes_CiscoRTTMonEchoICMP.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingDNS > Smokeping_probes_EchoPingDNS.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingDNS.pod --section 3 > Smokeping_probes_EchoPingDNS.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::DismanPing > Smokeping_probes_DismanPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_DismanPing.pod --section 3 > Smokeping_probes_DismanPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::OpenSSHEOSPing > Smokeping_probes_OpenSSHEOSPing.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_OpenSSHEOSPing.pod --section 3 > Smokeping_probes_OpenSSHEOSPing.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::DNS > Smokeping_probes_DNS.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_DNS.pod --section 3 > Smokeping_probes_DNS.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::FTPtransfer > Smokeping_probes_FTPtransfer.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_FTPtransfer.pod --section 3 > Smokeping_probes_FTPtransfer.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod Smokeping::probes::EchoPingChargen > Smokeping_probes_EchoPingChargen.pod
+pod2man --release=2.8.2 --center=SmokePing Smokeping_probes_EchoPingChargen.pod --section 3 > Smokeping_probes_EchoPingChargen.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/CheckLoss.pm --section 3 > Smokeping_matchers_CheckLoss.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/Avgratio.pm --section 3 > Smokeping_matchers_Avgratio.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/CheckLatency.pm --section 3 > Smokeping_matchers_CheckLatency.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/ConsecutiveLoss.pm --section 3 > Smokeping_matchers_ConsecutiveLoss.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/base.pm --section 3 > Smokeping_matchers_base.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/Median.pm --section 3 > Smokeping_matchers_Median.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/ExpLoss.pm --section 3 > Smokeping_matchers_ExpLoss.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/matchers/Medratio.pm --section 3 > Smokeping_matchers_Medratio.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/sorters/base.pm --section 3 > Smokeping_sorters_base.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/sorters/Median.pm --section 3 > Smokeping_sorters_Median.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/sorters/Max.pm --section 3 > Smokeping_sorters_Max.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/sorters/Loss.pm --section 3 > Smokeping_sorters_Loss.3
+pod2man --release=2.8.2 --center=SmokePing ../lib/Smokeping/sorters/StdDev.pm --section 3 > Smokeping_sorters_StdDev.3
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5 -I../lib -mSmokeping -e 'Smokeping::main()' -- --makepod > smokeping_config.pod
+pod2man --release=2.8.2 --center=SmokePing smokeping_config.pod --section 5 > smokeping_config.5
+/usr/bin/mkdir -p examples
+PERL5LIB= /usr/bin/perl -I../thirdparty/lib/perl5  -I../lib -mSmokeping -e 'Smokeping::main()' -- --gen-examples
+Generating example files...
+        examples/config.simple ...
+        examples/config.multiple-probes ...
+        examples/config.fping-instances ...
+        examples/config.targetvars-with-Curl ...
+        examples/config.echoping ...
+        examples/config.template ...
+        smokeping_examples.pod ...
+done.
+pod2man --release=2.8.2 --center=SmokePing smokeping_examples.pod --section 5 > smokeping_examples.5
+pod2man --release=2.8.2 --center=SmokePing smokeping_extend.pod --section 7 > smokeping_extend.7
+pod2man --release=2.8.2 --center=SmokePing smokeping_install.pod --section 7 > smokeping_install.7
+pod2man --release=2.8.2 --center=SmokePing smokeping_master_slave.pod --section 7 > smokeping_master_slave.7
+pod2man --release=2.8.2 --center=SmokePing smokeping_upgrade.pod --section 7 > smokeping_upgrade.7
+make[2]: Entering directory '/root/smokeping-2.8.2/doc'
+make[2]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/opt/smokeping/etc/examples'
+ /usr/bin/install -c -m 644 examples/config.fping-instances examples/config.multiple-probes examples/config.simple examples/config.echoping examples/config.template examples/config.targetvars-with-Curl '/opt/smokeping/etc/examples'
+ /usr/bin/mkdir -p '/opt/smokeping/share/man/man1'
+ /usr/bin/install -c -m 644 smokeping.1 smokeping_cgi.1 tSmoke.1 smokeinfo.1 '/opt/smokeping/share/man/man1'
+ /usr/bin/mkdir -p '/opt/smokeping/share/man/man3'
+ /usr/bin/install -c -m 644 Smokeping_probes_EchoPingSmtp.3 Smokeping_probes_OpenSSHJunOSPing.3 Smokeping_probes_skel.3 Smokeping_probes_EchoPingWhois.3 Smokeping_probes_EchoPingHttp.3 Smokeping_probes_TelnetIOSPing.3 Smokeping_probes_EchoPingDiscard.3 Smokeping_probes_CiscoRTTMonDNS.3 Smokeping_probes_IOSPing.3 Smokeping_probes_AnotherCurl.3 Smokeping_probes_FPing.3 Smokeping_probes_TraceroutePing.3 Smokeping_probes_TacacsPlus.3 Smokeping_probes_RemoteFPing.3 Smokeping_probes_Curl.3 Smokeping_probes_basevars.3 Smokeping_probes_EchoPingIcp.3 Smokeping_probes_Qstat.3 Smokeping_probes_base.3 Smokeping_probes_WebProxyFilter.3 Smokeping_probes_basefork.3 Smokeping_probes_FPingContinuous.3 Smokeping_probes_TCPPing.3 Smokeping_probes_EchoPingLDAP.3 Smokeping_probes_SSH.3 Smokeping_probes_EchoPingHttps.3 Smokeping_probes_TelnetJunOSPing.3 Smokeping_probes_SendEmail.3 Smokeping_probes_passwordchecker.3 Smokeping_probes_EchoPing.3 Smokeping_probes_AnotherDNS.3 Smokeping_probes_CiscoRTTMonTcpConnect.3 Smokeping_probes_SipSak.3 Smokeping_probes_LDAP.3 Smokeping_probes_FPing6.3 Smokeping_probes_IRTT.3 Smokeping_probes_NFSping.3 Smokeping_probes_EchoPingPlugin.3 Smokeping_probes_Radius.3 Smokeping_probes_AnotherSSH.3 '/opt/smokeping/share/man/man3'
+ /usr/bin/install -c -m 644 Smokeping_probes_CiscoRTTMonEchoICMP.3 Smokeping_probes_EchoPingDNS.3 Smokeping_probes_DismanPing.3 Smokeping_probes_OpenSSHEOSPing.3 Smokeping_probes_DNS.3 Smokeping_probes_FTPtransfer.3 Smokeping_probes_EchoPingChargen.3 Smokeping_matchers_CheckLoss.3 Smokeping_matchers_Avgratio.3 Smokeping_matchers_CheckLatency.3 Smokeping_matchers_ConsecutiveLoss.3 Smokeping_matchers_base.3 Smokeping_matchers_Median.3 Smokeping_matchers_ExpLoss.3 Smokeping_matchers_Medratio.3 Smokeping_sorters_base.3 Smokeping_sorters_Median.3 Smokeping_sorters_Max.3 Smokeping_sorters_Loss.3 Smokeping_sorters_StdDev.3 '/opt/smokeping/share/man/man3'
+ /usr/bin/mkdir -p '/opt/smokeping/share/man/man5'
+ /usr/bin/install -c -m 644 smokeping_config.5 smokeping_examples.5 '/opt/smokeping/share/man/man5'
+ /usr/bin/mkdir -p '/opt/smokeping/share/man/man7'
+ /usr/bin/install -c -m 644 smokeping_extend.7 smokeping_install.7 smokeping_master_slave.7 smokeping_upgrade.7 '/opt/smokeping/share/man/man7'
+make[2]: Leaving directory '/root/smokeping-2.8.2/doc'
+rm Smokeping_probes_IOSPing.pod Smokeping_probes_EchoPing.pod Smokeping_probes_SipSak.pod Smokeping_probes_EchoPingPlugin.pod Smokeping_probes_SSH.pod Smokeping_probes_FPing6.pod Smokeping_probes_EchoPingIcp.pod Smokeping_probes_Curl.pod Smokeping_probes_CiscoRTTMonDNS.pod Smokeping_probes_EchoPingDNS.pod Smokeping_probes_Qstat.pod Smokeping_probes_DismanPing.pod Smokeping_probes_IRTT.pod Smokeping_probes_WebProxyFilter.pod Smokeping_probes_RemoteFPing.pod Smokeping_probes_OpenSSHJunOSPing.pod Smokeping_probes_EchoPingLDAP.pod Smokeping_probes_LDAP.pod Smokeping_probes_TacacsPlus.pod Smokeping_probes_TelnetIOSPing.pod Smokeping_probes_NFSping.pod Smokeping_probes_basefork.pod Smokeping_probes_OpenSSHEOSPing.pod Smokeping_probes_EchoPingChargen.pod Smokeping_probes_basevars.pod Smokeping_probes_EchoPingSmtp.pod Smokeping_probes_FPing.pod Smokeping_probes_TraceroutePing.pod Smokeping_probes_FTPtransfer.pod Smokeping_probes_EchoPingHttps.pod Smokeping_probes_EchoPingDiscard.pod Smokeping_probes_AnotherSSH.pod Smokeping_probes_CiscoRTTMonEchoICMP.pod Smokeping_probes_passwordchecker.pod Smokeping_probes_base.pod Smokeping_probes_TelnetJunOSPing.pod Smokeping_probes_SendEmail.pod Smokeping_probes_EchoPingHttp.pod Smokeping_probes_AnotherDNS.pod Smokeping_probes_Radius.pod Smokeping_probes_AnotherCurl.pod Smokeping_probes_TCPPing.pod Smokeping_probes_EchoPingWhois.pod Smokeping_probes_skel.pod Smokeping_probes_DNS.pod Smokeping_probes_FPingContinuous.pod Smokeping_probes_CiscoRTTMonTcpConnect.pod
+make[1]: Leaving directory '/root/smokeping-2.8.2/doc'
+Making install in etc
+make[1]: Entering directory '/root/smokeping-2.8.2/etc'
+make[2]: Entering directory '/root/smokeping-2.8.2/etc'
+make[2]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/opt/smokeping/etc'
+ /usr/bin/install -c -m 644 basepage.html.dist config.dist smokemail.dist smokeping_secrets.dist tmail.dist '/opt/smokeping/etc'
+make[2]: Leaving directory '/root/smokeping-2.8.2/etc'
+make[1]: Leaving directory '/root/smokeping-2.8.2/etc'
+Making install in htdocs
+make[1]: Entering directory '/root/smokeping-2.8.2/htdocs'
+make[2]: Entering directory '/root/smokeping-2.8.2/htdocs'
+make[2]: Nothing to be done for 'install-exec-am'.
+/usr/bin/mkdir -p /opt/smokeping/htdocs
+/usr/bin/echo   "#!/bin/sh" > /opt/smokeping/htdocs/smokeping.fcgi.dist
+/usr/bin/echo   "exec /opt/smokeping/bin/smokeping_cgi /opt/smokeping/etc/config" >> /opt/smokeping/htdocs/smokeping.fcgi.dist
+chmod +x /opt/smokeping/htdocs/smokeping.fcgi.dist
+ /usr/bin/mkdir -p '/opt/smokeping/htdocs'
+ /usr/bin/mkdir -p '/opt/smokeping/htdocs/js'
+ /usr/bin/install -c -m 644  js/smokeping.js js/prototype.js '/opt/smokeping/htdocs/js'
+ /usr/bin/mkdir -p '/opt/smokeping/htdocs/js/scriptaculous'
+ /usr/bin/install -c -m 644  js/scriptaculous/controls.js js/scriptaculous/slider.js js/scriptaculous/sound.js js/scriptaculous/effects.js js/scriptaculous/unittest.js js/scriptaculous/builder.js js/scriptaculous/scriptaculous.js js/scriptaculous/dragdrop.js '/opt/smokeping/htdocs/js/scriptaculous'
+ /usr/bin/mkdir -p '/opt/smokeping/htdocs/js/cropper'
+ /usr/bin/install -c -m 644  js/cropper/cropper.js js/cropper/licence.txt js/cropper/marqueeVert.gif js/cropper/cropper.uncompressed.js js/cropper/cropper.css js/cropper/marqueeHoriz.gif '/opt/smokeping/htdocs/js/cropper'
+ /usr/bin/mkdir -p '/opt/smokeping/htdocs/css'
+ /usr/bin/install -c -m 644  css/smokeping-print.css css/smokeping-screen.css '/opt/smokeping/htdocs/css'
+make[2]: Leaving directory '/root/smokeping-2.8.2/htdocs'
+make[1]: Leaving directory '/root/smokeping-2.8.2/htdocs'
+make[1]: Entering directory '/root/smokeping-2.8.2'
+make[2]: Entering directory '/root/smokeping-2.8.2'
+make[2]: Nothing to be done for 'install-exec-am'.
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/root/smokeping-2.8.2'
+make[1]: Leaving directory '/root/smokeping-2.8.2'
+```
+
+</details>
+
+``` bash
+[root@cn-py-dl-c8 smokeping]#  ./bin/smokeping --config=/opt/smokeping/etc/config --debug
+ERROR: /opt/smokeping/etc/config, line 6: File '/usr/sbin/sendmail' does not exist
+[root@cn-py-dl-c8 smokeping]# vim etc/config
+[root@cn-py-dl-c8 smokeping]#  ./bin/smokeping --config=/opt/smokeping/etc/config --debug
+ERROR: /opt/smokeping/etc/config, line 10: Directory '/var/lib/smokeping/images' does not exist
+[root@cn-py-dl-c8 smokeping]# mkdir /var/lib/smokeping/images
+mkdir: cannot create directory ‘/var/lib/smokeping/images’: No such file or directory
+[root@cn-py-dl-c8 smokeping]# mkdir /var/lib/smokeping
+[root@cn-py-dl-c8 smokeping]# mkdir /var/lib/smokeping/images
+[root@cn-py-dl-c8 smokeping]#  ./bin/smokeping --config=/opt/smokeping/etc/config --debug
+ERROR: /opt/smokeping/etc/config, line 12: Directory '/var/lib/smokeping/rrd' does not exist
+[root@cn-py-dl-c8 smokeping]# mkdir /var/lib/smokeping/rrd
+[root@cn-py-dl-c8 smokeping]#  ./bin/smokeping --config=/opt/smokeping/etc/config --debug
+ERROR: /opt/smokeping/etc/config, line 13: Directory '/var/run/smokeping' does not exist
+[root@cn-py-dl-c8 smokeping]# mkdir /var/run/smokeping
+[root@cn-py-dl-c8 smokeping]#  ./bin/smokeping --config=/opt/smokeping/etc/config --debug
+ERROR: /opt/smokeping/etc/config, line 15: File '/etc/smokeping/smokemail' does not exist
+[root@cn-py-dl-c8 smokeping]#  ./bin/smokeping --config=/opt/smokeping/etc/config --debug
+ERROR: /opt/smokeping/etc/config, line 16: File '/etc/smokeping/tmail' does not exist
+[root@cn-py-dl-c8 smokeping]#  ./bin/smokeping --config=/opt/smokeping/etc/config --debug
+ERROR: /opt/smokeping/etc/config, line 50: template '/etc/smokeping/basepage.html' not readable
+[root@cn-py-dl-c8 etc]# mv basepage.html.dist basepage.html
+```
+
+## 0x08.引用
 > [ifconfig命令不存在command not found](https://web.archive.org/web/20191028144703/https://blog.csdn.net/dong_alex/article/details/80873733)
 [CentOS7安装VMware Tools](https://web.archive.org/web/20200404101734/https://www.cnblogs.com/roooookie/p/8473640.html)
 
