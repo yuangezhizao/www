@@ -1,10 +1,10 @@
 ---
-title: 重装系统之 Skysilk CentOS 7 安装 v2ray 代理等
+title: 重装系统之 SkySilk CentOS 7 安装 v2ray 代理等
 date: 2019-5-12 20:53:55
 tags:
   - CentOS
   - server
-count: 8
+count: 9
 os: 0
 os_1: 10.0.17763.475 2019-LTSC
 browser: 0
