@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 15
+count: 16
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,7 +74,7 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python397](https://www.python.org/downloads/release/python-397/)环境
+## 0x04.编译安装[python3100](https://www.python.org/downloads/release/python-3100/)环境
 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -96,29 +96,31 @@ yum install gcc-c++
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 3. 下载源码包
-~~`wget --no-check-certificate https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tar.xz`~~
+~~`wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或
 ![下载卡爆，proxy 中转爽到！](https://i1.yuangezhizao.cn/Win-10/20191107224750.jpg!webp)
 
 ``` bash
-CloudFlare[推荐]：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.9.7.tar.xz
+CloudFlare（推荐）：
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.0.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.9.7.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.10.0.tar.xz
 ```
 4. 解压
 ``` bash
-tar xvJf Python-3.9.7.tar.xz
-cd Python-3.9.7
+tar xvJf Python-3.10.0.tar.xz
+cd Python-3.10.0
 ```
 5. 编译
-注：添加`--enable-optimizations`（编译器优化）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
+> https://docs.python.org/zh-cn/3/using/configure.html#configure-options
+
+注：添加`--enable-optimizations`（以配置文件主导的优化`PGO`）和`--with-lto`（链接时间优化`LTO`）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
 ~~不添加`--enable-shared`（生成动态链接库）编译会报错：`command 'gcc' failed with exit status 1`~~
 `rm -rf /usr/local/python3`
-~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations`~~
-`./configure --prefix=/usr/local/python3 --enable-optimizations`
+~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations --with-lto`~~
+`./configure --prefix=/usr/local/python3 --enable-optimizations --with-lto`
 `make && make install`
 6. 修复
 ①`2020-9-7 23:33:59`：`CentOS 8`自带版本已为`8`
@@ -180,14 +182,14 @@ Python 3.8.3
 ①`rm -rf /usr/bin/python3`
 `ln -s /usr/local/python3/bin/python3 /usr/bin/python3`
 ②`rm -rf /usr/bin/pip3`
-`ln -s /usr/local/python3/bin/pip3.9 /usr/bin/pip3`
+`ln -s /usr/local/python3/bin/pip3.10 /usr/bin/pip3`
 ```
-[root@txy Python-3.9.7]# python -V
+[root@cn-py-dl-c8 Python-3.10.0]# python -V
 -bash: python: command not found
-[root@txy Python-3.9.7]# python3 -V
-Python 3.9.7
-[root@txy Python-3.9.7]# pip3.9 -V
-pip 21.2.4 from /usr/local/python3/lib/python3.9/site-packages/pip (python 3.9)
+[root@cn-py-dl-c8 Python-3.10.0]# python3 -V
+Python 3.10.0
+[root@cn-py-dl-c8 Python-3.10.0]# pip3 -V
+pip 21.2.3 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
 ```
 > ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，这下`2`终于彻底没有了
 
@@ -466,3 +468,4 @@ KeyboardInterrupt
 [python --enable-shared](https://web.archive.org/web/20200521142009/https://www.cnblogs.com/Tommy-Yu/p/6144512.html)
 [CentOS 7 升级gcc/g++编译器](https://web.archive.org/web/20200521161733/https://www.cnblogs.com/ToBeExpert/p/10297697.html)
 [3.7.0 build error with --enable-optimizations](https://web.archive.org/web/20200521161845/https://bugs.python.org/issue34112)
+[开启Link Time Optimization(LTO)后到底有什么优化？](https://web.archive.org/web/20211011094746/https://www.jianshu.com/p/58fef052291a)
