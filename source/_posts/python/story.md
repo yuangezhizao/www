@@ -4,7 +4,7 @@ date: 2021-11-05 22:02:03
 tags:
   - Next.js
   - React
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.0.1 (21A559)
 browser: 1
@@ -50,6 +50,12 @@ key: 123
 
 - 吐槽：最惨`jwzx`已经被草爆，据说大家都拿来练爬虫
 
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![xs](https://i1.yuangezhizao.cn/macOS/20211106173907.png!webp)
+
+</details>
+
 ### 3.正则表达式——从入门到跑路
 然后，`4`天后就看上正则了草？现在直接黑人问号？那时候啥编程基础害都没有
 
@@ -70,6 +76,11 @@ key: 123
 <details><summary>点击此处 ← 查看折叠</summary>
 
 ![一键查成绩](https://i1.yuangezhizao.cn/macOS/20211105235237.png!webp)
+![后面放到了微信公众号里面，供自己班级同学的使用](https://i1.yuangezhizao.cn/macOS/20211106174150.png!webp)
+![一点一点的优化](https://i1.yuangezhizao.cn/macOS/20211106174357.png!webp)
+![计划任务](https://i1.yuangezhizao.cn/macOS/20211106174640.png!webp)
+![大战 jwzx](https://i1.yuangezhizao.cn/macOS/20211106175210.png!webp)
+![黑历史](https://i1.yuangezhizao.cn/macOS/20211106180730.png!webp)
 
 </details>
 
@@ -97,13 +108,15 @@ key: 123
 
 ### 6.个人博客——水文不归路
 这个时间点在折腾的是`Hexo`，是被`_config.yml`配置文件的缩进给坑惨了
-`5.6`~`5.11`抽时间搭建上了，用得是`gh`的`pages`页面，还配置了告警`2333`
+`5.6`~`5.11`抽时间搭建上了，用得是`gh`的`pages`页面，还配置了告警`2333`，谷歌也是飞快收录即使是`github.io`子域
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
 ![黑历史](https://i1.yuangezhizao.cn/macOS/20211106011347.png!webp)
 ![第一篇水文](https://i1.yuangezhizao.cn/macOS/20211106012803.png!webp)
 ![第一次告警](https://i1.yuangezhizao.cn/macOS/20211106014320.png!webp)
+![被索引](https://i1.yuangezhizao.cn/macOS/20211106151010.png!webp)
+![后来懒得限制，就又给放开了](https://i1.yuangezhizao.cn/macOS/20211106162122.png!webp)
 
 </details>
 
@@ -121,15 +134,16 @@ key: 123
 
 - 吐槽：这台上古机子上重装了无数次的操作系统……
 
-![xswl](https://i1.yuangezhizao.cn/macOS/20211105230638.png!webp)
-
 ### 8.`Google`——谁`tm`用百毒
-第一次接触的国外服务商，这是已经在使用`Google`的迹象，也因为不良梯子提供商导致密码被嗅探泄露
+这时候大一已经结束了（`2016`），暑假的时候第一次接触的国外服务商，这是已经在使用`Google`的迹象，也因为不良梯子提供商导致密码被嗅探泄露，也意识到**两步验证**的重要性
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
+![黑历史](https://i1.yuangezhizao.cn/macOS/20211105230638.png!webp)
 ![vpncup](https://i1.yuangezhizao.cn/macOS/20211106014541.png!webp)
 ![有被吓到](https://i1.yuangezhizao.cn/macOS/20211106015806.png!webp)
+![公开梯子，不可避免](https://i1.yuangezhizao.cn/macOS/20211106160726.png!webp)
+![两步验证](https://i1.yuangezhizao.cn/macOS/20211106160830.png!webp)
 
 </details>
 
@@ -140,6 +154,8 @@ key: 123
 <details><summary>点击此处 ← 查看折叠</summary>
 
 ![怀念那个时代](https://i1.yuangezhizao.cn/macOS/20211106015103.png!webp)
+![狗东抽奖](https://i1.yuangezhizao.cn/macOS/20211106171748.png!webp)
+![抽中手办](https://i1.yuangezhizao.cn/macOS/20211106172602.png!webp)
 
 </details>
 
@@ -150,6 +166,78 @@ key: 123
 <details><summary>点击此处 ← 查看折叠</summary>
 
 ![尝试爆破](https://i1.yuangezhizao.cn/macOS/20211106020141.png!webp)
+
+</details>
+
+### 11.`PC Games`——单机`3A`大作
+那个寒假（`2017`）终于独立打通了狗二，后来有段时间开始在`Steam`入正
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![狗二](https://i1.yuangezhizao.cn/macOS/20211106151939.png!webp)
+![传送门](https://i1.yuangezhizao.cn/macOS/20211106160218.png!webp)
+
+</details>
+
+- 吐槽：时至今日，也不玩网游，单机它不香吗？然而现在木有显卡草……
+
+### 12.日漫新番——老二次元的开始
+印象非常深刻，寒假在家第一次熬夜看最新话，是真正意义上的追新番的开始
+原创不易，而搬运几乎无成本，所以一直在投稿新番的`OP/ED`，后来被版权了无数次
+至于屯`BD`，拿`madVR`补番就是后来的事情了（懒得再截图了，就只放一张《未来日记》三周目
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![HS](https://i1.yuangezhizao.cn/macOS/20211106152251.png!webp)
+![OP/ED](https://i1.yuangezhizao.cn/macOS/20211106155153.png!webp)
+![各种退回](https://i1.yuangezhizao.cn/macOS/20211106155523.png!webp)
+![那时候好看的老番可以看好几遍](https://i1.yuangezhizao.cn/macOS/20211106162657.png!webp)
+![233](https://i1.yuangezhizao.cn/macOS/20211106163843.png!webp)
+![10w](https://i1.yuangezhizao.cn/macOS/20211106164016.png!webp)
+![300](https://i1.yuangezhizao.cn/macOS/20211106164629.png!webp)
+![400](https://i1.yuangezhizao.cn/macOS/20211106165050.png!webp)
+![500](https://i1.yuangezhizao.cn/macOS/20211106165326.png!webp)
+![600+](https://i1.yuangezhizao.cn/macOS/20211106165801.png!webp)
+![第一次在 A 站补番](https://i1.yuangezhizao.cn/macOS/20211106170537.png!webp)
+![707](https://i1.yuangezhizao.cn/macOS/20211106171306.png!webp)
+![888](https://i1.yuangezhizao.cn/macOS/20211106175841.png!webp)
+![999](https://i1.yuangezhizao.cn/macOS/20211106183726.png!webp)
+![1K](https://i1.yuangezhizao.cn/macOS/20211106183931.png!webp)
+![1010](https://i1.yuangezhizao.cn/macOS/20211106184405.png!webp)
+
+</details>
+
+### 13.`Flask`——沿用至今的`Web`框架
+最开始用的域名是`app.yuangezhizao.cn`，`SSL`评测是`A`，其实只要上`HSTS`就能到`A+`
+而之所以取名为`app`，从源码中也可以看到是**应用**的意思，就是这里存放着各种小应用，但是`keywords`和`description`也包含**实验室**
+直到`2018`年，更换了子域名到`lab`，一直延续至今
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![SUT Dormitory Cache](https://i1.yuangezhizao.cn/macOS/20211105230113.png!webp)
+![TODO](https://i1.yuangezhizao.cn/macOS/20211106163627.png!webp)
+![DEBUG](https://i1.yuangezhizao.cn/macOS/20211106164338.png!webp)
+![SUTDB](https://i1.yuangezhizao.cn/macOS/20211106164357.png!webp)
+![LNUOC](https://i1.yuangezhizao.cn/macOS/20211106165151.png!webp)
+![A](https://i1.yuangezhizao.cn/macOS/20211106170053.png!webp)
+![app.yuangezhizao.cn](https://i1.yuangezhizao.cn/macOS/20211106170844.png!webp)
+![lab.yuangezhizao.cn](https://i1.yuangezhizao.cn/macOS/20211106182709.png!webp)
+![全是实验性质的产物](https://i1.yuangezhizao.cn/macOS/20211106183621.png!webp)
+
+</details>
+
+- 吐槽：时至今日，甚至工作上用的也是`Flask`，真的是缘分
+
+### 14.`Requests`——从爬虫到入狱（bushi
+那时候还用的`SQLite3`，后来导入`MySQL`，对你`b`用户信息`api`实施爆破
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![SQLite3](https://i1.yuangezhizao.cn/macOS/20211106154223.png!webp)
+![MySQL](https://i1.yuangezhizao.cn/macOS/20211106154613.png!webp)
+![65873864](https://i1.yuangezhizao.cn/macOS/20211106160015.png!webp)
+![巨慢的导入流程](https://i1.yuangezhizao.cn/macOS/20211106161337.png!webp)
+![黑历史](https://i1.yuangezhizao.cn/macOS/20211106171659.png!webp)
 
 </details>
 
