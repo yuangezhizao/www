@@ -131,3 +131,15 @@ archive_generator:
   monthly: true
   daily: false
   order_by: -date
+
+html_minifier:  
+  collapseBooleanAttributes: true
+  collapseWhitespace: true
+  # Ignore '<!-- more -->' https://hexo.io/docs/tag-plugins#Post-Excerpt
+  # ignoreCustomComments: [ !!js/regexp /^\s*more/]
+  removeComments: true
+  removeEmptyAttributes: true
+  removeScriptTypeAttributes: true
+  removeStyleLinkTypeAttributes: true
+  minifyJS: true
+  minifyCSS: true
