@@ -4,7 +4,7 @@ date: 2021-11-05 22:02:03
 tags:
   - Next.js
   - React
-count: 4
+count: 5
 os: 1
 os_1: Monterry 12.0.1 (21A559)
 browser: 1
@@ -18,7 +18,7 @@ key: 123
 去`gh`翻了下提交日志，结合`QZone`的水文，捋下来发现这都能拿出来讲故事了`2333`
 那么事不宜迟干脆就从头说起吧，`emmm`，提前多图预警（现在跑还来得及
 
-## 0x01.正文
+## 0x01.故事
 ### 1.腾讯云——折腾的开始
 时光回到大一下（`2016`），那时候就已经注册了你云的账号（老用户确信），目的仅仅是为了买每个月仅需`1`元的学生机，只能说当初白嫖的真香
 
@@ -71,7 +71,7 @@ key: 123
 显然，过于无聊的选修课肯定是比不上有着更大的诱惑的代码了（时至今日亦如此
 那时候的目标极其明确，就是为了写出能一键查成绩的脚本，参照有类似需求的实现文章，现学`F12`抓包方法，现去分析`HTTP`请求
 毕竟胶水语言，艰难的`OCR`识别验证码的部分已经搞定了，直接被登录调用就`OK`，那么剩下的就只有查成绩了，而正则表达式是为了格式化输出的
-也佩服那时候的信念，坚决拒绝使用[Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)，因为看到文章有说其解析速度慢，当然这只是其中的一点原因，真的就像是信仰一样（
+也佩服那时候的信念，坚决拒绝使用[Beautiful Soup](https://web.archive.org/web/20211108124416/https://www.crummy.com/software/BeautifulSoup/bs4/doc/)，因为看到文章有说其解析速度慢，当然这只是其中的一点原因，真的就像是信仰一样（
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
@@ -93,7 +93,7 @@ key: 123
 
 </details>
 
-- 吐槽`2`：时至今日，也从未使用`BS4`，顶多[from lxml import etree](https://lxml.de/tutorial.html)
+- 吐槽`2`：时至今日，也从未使用`BS4`，顶多[from lxml import etree](https://web.archive.org/web/20211108125849/https://lxml.de/tutorial.html)
 
 ### 5.各种脚本——`PY`逐渐上头
 
@@ -247,4 +247,7 @@ key: 123
 
 </details>
 
-未完待续……
+## 0x03.后记
+整理这种文章真的是巨费时间，图片数量众多因此对`SEO`还不友好……
+
+> 至此本文使命完成
