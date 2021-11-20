@@ -6,7 +6,7 @@ tags:
   - Apache24
   - mod_wsgi
   - TLSv1.3
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.292 2019-LTSC
 browser: 0
@@ -386,6 +386,41 @@ When you first log in to the RabbitMQ web dashboard, under the Overview tab you 
 > You can also get a GUI-based version of this program, Process Explorer, here at Sysinternals.
 
 然后看到`Process Explorer`竟然是一个基于它的图形化程序，惊了
+
+## 0x05.升级至`Python 3.10.0`
+明明已经安装了`VS2019`，可还是报错草
+![编译火葬场](https://i1.yuangezhizao.cn/macOS/20211120195752.png!webp)
+
+今晚去下载编译工具发现`Visual Studio 2022`都出了草
+![17.0](https://i1.yuangezhizao.cn/macOS/QQ20211120-200708@2x.png!webp)
+
+于是，去下载`Visual Studio 2022 生成工具`
+![vs_BuildTools.exe](https://i1.yuangezhizao.cn/macOS/20211120200902.png!webp)
+
+参照[WindowsCompilers](https://web.archive.org/web/20211120121222/https://wiki.python.org/moin/WindowsCompilers)的说明，首先`pip install --upgrade setuptools`，然后`Microsoft Visual C++ 14.2 standalone: Build Tools for Visual Studio 2019 (x86, x64, ARM, ARM64)`
+
+> This is a standalone version of Visual C++ 14.2 compiler, you don't need to install Visual Studio 2019.
+Install Microsoft Build Tools for Visual Studio 2019.
+In Build tools, install C++ build tools and ensure the latest versions of MSVCv142 - VS 2019 C++ x64/x86 build tools and Windows 10 SDK are checked.
+The setuptools Python package version must be at least 34.4.0.
+{i} Build Tools also allows to install any previous Visual C++ 14 version (Including 2015, 2017 ones).
+
+![空间不够](https://i1.yuangezhizao.cn/macOS/20211120201713.png!webp)
+![E 盘来凑](https://i1.yuangezhizao.cn/macOS/20211120202516.png!webp)
+![继续](https://i1.yuangezhizao.cn/macOS/20211120202624.png!webp)
+
+然后终于好使了，最后卸载`2019`只留个`2022`就好啦（顺便`py39`也光速被卸载了
+
+``` cmd
+**********************************************************************
+** Visual Studio 2022 Developer Command Prompt v17.0.1
+** Copyright (c) 2021 Microsoft Corporation
+**********************************************************************
+
+E:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools>
+```
+
+![rm](https://i1.yuangezhizao.cn/macOS/20211120212733.png!webp)
 
 ## 0x04.后记
 未完待续……

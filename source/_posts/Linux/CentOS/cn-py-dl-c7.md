@@ -3,7 +3,7 @@ title: PY 云新增 CentOS 7.7 64 位
 date: 2019-10-28 23:13:25
 tags:
   - CentOS 
-count: 5
+count: 6
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -105,8 +105,8 @@ yum install epel-release -y
 yum install htop axel -y
 ```
 
-## 0x02.编译安装[python382](https://www.python.org/downloads/release/python-382/)环境
-同[编译安装python382环境](./server.html#0x04-编译安装python382环境)
+## 0x02.编译安装[python3100](https://www.python.org/downloads/release/python-3100/)环境
+同[编译安装python3100环境](./cn-tx-bj1-c8.html#0x04-编译安装python3100环境)
 
 ## 0x03.`git`配置
 ``` bash

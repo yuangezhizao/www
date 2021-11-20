@@ -4,7 +4,7 @@ date: 2019-5-9 10:14:46
 tags:
   - Windows
   - server
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -67,6 +67,8 @@ key: 49
 27. `SpaceSniffer.exe`
 28. `ChengDao.exe`
 29. `cosbrowser`
+
+![程序和功能](https://i1.yuangezhizao.cn/20211120223220.png!webp)
 
 ## 0x04.安全性配置
 1. `RDP`修改端口
