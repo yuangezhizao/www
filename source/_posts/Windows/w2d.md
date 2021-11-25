@@ -4,7 +4,7 @@ date: 2021-11-24 20:11:32
 tags:
   - Windows
   - server
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.0.1 (21A559)
 browser: 1
@@ -30,7 +30,7 @@ key: 125
 ![更改安装程序下载更新的方式](https://i1.yuangezhizao.cn/macOS/20211124200153.png!webp)
 ![不是现在](https://i1.yuangezhizao.cn/macOS/20211124200210.png!webp)
 
-4. 参照[密钥管理服务 (KMS) 客户端激活和产品密钥](https://docs.microsoft.com/zh-cn/windows-server/get-started/kms-client-activation-keys)，这里输入`Windows Server 2022 Datacenter`版本的产品密钥`WX4NM-KYWYW-QJJR4-XV3QB-6VM33`
+4. 参照[密钥管理服务 (KMS) 客户端激活和产品密钥](https://web.archive.org/web/20211125025910/https://docs.microsoft.com/zh-cn/windows-server/get-started/kms-client-activation-keys)，这里输入`Windows Server 2022 Datacenter`版本的产品密钥`WX4NM-KYWYW-QJJR4-XV3QB-6VM33`
 如果想要`Windows Server 2022 Standard`版本则输入`VDYBN-27WPP-V4HQT-9VMD4-VMK7H`
 ![WX4NM-KYWYW-QJJR4-XV3QB-6VM33](https://i1.yuangezhizao.cn/macOS/20211124200322.png!webp)
 
@@ -52,4 +52,16 @@ key: 125
 然后就一直等到了`23:40`，也就是接近`3h`草……终于下一次重启转圈圈了
 ![安装](https://i1.yuangezhizao.cn/macOS/20211124233946.png!webp)
 
-未完待续……
+8. 等到了第二天上午，睡醒后终于更新完成了，远程桌面登录发现黑屏草，召唤任务管理器运行`explorer.exe`就可以显示桌面了，不知道是不是为了节省资源来这么设计的
+然后`v2rayN`打不开了草，等了好久终于不再是`无响应`了
+
+![无响应](https://i1.yuangezhizao.cn/macOS/20211125104722.png!webp)
+
+9. 升级后版本：`20348.169`，是基于`21H2`的`Windows Server 2022 数据中心版 64 位中文版`
+![21H2](https://i1.yuangezhizao.cn/macOS/20211125105254.png!webp)
+
+## 0X02.后记
+没重启直接登录后感觉变卡了，反向升级？不过内存占用似乎变少了
+
+## 0x03.引用
+[远程进入服务器界面黑屏如何处理](https://web.archive.org/web/20211125025713/https://social.technet.microsoft.com/Forums/msonline/fr-FR/8ac9305c-f89b-4843-88fd-1ed5c53fb0a4/36828312433682720837263812115322120300283875440657236312291420)
