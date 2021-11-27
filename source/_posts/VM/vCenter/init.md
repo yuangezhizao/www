@@ -1,11 +1,11 @@
 ---
-title: VMware vCenter 7.0.0 安装
+title: VMware vCenter Server 7.0.0 安装
 date: 2021-09-27 21:20:31
 tags:
   - VM
   - VMware
   - vCenter
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.0 Beta (21A5506j)
 browser: 1
