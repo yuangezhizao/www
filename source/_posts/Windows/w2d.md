@@ -4,7 +4,7 @@ date: 2021-11-24 20:11:32
 tags:
   - Windows
   - server
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.0.1 (21A559)
 browser: 1
@@ -61,7 +61,18 @@ key: 125
 ![21H2](https://i1.yuangezhizao.cn/macOS/20211125105254.png!webp)
 
 ## 0X02.后记
-没重启直接登录后感觉变卡了，反向升级？不过内存占用似乎变少了
+~~没重启直接登录后感觉变卡了，反向升级？~~不过内存占用似乎变少了
+`2021-11-27 19:37:12`：早上起来发现家里内网`PAC`访问不了了，一看`cn-py-dl-w2d`的远程桌面也连不上，于是赶紧登录到`ESXi`上去看看是怎么回事
+![硬盘告急](https://i1.yuangezhizao.cn/macOS/20211127103416.png!webp)
+
+开幕雷击，原来是硬盘满了……还是在`VC`上操作吧，当然开幕还是同样的提示语
+![+1](https://i1.yuangezhizao.cn/macOS/20211127103945.png!webp)
+
+去看了存储占用又想到在升级之前打了一个快照，果断删除之后终于可以登录了，其实之前虚拟机的状态相当于`挂起`，因此恢复之后各种服务的状态也都保持着
+![删除全部快照](https://i1.yuangezhizao.cn/macOS/20211127103810.png!webp)
+
 
 ## 0x03.引用
 [远程进入服务器界面黑屏如何处理](https://web.archive.org/web/20211125025713/https://social.technet.microsoft.com/Forums/msonline/fr-FR/8ac9305c-f89b-4843-88fd-1ed5c53fb0a4/36828312433682720837263812115322120300283875440657236312291420)
+
+> 至此本文使命完成
