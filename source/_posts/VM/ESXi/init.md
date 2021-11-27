@@ -5,7 +5,7 @@ tags:
   - VM
   - VMware
   - ESXi
-count: 5
+count: 6
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -18,6 +18,8 @@ gitment: true
 <!-- more -->
 ## 0x00.安装或升级
 ### `ESXCLI`使用`Zip`文件更新`ESXi`主机
+> **【20211127】**关联文章：[VMware ESXi 升级 7.0 Update 2](./upgrade/17630552.html)，[VMware vCenter Server 7.0.0 安装](../vCenter/init.html)，[VMware vCenter Server 升级 7.0 Update 3a](../vCenter/upgrade/18778458.html)
+
 ### 1.下载
 ![7.0](https://i1.yuangezhizao.cn/Win-10/20200404011121.jpg!webp)
 
@@ -405,6 +407,9 @@ tools-light                    11.0.5.15389592-15843807           VMware  VMware
 设置`PowerShell`执行策略：`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
 安装`VMware PowerCLI`模块：`Install-Module -Name VMware.PowerCLI`
 然后竟然炸了？
+
+<details><summary>点击此处 ← 查看终端</summary>
+
 ``` powershell
 Microsoft Windows [版本 10.0.17763.914]
 (c) 2018 Microsoft Corporation。保留所有权利。
@@ -463,6 +468,8 @@ PS C:\Windows\system32>
 ![11.5.0](https://i1.yuangezhizao.cn/Win-10/20191227231533.jpg!webp)
 ![草 * 2](https://i1.yuangezhizao.cn/Win-10/20191016005155.jpg!webp)
 ![才看到原来这里写明了新版本会在新地址发布](https://i1.yuangezhizao.cn/Win-10/20191227233138.jpg!webp)
+
+</details>
 
 [真·官网](https://web.archive.org/web/20191227151927/https://code.vmware.com/web/tool/11.5.0/vmware-powercli)下载之后解压到模块目录下：`C:\Windows\System32\WindowsPowerShell\v1.0\Modules`，~~顺手把`VMware-PowerCLI-11.5.0-14912921`重命名为了`VMware-PowerCLI`~~
 `2019-12-28 01:14:06`终于找到了导入不能的解决方法，那就是解压完不要嵌套文件夹，要直接放在`Modules`目录下……
