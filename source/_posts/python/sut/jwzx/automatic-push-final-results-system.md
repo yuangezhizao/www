@@ -3,7 +3,7 @@ title: SUT 自动推送期末成绩系统
 date: 2017-7-19 18:48:50
 tags:
   - python
-count: 2
+count: 3
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
@@ -38,7 +38,7 @@ c. JetBrains Pycharm 2017.1.5 x64 Professional
 
 以下安装顺序不要改变，因为`pytesseract`依赖`tesseract-ocr`及`PIL`。
 
-### 1. [Tesseract](https://github.com/tesseract-ocr/tesseract)——`google`的`ocr`识别引擎
+### 1.[Tesseract](https://github.com/tesseract-ocr/tesseract)——`google`的`ocr`识别引擎
 
 参考官方[WiKi](https://github.com/tesseract-ocr/tesseract/wiki)页对于`Windows`下的介绍
 
@@ -57,13 +57,13 @@ tesseract 4.00.00alpha
   libgif 4.1.6(?) : libjpeg 8d (libjpeg-turbo 1.5.0) : libpng 1.6.20 : libtiff 4.0.6 : zlib 1.2.8 : libwebp 0.4.3 : libopenjp2 2.1.0
 ```
 
-### 2. [pillow](https://github.com/python-pillow/Pillow)——`python`的图像处理库
+### 2.[pillow](https://github.com/python-pillow/Pillow)——`python`的图像处理库
 > a replacement for PIL, the Python Image Library, which provides image processing functionality and supports many file formats.
 Use `from PIL import Image` instead of `import Image`.
 
 [.whl文件](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pillow)，根据版本选择`Pillow‑4.2.1‑cp27‑cp27m‑win_amd64.whl（[1.4 MB] [Jul 06, 2017]）`，然后`pip`安装之。
 
-### 3. [pytesseract](https://github.com/madmaze/pytesseract)——一个`python`库
+### 3.[pytesseract](https://github.com/madmaze/pytesseract)——一个`python`库
 > `pytesseract`是对`Tesseract-OCR`的一个封装，方便我们在`python`中调用`Tesseract-OCR`引擎
 
 直接`pip install pytesseract`或者`easy_install pytesseract`就可以了，是安装过程最简单的……

@@ -5,7 +5,7 @@ tags:
   - Flask
   - TencentCloud
   - Serverless
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.1039 2019-LTSC
 browser: 0
@@ -56,8 +56,8 @@ serverless create -t tencent-nodejs
 其中官网简介里写道：
 > 注 ：任何支持`WSGI（Web Server Gateway Interface）`的`Python`服务端框架都可以通过该组件进行部署，例如 `Falcon`框架等。
 
-### 1. 创建新项目
-#### 1. 基于模板
+### 1.创建新项目
+#### 1.基于模板
 通过`sls`直接根据模板创建服务，`gh`上有很多模板
 比如`https://github.com/serverless/components/tree/master/templates/tencent-flask`
 ```
@@ -97,7 +97,7 @@ def getUser(id):
 ```
 </details>
 
-#### 2. 不基于模板
+#### 2.不基于模板
 在`Pycharm`创建一个新的`Flask`项目：`LAB_Serverless`以区别之前的`LAB`
 ![New Project](https://i1.yuangezhizao.cn/Win-10/20200223204026.jpg!webp)
 ![app.py](https://i1.yuangezhizao.cn/Win-10/20200223204236.jpg!webp)
@@ -123,7 +123,7 @@ if __name__ == '__main__':
 
 `requirements.txt`？别急，先往下看
 
-### 2. 配置`Serverless`
+### 2.配置`Serverless`
 1. 创建`serverless.yml`，这里更改了几处配置
 ``` yml
 MyComponent:
@@ -152,7 +152,7 @@ TENCENT_SECRET_ID=<rm>
 TENCENT_SECRET_KEY=<rm>
 ```
 
-### 3. 部署
+### 3.部署
 `serverless`的缩写是`sls`，因此也可以用`sls`简化命令
 但是这里报错了……报错的原因是`requirements`文件夹不存在`(╯°Д°)╯`
 

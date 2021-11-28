@@ -3,7 +3,7 @@ title: 以存储设备的价格变化反观摩尔定律
 date: 2019-4-28 17:13:54
 tags:
   - Moore
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -16,7 +16,7 @@ key: 47
 
 ## 0x00.[淘宝订单](https://buyertrade.taobao.com/trade/itemlist/list_bought_items.htm)
 不得不佩服淘宝的`交易快照`存档
-### 1. 存储卡
+### 1.存储卡
 搜索关键字“卡”
 ![1](https://i1.yuangezhizao.cn/Win-10/20190428172156.png!webp)
 ![2](https://i1.yuangezhizao.cn/Win-10/20190428173029.png!webp)
@@ -30,7 +30,7 @@ key: 47
 2018-03-16 | 32GB | ¥77.9 | ¥2.434375
 2019-03-09 | 32GB | ¥28.9 | ¥0.903125
 
-### 2. 硬盘
+### 2.硬盘
 搜索关键字“硬盘”
 ![1](https://i1.yuangezhizao.cn/Win-10/20190428173632.png!webp)
 ![2](https://i1.yuangezhizao.cn/Win-10/20190428173856.png!webp)

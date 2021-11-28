@@ -4,7 +4,7 @@ date: 2019-5-12 20:53:55
 tags:
   - CentOS
   - server
-count: 9
+count: 10
 os: 0
 os_1: 10.0.17763.475 2019-LTSC
 browser: 0
@@ -34,13 +34,13 @@ key: 51
 ![或在重装系统时选好](https://i1.yuangezhizao.cn/Win-10/20191120185105.jpg!webp)
 
 ## 0x02. `v2ray`合集
-### 1. [v2-ui](https://github.com/sprov065/v2-ui/)
+### 1.[v2-ui](https://github.com/sprov065/v2-ui/)
 作者博客：[v2-ui，一个全新的多协议多用户 v2ray 面板](https://web.archive.org/web/20191123055128/https://blog.sprov.xyz/2019/08/03/v2-ui/)
 又搜罗到好的面板了，用了数月看起来还不错
 ![登录](https://i1.yuangezhizao.cn/Win-10/20191123141115.jpg!webp)
 ![主界面](https://i1.yuangezhizao.cn/Win-10/20191123141157.jpg!webp)
 
-### 2. [v2ray](https://github.com/v2ray/v2ray-core)
+### 2.[v2ray](https://github.com/v2ray/v2ray-core)
 使用官方原版安装，其实只需要配置文件提前写好就`ok`
 看了下手册，其实只需要`bash <(curl -L -s https://install.direct/go.sh)`，之后记好`PORT`&`UUID`即可
 ``` bash
@@ -131,7 +131,7 @@ Hint: Some lines were ellipsized, use -l to show in full.
 }
 ```
 
-### ~~3. [V2ray.Fun](https://github.com/FunctionClub/V2ray.Fun)~~
+### ~~3.[V2ray.Fun](https://github.com/FunctionClub/V2ray.Fun)~~
 ~~一键安装脚本有的是，特意看了内容有的真的会保存你的信息……安装原版的又不顺手，最终选了这个，带图形化管理界面不错`hhh`，是用`Flask`写的
 `wget -N --no-check-certificate https://raw.githubusercontent.com/FunctionClub/V2ray.Fun/master/install.sh && bash install.sh`~~
 ~~![修改连接](https://i1.yuangezhizao.cn/Win-10/20190512214632.png!webp)~~

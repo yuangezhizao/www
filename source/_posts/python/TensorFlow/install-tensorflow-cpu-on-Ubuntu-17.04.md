@@ -5,7 +5,7 @@ tags:
   - TensorFlow
   - TensorFlow-CPU
   - Ubuntu
-count: 1
+count: 2
 os: 0
 os_1: 10.0.15063 Pro
 browser: 0
@@ -24,9 +24,9 @@ key: 14
 系统内的分配就不说了（原因是我忘了……）
 
 ## 0x02.环境配置
-### 1. 安装`Python 27`
+### 1.安装`Python 27`
 `sudo apt-get install python-pip python-dev python-virtualenv`
-### 2. 更改`pip`默认源
+### 2.更改`pip`默认源
 默认源服务器在国外，国内下载较慢，有必要换为国内阿里源。
 > 对于`Ubuntu`来说，在主目录的`.pip`文件夹中创建如下内容的`pip.conf`即可：
 ```
@@ -35,22 +35,22 @@ index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]  
 trusted-host=mirrors.aliyun.com
 ```
-### 3. 升级`pip`
+### 3.升级`pip`
 ``` python
 pip install --upgrade pip
 ```
 `TensorFlow`有两个版本：`CPU`版本和`GPU`版本。
 虚拟机里想什么`GPU`呢，滑稽
-### 4. 创建虚拟环境目录
+### 4.创建虚拟环境目录
 `sudo mkdir ~/env`
-### 5. 利用`VirtualEnv`命令创建位于`~/env/tensorflow`的虚拟环境
+### 5.利用`VirtualEnv`命令创建位于`~/env/tensorflow`的虚拟环境
 `virtualenv --system-site-packages ~/env/tensorflow`
-### 6. 激活方法（此时变为`（tensorflow）$`）
+### 6.激活方法（此时变为`（tensorflow）$`）
 `source ~/env/tensorflow/bin/activate`
-### 7. 创建一个激活该虚拟环境的快捷命令
+### 7.创建一个激活该虚拟环境的快捷命令
 `sudo printf '\nalias tensorflow="source ~/env/tensorflow/bin/activate"' >> ~/.bashrc`
 注：重启终端生效
-### 8. 关闭方法
+### 8.关闭方法
 `deactivate`
 
 ## 0x03.`pip`安装`TensorFlow-CPU`
@@ -64,7 +64,7 @@ pip install --upgrade pip
 这也是为什么本文的标题是**编译**
 
 ## 0x05.再一次的环境配置
-### 1. Install [Bazel](https://docs.bazel.build/versions/master/install.html)
+### 1.Install [Bazel](https://docs.bazel.build/versions/master/install.html)
 采用官方给出两种方法的第一种，也是推荐的那种
 > Using Bazel custom APT repository (recommended)
 1. Install JDK 8
@@ -82,9 +82,9 @@ If you want to install the testing version of Bazel, replace stable with testing
 Once installed, you can upgrade to a newer version of Bazel with:
 `sudo apt-get upgrade bazel`
 
-### 2. Install TensorFlow Python dependencies
+### 2.Install TensorFlow Python dependencies
 `sudo apt-get install python-numpy python-dev python-pip python-wheel`
-### 3. Configure the installation
+### 3.Configure the installation
 `./configure`
 这里给出我的选择：
 ![](https://i1.yuangezhizao.cn/Win-10/20170818095912.jpg!webp)

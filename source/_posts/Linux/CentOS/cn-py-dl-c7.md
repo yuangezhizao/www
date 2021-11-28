@@ -3,7 +3,7 @@ title: PY 云新增 CentOS 7.7 64 位
 date: 2019-10-28 23:13:25
 tags:
   - CentOS 
-count: 6
+count: 7
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -21,7 +21,7 @@ centos-release-7-9.2009.1.el7.centos.x86_64
 ```
 
 ## 0x01.配置
-### 1. 查看`IP`
+### 1.查看`IP`
 搁这`VNC`？里干一件事情就足够了，就再也不用进来了（`grub`除外
 ``` bash
 [root@localhost ~]# ip addr
@@ -83,7 +83,7 @@ GATEWAY=192.168.25.254
 DNS1=192.168.25.30
 ```
 
-### 2. 修改主机名
+### 2.修改主机名
 ``` bash
 [root@localhost ~]# hostnamectl set-hostname py.yuangezhizao.cn
 [root@localhost ~]# cat /etc/hosts
@@ -96,7 +96,7 @@ DNS1=192.168.25.30
 [root@localhost ~]# 
 ```
 
-### 3. 安装常用软件
+### 3.安装常用软件
 ``` bash
 yum update -y
 yum install vim git wget screen -y

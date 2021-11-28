@@ -3,7 +3,7 @@ title: 树莓派基于 Motion 搭建监控系统
 date: 2021-03-01 19:08:04
 tags:
   - Motion
-count: 1
+count: 2
 os: 1
 os_1: Big Sur 11.2.2 (20D80)
 browser: 1
@@ -20,9 +20,9 @@ key: 108
 
 ## 0x01.[Motion](https://github.com/Motion-Project/motion)
 参照[官方文档](https://motion-project.github.io/)
-### 1. 安装
+### 1.安装
 图省事安装预编译包：`sudo apt install motion`
-### 2. 配置
+### 2.配置
 ``` bash
 sudo vim /etc/motion/motion.conf
 
@@ -47,7 +47,7 @@ sudo vim /etc/default/motion
 
 start_motion_daemon=yes
 ```
-### 3. 运行
+### 3.运行
 `sudo motion -m`~~，修改配置文件后需`sudo killall -SIGHUP motion`~~
 
 ## 0x01.后记

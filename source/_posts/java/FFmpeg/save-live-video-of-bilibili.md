@@ -4,7 +4,7 @@ date: 2017-7-24 16:04:12
 tags:
   - FFmpeg
   - java
-count: 2
+count: 3
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
@@ -74,16 +74,16 @@ gitment: true
 
 ## 0x02.三种方法
 
-### 1. [liverecord.groovy](https://gist.github.com/sunny00123/4e69283b930f0f3a36244237797be9d0)
+### 1.[liverecord.groovy](https://gist.github.com/sunny00123/4e69283b930f0f3a36244237797be9d0)
 来自`av4568222`评论
 
 关于如何在`Win`下配置`Groovy`环境请参考此文章：
 > http://www.jianshu.com/p/777cc61a6202
 
-### 2. [biliroku](https://github.com/zyzsdy/biliroku)——`bilibili`生放送（直播）录制
+### 2.[biliroku](https://github.com/zyzsdy/biliroku)——`bilibili`生放送（直播）录制
 开源，地址如上所示
 
-### 3. [B站录播机](http://live.weibo333.com)——不再错过每一场直播
+### 3.[B站录播机](http://live.weibo333.com)——不再错过每一场直播
 闭源，录制两个以上房间 or 下载弹幕需要付费
 
 ## 0x03.优缺点

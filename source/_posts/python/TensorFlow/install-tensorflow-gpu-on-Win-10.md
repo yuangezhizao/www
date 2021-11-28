@@ -4,7 +4,7 @@ date: 2017-8-3 10:25:03
 tags:
   - TensorFlow
   - TensorFlow-GPU
-count: 1
+count: 2
 os: 0
 os_1: 10.0.15063 Pro
 browser: 0
@@ -53,10 +53,10 @@ c. JetBrains Pycharm 2017.2 x64 Professional
 d. GeForce GTX 965M
 
 ## 0x02.安装
-### 1. 安装`python 36`
+### 1.安装`python 36`
 一路下一步打钩环境变量设置即可。不建议`python 27`，因为好像不支持，所以最后一步会报`Could not find a version that satisfies the requirement tensorflow-gpu (from versions: ) No matching distribution found for tensorflow-gpu`
 
-### 2. 更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
+### 2.更换[清华`pip`镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
 默认源服务器在国外，国内下载较慢，有必要换为国内清华源。
 #### 临时使用
 ```
@@ -87,7 +87,7 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ~~这里吐槽下科大其实用的是清华的源……~~已改为清华源
 
 
-### 3. 升级`pip`
+### 3.升级`pip`
 `py -2 -m pip install --upgrade pip`
 由于我电脑安装了两个版本，所以用 py -2 选择 2 版本的解释器，同理 py -3 即是选择 3 版本的解释器
 
@@ -97,20 +97,20 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 
 另，网上多建议安装`Anaconda`，因为这个集成了很多科学计算所必需的库，能够避免很多依赖问题，这个`Pycharm`党就先不安了（其实我安了但是可能是因为我用习惯了感觉没有`Pycharm`舒服）
 
-### 4. 安装[CUDA](https://developer.nvidia.com/cuda-downloads)
+### 4.安装[CUDA](https://developer.nvidia.com/cuda-downloads)
 `Windows`→`x86_64`→`10`→`exe (local)`
 下载如下两个文件，按照先后顺序安装：
 `Base Installer	Download (1.3 GB)`
 `Patch 2 (Released Jun 26, 2017) Download (43.1 MB)`
 安装完之后，在命令行输入`nvcc -V`，会有正常回显……
 
-### 5. 安装[cuDNN](https://developer.nvidia.com/cudnn)
+### 5.安装[cuDNN](https://developer.nvidia.com/cudnn)
 `cuDNN`可以在前面`GPU`加速基础上大概再提升`1.5`倍的速度，同样由`nVIDIA`开发。官网注册账号，下载[cuDNN v8.0 Library for Windows 10](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v6/prod/8.0_20170307/cudnn-8.0-windows10-x64-v6.0-zip)
 压缩包，解压完将**对应**文件夹（`bin、include、lib`）覆盖至`CUDA`的安装目录，即`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0`，然后把`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\bin`加入环境变量，并将`bin`文件夹里的`cudnn64_6.dll`重命名为`cudnn64_5.dll`（此处参考[tensorflow/issues/7705](https://github.com/tensorflow/tensorflow/issues/7705)，其实换旧版本也可以解决[stackoverflow](https://stackoverflow.com/questions/44080677/no-module-named-pywrap-tensorflow-internal)，因为重下安装包较大故采用前一方法），才算完成。
 
     话说注册账号要求好麻烦，大小写包含特殊符号且不少于6位……
 
-### 6. `pip`安装`TensorFlow-GPU`（最后一步）
+### 6.`pip`安装`TensorFlow-GPU`（最后一步）
 `pip3 install --upgrade tensorflow-gpu`
 万一在线`pip`安装失败了，就离线安装，到[http://www.lfd.uci.edu/~gohlke/pythonlibs/](http://www.lfd.uci.edu/~gohlke/pythonlibs/)下载`python`的`whl`包`tensorflow_gpu‑1.1.0‑cp36‑cp36m‑win_amd64.whl`，然后命令提示符运行`pip install < 此处填写 .whl 所在位置 >`（可以将`.whl`文件拖入命令提示符中即生成其位置）
 

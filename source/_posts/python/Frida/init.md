@@ -3,7 +3,7 @@ title: Frida 初体验
 date: 2020-3-16 21:53:05
 tags:
   - Frida
-count: 5
+count: 6
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
@@ -77,14 +77,14 @@ key: 79
 ## 0x04.动态分析——搭建环境
 终于可以步入主题了
 
-### 1. 再谈[Frida](https://web.archive.org/web/20200317123600/https://frida.re/)
+### 1.再谈[Frida](https://web.archive.org/web/20200317123600/https://frida.re/)
 > Inject JavaScript to explore native apps on Windows, Mac, Linux, iOS, Android, and QNX.
 
 > `Frida`是一款基于`Python + JavaScript`的`Hook`框架，可运行在各个平台，主要使用的动态二进制插桩技术
 
 反正就知道它可以用来`注入`就`ok`了，这个`Xposed`的原理都是差不多的，但实际实现肯定是不一样的（又想到了孵化进程）……
 
-### 2. （客户端）[安装](https://web.archive.org/web/20200317123509/https://frida.re/docs/installation/)
+### 2.（客户端）[安装](https://web.archive.org/web/20200317123509/https://frida.re/docs/installation/)
 注意安装速度巨慢，~~中途感觉阻塞还强关了一次，~~孩纸耐心就好
 ``` bash
 C:\Users\yuangezhizao>pip install frida frida-tools
@@ -102,7 +102,7 @@ C:\Users\yuangezhizao>frida --version
 C:\Users\yuangezhizao>
 ```
 
-### 3. （服务端）[安装](https://web.archive.org/web/20200317123526/https://frida.re/docs/android/)
+### 3.（服务端）[安装](https://web.archive.org/web/20200317123526/https://frida.re/docs/android/)
 这里指的服务端自然是**安卓**端了，查看手机`CPU`版本
 ``` bash
 ~$ getprop ro.product.cpu.abi

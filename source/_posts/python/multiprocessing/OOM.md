@@ -5,7 +5,7 @@ tags:
   - OOM
   - multiprocessing
   - Elasticsearch
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.0.1 (21A559)
 browser: 1
@@ -83,12 +83,12 @@ def bulk_load_to_es_by_pool_executor(df_content, timestamp, index_name_type):
     except Exception as err:
         raise CollectorException('error occured when post raw flows to es, %s' % str(err))
 ```
-### 1. `content`过大
+### 1.`content`过大
 没错，`content`就是那个含有`7850484`条记录的`bulk`的请求体，粗略估测不超过`15MB * 66 = 990MB`，也就是接近`1G`的大小
 而创建`ProcessPoolExecutor()`时`content`变量已经存在，`multiprocessing`启动进程的方法在`Unix`中的默认值是`fork`
 也就是说`fork`出来的每一个进程都会拷贝一份`content`变量，造成不必要的内存开销
 
-### 2. 未限制`max_workers`
+### 2.未限制`max_workers`
 翻阅了一下`gitlab`的历史，可以看出最开始用的`ThreadPoolExecutor`是有显式设定`max_workers`的，但是`ProcessPoolExecutor`却没有传入`max_workers`
 想了下原因是，当初看到文档`max_workers`默认是机器的处理器个数，想着应该不需要手动设定数量吧，所以到头来代码里就一直没有给多进程设置`max_workers`的地方……
 `lab`里测试环境的`CPU`是`16`再不就是`32`，而现网环境是直接把`CentOS`装到了物理机上，也没有`ESXi`之类的虚拟化平台，`CPU`就是`64`……
@@ -97,10 +97,10 @@ def bulk_load_to_es_by_pool_executor(df_content, timestamp, index_name_type):
 半夜的时候超过`128G`导致`OOM`，而次日下午是刚恢复完其他服务没有占用过多内存才勉强运行完成
 
 ## 0x05.代码重构
-### 1. `content`过大
+### 1.`content`过大
 未完待续……
 
-### 2. 限制`max_workers`
+### 2.限制`max_workers`
 `executor = ProcessPoolExecutor(max_workers=int(thread_pool_max_workers))`
 
 ## 0x06.后记
