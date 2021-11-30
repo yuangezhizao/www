@@ -4,7 +4,7 @@ date: 2020-10-20 20:21:59
 tags:
   - Serverless
   - maimai_DX
-count: 14
+count: 15
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
@@ -188,7 +188,7 @@ TENCENT_SECRET_KEY=<rm>
 ## 0x03.[maimai_DX](https://zh.wikipedia.org/wiki/Maimai)
 还是来简单地介绍一下[maimai](https://mzh.moegirl.org.cn/zh-hans/Maimai系列)这款街机音游吧，外语水平好的可以直接去看[日本官网](https://maimai.sega.jp/)&[海外官网](https://maimai.sega.com/)，介绍的还是比较专业的
 到底是个什么样子的游戏呢？在这里放一张动图自行体会一下，原始素材来自[【外录maimai】QZKago Requiem Re:MASTER ALLPERFECT Player : Ruri*R](https://www.bilibili.com/video/av457219654)
-![QZKago](https://i1.yuangezhizao.cn/macOS/QQ20201024-213604-HD.gif!webp)
+![QZKago](https://7975-yuangezhizao-1251901037.tcb.qcloud.la/macOS/QQ20201024-213604-HD_webp.gif)
 
 在国内，只能从**微信公众号**中查看成绩（因为每次进页面都需要微信的授权登录
 并且里面存储的记录有条数限制，`相册`只存最新十条，`游戏记录`只存最新五十条（就是一个队列，先进先出的那种
