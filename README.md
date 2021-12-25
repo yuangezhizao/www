@@ -8,11 +8,11 @@ This is my personal static blog site, mainly writing articles about Internet tec
 But up to now the content of the article is only written in Chinese.
 
 ## Links
-URL | CDN | Tip
-:---: | :---: | :---:
-https://www.yuangezhizao.cn | QCloud | Recommended in China
-https://yuangezhizao.vercel.app | Vercel | Recommended outside China
-https://www-cf.yuangezhizao.cn | Cloudflare | Available worldwide
+URL | CDN | Region | Deployment
+:---: | :---: | :---: | :---:
+https://www.yuangezhizao.cn | QCloud | Recommended in China | Manual（Delayed）
+https://yuangezhizao.vercel.app | Vercel | Recommended outside China | Automatic（Fastest）
+https://www-cf.yuangezhizao.cn | Cloudflare | Available worldwide | Automatic（Medium）
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fyuangezhizao%2Fwww.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fyuangezhizao%2Fwww?ref=badge_large)
