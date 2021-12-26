@@ -100,14 +100,14 @@ sitemap:
 
 live2d:
   enable: true
-  scriptFrom: jsdelivr
+  scriptFrom: local
   pluginRootPath: live2dw/
   pluginJsPath: lib/
   pluginModelPath: assets/
   tagMode: false
-  debug: true
+  debug: false
   model:
-    use: https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json
+    use: live2d-widget-model-shizuku
   display:
     position: right
     width: 200
