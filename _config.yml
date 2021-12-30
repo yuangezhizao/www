@@ -107,15 +107,17 @@ live2d:
   tagMode: false
   debug: true
   model:
-    use: https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json
+    use: https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json
   display:
     position: right
     width: 200
-    height: 400
+    height: 450
+    hOffset: 0
+    vOffset: 0
   mobile:
     show: true
   react:
-    opacity: 0.7
+    opacity: 0.9
   dialog:
     enable: true
     hitokoto: false
