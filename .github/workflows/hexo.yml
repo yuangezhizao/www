@@ -23,7 +23,7 @@ jobs:
 
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.5.1
-      with:
+#      with:
         # Set always-auth in npmrc
 #         always-auth: # optional, default is false
         # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
@@ -41,23 +41,23 @@ jobs:
         # Used to pull node distributions from node-versions.  Since there's a default, this is typically not supplied by the user.
 #         token: # optional, default is ${{ github.token }}
         # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm
-        cache: npm
+#        cache: npm
         # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
 #         cache-dependency-path: # optional
         # Deprecated. Use node-version instead. Will not be supported after October 1, 2019
 #         version: # optional
 
     - name: Install hexo-cli
-      run: sudo npm install hexo-cli -g
+      run: npm install hexo-cli -g
 
     - name: Install dependencies
-      run: sudo npm install
+      run: npm install
 
     - name: Generate resources
       run: hexo clean && hexo g
 
     - name: Delete atom.xml
-      run: sudo rm -rf ./public/atom.xml
+      run: rm -rf ./public/atom.xml
 
     - name: Deploy to Tencent COS
       env:
@@ -66,6 +66,6 @@ jobs:
         BUCKET: ${{ secrets.TENCENT_COS_BUCKET }}
         REGION: ap-beijing
       run: |
-        sudo pip install coscmd
+        pip install coscmd
         coscmd config -a ${SECRET_ID} -s ${SECRET_KEY} -b ${BUCKET} -r ${REGION}
         coscmd upload -rs --delete ./public/ / -f
