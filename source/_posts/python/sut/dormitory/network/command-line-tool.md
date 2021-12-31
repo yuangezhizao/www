@@ -3,7 +3,7 @@ title: SUTDN 命令行工具
 date: 2017-9-15 15:29:31
 tags:
   - SUTDN
-count: 2
+count: 3
 os: 0
 os_1: 10.0.15063 Pro
 browser: 0
@@ -27,7 +27,7 @@ gitment: true
 ![存档](https://i1.yuangezhizao.cn/Win-10/20171108214951.jpg!webp)
 ![开源](https://i1.yuangezhizao.cn/macOS/20211106170406.png!webp)
 
-## 0x03.源码下载
+## 0x03.源码
 https://github.com/yuangezhizao/SUTDN
 
 ## 0x04.参考
