@@ -10,7 +10,7 @@ os_1: Monterry 12.1 (21C52)
 browser: 1
 browser_1: 96.0.4664.110 Stable
 place: 新家
-key: 127
+key: 128
 ---
     终于还是用上了你云的轻量应用服务器草
 <!-- more -->
@@ -399,11 +399,120 @@ E:\mongodb-database-tools-windows-x86_64-100.5.1\bin>mongodump -d wooyun -o "X:\
 最后卸载`cn-tx-bj3-w9d`上的`MongoDB`，寿终正寝已完成使命（<span title="你知道的太多了" class="heimu">这内存大户就是个定时炸弹，尤其是作死全文搜索的时候<span>
 ![卸载](https://i1.yuangezhizao.cn/macOS/20211221235959.png!webp)
 
-## 0x06.后记
+## 0x08.安装[Redis](https://redis.io)
+众所周知`dnf`上的版本（`5.0.3`）要落后于源码（`6.2.6`）的版本
+``` bash
+[root@cn-tx-bj7-c8 ~]# dnf info redis.x86_64
+Last metadata expiration check: 0:00:03 ago on Fri 31 Dec 2021 09:23:34 PM CST.
+Available Packages
+Name         : redis
+Version      : 5.0.3
+Release      : 5.module_el8.4.0+955+7126e393
+Architecture : x86_64
+Size         : 927 k
+Source       : redis-5.0.3-5.module_el8.4.0+955+7126e393.src.rpm
+Repository   : appstream
+Summary      : A persistent key-value database
+URL          : http://redis.io
+License      : BSD and MIT
+Description  : Redis is an advanced key-value store. It is often referred to as a data
+             : structure server since keys can contain strings, hashes, lists, sets and
+             : sorted sets.
+             : 
+             : You can run atomic operations on these types, like appending to a string;
+             : incrementing the value in a hash; pushing to a list; computing set
+             : intersection, union and difference; or getting the member with highest
+             : ranking in a sorted set.
+             : 
+             : In order to achieve its outstanding performance, Redis works with an
+             : in-memory dataset. Depending on your use case, you can persist it either
+             : by dumping the dataset to disk every once in a while, or by appending
+             : each command to a log.
+             : 
+             : Redis also supports trivial-to-setup master-slave replication, with very
+             : fast non-blocking first synchronization, auto-reconnection on net split
+             : and so forth.
+             : 
+             : Other features include Transactions, Pub/Sub, Lua scripting, Keys with a
+             : limited time-to-live, and configuration settings to make Redis behave like
+             : a cache.
+             : 
+             : You can use Redis from most programming languages also.
+```
+于是去下载源码然后编译安装，这里直接执行了`make`而没有提前`make test`，而想要执行后者还得额外安装`tcl`包
+``` bash
+[root@cn-tx-bj7-c8 ~]# wget https://download.redis.io/releases/redis-6.2.6.tar.gz
+[root@cn-tx-bj7-c8 ~]# tar xzf redis-6.2.6.tar.gz
+[root@cn-tx-bj7-c8 ~]# cd redis-6.2.6
+[root@cn-tx-bj7-c8 redis-6.2.6]# make
+……
+Hint: It's a good idea to run 'make test' ;)
+
+make[1]: Leaving directory '/root/redis-6.2.6/src'
+[root@cn-tx-bj7-c8 redis-6.2.6]# make test
+cd src && make test
+make[1]: Entering directory '/root/redis-6.2.6/src'
+    CC Makefile.dep
+You need tcl 8.5 or newer in order to run the Redis test
+make[1]: *** [Makefile:391: test] Error 1
+make[1]: Leaving directory '/root/redis-6.2.6/src'
+make: *** [Makefile:6: test] Error 2
+[root@cn-tx-bj7-c8 redis-6.2.6]# make install
+cd src && make install
+make[1]: Entering directory '/root/redis-6.2.6/src'
+
+Hint: It's a good idea to run 'make test' ;)
+
+    INSTALL redis-server
+    INSTALL redis-benchmark
+    INSTALL redis-cli
+make[1]: Leaving directory '/root/redis-6.2.6/src'
+```
+然后去修改配置文件，结果发现`/etc/redis.conf`文件不存在，需要手动将当前目录下的`redis.conf`复制到那里，并且还缺少`redis-server.service`文件
+``` bash
+[root@cn-tx-bj7-c8 redis-6.2.6]# make uninstall
+cd src && make uninstall
+make[1]: Entering directory '/root/redis-6.2.6/src'
+rm -f /usr/local/bin/{redis-server,redis-benchmark,redis-cli,redis-check-rdb,redis-check-aof,redis-sentinel}
+make[1]: Leaving directory '/root/redis-6.2.6/src'
+```
+有点怂了，这里先回退至`dnf`安装，之后再更改为编译安装
+``` bash
+[root@cn-tx-bj7-c8 ~]# dnf install redis -y
+```
+然后去修改配置文件`vim /etc/redis.conf`
+1. `bind 0.0.0.0`
+2. `requirepass <rm>`
+
+最后启动`redis`
+``` bash
+[root@cn-tx-bj7-c8 ~]# systemctl enable redis --now
+Created symlink /etc/systemd/system/multi-user.target.wants/redis.service → /usr/lib/systemd/system/redis.service.
+[root@cn-tx-bj7-c8 ~]# systemctl status redis
+● redis.service - Redis persistent key-value database
+   Loaded: loaded (/usr/lib/systemd/system/redis.service; enabled; vendor preset: disabled)
+  Drop-In: /etc/systemd/system/redis.service.d
+           └─limit.conf
+   Active: active (running) since Fri 2021-12-31 21:37:56 CST; 9s ago
+ Main PID: 3469856 (redis-server)
+    Tasks: 4 (limit: 23722)
+   Memory: 6.6M
+   CGroup: /system.slice/redis.service
+           └─3469856 /usr/bin/redis-server 0.0.0.0:6379
+
+Dec 31 21:37:56 cn-tx-bj7-c8 systemd[1]: Starting Redis persistent key-value database...
+Dec 31 21:37:56 cn-tx-bj7-c8 systemd[1]: Started Redis persistent key-value database.
+[root@cn-tx-bj7-c8 ~]# ss -an | grep 6379
+tcp   LISTEN     0      128                                                      0.0.0.0:6379               0.0.0.0:*  
+```
+
+## 0x08.后记
 折腾了一天好累，反正万事开头难
 
-## 0x07.引用
+## 0x09.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
+[如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
+[如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
 [如何在CentOS 8中安装Cockpit Web Console](https://web.archive.org/web/20211221074630/https://www.howtoing.com/install-cockpit-web-console-in-centos-8)
 [Cockpit - 使用Web浏览器监视和管理多个Linux服务器的强大工具](https://web.archive.org/web/20211221074818/https://www.howtoing.com/cockpit-monitor-multiple-linux-servers-via-web-browser/)
 [如何在CentOS 8上安装MongoDB](https://web.archive.org/web/20211221084731/https://www.myfreax.com/how-to-install-mongodb-on-centos-8/)
