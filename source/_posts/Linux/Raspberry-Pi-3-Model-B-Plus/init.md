@@ -3,7 +3,7 @@ title: 树莓派 3B+ 初始化
 date: 2021-03-11 23:22:23
 tags:
   - RaspberryPi
-count: 2
+count: 3
 os: 1
 os_1: Big Sur 11.2.3 (20D91)
 browser: 1
@@ -102,7 +102,7 @@ Connecting to host 192.168.25.248, port 5201
 iperf Done.
 ```
 
-## 0x03.摄像头以[mjpeg](https://www.home-assistant.io/integrations/mjpeg/)方式接入`HomeAssistant`
+## 0x04.摄像头以[mjpeg](https://www.home-assistant.io/integrations/mjpeg/)方式接入`HomeAssistant`
 修改`configuration.yaml`
 ``` yaml
 camera:
@@ -115,11 +115,261 @@ camera:
     authentication: basic
 ```
 
-## 0x02.后记
+## 0x05.安装[SmokePing](https://oss.oetiker.ch/smokeping/)
+参照[How to install SmokePing](https://web.archive.org/web/20210817144328/https://oss.oetiker.ch/smokeping/doc/smokeping_install.en.html)还是算了吧，真的需要一键安装脚本，然后谷歌看到树莓派上有编译好的包，于是立即从`cn-py-dl-c8`切换到`rpi-master`来安装了
+``` bash
+pi@rpi-master:~ $ apt show smokeping
+Package: smokeping
+Version: 2.7.3-3
+Priority: optional
+Section: net
+Maintainer: Gabriel Filion <gabriel@koumbit.org>
+Installed-Size: 1,179 kB
+Depends: perl:any, libwww-perl, libsnmp-session-perl (>= 0.86), librrds-perl (>= 1.2), liburi-perl, fping (>= 2.4b2-to-ipv6-2), libcgi-fast-perl, debianutils (>= 1.7), adduser, lsb-base (>= 3.0-6), libdigest-hmac-perl, ucf (>= 0.28), libconfig-grammar-perl, libjs-cropper, libjs-scriptaculous, libjs-prototype, default-mta | mail-transport-agent
+Recommends: apache2 | httpd-cgi, libsocket6-perl, dnsutils, echoping, apache2 (>= 2.4.6-4~) | apache2 | httpd
+Suggests: curl, libauthen-radius-perl, libnet-ldap-perl, libnet-dns-perl, openssh-client, libio-socket-ssl-perl, libnet-telnet-perl
+Homepage: https://smokeping.org/
+Tag: admin::logging, admin::monitoring, implemented-in::perl,
+ interface::commandline, interface::daemon, interface::web,
+ network::server, protocol::ipv6, protocol::snmp, role::program,
+ scope::utility, use::monitor, use::scanning, web::cgi, works-with::db,
+ works-with::image, works-with::image:vector, works-with::logfile
+Download-Size: 495 kB
+APT-Sources: http://raspbian.raspberrypi.org/raspbian bullseye/main armhf Packages
+Description: latency logging and graphing system
+ SmokePing consists of a daemon process which organizes the
+ latency measurements and a CGI which presents the graphs.
+ .
+ With SmokePing you can measure latency and packet loss in your network.
+ SmokePing uses RRDtool to maintain a longterm datastore and to draw pretty
+ graphs giving up to the minute information on the state of each
+ network connection.
+ ```
+开始安装
+``` bash
+pi@rpi-master:~ $ sudo apt install smokeping -y
+pi@rpi-master:~ $ a2enmod cgi
+Your MPM seems to be threaded. Selecting cgid instead of cgi.
+Module cgid already enabled
+```
+修改配置文件
+``` bash
+pi@rpi-master:~ $ sudo vim /etc/smokeping/config.d/Probes
+pi@rpi-master:~ $ cat /etc/smokeping/config.d/Probes
+*** Probes ***
+
++ FPing
+
+binary = /usr/bin/fping
+
++ DNS
+binary = /usr/bin/dig
+lookup = example.com
+pings = 5
+step = 180
+
++ Curl
+
+binary = /usr/bin/curl
+step = 60
+urlformat = https://%host%/
+pi@rpi-master:~ $ sudo vim /etc/smokeping/config.d/Targets
+pi@rpi-master:~ $ sudo cp /etc/smokeping/config.d/Targets /etc/smokeping/config.d/Targets.bak
+pi@rpi-master:~ $ ll /etc/smokeping/config.d/
+total 36
+-rw-r--r-- 1 root root 177 Jul 11  2020 Alerts
+-rw-r--r-- 1 root root 237 Jul 11  2020 Database
+-rw-r--r-- 1 root root 489 Jul 11  2020 General
+-rw-r--r-- 1 root root 255 Jul 11  2020 pathnames
+-rw-r--r-- 1 root root 909 Jul 11  2020 Presentation
+-rw-r--r-- 1 root root 191 Jan  1 11:59 Probes
+-rw-r--r-- 1 root root 147 Jul 11  2020 Slaves
+-rw-r--r-- 1 root root 380 Jul 11  2020 Targets
+-rw-r--r-- 1 root root 380 Jan  1 12:01 Targets.bak
+pi@rpi-master:~ $ sudo vim /etc/smokeping/config.d/Targets
+pi@rpi-master:~ $ cat /etc/smokeping/config.d/Targets
+*** Targets ***
+
+probe = FPing
+menu  = Top
+title = Network Latency Grapher
+
++ ICMP
+
+probe = FPing
+menu  = ICMP
+title = ICMP
+
+++ ICMP_lab
+
+menu  = lab
+title = lab.yuangezhizao.cn
+host  = lab.yuangezhizao.cn
+
+++ ICMP_txy
+
+menu  = txy
+title = txy.yuangezhizao.cn
+host  = txy.yuangezhizao.cn
+
+++ ICMP_proxy
+
+menu  = proxy
+title = proxy.yuangezhizao.cn
+host  = proxy.yuangezhizao.cn
+
+++ ICMP_proxy-cf
+
+menu  = proxy-cf
+title = proxy-cf.yuangezhizao.cn
+host  = proxy-cf.yuangezhizao.cn
+
+++ ICMP_proxy_v6
+
+menu  = proxy_v6
+title = proxyv6.yuangezhizao.cn
+host  = proxyv6.yuangezhizao.cn
+
+++ ICMP_GCP-JP
+
+menu  = GCP-JP
+title = 35.190.226.17
+host  = 35.190.226.17
+
+++ ICMP_GCP-TW
+
+menu  = GCP-TW
+title = 35.194.225.73
+host  = 35.194.225.73
+
++ DNS
+
+probe = DNS
+menu  = DNS
+title = DNS
+
+++ Cloudflare_Teams_DNS
+
+menu  = 172.64.36.1
+title = 172.64.36.1
+host  = 172.64.36.1
+
+++ Cloudflare_DNS
+
+menu  = 1.1.1.1
+title = 1.1.1.1
+host  = 1.1.1.1
+
+++ Google_DNS
+
+menu  = 8.8.8.8
+title = 8.8.8.8
+host  = 8.8.8.8
+
+++ 219_149_6_99
+
+menu  = 219.149.6.99
+title = 219.149.6.99
+host  = 219.149.6.99
+
+++ 120_53_53_11
+
+menu  = 120.53.53.11
+title = 120.53.53.11
+host  = 120.53.53.11
+
+++ Cloudflare_Teams_DNS-v6
+
+menu  = 2402:4e00:0::d2ad:6392
+title = 2402:4e00:0::d2ad:6392
+host  = 2402:4e00:0::d2ad:6392
+
+++ 2a06_98c1_54__1802
+
+menu  = 2a06:98c1:54::1802
+title = 2a06:98c1:54::1802
+host  = 2a06:98c1:54::1802
+
++ HTTP
+
+probe = Curl
+menu  = HTTP
+title = HTTP
+
+++ HTTP_www-vercel
+
+menu  = yuangezhizao.vercel.app
+title = yuangezhizao.vercel.app
+host  = yuangezhizao.vercel.app
+
+++ HTTP_www-cf
+
+menu  = www-cf.yuangezhizao.cn
+title = www-cf.yuangezhizao.cn
+host  = www-cf.yuangezhizao.cn
+
+++ HTTP_proxy
+
+menu  = proxy
+title = proxy.yuangezhizao.cn
+host  = proxy.yuangezhizao.cn
+
+++ HTTP_proxy-cf
+
+menu  = proxy-cf
+title = proxy-cf.yuangezhizao.cn
+host  = proxy-cf.yuangezhizao.cn
+
+++ HTTP_proxy_v6
+
+menu  = proxy_v6
+title = proxyv6.yuangezhizao.cn
+host  = proxyv6.yuangezhizao.cn
+
+++ HTTP_proxy_v6-cf
+
+menu  = proxy_v6-cf
+title = proxyv6-cf.yuangezhizao.cn
+host  = proxyv6-cf.yuangezhizao.cn
+```
+最后重启
+```
+pi@rpi-master:~ $ sudo service smokeping restart
+pi@rpi-master:~ $ service smokeping status
+● smokeping.service - Latency Logging and Graphing System
+     Loaded: loaded (/lib/systemd/system/smokeping.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sat 2022-01-01 12:21:35 CST; 2s ago
+       Docs: man:smokeping(1)
+             file:/usr/share/doc/smokeping/examples/systemd/slave_mode.conf
+    Process: 19356 ExecStart=/usr/sbin/smokeping --pid-dir=/run/smokeping (code=exited, status=0/SUCCE>
+   Main PID: 19367 (smokeping)
+      Tasks: 4 (limit: 948)
+     Memory: 67.7M
+        CPU: 2.833s
+     CGroup: /system.slice/smokeping.service
+             ├─19367 /usr/bin/perl /usr/sbin/smokeping --pid-dir=/run/smokeping
+             ├─19368 /usr/sbin/smokeping [DNS]
+             ├─19369 /usr/sbin/smokeping [FPing]
+             └─19370 /usr/sbin/smokeping [Curl]
+
+Jan 01 12:21:35 rpi-master smokeping[19356]: Daemonizing /usr/sbin/smokeping ...
+Jan 01 12:21:31 rpi-master smokeping[19367]: Entering multiprocess mode.
+Jan 01 12:21:31 rpi-master smokeping[19367]: Child process 19368 started for probe DNS.
+Jan 01 12:21:31 rpi-master smokeping[19368]: DNS: probing 7 targets with step 180 s and offset 150 s.
+Jan 01 12:21:31 rpi-master smokeping[19367]: Child process 19369 started for probe FPing.
+Jan 01 12:21:31 rpi-master smokeping[19369]: FPing: probing 7 targets with step 300 s and offset 70 s.
+Jan 01 12:21:35 rpi-master systemd[1]: Started Latency Logging and Graphing System.
+Jan 01 12:21:31 rpi-master smokeping[19367]: Child process 19370 started for probe Curl.
+Jan 01 12:21:31 rpi-master smokeping[19367]: All probe processes started successfully.
+Jan 01 12:21:31 rpi-master smokeping[19370]: Curl: probing 6 targets with step 60 s and offset 29 s.
+```
+
+## 0x06.后记
 `2021-05-27 23:06:06`：这篇文章再不扔出来就要长毛了`2333`
 
-## 0x04.引用
+## 0x07.引用
 [树莓派设置静态 IP 地址](https://web.archive.org/web/20210725093638/https://www.jianshu.com/p/f9cb0f85a4e6)
 [树莓派自带的网卡的带宽是多少](https://web.archive.org/web/20210725094423/https://www.icxbk.com/ask/detail/21847.html)
+[Raspberry Pi に Smokeping をインストールしてスループットをモニタする](https://web.archive.org/web/20220101035221/https://sig9.hatenablog.com/entry/2020/01/13/000000)
 
 未完待续……
