@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 16
+count: 17
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -42,7 +42,7 @@ txy.yuangezhizao.cn
 [root@txy ~]# reboot
 ```
 
-## 0x01.修改`ssh`端口
+## 0x01.修改`SSH`端口
 改成非`22`端口防止爆破
 ```
 [root@txy ~]# vim /etc/ssh/sshd_config 
@@ -74,8 +74,8 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python3100](https://www.python.org/downloads/release/python-3100/)环境
-1. 查看现有位置
+## 0x04.编译安装[python3101](https://www.python.org/downloads/release/python-3101)环境
+### 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
 ```
@@ -83,38 +83,40 @@ yum install htop screen git axel iftop -y
 
 全新：
 ```
-[root@txy ~]# whereis python
+[root@cn-tx-bj7-c8 ~]# whereis python
 python: /usr/bin/python3.6m /usr/bin/python3.6 /usr/lib/python3.6 /usr/lib64/python3.6 /usr/local/lib/python3.6 /usr/include/python3.6m /usr/share/man/man1/python.1.gz
 ```
 
-2. 安装编译工具
+### 2. 安装编译工具
 ~~`yum groupinstall 'Development Tools' -y`~~
 ``` bash
-yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel -y
-yum install gcc-c++
+dnf install gcc make gcc-c++ zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gdbm-devel xz-devel -y
+dnf install libnsl2-devel bluez-libs-devel tix-devel -y
 ```
+或参照[Install dependencies](https://devguide.python.org/setup/#build-dependencies)解决依赖`dnf install dnf-plugins-core && dnf builddep python3`
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
-3. 下载源码包
-~~`wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tar.xz`~~
+### 3. 下载源码包
+~~`wget https://www.python.org/ftp/python/3.10.1/Python-3.10.1.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
-或
-![下载卡爆，proxy 中转爽到！](https://i1.yuangezhizao.cn/Win-10/20191107224750.jpg!webp)
+或![下载卡爆，proxy 中转爽到！](https://i1.yuangezhizao.cn/Win-10/20191107224750.jpg!webp)
 
 ``` bash
 CloudFlare（推荐）：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.0.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.1.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.10.0.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.10.1.tar.xz
 ```
-4. 解压
+
+### 4. 解压
 ``` bash
-tar xvJf Python-3.10.0.tar.xz
-cd Python-3.10.0
+tar xvJf Python-3.10.1.tar.xz
+cd Python-3.10.1
 ```
-5. 编译
-> https://docs.python.org/zh-cn/3/using/configure.html#configure-options
+
+### 5. 编译
+> 参照：https://docs.python.org/zh-cn/3/using/configure.html#configure-options
 
 注：添加`--enable-optimizations`（以配置文件主导的优化`PGO`）和`--with-lto`（链接时间优化`LTO`）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
 ~~不添加`--enable-shared`（生成动态链接库）编译会报错：`command 'gcc' failed with exit status 1`~~
@@ -122,11 +124,31 @@ cd Python-3.10.0
 ~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations --with-lto`~~
 `./configure --prefix=/usr/local/python3 --enable-optimizations --with-lto`
 `make && make install`
-6. 修复
-①`2020-9-7 23:33:59`：`CentOS 8`自带版本已为`8`
-~~`2020-5-22 00:06:54`：`CentOS`自带`gcc`版本是`4`，升级至版本`8`即可解决（而之前在`ubuntu`编译的时候是版本`7`，因此可以直接编译通过~~
+并且，当开启了`--with-lto`编译标志位时，编译时需保证峰值空闲有`3G`内存，否则在`ar`的时候会因内存不足而终止
+``` bash
+gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -fno-semantic-interposition -flto -fuse-linker-plugin -ffat-lto-objects -flto-partition=none -g -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration -fvisibility=hidden -fprofile-generate -I./Include/internal  -I. -I./Include    -DPy_BUILD_CORE -o Python/frozen.o Python/frozen.c
+rm -f libpython3.10.a
+ar rcs libpython3.10.a Modules/getbuildinfo.o Parser/token.o  Parser/pegen.o Parser/parser.o Parser/string_parser.o Parser/peg_api.o Parser/myreadline.o Parser/tokenizer.o Objects/abstract.o Objects/accu.o Objects/boolobject.o Objects/bytes_methods.o Objects/bytearrayobject.o Objects/bytesobject.o Objects/call.o Objects/capsule.o Objects/cellobject.o Objects/classobject.o Objects/codeobject.o Objects/complexobject.o Objects/descrobject.o Objects/enumobject.o Objects/exceptions.o Objects/genericaliasobject.o Objects/genobject.o Objects/fileobject.o Objects/floatobject.o Objects/frameobject.o Objects/funcobject.o Objects/interpreteridobject.o Objects/iterobject.o Objects/listobject.o Objects/longobject.o Objects/dictobject.o Objects/odictobject.o Objects/memoryobject.o Objects/methodobject.o Objects/moduleobject.o Objects/namespaceobject.o Objects/object.o Objects/obmalloc.o Objects/picklebufobject.o Objects/rangeobject.o Objects/setobject.o Objects/sliceobject.o Objects/structseq.o Objects/tupleobject.o Objects/typeobject.o Objects/unicodeobject.o Objects/unicodectype.o Objects/unionobject.o Objects/weakrefobject.o Python/_warnings.o Python/Python-ast.o Python/asdl.o Python/ast.o Python/ast_opt.o Python/ast_unparse.o Python/bltinmodule.o Python/ceval.o Python/codecs.o Python/compile.o Python/context.o Python/dynamic_annotations.o Python/errors.o Python/frozenmain.o Python/future.o Python/getargs.o Python/getcompiler.o Python/getcopyright.o Python/getplatform.o Python/getversion.o Python/hamt.o Python/hashtable.o Python/import.o Python/importdl.o Python/initconfig.o Python/marshal.o Python/modsupport.o Python/mysnprintf.o Python/mystrtoul.o Python/pathconfig.o Python/preconfig.o Python/pyarena.o Python/pyctype.o Python/pyfpe.o Python/pyhash.o Python/pylifecycle.o Python/pymath.o Python/pystate.o Python/pythonrun.o Python/pytime.o Python/bootstrap_hash.o Python/structmember.o Python/symtable.o Python/sysmodule.o Python/thread.o Python/traceback.o Python/getopt.o Python/pystrcmp.o Python/pystrtod.o Python/pystrhex.o Python/dtoa.o Python/formatter_unicode.o Python/fileutils.o Python/suggestions.o Python/dynload_shlib.o    Modules/config.o Modules/getpath.o Modules/main.o Modules/gcmodule.o Modules/posixmodule.o  Modules/errnomodule.o  Modules/pwdmodule.o  Modules/_sre.o  Modules/_codecsmodule.o  Modules/_weakref.o  Modules/_functoolsmodule.o  Modules/_operator.o  Modules/_collectionsmodule.o  Modules/_abc.o  Modules/itertoolsmodule.o  Modules/atexitmodule.o  Modules/signalmodule.o  Modules/_stat.o  Modules/timemodule.o  Modules/_threadmodule.o  Modules/_localemodule.o  Modules/_iomodule.o Modules/iobase.o Modules/fileio.o Modules/bytesio.o Modules/bufferedio.o Modules/textio.o Modules/stringio.o  Modules/faulthandler.o  Modules/_tracemalloc.o  Modules/symtablemodule.o  Modules/xxsubtype.o Python/frozen.o
+gcc -pthread   -fno-semantic-interposition -flto -fuse-linker-plugin -ffat-lto-objects -flto-partition=none -g -fprofile-generate -Xlinker -export-dynamic -o python Programs/python.o libpython3.10.a -lcrypt -lpthread -ldl  -lutil -lm   -lm 
+gcc: fatal error: Killed signal terminated program as
+compilation terminated.
+lto-wrapper: fatal error: gcc returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make[3]: *** [Makefile:601: python] Error 1
+make[3]: Leaving directory '/root/Python-3.10.1'
+make[2]: *** [Makefile:531: build_all_generate_profile] Error 2
+make[2]: Leaving directory '/root/Python-3.10.1'
+make[1]: *** [Makefile:507: profile-gen-stamp] Error 2
+make[1]: Leaving directory '/root/Python-3.10.1'
+make: *** [Makefile:519: profile-run-stamp] Error 2
+[root@cn-tx-bj7-c8 Python-3.10.1]# 
+```
 
-再次编译，成功！
+### 6. 修复
+①`2020-9-7 23:33:59`：`CentOS 8`自带版本已为`8`，直接编译，成功！
+~~`2020-5-22 00:06:54`：`CentOS`自带`gcc`版本是`4`，升级至版本`8`即可解决（而之前在`ubuntu`编译的时候是版本`7`，因此可以直接编译通过~~
 ``` bash
 [root@txy Python-3.8.3]# python3
 Python 3.8.3 (default, May 31 2020, 21:31:58) 
@@ -171,7 +193,8 @@ python3: error while loading shared libraries: libpython3.8.so.1.0: cannot open 
 [root@txy ~]# python3 -V
 Python 3.8.3
 ```
-7. 创建软链接（`python3`&`pip3`）
+
+### 7. 创建软链接（`python3`&`pip3`）
 此法不会破坏自带`py`环境，因此无需修改任何`yum`文件
 ~~注：更改`yum`配置~~
 ~~`vim /usr/bin/yum`~~
@@ -184,16 +207,45 @@ Python 3.8.3
 ②`rm -rf /usr/bin/pip3`
 `ln -s /usr/local/python3/bin/pip3.10 /usr/bin/pip3`
 ```
-[root@cn-py-dl-c8 Python-3.10.0]# python -V
+[root@cn-tx-bj7-c8 Python-3.10.1]# ll /usr/bin | grep py
+-rwxr-xr-x  1 root   root         3555 Nov  9  2019 bno_plot.py
+lrwxrwxrwx  1 root   root           54 Dec 20 22:07 cagent_tools -> /usr/local/qcloud/monitor/barad/client/cagent_tools.py
+lrwxrwxrwx  1 root   root            7 Nov 24  2020 fail2ban-python -> python3
+-rwxr-xr-x  1 root   root       245864 Nov 12 13:31 objcopy
+lrwxrwxrwx  1 root   root           25 Dec 10  2019 pydoc-3 -> /etc/alternatives/pydoc-3
+lrwxrwxrwx  1 root   root           24 Dec 10  2019 pydoc3 -> /etc/alternatives/pydoc3
+-rwxr-xr-x  1 root   root           89 Sep 10 17:15 pydoc3.6
+lrwxrwxrwx  1 root   root           25 Dec 10  2019 python3 -> /etc/alternatives/python3
+lrwxrwxrwx  1 root   root           31 Aug 25 23:47 python3.6 -> /usr/libexec/platform-python3.6
+lrwxrwxrwx  1 root   root           32 Aug 25 23:47 python3.6m -> /usr/libexec/platform-python3.6m
+lrwxrwxrwx  1 root   root           26 Dec 10  2019 pyvenv-3 -> /etc/alternatives/pyvenv-3
+-rwxr-xr-x  1 root   root          446 Sep 10 17:15 pyvenv-3.6
+-rwxr-xr-x  1 root   root        21440 Apr 24  2020 sg_copy_results
+-rwxr-xr-x  1 root   root        41632 Apr 24  2020 sg_xcopy
+-rwxr-xr-x  1 root   root        10694 Jul 13 13:08 ssh-copy-id
+lrwxrwxrwx  1 root   root           24 Jul 13  2020 unversioned-python -> /etc/alternatives/python
+[root@cn-tx-bj7-c8 Python-3.10.1]# ll /usr/bin | grep pip
+-rwxr-xr-x. 1 root   root         3143 May 11  2019 lesspipe.sh
+lrwxrwxrwx  1 root   root           15 Dec 10  2019 pip -> /usr/bin/pip3.6
+lrwxrwxrwx  1 root   root           23 Dec 10  2019 pip-3 -> /etc/alternatives/pip-3
+lrwxrwxrwx  1 root   root            8 Jun 21  2021 pip-3.6 -> ./pip3.6
+-rwxr-xr-x  1 root   root          209 Jun 21  2021 pip3.6
+[root@cn-tx-bj7-c8 Python-3.10.1]# mv /usr/bin/python3 /usr/bin/python3.original
+[root@cn-tx-bj7-c8 Python-3.10.1]# python -V
 -bash: python: command not found
-[root@cn-py-dl-c8 Python-3.10.0]# python3 -V
-Python 3.10.0
-[root@cn-py-dl-c8 Python-3.10.0]# pip3 -V
-pip 21.2.3 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
+[root@cn-tx-bj7-c8 Python-3.10.1]# python3 -V
+Python 3.10.1
+[root@cn-tx-bj7-c8 Python-3.10.1]# pip3 -V
+pip 21.2.4 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
+[root@cn-tx-bj7-c8 Python-3.10.1]# python3
+Python 3.10.1 (main, Jan 11 2022, 12:31:07) [GCC 8.5.0 20210514 (Red Hat 8.5.0-4)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+[3]+  Stopped                 python3
 ```
-> ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，这下`2`终于彻底没有了
+~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，`CentOS 8`这下`2`终于彻底没有了
 
-8. 升级`pip3`
+### 8. 升级`pip3`
 你云环境下会自动配置镜像源
 `pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U`
 `pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
@@ -203,7 +255,8 @@ pip 21.2.3 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
 ```
-9. 加入环境变量
+
+### 9. 加入环境变量
 ``` bash
 [root@txy ~]# cat ~/.bash_profile
 # .bash_profile
@@ -464,8 +517,68 @@ ImportError: cannot import name 'SKu' from 'JD_Sku.sku' (/root/jd/sku/JD_Sku/sku
 KeyboardInterrupt
 ```
 
-## 0x11.引用
+## 0x11.安装[Zabbix](https://www.zabbix.com/download/)
+a. Install Zabbix repository
+# rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/8/x86_64/zabbix-release-5.4-1.el8.noarch.rpm
+# dnf clean all
+b. 安装Zabbix server，Web前端，agent
+# dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
+[root@txy mysql]# zcat create.sql.gz  | mysql -h cdb-rqdfhyh6.bj.tencentcdb.com -P 10003 -uroot -p<rm>
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1046 (3D000) at line 1: No database selected
+[root@txy mysql]# zcat create.sql.gz  | mysql -h cdb-rqdfhyh6.bj.tencentcdb.com -P 10003 -uroot -p<rm> zabbix
+mysql: [Warning] Using a password on the command line interface can be insecure.
+
+[root@txy mysql]# 
+
+
+[root@txy mysql]# dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
+Repository epel is listed more than once in the configuration
+Last metadata expiration check: 0:55:12 ago on Tue 14 Dec 2021 03:49:38 PM CST.
+Package zabbix-server-mysql-5.4.8-1.el8.x86_64 is already installed.
+Package zabbix-web-mysql-5.4.8-1.el8.noarch is already installed.
+Package zabbix-sql-scripts-5.4.8-1.el8.noarch is already installed.
+Package zabbix-agent-5.4.8-1.el8.x86_64 is already installed.
+Error: 
+ Problem: package zabbix-nginx-conf-5.4.8-1.el8.noarch requires nginx, but none of the providers can be installed
+  - cannot install the best candidate for the job
+  - package nginx-1:1.14.1-9.module_el8.0.0+184+e34fea82.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.16.1-2.module_el8.4.0+820+127618ce.1.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.18.0-3.module_el8.4.0+818+5ada96a6.1.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.20.0-2.module_el8.5.0+899+43b718f6.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.20.1-6.module_el8+12928+992082b2.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.21.4-1.module_el8+13280+3abe831f.x86_64 is filtered out by exclude filtering
+(try to add '--skip-broken' to skip uninstallable packages or '--nobest' to use not only best candidate packages)
+
+
+https://repo.zabbix.com/zabbix/5.4/rhel/8/x86_64/
+
+systemctl restart zabbix-server zabbix-agent php-fpm
+
+无奈回退至 5.0 LTS
+
+Error: 
+ Problem: package zabbix-nginx-conf-5.0.18-1.el8.noarch requires nginx, but none of the providers can be installed
+  - cannot install the best candidate for the job
+  - package nginx-1:1.14.1-9.module_el8.0.0+184+e34fea82.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.16.1-2.module_el8.4.0+820+127618ce.1.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.18.0-3.module_el8.4.0+818+5ada96a6.1.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.20.0-2.module_el8.5.0+899+43b718f6.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.20.1-6.module_el8+12928+992082b2.x86_64 is filtered out by exclude filtering
+  - package nginx-1:1.21.4-1.module_el8+13280+3abe831f.x86_64 is filtered out by exclude filtering
+(try to add '--skip-broken' to skip uninstallable packages or '--nobest' to use not only best candidate packages)
+
+dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-agent --skip-broken -y
+
+设置时区
+
+https://www.zabbix.com/cn/download?zabbix=5.0&os_distribution=centos&os_version=8&db=mysql&ws=nginx
+
+
+## 0x12.引用
 [python --enable-shared](https://web.archive.org/web/20200521142009/https://www.cnblogs.com/Tommy-Yu/p/6144512.html)
 [CentOS 7 升级gcc/g++编译器](https://web.archive.org/web/20200521161733/https://www.cnblogs.com/ToBeExpert/p/10297697.html)
 [3.7.0 build error with --enable-optimizations](https://web.archive.org/web/20200521161845/https://bugs.python.org/issue34112)
 [开启Link Time Optimization(LTO)后到底有什么优化？](https://web.archive.org/web/20211011094746/https://www.jianshu.com/p/58fef052291a)
+[CentOS 源码编译安装 Python3](https://web.archive.org/web/20220111032520/https://www.cnblogs.com/michael-xiang/p/10466819.html)
+[在 CentOS 上编译安装 Python 3](https://web.archive.org/web/20220111062219/https://zhuanlan.zhihu.com/p/418309354)
