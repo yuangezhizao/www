@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 1
@@ -506,13 +506,414 @@ Dec 31 21:37:56 cn-tx-bj7-c8 systemd[1]: Started Redis persistent key-value data
 tcp   LISTEN     0      128                                                      0.0.0.0:6379               0.0.0.0:*  
 ```
 
-## 0x08.后记
+## 0x09.安装[Docker](https://web.archive.org/web/20220112130003/https://docs.docker.com/engine/install/centos/)
+``` bash
+[root@cn-tx-bj7-c8 ~]# yum install yum-utils -y
+[root@cn-tx-bj7-c8 ~]# yum-config-manager \
+>     --add-repo \
+>     https://download.docker.com/linux/centos/docker-ce.repo
+Adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
+[root@cn-tx-bj7-c8 ~]# yum install docker-ce docker-ce-cli containerd.io -y
+[root@cn-tx-bj7-c8 ~]# systemctl start docker
+[root@cn-tx-bj7-c8 ~]# docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete 
+Digest: sha256:2498fce14358aa50ead0cc6c19990fc6ff866ce72aeb5546e1d59caac3d0d60f
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+[root@cn-tx-bj7-c8 ~]# systemctl enable docker.service containerd.service
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /usr/lib/systemd/system/containerd.service.
+```
+并安装`portainer`可视化
+``` bash
+[root@cn-tx-bj7-c8 ~]# docker pull portainer/portainer:latest
+latest: Pulling from portainer/portainer
+94cfa856b2b1: Pull complete 
+49d59ee0881a: Pull complete 
+a2300fd28637: Pull complete 
+Digest: sha256:fb45b43738646048a0a0cc74fcee2865b69efde857e710126084ee5de9be0f3f
+Status: Downloaded newer image for portainer/portainer:latest
+docker.io/portainer/portainer:latest
+[root@cn-tx-bj7-c8 ~]# docker volume create portainer_data
+portainer_data
+[root@cn-tx-bj7-c8 ~]# docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+25dbed324c43283014a6f6afa037c3cbdaa4019f12cc24a571e8cc61fcac66e0
+```
+
+## 0x10.安装[Compose](https://web.archive.org/web/20220112130055/https://docs.docker.com/compose/install/)
+`curl`下载不能
+``` bash
+[root@cn-tx-bj7-c8 ~]# curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:01:30 --:--:--     0^C
+```
+于是去手动下载二进制文件，然后再用`sftp`传上去……
+``` bash
+[root@cn-tx-bj7-c8 ~]# echo "$(uname -s)-$(uname -m)"
+Linux-x86_64
+sftp> put -r "/Users/yuangezhizao/Downloads/docker-compose-Linux-x86_64"
+Uploading docker-compose-Linux-x86_64 to /root/docker-compose-Linux-x86_64
+  100% 12438KB   6219KB/s 00:00:02     
+/Users/yuangezhizao/Downloads/docker-compose-Linux-x86_64: 12737304 bytes transferred in 2 seconds (6219 KB/s)
+sftp> 
+[root@cn-tx-bj7-c8 ~]# mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+[root@cn-tx-bj7-c8 ~]# chmod +x /usr/local/bin/docker-compose
+[root@cn-tx-bj7-c8 ~]# docker-compose --version
+docker-compose version 1.29.2, build 5becea4c
+```
+
+## 0x11.安装[Mastodon](https://github.com/mastodon/mastodon)
+这里选择的是~~`Mashiro`魔改版：[mashirozx@mastodon](https://github.com/mashirozx/mastodon)~~，官版最新`Release`即[v3.4.4](https://github.com/mastodon/mastodon/releases/tag/v3.4.4)，并做了自定义修改[yuangezhizao@mastodon](https://github.com/yuangezhizao/mastodon)
+昨日第一次在`cn-tx-bj7-c8`生产环境安装，今日补充在家中的`cn-py-dl-c8`测试环境安装，首先克隆仓库
+``` bash
+[root@cn-py-dl-c8 ~]# yum install git -y
+[root@cn-py-dl-c8 ~]# git config --global -e
+[root@cn-py-dl-c8 ~]# git config --list
+fatal: bad config line 6 in file /root/.gitconfig
+[root@cn-py-dl-c8 ~]# vim .gitconfig 
+[root@cn-py-dl-c8 ~]# git config --list
+user.name=yuangezhizao-serveraccount
+user.email=yuangezhizao@gmail.com
+http.https://github.com.proxy=socks5://192.168.25.248:1080
+[root@cn-py-dl-c8 ~]# git clone https://github.com/yuangezhizao/mastodon.git
+[root@cn-py-dl-c8 ~]# cd mastodon/
+[root@cn-py-dl-c8 mastodon]# git pull
+warning: Pulling without specifying how to reconcile divergent branches is
+discouraged. You can squelch this message by running one of the following
+commands sometime before your next pull:
+
+  git config pull.rebase false  # merge (the default strategy)
+  git config pull.rebase true   # rebase
+  git config pull.ff only       # fast-forward only
+
+You can replace "git config" with "git config --global" to set a default
+preference for all repositories. You can also pass --rebase, --no-rebase,
+or --ff-only on the command line to override the configured default per
+invocation.
+```
+然后拉取`docker`镜像`docker pull yuangezhizao/mastodon`
+运行镜像仅生成各种`secret`和`key`
+``` bash
+[root@cn-py-dl-c8 mastodon]# cp .env.production.sample .env.production
+[root@cn-py-dl-c8 mastodon]# docker-compose run --rm web bundle exec rake secret
+Creating mastodon_web_run ... done
+<rm>
+[root@cn-py-dl-c8 mastodon]# docker-compose run --rm web bundle exec rake secret
+Creating mastodon_web_run ... done
+<rm>
+[root@cn-py-dl-c8 mastodon]# docker-compose run --rm web bundle exec rake mastodon:webpush:generate_vapid_key
+Creating mastodon_web_run ... done
+VAPID_PRIVATE_KEY=<rm>
+VAPID_PUBLIC_KEY=<rm>
+```
+写入生产环境配置文件
+``` bash
+[root@cn-py-dl-c8 mastodon]# vim .env.production
+SECRET_KEY_BASE=
+OTP_SECRET=
+```
+初始化`pg`数据库
+``` bash
+[root@cn-py-dl-c8 mastodon]# docker exec -it mastodon_db_1 psql -U postgres
+psql (14.1)
+Type "help" for help.
+
+postgres=# CREATE USER mastodon WITH PASSWORD 'mastodon' CREATEDB;
+CREATE ROLE
+postgres=# exit
+```
+交互初始化
+``` bash
+[root@cn-py-dl-c8 mastodon]# docker-compose run --rm web bundle exec rake mastodon:setup
+Creating mastodon_web_run ... done
+Your instance is identified by its domain name. Changing it afterward will break things.
+Domain name: test.yuangezhizao.cn
+
+Single user mode disables registrations and redirects the landing page to your public profile.
+Do you want to enable single user mode? No
+
+Are you using Docker to run Mastodon? Yes
+
+PostgreSQL host: db
+PostgreSQL port: 5432
+Name of PostgreSQL database: mastodon_development
+Name of PostgreSQL user: mastodon
+Password of PostgreSQL user: 
+Database configuration works! 🎆
+
+Redis host: redis
+Redis port: 6379
+Redis password: 
+Redis configuration works! 🎆
+
+Do you want to store uploaded files on the cloud? No
+
+Do you want to send e-mails from localhost? No
+SMTP server: smtp.qq.com
+SMTP port: 465
+SMTP username: yuangezhizao
+SMTP password: 
+SMTP authentication: plain
+SMTP OpenSSL verify mode: none
+E-mail address to send e-mails "from": (Mastodon <notifications@test.yuangezhizao.cn>) yuangezhE-mail address to send e-mails "from": yuangezhizao@qq.com
+Send a test e-mail with this configuration right now? no
+
+This configuration will be written to .env.production
+Save configuration? Yes
+Below is your configuration, save it to an .env.production file outside Docker:
+
+# Generated with mastodon:setup on 2022-01-03 05:01:05 UTC
+……
+SINGLE_USER_MODE=false
+……
+SMTP_AUTH_METHOD=plain
+SMTP_OPENSSL_VERIFY_MODE=none
+……
+
+It is also saved within this container so you can proceed with this wizard.
+
+Now that configuration is saved, the database schema must be loaded.
+If the database already exists, this will erase its contents.
+Prepare the database now? Yes
+Running `RAILS_ENV=production rails db:setup` ...
+
+
+Created database 'mastodon_development'
+Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+Switching object-storage-safely from green to red because Redis::CannotConnectError Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+Done!
+
+All done! You can now power on the Mastodon server 🐘
+
+Do you want to create an admin user straight away? Yes
+Username: admin
+E-mail: root@yuangezhizao.cn
+Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+Switching object-storage-safely from green to red because Redis::CannotConnectError Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+Error connecting to Redis on localhost:6379 (Errno::ECONNREFUSED)
+You can login with the password: <rm>
+You can change your password once you login.
+```
+注 ①：`sed -i "s/SECRET_KEY_BASE=$/&$(docker-compose run --rm web bundle exec rake secret)/" .env.production`不可用，因为这个版本的代码中`ruby`打印一些`warning`导致`sed`报错`-bash: /usr/bin/sed: Argument list too long`
+注 ②：记得最后输入`Y`，否则不会打印配置
+``` bash
+This configuration will be written to .env.production
+Save configuration? no
+Nothing saved. Bye!
+```
+注 ③：~~结果访问报错了草，去查了下[Rails 6 adds guard against DNS rebinding attacks](https://web.archive.org/web/20220112131619/https://blog.saeloun.com/2019/10/31/rails-6-adds-guard-against-dns-rebinding-attacks.html)~~
+``` html
+<header>
+  <h1>Blocked host: localhost</h1>
+</header>
+<div id="container">
+  <h2>To allow requests to localhost, add the following to your environment configuration:</h2>
+  <pre>config.hosts &lt;&lt; "localhost"</pre>
+</div>
+```
+~~允许`config.hosts << "localhost"`~~
+注 ④：草，还发现`SELinux`竟然是开着的，一把梭关掉并重启
+``` bash
+[root@cn-py-dl-c8 environments]# /usr/sbin/sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      33
+[root@cn-py-dl-c8 environments]# vim /etc/selinux/config
+[root@cn-py-dl-c8 environments]# reboot
+```
+注 ⑤：`chown 1000:1000 -R elasticsearch`
+参照：[Using the Docker images in production](https://web.archive.org/web/20220112131901/https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
+``` bash
+[root@cn-tx-bj7-c8 ~]# grep vm.max_map_count /etc/sysctl.conf
+[root@cn-tx-bj7-c8 ~]# 
+[root@cn-tx-bj7-c8 ~]# sysctl -w vm.max_map_count=262144
+vm.max_map_count = 262144
+[root@cn-tx-bj7-c8 ~]# grep vm.max_map_count /etc/sysctl.conf
+[root@cn-tx-bj7-c8 ~]# 
+```
+拉取`elasticsearch-oss:7.10.2`多次超时，于是采用下载镜像再导入的方式
+``` bash
+[root@cn-tx-bj7-c8 mastodon]# docker-compose up
+Pulling es (docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2)...
+ERROR: Head "https://docker.elastic.co/v2/elasticsearch/elasticsearch-oss/manifests/7.10.2": net/http: TLS handshake timeout
+[root@cn-tx-bj7-c8 mastodon]# docker-compose up
+Pulling es (docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2)...
+7.10.2: Pulling from elasticsearch/elasticsearch-oss
+ddf49b9115d7: Downloading [========================================>          ]  68.05MB/84.72MB
+a752d85b289a: Download complete
+57c9a166c575: Download complete
+44fabf20c8a1: Downloading [==========================>                        ]  131.7MB/252.2MB
+45ea1d560ab5: Download complete
+0dc15e54b214: Download complete
+cf11b2a25e23: Download complete
+3a66822889ec: Download complete
+be7444f2e9d6: Download complete
+^CGracefully stopping... (press Ctrl+C again to force)
+[root@cn-tx-bj7-c8 mastodon]# cd ~
+```
+先下载镜像，确认访问`COS`是内网，于是光速下载，这四十兆每秒的下载速度可就阳间多了……
+``` bash
+[root@cn-tx-bj7-c8 ~]# ping mastodon-<rm>.cos.ap-beijing.myqcloud.com
+PING mastodon-<rm>.cos.ap-beijing.myqcloud.com (169.254.0.49) 56(84) bytes of data.
+64 bytes from 169.254.0.49 (169.254.0.49): icmp_seq=1 ttl=64 time=0.205 ms
+^C
+--- mastodon-<rm>.cos.ap-beijing.myqcloud.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.205/0.205/0.205/0.000 ms
+[root@cn-tx-bj7-c8 ~]# wget https://mastodon-<rm>.cos.ap-beijing.myqcloud.com/es.tar
+--2022-01-03 23:20:09--  https://mastodon-<rm>.cos.ap-beijing.myqcloud.com/es.tar
+Resolving mastodon-<rm>.cos.ap-beijing.myqcloud.com (mastodon-<rm>.cos.ap-beijing.myqcloud.com)... 169.254.0.49
+Connecting to mastodon-<rm>.cos.ap-beijing.myqcloud.com (mastodon-<rm>.cos.ap-beijing.myqcloud.com)|169.254.0.49|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 709773312 (677M) [application/x-tar]
+Saving to: ‘es.tar’
+
+es.tar                     100%[=======================================>] 676.89M  40.8MB/s    in 19s     
+
+2022-01-03 23:20:29 (35.3 MB/s) - ‘es.tar’ saved [709773312/709773312]
+```
+再导入，并手动打上标签
+``` bash
+[root@cn-tx-bj7-c8 ~]# docker load < es.tar
+2653d992f4ef: Loading layer  216.5MB/216.5MB
+7d054489f6eb: Loading layer  71.64MB/71.64MB
+56319c3e73b9: Loading layer  314.4kB/314.4kB
+ec3900b77411: Loading layer  420.7MB/420.7MB
+719b01194e7c: Loading layer   25.6kB/25.6kB
+02f56ad574d0: Loading layer  4.608kB/4.608kB
+a1b5f2939457: Loading layer  7.168kB/7.168kB
+d66f67be6b73: Loading layer   55.3kB/55.3kB
+0dcc68aca185: Loading layer  466.4kB/466.4kB
+Loaded image ID: sha256:b313026e6fbdbf01894ef8c67d558d3c7d89c70214d4c9e2a147ba10540a7738
+[root@cn-tx-bj7-c8 ~]# docker images
+REPOSITORY            TAG         IMAGE ID       CREATED         SIZE
+<none>                <none>      8bb8cc28a62d   29 hours ago    922MB
+<none>                <none>      20b438069ba6   31 hours ago    378MB
+<none>                <none>      b2d017b74965   31 hours ago    1.8GB
+postgres              14-alpine   2302d5724f71   4 weeks ago     209MB
+redis                 6-alpine    3900abf41552   4 weeks ago     32.4MB
+tootsuite/mastodon    latest      2289f94fb9f2   5 weeks ago     2.52GB
+tootsuite/mastodon    v3.4.4      2289f94fb9f2   5 weeks ago     2.52GB
+ubuntu                20.04       ba6acccedd29   2 months ago    72.8MB
+hello-world           latest      feb5d9fea6a5   3 months ago    13.3kB
+portainer/portainer   latest      580c0e4e98b0   9 months ago    79.1MB
+<none>                <none>      b313026e6fbd   11 months ago   699MB
+[root@cn-tx-bj7-c8 ~]# docker tag b313026e6fbd docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+```
+最终使用`docker-compose`启动，然后就看到`ES`报错了
+``` bash
+es_1         | ElasticsearchException[failed to bind service]; nested: AccessDeniedException[/usr/share/elasticsearch/data/nodes];
+es_1         | Likely root cause: java.nio.file.AccessDeniedException: /usr/share/elasticsearch/data/nodes
+es_1         |  at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
+es_1         |  at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
+es_1         |  at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+es_1         |  at java.base/sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:388)
+es_1         |  at java.base/java.nio.file.Files.createDirectory(Files.java:694)
+es_1         |  at java.base/java.nio.file.Files.createAndCheckIsDirectory(Files.java:801)
+es_1         |  at java.base/java.nio.file.Files.createDirectories(Files.java:787)
+es_1         |  at org.elasticsearch.env.NodeEnvironment.lambda$new$0(NodeEnvironment.java:275)
+es_1         |  at org.elasticsearch.env.NodeEnvironment$NodeLock.<init>(NodeEnvironment.java:212)
+es_1         |  at org.elasticsearch.env.NodeEnvironment.<init>(NodeEnvironment.java:272)
+es_1         |  at org.elasticsearch.node.Node.<init>(Node.java:362)
+es_1         |  at org.elasticsearch.node.Node.<init>(Node.java:289)
+es_1         |  at org.elasticsearch.bootstrap.Bootstrap$5.<init>(Bootstrap.java:227)
+es_1         |  at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:227)
+es_1         |  at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:393)
+es_1         |  at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:170)
+es_1         |  at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:161)
+es_1         |  at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86)
+es_1         |  at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:127)
+es_1         |  at org.elasticsearch.cli.Command.main(Command.java:90)
+es_1         |  at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:126)
+es_1         |  at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:92)
+es_1         | For complete error details, refer to the log at /usr/share/elasticsearch/logs/es-mastodon.log
+```
+需要给数据存储路径赋予权限`chown 1000:1000 -R elasticsearch`，然后为使用`ES`之前的嘟文创建索引（水了`39`条
+``` bash
+[root@cn-tx-bj7-c8 mastodon]# docker-compose run --rm web bin/tootctl search deploy
+Creating mastodon_web_run ... done
+/opt/ruby/lib/ruby/2.7.0/net/protocol.rb:66: warning: already initialized constant Net::ProtocRetryError
+/opt/mastodon/vendor/bundle/ruby/2.7.0/gems/net-protocol-0.1.0/lib/net/protocol.rb:66: warning: previous definition of ProtocRetryError was here
+/opt/ruby/lib/ruby/2.7.0/net/protocol.rb:206: warning: already initialized constant Net::BufferedIO::BUFSIZE
+/opt/mastodon/vendor/bundle/ruby/2.7.0/gems/net-protocol-0.1.0/lib/net/protocol.rb:206: warning: previous definition of BUFSIZE was here
+/opt/ruby/lib/ruby/2.7.0/net/protocol.rb:503: warning: already initialized constant Net::NetPrivate::Socket
+/opt/mastodon/vendor/bundle/ruby/2.7.0/gems/net-protocol-0.1.0/lib/net/protocol.rb:503: warning: previous definition of Socket was here
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Using include_type_name in create index requests is deprecated. The parameter will be removed in the next major version."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Using include_type_name in create index requests is deprecated. The parameter will be removed in the next major version."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Specifying types in bulk requests is deprecated."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Using include_type_name in create index requests is deprecated. The parameter will be removed in the next major version."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Specifying types in bulk requests is deprecated."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Using include_type_name in create index requests is deprecated. The parameter will be removed in the next major version."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Specifying types in bulk requests is deprecated."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Specifying types in bulk requests is deprecated."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Specifying types in bulk requests is deprecated."
+warning: 299 Elasticsearch-7.10.2-747e1cc71def077253878a59143c1f785afa92b9 "[types removal] Specifying types in bulk requests is deprecated."
+39/39 |=========================================================================| Time: 00:00:04 (9 docs/s)
+Indexed 39 records, de-indexed 0
+```
+最后`docker-compose up -d`
+
+## 0x12.安装[Nginx](https://nginx.org)
+``` bash
+[root@cn-tx-bj7-c8 mastodon]# dnf install nginx -y
+[root@cn-tx-bj7-c8 conf.d]# cd /etc/nginx/conf.d
+[root@cn-tx-bj7-c8 conf.d]# cp ~/mastodon/dist/nginx.conf mastodon.conf
+[root@cn-tx-bj7-c8 conf.d]# vim mastodon.conf
+[root@cn-tx-bj7-c8 conf.d]# vim /etc/nginx/nginx.conf
+[root@cn-py-dl-c8 conf.d]# nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+## 0x13.后记
 折腾了一天好累，反正万事开头难
 
-## 0x09.引用
+## 0x14.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
 [如何在CentOS 8中安装Cockpit Web Console](https://web.archive.org/web/20211221074630/https://www.howtoing.com/install-cockpit-web-console-in-centos-8)
 [Cockpit - 使用Web浏览器监视和管理多个Linux服务器的强大工具](https://web.archive.org/web/20211221074818/https://www.howtoing.com/cockpit-monitor-multiple-linux-servers-via-web-browser/)
 [如何在CentOS 8上安装MongoDB](https://web.archive.org/web/20211221084731/https://www.myfreax.com/how-to-install-mongodb-on-centos-8/)
+[Docker可视化工具Portainer](https://web.archive.org/web/20220102074334/https://juejin.cn/post/6847902192217620494)
+[centos8 docker安装mastodon](https://web.archive.org/web/20220102071320/https://www.jianshu.com/p/4f36ec8627c0)
+[Mastodon Docker Setup](https://gist.github.com/TrillCyborg/84939cd4013ace9960031b803a0590c4)
+[如何利用Docker搭建Mastodon实例（一）：基础搭建篇](https://web.archive.org/web/20220112134535/https://pullopen.github.io/%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/2020/10/19/Mastodon-on-Docker.html)
+[使用Docker安装Mastodon](https://web.archive.org/web/20220112134643/https://maolog.com/archives/how-to-install-mastodon-on-docker.html)
+[CentOS8（即其余RHEL衍生版系统）搭建mastodon（嘟文）教程](https://web.archive.org/web/20220112134820/https://z-zhz.cn/498/)
+[Mastodonサーバを立ててみた【CentOS 8】](https://web.archive.org/web/20220112134939/https://kyohju.com/article/post-1393.html)
+[Mastodon搭建小记](https://web.archive.org/web/20220112133532/https://candinya.com/posts/mastodon-first-meet/)
+[Proxying object storage through nginx](https://web.archive.org/web/20220112135238/https://docs.joinmastodon.org/admin/optional/object-storage-proxy/)
