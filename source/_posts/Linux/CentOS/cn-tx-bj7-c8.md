@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 1
@@ -898,10 +898,70 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-## 0x13.后记
+## 0x13.安装[frp](https://github.com/fatedier/frp)
+``` bash
+[root@cn-tx-bj7-c8 ~]# wget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_linux_amd64.tar.gz^C
+[root@cn-tx-bj7-c8 ~]# wget http://proxy-cf.yuangezhizao.cn/dl/frp_0.38.0_linux_amd64.tar.gz
+[root@cn-tx-bj7-c8 ~]# tar -zxvf frp_0.38.0_linux_amd64.tar.gz
+```
+未完待续……
+
+## 0x14.安装[Wiki.js](https://github.com/Requarks/wiki)
+官方竟然给了通过[Portainer](https://web.archive.org/web/20220113145444/https://docs.requarks.io/install/portainer)的安装手顺，有了`Mastodon`的前车之鉴这次自然也要使用`docker-compose`辣
+~~但是用`Portainer`创建之后不确定位置在哪，于是还是克隆代码然后`docker-compose up -d`更稳妥~~参照：https://web.archive.org/web/20220113153343/https://docs.requarks.io/install/docker
+``` bash
+[root@cn-tx-bj7-c8 ~]# git clone https://github.com/Requarks/wiki.git^C
+sftp> put wiki.zip
+Uploading wiki.zip to /root/wiki.zip
+  100% 35732KB   3970KB/s 00:00:09     
+/Users/yuangezhizao/Downloads/wiki.zip: 36589768 bytes transferred in 9 seconds (3970 KB/s)
+[root@cn-tx-bj7-c8 ~]# unzip wiki.zip
+[root@cn-tx-bj7-c8 ~]# cd wiki/
+[root@cn-tx-bj7-c8 wiki]# vim docker-compose.yml
+[root@cn-tx-bj7-c8 wiki]# vim docker-compose.yml
+[root@cn-tx-bj7-c8 wiki]# cat docker-compose.yml
+version: "3"
+services:
+  db:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_DB: wiki
+      POSTGRES_PASSWORD: wikijsrocks
+      POSTGRES_USER: wikijs
+    # logging:
+      # driver: "none"
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  wiki:
+    image: requarks/wiki:2.5.268
+    depends_on:
+      - db
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS: wikijsrocks
+      DB_NAME: wiki
+    restart: unless-stopped
+    ports:
+      - "8080:3000"
+
+volumes:
+  db-data:
+[root@cn-tx-bj7-c8 wiki]# docker-compose up -d
+Creating network "wiki_default" with the default driver
+Creating volume "wiki_db-data" with default driver
+Creating wiki_db_1 ... done
+Creating wiki_wiki_1 ... done
+```
+
+## 0x15.后记
 折腾了一天好累，反正万事开头难
 
-## 0x14.引用
+## 0x16.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
