@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 3
+count: 4
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 1
@@ -958,10 +958,38 @@ Creating wiki_db_1 ... done
 Creating wiki_wiki_1 ... done
 ```
 
-## 0x15.后记
+## 0x15.安装[x-ui](https://github.com/vaxilu/x-ui)
+``` bash
+sftp> put x-ui-linux-amd64.tar.gz
+Uploading x-ui-linux-amd64.tar.gz to /root/x-ui-linux-amd64.tar.gz
+  100% 16122KB   1151KB/s 00:00:14     
+/Users/yuangezhizao/Downloads/x-ui-linux-amd64.tar.gz: 16509803 bytes transferred in 14 seconds (1151 KB/s)
+[root@cn-tx-bj7-c8 ~]# pwd
+/root
+[root@cn-tx-bj7-c8 ~]# rm x-ui/ /usr/local/x-ui/ /usr/bin/x-ui -rf
+[root@cn-tx-bj7-c8 ~]# tar zxvf x-ui-linux-amd64.tar.gz
+x-ui/
+x-ui/x-ui
+x-ui/bin/
+x-ui/x-ui.sh
+x-ui/x-ui.service
+x-ui/bin/geoip.dat
+x-ui/bin/geosite.dat
+x-ui/bin/xray-linux-amd64
+[root@cn-tx-bj7-c8 ~]# chmod +x x-ui/x-ui x-ui/bin/xray-linux-* x-ui/x-ui.sh
+[root@cn-tx-bj7-c8 ~]# cp x-ui/x-ui.sh /usr/bin/x-ui
+[root@cn-tx-bj7-c8 ~]# cp -f x-ui/x-ui.service /etc/systemd/system/
+[root@cn-tx-bj7-c8 ~]# mv x-ui/ /usr/local/
+[root@cn-tx-bj7-c8 ~]# systemctl daemon-reload
+[root@cn-tx-bj7-c8 ~]# systemctl enable x-ui
+Created symlink /etc/systemd/system/multi-user.target.wants/x-ui.service → /etc/systemd/system/x-ui.service.
+[root@cn-tx-bj7-c8 ~]# systemctl restart x-ui
+```
+
+## 0x16.后记
 折腾了一天好累，反正万事开头难
 
-## 0x16.引用
+## 0x17.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
