@@ -4,7 +4,7 @@ date: 2019-5-12 20:53:55
 tags:
   - CentOS
   - server
-count: 10
+count: 11
 os: 0
 os_1: 10.0.17763.475 2019-LTSC
 browser: 0
@@ -14,7 +14,6 @@ key: 51
 ---
     国庆过后甚久，近期终于恢复
 <!-- more -->
-
 ## 0x00.前言
 
 <details><summary>点击此处 ← 查看折叠</summary>
@@ -196,6 +195,175 @@ Free: 14.3 GB
 Total: 16.1 GB
 Max upload size: 5.2 TB
 ```
+3. 使用`rclone`挂载`Google Drive`
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@CentOS ~]# yum install fuse -y
+[root@CentOS ~]# wget https://downloads.rclone.org/rclone-current-linux-amd64.rpm
+[root@CentOS ~]# rpm -ivh rclone-current-linux-amd64.rpm
+[root@CentOS ~]# rclone config
+2022/01/17 18:01:50 NOTICE: Config file "/root/.config/rclone/rclone.conf" not found - using defaults
+No remotes found - make a new one
+n) New remote
+s) Set configuration password
+q) Quit config
+n/s/q> n
+name> google_drive
+Option Storage.
+Type of storage to configure.
+Enter a string value. Press Enter for the default ("").
+Choose a number from below, or type in your own value.
+……
+16 / Google Drive
+   \ "drive"
+……
+Storage> 16
+Storage> 16
+Option client_id.
+Google Application Client Id
+Setting your own is recommended.
+See https://rclone.org/drive/#making-your-own-client-id for how to create your own.
+If you leave this blank, it will use an internal key which is low performance.
+Enter a string value. Press Enter for the default ("").
+client_id> <rm>
+Option client_secret.
+OAuth Client Secret.
+Leave blank normally.
+Enter a string value. Press Enter for the default ("").
+client_secret> <rm>
+Option scope.
+Scope that rclone should use when requesting access from drive.
+Enter a string value. Press Enter for the default ("").
+Choose a number from below, or type in your own value.
+ 1 / Full access all files, excluding Application Data Folder.
+   \ "drive"
+ 2 / Read-only access to file metadata and file contents.
+   \ "drive.readonly"
+   / Access to files created by rclone only.
+ 3 | These are visible in the drive website.
+   | File authorization is revoked when the user deauthorizes the app.
+   \ "drive.file"
+   / Allows read and write access to the Application Data folder.
+ 4 | This is not visible in the drive website.
+   \ "drive.appfolder"
+   / Allows read-only access to file metadata but
+ 5 | does not allow any access to read or download file content.
+   \ "drive.metadata.readonly"
+scope> 1
+Option root_folder_id.
+ID of the root folder.
+Leave blank normally.
+Fill in to access "Computers" folders (see docs), or for rclone to use
+a non root folder as its starting point.
+Enter a string value. Press Enter for the default ("").
+root_folder_id> 
+Option service_account_file.
+Service Account Credentials JSON file path.
+Leave blank normally.
+Needed only if you want use SA instead of interactive login.
+Leading `~` will be expanded in the file name as will environment variables such as `${RCLONE_CONFIG_DIR}`.
+Enter a string value. Press Enter for the default ("").
+service_account_file> 
+Edit advanced config?
+y) Yes
+n) No (default)
+y/n> 
+Use auto config?
+ * Say Y if not sure
+ * Say N if you are working on a remote or headless machine
+
+y) Yes (default)
+n) No
+y/n> N
+Option config_verification_code.
+Verification code
+Go to this URL, authenticate then paste the code here.
+https://accounts.google.com/o/oauth2/auth?access_type=offline&client_id=<rm>
+Enter a string value. Press Enter for the default ("").
+config_verification_code> <rm>
+2022/01/17 18:14:28 NOTICE: Make sure your Redirect URL is set to "urn:ietf:wg:oauth:2.0:oob" in your custom config.
+Configure this as a Shared Drive (Team Drive)?
+
+y) Yes
+n) No (default)
+y/n> 
+--------------------
+[google_drive]
+type = drive
+client_id = <rm>
+client_secret = <rm>
+scope = drive
+token = {"access_token":"<rm>","token_type":"Bearer","refresh_token":"<rm>","expiry":"2022-01-17T19:14:27.423017422+08:00"}
+team_drive = 
+--------------------
+y) Yes this is OK (default)
+e) Edit this remote
+d) Delete this remote
+y/e/d> y
+Current remotes:
+
+Name                 Type
+====                 ====
+google_drive         drive
+
+e) Edit existing remote
+n) New remote
+d) Delete remote
+r) Rename remote
+c) Copy remote
+s) Set configuration password
+q) Quit config
+e/n/d/r/c/s/q> q
+[root@CentOS ~]# mkdir -p /mnt/google_drive
+```
+然后新建`systemd`单元文件
+``` bash
+[root@CentOS ~]# cat /usr/lib/systemd/system/gdrive.service
+[Unit]
+Description=Google Drive mounter
+After=network.target network-online.target nss-lookup.target
+ 
+[Service]
+Restart=on-failure
+Type=simple
+ExecStart=/usr/bin/rclone mount google_drive:/ /mnt/google_drive/ --allow-non-empty --vfs-cache-mode writes --allow-other
+ 
+[Install]
+WantedBy=multi-user.target
+```
+最后尝试启动
+``` bash
+[root@CentOS ~]# systemctl enable gdrive --now
+Created symlink from /etc/systemd/system/multi-user.target.wants/gdrive.service to /usr/lib/systemd/system/gdrive.service.
+[root@CentOS ~]# systemctl status gdrive
+● gdrive.service - Google Drive mounter
+   Loaded: loaded (/usr/lib/systemd/system/gdrive.service; enabled; vendor preset: disabled)
+   Active: failed (Result: start-limit) since Mon 2022-01-17 18:19:02 CST; 383ms ago
+  Process: 15406 ExecStart=/usr/bin/rclone mount google_drive:/ /mnt/google_drive/ --allow-non-empty --vfs-cache-mode writes --allow-other (code=exited, status=1/FAILURE)
+ Main PID: 15406 (code=exited, status=1/FAILURE)
+
+Jan 17 18:19:02 CentOS systemd[1]: gdrive.service: main process exited, code...RE
+Jan 17 18:19:02 CentOS systemd[1]: Unit gdrive.service entered failed state.
+Jan 17 18:19:02 CentOS systemd[1]: gdrive.service failed.
+Jan 17 18:19:02 CentOS systemd[1]: gdrive.service holdoff time over, schedul...t.
+Jan 17 18:19:02 CentOS systemd[1]: Stopped Google Drive mounter.
+Jan 17 18:19:02 CentOS systemd[1]: start request repeated too quickly for gd...ce
+Jan 17 18:19:02 CentOS systemd[1]: Failed to start Google Drive mounter.
+Jan 17 18:19:02 CentOS systemd[1]: Unit gdrive.service entered failed state.
+Jan 17 18:19:02 CentOS systemd[1]: gdrive.service failed.
+Hint: Some lines were ellipsized, use -l to show in full.
+```
+寄了，果然单独执行就报错草
+``` bash
+[root@CentOS ~]# modprobe fuse
+[root@CentOS ~]# /usr/bin/rclone mount google_drive:/ /mnt/google_drive/ --allow-non-empty --vfs-cache-mode writes --allow-other
+2022/01/17 18:19:44 mount helper error: fusermount: fuse device not found, try 'modprobe fuse' first
+2022/01/17 18:19:44 Fatal error: failed to mount FUSE fs: fusermount: exit status 1
+```
+
+</details>
 
 ## 0x07.关闭防火墙
 `2021-06-05 19:27:01`：开启防火墙，并配合`fail2ban`使用
@@ -881,4 +1049,5 @@ zlib-devel.x86_64                                                               
 </details>
 
 ## 0x14.引用
-> [从零开始的 Rust 学习笔记(10) —— Breezin](https://web.archive.org/web/20191204110834/https://blog.0xbbc.com/2019/12/rust-learning-from-zero-10/)
+[从零开始的 Rust 学习笔记(10) —— Breezin](https://web.archive.org/web/20191204110834/https://blog.0xbbc.com/2019/12/rust-learning-from-zero-10/)
+[在Linux上使用rclone挂载Google Drive等服务](https://web.archive.org/web/20220117103039/https://moonagic.com/mount-google-drive-with-rclone/)
