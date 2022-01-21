@@ -1,10 +1,10 @@
 ---
-title: 换新系统之腾讯云学生机 CentOS 8.0 64 位
+title: 换新系统之腾讯云学生机 CentOS 8.5.2111
 date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 17
+count: 18
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,7 +74,7 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python3101](https://www.python.org/downloads/release/python-3101)环境
+## 0x04.编译安装[python3102](https://www.python.org/downloads/release/python-3102)环境
 ### 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -97,22 +97,22 @@ dnf install libnsl2-devel bluez-libs-devel tix-devel -y
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 ### 3. 下载源码包
-~~`wget https://www.python.org/ftp/python/3.10.1/Python-3.10.1.tar.xz`~~
+~~`wget https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或![下载卡爆，proxy 中转爽到！](https://i1.yuangezhizao.cn/Win-10/20191107224750.jpg!webp)
 
 ``` bash
 CloudFlare（推荐）：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.1.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.2.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.10.1.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.10.2.tar.xz
 ```
 
 ### 4. 解压
 ``` bash
-tar xvJf Python-3.10.1.tar.xz
-cd Python-3.10.1
+tar xvJf Python-3.10.2.tar.xz
+cd Python-3.10.2
 ```
 
 ### 5. 编译
@@ -120,7 +120,7 @@ cd Python-3.10.1
 
 注：添加`--enable-optimizations`（以配置文件主导的优化`PGO`）和`--with-lto`（链接时间优化`LTO`）之后的编译速度会变慢，但理论上编译产物的运行效率？会提高
 ~~不添加`--enable-shared`（生成动态链接库）编译会报错：`command 'gcc' failed with exit status 1`~~
-`rm -rf /usr/local/python3`
+~~`rm -rf /usr/local/python3`~~
 ~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations --with-lto`~~
 `./configure --prefix=/usr/local/python3 --enable-optimizations --with-lto`
 `make && make install`
@@ -231,17 +231,17 @@ lrwxrwxrwx  1 root   root           23 Dec 10  2019 pip-3 -> /etc/alternatives/p
 lrwxrwxrwx  1 root   root            8 Jun 21  2021 pip-3.6 -> ./pip3.6
 -rwxr-xr-x  1 root   root          209 Jun 21  2021 pip3.6
 [root@cn-tx-bj7-c8 Python-3.10.1]# mv /usr/bin/python3 /usr/bin/python3.original
-[root@cn-tx-bj7-c8 Python-3.10.1]# python -V
+[root@cn-py-dl-c8 ~]# python -V
 -bash: python: command not found
-[root@cn-tx-bj7-c8 Python-3.10.1]# python3 -V
-Python 3.10.1
-[root@cn-tx-bj7-c8 Python-3.10.1]# pip3 -V
-pip 21.2.4 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
-[root@cn-tx-bj7-c8 Python-3.10.1]# python3
-Python 3.10.1 (main, Jan 11 2022, 12:31:07) [GCC 8.5.0 20210514 (Red Hat 8.5.0-4)] on linux
+[root@cn-py-dl-c8 ~]# python3 -V
+Python 3.10.2
+[root@cn-py-dl-c8 ~]# pip3 -V
+pip 21.3 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
+[root@cn-py-dl-c8 ~]# python3
+Python 3.10.2 (main, Jan 21 2022, 18:41:20) [GCC 8.5.0 20210514 (Red Hat 8.5.0-4)] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
-[3]+  Stopped                 python3
+[2]+  Stopped                 python3
 ```
 ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，`CentOS 8`这下`2`终于彻底没有了
 

@@ -2,8 +2,8 @@
 title: PY 云新增 CentOS 7.7 64 位
 date: 2019-10-28 23:13:25
 tags:
-  - CentOS 
-count: 8
+  - CentOS
+count: 9
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -105,8 +105,8 @@ yum install epel-release -y
 yum install htop axel -y
 ```
 
-## 0x02.编译安装[python3100](https://www.python.org/downloads/release/python-3100/)环境
-同[编译安装python3100环境](./cn-tx-bj1-c8.html#0x04-编译安装python3100环境)
+## 0x02.编译安装[python3102](https://www.python.org/downloads/release/python-3102/)环境
+同[编译安装python3102环境](./cn-tx-bj1-c8.html#0x04-编译安装python3102环境)
 
 ## 0x03.`git`配置
 ``` bash
@@ -900,10 +900,68 @@ portainer_data
 ``` bash
 [root@cn-py-dl-c8 ~]# dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
 [root@cn-py-dl-c8 ~]# dnf repolist epel -v
+[root@cn-py-dl-c8 ~]# dnf install vagrant -y
 ```
 
-## 0x08.引用
+## 0x08.[Vagrant](https://www.github.com/hashicorp/vagrant)
+``` bash
+[root@cn-py-dl-c8 ~]# yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+Adding repo from: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+[root@cn-py-dl-c8 ~]# dnf repolist hashicorp -v
+Loaded plugins: builddep, changelog, config-manager, copr, debug, debuginfo-install, download, generate_completion_cache, groups-manager, needs-restarting, playground, repoclosure, repodiff, repograph, repomanage, reposync
+DNF version: 4.7.0
+cachedir: /var/cache/dnf
+Hashicorp Stable - x86_64                                                   97 kB/s | 665 kB     00:06    
+Last metadata expiration check: 0:00:02 ago on Sat 08 Jan 2022 12:20:43 PM CST.
+Repo-id            : hashicorp
+Repo-name          : Hashicorp Stable - x86_64
+Repo-status        : enabled
+Repo-updated       : Fri 07 Jan 2022 05:44:58 AM CST
+Repo-pkgs          : 548
+Repo-available-pkgs: 548
+Repo-size          : 18 G
+Repo-baseurl       : https://rpm.releases.hashicorp.com/RHEL/8/x86_64/stable
+Repo-expire        : 172,800 second(s) (last: Sat 08 Jan 2022 12:20:43 PM CST)
+Repo-filename      : /etc/yum.repos.d/hashicorp.repo
+Total packages: 548
+```
+https://www.virtualbox.org/wiki/Linux_Downloads
+```
+[root@cn-py-dl-c8 ~]# wget https://www.virtualbox.org/download/oracle_vbox.asc
+[root@cn-py-dl-c8 ~]# rpm --import oracle_vbox.asc
+[root@cn-py-dl-c8 ~]# wget https://download.virtualbox.org/virtualbox/6.1.30/VirtualBox-6.1-6.1.30_148432_el8-1.x86_64.rpm
+[root@cn-py-dl-c8 ~]# rpm -ivh VirtualBox-6.1-6.1.30_148432_el8-1.x86_64.rpm 
+error: Failed dependencies:
+        libGL.so.1()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5Core.so.5()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5Core.so.5(Qt_5)(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5Core.so.5(Qt_5.11)(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5Gui.so.5()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5Gui.so.5(Qt_5)(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5OpenGL.so.5()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5OpenGL.so.5(Qt_5)(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5PrintSupport.so.5()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5PrintSupport.so.5(Qt_5)(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5Widgets.so.5()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5Widgets.so.5(Qt_5)(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5X11Extras.so.5()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libQt5X11Extras.so.5(Qt_5)(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libSDL-1.2.so.0()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libXcursor.so.1()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libXt.so.6()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libasound.so.2()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libopus.so.0()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+        libvpx.so.5()(64bit) is needed by VirtualBox-6.1-6.1.30_148432_el8-1.x86_64
+```
+```
+[root@cn-py-dl-c8 ~]# dnf config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo
+Adding repo from: https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo
+[root@cn-py-dl-c8 ~]# yum install VirtualBox-6.1 -y
+```
+
+## 0x09.引用
 > [ifconfig命令不存在command not found](https://web.archive.org/web/20191028144703/https://blog.csdn.net/dong_alex/article/details/80873733)
 [CentOS7安装VMware Tools](https://web.archive.org/web/20200404101734/https://www.cnblogs.com/roooookie/p/8473640.html)
+[如何在CentOS 8上安装VirtualBox](https://web.archive.org/web/20220108043112/https://www.myfreax.com/how-to-install-virtualbox-on-centos-8/)
 
 未完待续……
