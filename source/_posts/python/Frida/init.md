@@ -3,7 +3,7 @@ title: Frida 初体验
 date: 2020-3-16 21:53:05
 tags:
   - Frida
-count: 6
+count: 7
 os: 0
 os_1: 10.0.17763.1098 2019-LTSC
 browser: 0
@@ -143,8 +143,10 @@ chmod 755 frida-server
 ①如果是`USB`数据线连接即`frida.get_usb_device()`，可以无视此操作
 ![调试走起](https://i1.yuangezhizao.cn/Redmi-K20Pro/IMG_20200317_210756.jpg!webp)
 
-②如果是远程连接比如`ADB WiFi`并且`frida.get_remote_device()`，就需要此操作，因为需要通信交互嘛
+②如果是远程连接比如`ADB WiFi`（先`USB`连接手机）并且`frida.get_remote_device()`，就需要此操作，因为需要通信交互嘛
 ``` bash
+adb tcpip 5555
+adb connect 192.168.123.23
 adb forward tcp:27042 tcp:27042
 adb forward tcp:27043 tcp:27043
 ```
