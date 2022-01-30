@@ -6,7 +6,7 @@ tags:
   - VM
   - VMware
   - ESXi
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.2 (21D49)
 browser: 1
@@ -189,5 +189,6 @@ PS D:\yuangezhizao\Documents\ESXI\ESXi-Customizer-PS>
 ## 0x07.引用
 
 [VMware Overview of ‘L1 Terminal Fault’ (L1TF) Speculative-Execution vulnerabilities in Intel processors: CVE-2018-3646, CVE-2018-3620, and CVE-2018-3615 (55636)](https://kb.vmware.com/s/article/55636)
+[老笔记本安装ESXI和群晖，不再吃灰](https://web.archive.org/web/20220130122630/https://blog.csdn.net/hahofe/article/details/117519109)
 
 > 至此本文使命完成
