@@ -5,7 +5,7 @@ tags:
   - VM
   - VMware
   - ESXi
-count: 6
+count: 7
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -18,7 +18,7 @@ gitment: true
 <!-- more -->
 ## 0x00.安装或升级
 ### `ESXCLI`使用`Zip`文件更新`ESXi`主机
-> **【20211127】**关联文章：[VMware ESXi 升级 7.0 Update 2](./upgrade/17630552.html)，[VMware vCenter Server 7.0.0 安装](../vCenter/init.html)，[VMware vCenter Server 升级 7.0 Update 3a](../vCenter/upgrade/18778458.html)
+> **【20220130】**关联文章：[VMware ESXi 升级 7.0 Update 2](./upgrade/17630552.html)，[VMware vCenter Server 7.0.0 安装](../vCenter/init.html)，[VMware vCenter Server 升级 7.0 Update 3a](../vCenter/upgrade/18778458.html)，[上古神船也要物尽其用之安装 VMware ESXi 6.7](./init-laptop.html)
 
 ### 1.下载
 ![7.0](https://i1.yuangezhizao.cn/Win-10/20200404011121.jpg!webp)
