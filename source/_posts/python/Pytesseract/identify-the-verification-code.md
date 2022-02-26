@@ -7,7 +7,7 @@ count: 3
 os: 0
 os_1: 10.0.17046.1000 Pro
 browser: 0
-browser_1: Chromium 62.0.3202.94
+browser_0: Chromium 62.0.3202.94
 place: 家
 key: 27
 ---

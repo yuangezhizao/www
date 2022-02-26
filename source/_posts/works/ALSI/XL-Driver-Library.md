@@ -6,8 +6,8 @@ tags:
 count: 1
 os: 0
 os_1: 10.0.17763.1637 2019-LTSC
-browser: 1
-browser_1: 86.0.4240.198 Stable
+browser: 0
+browser_0: 86.0.4240.198 Stable
 place: 新家
 key: 107
 ---

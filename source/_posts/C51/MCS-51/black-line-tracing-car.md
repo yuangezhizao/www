@@ -8,7 +8,7 @@ count: 3
 os: 0
 os_1: 10.0.10586 Pro
 browser: 0
-browser_1: 57.0.2987.133 Stable
+browser_0: 57.0.2987.133 Stable
 place: 宿舍
 key: 07
 ---

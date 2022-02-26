@@ -5,7 +5,7 @@ count: 3
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
-browser_1: 58.0.3029.110 Stable
+browser_0: 58.0.3029.110 Stable
 place: 宿舍
 key: 08
 gitment: true

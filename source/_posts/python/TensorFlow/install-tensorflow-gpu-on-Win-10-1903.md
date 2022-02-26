@@ -8,7 +8,7 @@ count: 3
 os: 0
 os_1: 10.0.17763.316 2019-LTSC
 browser: 0
-browser_1: 71.0.3578.98 Stable
+browser_0: 71.0.3578.98 Stable
 place: 图书馆
 key: 44
 gitment: true

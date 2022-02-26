@@ -7,8 +7,8 @@ tags:
 count: 5
 os: 1
 os_1: Monterry 12.0.1 (21A559)
-browser: 1
-browser_1: 95.0.4638.69 Stable
+browser: 0
+browser_0: 95.0.4638.69 Stable
 place: 新家
 key: 123
 ---

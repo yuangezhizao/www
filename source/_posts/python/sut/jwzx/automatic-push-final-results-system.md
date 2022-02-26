@@ -7,7 +7,7 @@ count: 3
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
-browser_1: 61.0.3153.0 Dev
+browser_0: 61.0.3153.0 Dev
 place: 家
 key: 09
 ---

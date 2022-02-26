@@ -7,7 +7,7 @@ count: 2ss
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
-browser_1: 56.0.2924.87 Stable
+browser_0: 56.0.2924.87 Stable
 place: 宿舍
 key: 05
 gitment: true

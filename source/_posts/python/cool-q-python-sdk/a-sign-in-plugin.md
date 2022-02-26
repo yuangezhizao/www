@@ -9,7 +9,7 @@ count: 1
 os: 0
 os_1: 10.0.14393 Pro
 browser: 0
-browser_1: 56.0.2924.87 Stable
+browser_0: 56.0.2924.87 Stable
 place: 家
 key: 03
 ---

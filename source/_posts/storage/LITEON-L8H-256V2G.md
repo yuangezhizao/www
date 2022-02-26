@@ -8,7 +8,7 @@ count: 2
 os: 0
 os_1: 10.0.17763.1012 2019-LTSC
 browser: 0
-browser_1: 80.0.3987.87 Stable
+browser_0: 80.0.3987.87 Stable
 place: 家
 key: 72
 ---

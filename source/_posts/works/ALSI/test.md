@@ -7,7 +7,7 @@ count: 4
 os: 0
 os_1: 10.0.18363.720 Pro 1909
 browser: 0
-browser_1: 83.0.4103.61 Stable
+browser_0: 83.0.4103.61 Stable
 place: 软件园
 key: 90
 ---

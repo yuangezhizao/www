@@ -6,8 +6,8 @@ tags:
 count: 6
 os: 1
 os_1: Big Sur 11.2.3 (20D91)
-browser: 1
-browser_1: 89.0.4389.128 Stable
+browser: 0
+browser_0: 89.0.4389.128 Stable
 place: 新家
 key: 113
 ---
