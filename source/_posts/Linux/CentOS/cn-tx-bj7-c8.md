@@ -4,11 +4,11 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 4
+count: 5
 os: 1
 os_1: Monterry 12.1 (21C52)
-browser: 1
-browser_1: 96.0.4664.110 Stable
+browser: 0
+browser_0: 96.0.4664.110 Stable
 place: 新家
 key: 128
 ---
@@ -160,13 +160,13 @@ Status
 [root@cn-tx-bj7-c8 ~]# fail2ban-client status sshd
 Status for the jail: sshd
 |- Filter
-|  |- Currently failed: 0
-|  |- Total failed:     0
+|  |- Currently failed: 4
+|  |- Total failed:     37071
 |  `- Journal matches:  _SYSTEMD_UNIT=sshd.service + _COMM=sshd
 `- Actions
-   |- Currently banned: 0
-   |- Total banned:     0
-   `- Banned IP list:
+   |- Currently banned: 170
+   |- Total banned:     3962
+   `- Banned IP list:   <rm>
 ```
 
 ## 0x04.开启[Cockpit](https://github.com/cockpit-project/cockpit)
@@ -900,10 +900,62 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 ## 0x13.安装[frp](https://github.com/fatedier/frp)
 ``` bash
-[root@cn-tx-bj7-c8 ~]# wget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_linux_amd64.tar.gz^C
-[root@cn-tx-bj7-c8 ~]# wget http://proxy-cf.yuangezhizao.cn/dl/frp_0.38.0_linux_amd64.tar.gz
-[root@cn-tx-bj7-c8 ~]# tar -zxvf frp_0.38.0_linux_amd64.tar.gz
+[root@cn-tx-bj7-c8 ~]# wget https://github.com/fatedier/frp/releases/download/v0.39.0/frp_0.39.0_linux_amd64.tar.gz^C
+[root@cn-tx-bj7-c8 ~]# wget http://proxy-cf.yuangezhizao.cn/dl/frp_0.39.0_linux_amd64.tar.gz
+[root@cn-tx-bj7-c8 ~]# tar -zxvf frp_0.39.0_linux_amd64.tar.gz
+[root@cn-tx-bj7-c8 ~]# cd frp_0.39.0_linux_amd64/
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# tree
+.
+├── frpc
+├── frpc_full.ini
+├── frpc.ini
+├── frps
+├── frps_full.ini
+├── frps.ini
+├── LICENSE
+└── systemd
+    ├── frpc.service
+    ├── frpc@.service
+    ├── frps.service
+    └── frps@.service
+
+1 directory, 11 files
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# cp systemd/frps.service /etc/systemd/system/
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# cat /etc/systemd/system/frps.service 
+[Unit]
+Description=Frp Server Service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/frps -c /etc/frp/frps.ini
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# cp frps /usr/bin/
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# mkdir /etc/frp/
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# cp frps_full.ini /etc/frp/frps.ini
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# vim /etc/frp/frps.ini
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# mkdir /var/log/frps
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# touch /var/log/frps/frps.log
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# systemctl enable frps --now
+[root@cn-tx-bj7-c8 frp_0.39.0_linux_amd64]# systemctl status frps
+● frps.service - Frp Server Service
+   Loaded: loaded (/etc/systemd/system/frps.service; enabled; vendor preset: disabled)
+   Active: active (running) since Wed 2022-02-09 11:39:00 CST; 4s ago
+ Main PID: 1504474 (frps)
+    Tasks: 5 (limit: 23722)
+   Memory: 10.6M
+   CGroup: /system.slice/frps.service
+           └─1504474 /usr/bin/frps -c /etc/frp/frps.ini
+
+Feb 09 11:39:00 cn-tx-bj7-c8 systemd[1]: Started Frp Server Service.
 ```
+参照[安全地暴露内网服务](https://web.archive.org/web/20220209031001/https://gofrp.org/docs/examples/stcp/)和[点对点内网穿透](https://web.archive.org/web/20220209031032/https://gofrp.org/docs/examples/xtcp/)
 未完待续……
 
 ## 0x14.安装[Wiki.js](https://github.com/Requarks/wiki)
@@ -986,10 +1038,103 @@ Created symlink /etc/systemd/system/multi-user.target.wants/x-ui.service → /et
 [root@cn-tx-bj7-c8 ~]# systemctl restart x-ui
 ```
 
-## 0x16.后记
+## 0x16.安装[wakapi](https://github.com/muety/wakapi)
+首先配置`docker pull`时的代理，因为要从`gh`的源拉取镜像
+``` bash
+[root@cn-tx-bj7-c8 ~]# mkdir -p /etc/systemd/system/docker.service.d
+[root@cn-tx-bj7-c8 ~]# touch /etc/systemd/system/docker.service.d/proxy.conf
+[root@cn-tx-bj7-c8 ~]# vim /etc/systemd/system/docker.service.d/proxy.conf
+[root@cn-tx-bj7-c8 ~]# cat /etc/systemd/system/docker.service.d/proxy.conf
+[Service]
+Environment="HTTP_PROXY=http://10.0.2.2:1081"
+Environment="HTTPS_PROXY=http://10.0.2.2:1081"
+Environment="NO_PROXY=localhost,127.0.0.1,.example.com"
+[root@cn-tx-bj7-c8 ~]# systemctl daemon-reload
+[root@cn-tx-bj7-c8 ~]# systemctl restart docker
+```
+然后照着文档[🐳 Option 3: Use Docker](https://github.com/muety/wakapi#-option-3-use-docker)进行安装
+``` bash
+[root@cn-tx-bj7-c8 ~]# docker volume create wakapi-data
+wakapi-data
+[root@cn-tx-bj7-c8 ~]# docker volume ls
+DRIVER    VOLUME NAME
+local     8964bfb2c71239747ba993f85c232daabd763d8cc0c789faee8e3b2a1a055afa
+local     ae15994f0439c9f12e99b09c82990bbf21d19db6bd2b5f0cb20fb6cd06cc8d41
+local     db-data
+local     portainer_data
+local     wakapi-data
+local     wiki_db-data
+local     wikijs_db-data
+[root@cn-tx-bj7-c8 ~]# docker pull ghcr.io/muety/wakapi:latest
+latest: Pulling from muety/wakapi
+Digest: sha256:6a9ac9cce93c0fc3256dde7865c54ec4121979ad3091dbf851110ebec01f9a54
+Status: Image is up to date for ghcr.io/muety/wakapi:latest
+ghcr.io/muety/wakapi:latest
+[root@cn-tx-bj7-c8 ~]# SALT="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-32} | head -n 1)"
+[root@cn-tx-bj7-c8 ~]# docker run -d \
+>   -p 3333:3000 \
+>   -e "WAKAPI_PASSWORD_SALT=$SALT" \
+>   -v wakapi-data:/data \
+>   --name wakapi \
+>   ghcr.io/muety/wakapi:latest
+9be6c1024db7a54c38883d3a528ba612fe37dd644e58ef8c8138bb45a3e7ca55
+```
+结果导入报错`2022-03-16T16:07:59.877000621Z [WARN ] failed to insert imported heartbeat, already existing? - too many SQL variables`
+毕竟是`SQLite`报错还可以理解，决定换成`pg`
+``` bash
+[root@cn-tx-bj7-c8 wakapi]# cat docker-compose.yml 
+version: '3.7'
+
+services:
+  wakapi:
+    image: ghcr.io/muety/wakapi:2.2.5
+    #build: .
+    ports:
+      - 3333:3000
+    restart: always
+    environment:
+      # See README.md and config.default.yml for all config options
+      WAKAPI_DB_TYPE: "postgres"
+      WAKAPI_DB_NAME: "wakapi"
+      WAKAPI_DB_USER: "wakapi"
+      WAKAPI_DB_PASSWORD: "wakapi"
+      WAKAPI_DB_HOST: "db"
+      WAKAPI_DB_PORT: "5432"
+      ENVIRONMENT: "prod"
+
+  db:
+    image: postgres:12.3
+    environment:
+      POSTGRES_USER: "wakapi"
+      POSTGRES_PASSWORD: "wakapi"
+      POSTGRES_DB: "wakapi"
+[root@cn-tx-bj7-c8 wakapi]# docker-compose up -d
+Pulling wakapi (ghcr.io/muety/wakapi:2.2.5)...
+2.2.5: Pulling from muety/wakapi
+Digest: sha256:6a9ac9cce93c0fc3256dde7865c54ec4121979ad3091dbf851110ebec01f9a54
+Pulling db (postgres:12.3)...
+12.3: Pulling from library/postgres
+Digest: sha256:a06e6e6e519b7a329c419f8221edec66cfc45511e8b80e262c12103ba745cf19
+Status: Downloaded newer image for postgres:12.3
+Creating wakapi_db_1     ... done
+Creating wakapi_wakapi_1 ... done
+```
+然后又出现新的报错了草
+``` bash
+wakapi_1  | 2022-03-16T16:31:06.180468706Z [INFO ] potentially running migration '20220313-index_generation_hint'
+db_1      | 2022-03-16 16:31:06.180 UTC [73] ERROR:  relation "key_string_values" does not exist at character 15
+db_1      | 2022-03-16 16:31:06.180 UTC [73] STATEMENT:  SELECT * FROM "key_string_values" WHERE key = $1 ORDER BY "key_string_values"."key" LIMIT 1
+wakapi_1  | 2022-03-16T16:31:06.180835365Z [INFO ] please note: the following migrations might take a few minutes, as column types are changed and new indexes are created, have some patience
+db_1      | 2022-03-16 16:31:06.181 UTC [73] ERROR:  relation "key_string_values" does not exist at character 13
+db_1      | 2022-03-16 16:31:06.181 UTC [73] STATEMENT:  INSERT INTO "key_string_values" ("key","value") VALUES ($1,$2)
+wakapi_1  | 2022-03-16T16:31:06.181352991Z [ERROR] failed to mark migration 20220313-index_generation_hint as run - ERROR: relation "key_string_values" does not exist (SQLSTATE 42P01)
+```
+想了下`wakapi.dev`又不是不能用，工地英语启动！并去提了`ISSUE`：[Failed to mark migration using postgres](https://github.com/muety/wakapi/issues/337)
+
+## 0x17.后记
 折腾了一天好累，反正万事开头难
 
-## 0x17.引用
+## 0x18.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
