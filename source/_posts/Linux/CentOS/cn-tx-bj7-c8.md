@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 5
+count: 6
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 0
@@ -1131,10 +1131,36 @@ wakapi_1  | 2022-03-16T16:31:06.181352991Z [ERROR] failed to mark migration 2022
 ```
 想了下`wakapi.dev`又不是不能用，工地英语启动！并去提了`ISSUE`：[Failed to mark migration using postgres](https://github.com/muety/wakapi/issues/337)
 
-## 0x17.后记
+## 0x17.安装[qBittorrent](https://www.qbittorrent.org)
+使用`linuxserver`的镜像，果然`docker-compose`用习惯简直太舒服了
+``` bash
+[root@cn-tx-bj7-c8 qbittorrent]# cat docker-compose.yml 
+---
+version: "2.1"
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:4.4.0
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asic/Shanghai
+      - WEBUI_PORT=8080
+    volumes:
+      - /root/qbittorrent/config:/config
+      - /data/qbittorrent:/downloads
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8080:8080
+    restart: unless-stopped
+[root@cn-tx-bj7-c8 qbittorrent]# docker-compose up -d
+```
+
+## 0x18.后记
 折腾了一天好累，反正万事开头难
 
-## 0x18.引用
+## 0x19.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
