@@ -6,7 +6,7 @@ tags:
   - VMware
   - vCenter
   - RHEL
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.3 (21E230)
 browser: 0
@@ -54,6 +54,9 @@ key: 135
 ![1/16](https://i1.yuangezhizao.cn/macOS/20220327004312.png!webp)
 ![然后就突然卡住草，部分选项还得重设](https://i1.yuangezhizao.cn/macOS/20220327004645.png!webp)
 ![配置密码](https://i1.yuangezhizao.cn/macOS/20220327005212.png!webp)
+![不知道红帽 CDN 速度如何](https://i1.yuangezhizao.cn/macOS/20220327012045.png!webp)
+![终于开始安装](https://i1.yuangezhizao.cn/macOS/20220327012258.png!webp)
+![先睡觉去了，估计白天就完成了](https://i1.yuangezhizao.cn/macOS/20220327012425.png!webp)
 
 ## 0x02.红帽门户
 ![1/16](https://i1.yuangezhizao.cn/macOS/20220327005443.png!webp)
