@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 6
+count: 7
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 0
@@ -12,7 +12,7 @@ browser_0: 96.0.4664.110 Stable
 place: 新家
 key: 128
 ---
-    终于还是用上了你云的轻量应用服务器草
+    终于还是用上了良心云的轻量应用服务器草
 <!-- more -->
 ## 0x00.前言
 怀疑是临时工，反正买到了就闷声发大财嘛，之前还苦恼`cn-tx-bj1-c8`这台好用的`CentOS`来年夏天就要过期了（`2019-05-09 00:27:53`～`2022-05-09 00:27:54`）
@@ -1156,11 +1156,161 @@ services:
     restart: unless-stopped
 [root@cn-tx-bj7-c8 qbittorrent]# docker-compose up -d
 ```
+还是用`docker-compose`管理吧
+``` bash
+[root@cn-tx-bj7-c8 fpm]# docker-compose up -d
+Creating network "fpm_default" with the default driver
+Creating volume "fpm_db" with default driver
+Creating volume "fpm_nextcloud" with default driver
+Pulling db (postgres:alpine)...
+alpine: Pulling from library/postgres
+Digest: sha256:dfd144937916a40521248f82c7e1acdcdfd0bf79db20ebc91f25f6842c689322
+Status: Downloaded newer image for postgres:alpine
+Pulling redis (redis:alpine)...
+alpine: Pulling from library/redis
+Digest: sha256:609765f7b8f4fc3dc27f0a90698733c6aa6cc98d6829162794967322496dadb8
+Status: Downloaded newer image for redis:alpine
+Pulling app (nextcloud:fpm-alpine)...
+fpm-alpine: Pulling from library/nextcloud
+fpm-alpine: Pulling from library/nextcloud
+Digest: sha256:641e9c554b23268179c0d1ce390401e824be3cd86dd17410b52bcc8a49865ea0
+Status: Downloaded newer image for nextcloud:fpm-alpine
+Building web
+Sending build context to Docker daemon  10.24kB
+Step 1/2 : FROM nginx:alpine
+alpine: Pulling from library/nginx
+Digest: sha256:77cc350019d0188d3115084265483dcefdd8489ccf719ff4e4c956b48de8ff6a
+Status: Downloaded newer image for nginx:alpine
+ ---> 7d73f57a7cf7
+Step 2/2 : COPY nginx.conf /etc/nginx/nginx.conf
+ ---> 1d8afd4ecaea
+Successfully built 1d8afd4ecaea
+Successfully tagged fpm_web:latest
+WARNING: Image for service web was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
+Creating fpm_db_1    ... done
+Creating fpm_redis_1 ... done
+Creating fpm_cron_1  ... done
+Creating fpm_app_1   ... done
+Creating fpm_web_1   ... done
+```
 
-## 0x18.后记
+## 0x18.`Failed to download metadata for repo 'appstream'`
+``` bash
+[root@cn-tx-bj7-c8 ~]# dnf update -y
+CentOS Linux 8 - AppStream                                    32  B/s |  38  B     00:01    
+Error: Failed to download metadata for repo 'appstream': Cannot prepare internal mirrorlist: No URLs in mirrorlist
+```
+嗯？啥都没干，一脸黑人问号……果去谷歌搜下，觉得应该是个通用的问题
+``` bash
+[root@cn-tx-bj7-c8 ~]# ll /etc/yum.repos.d/
+total 88
+-rw-r--r-- 1 root root  228 Oct 26  2020 CentOS-AppStream.repo.rpmsave
+-rw-r--r-- 1 root root  214 Oct 26  2020 CentOS-Base.repo.rpmsave
+-rw-r--r-- 1 root root  226 Oct 26  2020 CentOS-centosplus.repo.rpmsave
+-rw-r--r-- 1 root root  249 Oct 26  2020 CentOS-Devel.repo.rpmsave
+-rw-r--r-- 1 root root  231 Dec 31 21:23 CentOS-Epel.repo
+-rw-r--r-- 1 root root  216 Oct 26  2020 CentOS-Extras.repo.rpmsave
+-rw-r--r-- 1 root root  232 Oct 26  2020 CentOS-HA.repo.rpmsave
+-rw-r--r-- 1 root root  719 Sep 15  2021 CentOS-Linux-AppStream.repo
+-rw-r--r-- 1 root root  704 Sep 15  2021 CentOS-Linux-BaseOS.repo
+-rw-r--r-- 1 root root 1130 Sep 15  2021 CentOS-Linux-ContinuousRelease.repo
+-rw-r--r-- 1 root root  318 Sep 15  2021 CentOS-Linux-Debuginfo.repo
+-rw-r--r-- 1 root root  732 Sep 15  2021 CentOS-Linux-Devel.repo
+-rw-r--r-- 1 root root  704 Sep 15  2021 CentOS-Linux-Extras.repo
+-rw-r--r-- 1 root root  719 Sep 15  2021 CentOS-Linux-FastTrack.repo
+-rw-r--r-- 1 root root  740 Sep 15  2021 CentOS-Linux-HighAvailability.repo
+-rw-r--r-- 1 root root  693 Sep 15  2021 CentOS-Linux-Media.repo
+-rw-r--r-- 1 root root  706 Sep 15  2021 CentOS-Linux-Plus.repo
+-rw-r--r-- 1 root root  724 Sep 15  2021 CentOS-Linux-PowerTools.repo
+-rw-r--r-- 1 root root 1124 Sep 15  2021 CentOS-Linux-Sources.repo
+-rw-r--r-- 1 root root  231 Oct 26  2020 CentOS-PowerTools.repo.rpmsave
+-rw-r--r-- 1 root root 1919 Jan  2 15:05 docker-ce.repo
+-rw-r--r-- 1 root root  201 Dec 21 16:44 mongodb-org-5.0.repo
+[root@cn-tx-bj7-c8 ~]# cd  /etc/yum.repos.d/
+[root@cn-tx-bj7-c8 yum.repos.d]# cat CentOS-AppStream.repo.rpmsave 
+# Qcloud-AppStream.repo
+
+[AppStream]
+name=Qcloud-$releasever - AppStream
+baseurl=http://mirrors.tencentyun.com/centos/$releasever/AppStream/$basearch/os/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Qcloud-8
+[root@cn-tx-bj7-c8 yum.repos.d]# cat CentOS-Linux-AppStream.repo
+# CentOS-Linux-AppStream.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for CentOS updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[appstream]
+name=CentOS Linux $releasever - AppStream
+mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=AppStream&infra=$infra
+#baseurl=http://mirror.centos.org/$contentdir/$releasever/AppStream/$basearch/os/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+```
+解决方法是注释`mirrorlist`，然后使用`http://vault.centos.org`替换`baseurl`
+也可以使用红帽官方提供的一键脚本
+`sed -i 's/^mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*`
+`sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*`
+``` bash
+[root@cn-tx-bj7-c8 yum.repos.d]# cat CentOS-Linux-AppStream.repo 
+# CentOS-Linux-AppStream.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for CentOS updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[appstream]
+name=CentOS Linux $releasever - AppStream
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=AppStream&infra=$infra
+baseurl=http://vault.centos.org/$contentdir/$releasever/AppStream/$basearch/os/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+[root@cn-tx-bj7-c8 yum.repos.d]# cat CentOS-Linux-BaseOS.repo
+# CentOS-Linux-BaseOS.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for CentOS updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[baseos]
+name=CentOS Linux $releasever - BaseOS
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=BaseOS&infra=$infra
+baseurl=http://vault.centos.org/$contentdir/$releasever/BaseOS/$basearch/os/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+```
+顺便去重新去查阅了`CentOS 6/7/8`、`CentOS Stream`和`RHEL`的关系
+> We’re making CentOS Stream the collaboration hub for RHEL, with the landscape looking like this:
+> - Fedora Linux is the place for major new operating system innovations, thoughts, and ideas - essentially, this is where the next major version of Red Hat Enterprise Linux is born.
+> - CentOS Stream is the continuously delivered platform that becomes the next minor version of RHEL.
+> - RHEL is the intelligent operating system for production workloads, used in nearly every industry in the world, from cloud-scale deployments in mission-critical data centers and localized server rooms to public clouds and out to far-flung edges of enterprise networks.
+
+原来`Stream`的定位是滚动发布的中间版本，并不建议在生产环境使用，自己之前的理解有误区……
+并且除了切换至`AlmaLinux`之外，官方工具[almalinux-deploy](https://github.com/AlmaLinux/almalinux-deploy)可以从`CentOS 8.5`切换`AlmaLinux`
+还可以去使用企业版本的`RHEL`，因为针对 16 台系统及其以下的授权是免费的，迁移参考官方文档[CONVERTING FROM AN RPM-BASED LINUX DISTRIBUTION TO RHEL](https://web.archive.org/save/https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/converting_from_an_rpm-based_linux_distribution_to_rhel/index)
+
+## 0x19.后记
 折腾了一天好累，反正万事开头难
 
-## 0x19.引用
+## 0x20.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
@@ -1168,6 +1318,7 @@ services:
 [Cockpit - 使用Web浏览器监视和管理多个Linux服务器的强大工具](https://web.archive.org/web/20211221074818/https://www.howtoing.com/cockpit-monitor-multiple-linux-servers-via-web-browser/)
 [如何在CentOS 8上安装MongoDB](https://web.archive.org/web/20211221084731/https://www.myfreax.com/how-to-install-mongodb-on-centos-8/)
 [Docker可视化工具Portainer](https://web.archive.org/web/20220102074334/https://juejin.cn/post/6847902192217620494)
+
 [centos8 docker安装mastodon](https://web.archive.org/web/20220102071320/https://www.jianshu.com/p/4f36ec8627c0)
 [Mastodon Docker Setup](https://gist.github.com/TrillCyborg/84939cd4013ace9960031b803a0590c4)
 [如何利用Docker搭建Mastodon实例（一）：基础搭建篇](https://web.archive.org/web/20220112134535/https://pullopen.github.io/%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/2020/10/19/Mastodon-on-Docker.html)
@@ -1175,4 +1326,9 @@ services:
 [CentOS8（即其余RHEL衍生版系统）搭建mastodon（嘟文）教程](https://web.archive.org/web/20220112134820/https://z-zhz.cn/498/)
 [Mastodonサーバを立ててみた【CentOS 8】](https://web.archive.org/web/20220112134939/https://kyohju.com/article/post-1393.html)
 [Mastodon搭建小记](https://web.archive.org/web/20220112133532/https://candinya.com/posts/mastodon-first-meet/)
+
 [Proxying object storage through nginx](https://web.archive.org/web/20220112135238/https://docs.joinmastodon.org/admin/optional/object-storage-proxy/)
+
+[CentOS 8でyum/dnfに失敗！ Failed to download metadata for repo 'AppStream'](https://web.archive.org/web/20220326143428/https://qiita.com/yamada-hakase/items/cb1b6124e11ca65e2a2b)
+[CentOS Stream 还适合用于生产环境吗](https://web.archive.org/web/20220326141019/https://dgideas.net/2020/is-centos-stream-still-suitable-for-production-environments/)
+[New Year, new Red Hat Enterprise Linux programs: Easier ways to access RHEL](https://web.archive.org/web/20220326141053/https://www.redhat.com/en/blog/new-year-new-red-hat-enterprise-linux-programs-easier-ways-access-rhel)
