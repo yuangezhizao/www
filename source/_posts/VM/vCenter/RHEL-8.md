@@ -6,7 +6,7 @@ tags:
   - VMware
   - vCenter
   - RHEL
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.3 (21E230)
 browser: 0
@@ -57,6 +57,21 @@ key: 135
 ![不知道红帽 CDN 速度如何](https://i1.yuangezhizao.cn/macOS/20220327012045.png!webp)
 ![终于开始安装](https://i1.yuangezhizao.cn/macOS/20220327012258.png!webp)
 ![先睡觉去了，估计白天就完成了](https://i1.yuangezhizao.cn/macOS/20220327012425.png!webp)
+
+`2022-03-27 13:01:57`：睡醒起来了
+![安装完成](https://i1.yuangezhizao.cn/macOS/20220327130138.png!webp)
+![重启](https://i1.yuangezhizao.cn/macOS/20220327130423.png!webp)
+![最后一步](https://i1.yuangezhizao.cn/macOS/20220327130525.png!webp)
+![同意协议](https://i1.yuangezhizao.cn/macOS/20220327130541.png!webp)
+![完成配置](https://i1.yuangezhizao.cn/macOS/20220327130632.png!webp)
+![欢迎](https://i1.yuangezhizao.cn/macOS/20220327130716.png!webp)
+![位置服务](https://i1.yuangezhizao.cn/macOS/20220327130805.png!webp)
+![在线账号](https://i1.yuangezhizao.cn/macOS/20220327130843.png!webp)
+![用户账户](https://i1.yuangezhizao.cn/macOS/20220327130929.png!webp)
+![设置密码](https://i1.yuangezhizao.cn/macOS/20220327130955.png!webp)
+![完成引导](https://i1.yuangezhizao.cn/macOS/20220327131013.png!webp)
+![桌面](https://i1.yuangezhizao.cn/macOS/20220327131146.png!webp)
+![活动](https://i1.yuangezhizao.cn/macOS/20220327131203.png!webp)
 
 ## 0x02.红帽门户
 ![1/16](https://i1.yuangezhizao.cn/macOS/20220327005443.png!webp)
