@@ -5,7 +5,7 @@ tags:
   - git
   - WakaTime
   - Wakapi
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.3 (21E230)
 browser: 0
@@ -66,6 +66,13 @@ key: 136
 ## 0x04.[WakaTime](https://wakatime.com/)
 前面说了那么多，终于来到重头戏了，这是统计写代码时长的网站，是真正的那种只有打字才会统计的那种，干放着无操作不会被计入时长（应该是
 常用的编辑器`VSCode`、`PyCharm`等都有插件可以安装
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+![上半月存档](https://mastodon-1251901037.cos.ap-beijing.myqcloud.com/media_attachments/files/107/967/025/333/423/985/original/57e03c2964ace0c0.png)
+![上半月存档](https://mastodon-1251901037.cos.ap-beijing.myqcloud.com/media_attachments/files/107/967/026/900/389/236/original/03be27e1399b16d7.png)
+
+</details>
 
 ![总览](https://i1.yuangezhizao.cn/macOS/20220328010509.png!webp)
 ![项目](https://i1.yuangezhizao.cn/macOS/20220328011204.png!webp)
