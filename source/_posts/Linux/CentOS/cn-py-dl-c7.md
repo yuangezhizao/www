@@ -1,9 +1,9 @@
 ---
-title: PY 云新增 CentOS 7.7 64 位
+title: PY 云新增 cn-py-dl-c7 虚拟机
 date: 2019-10-28 23:13:25
 tags:
   - CentOS
-count: 9
+count: 10
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0

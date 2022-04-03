@@ -3,11 +3,11 @@ title: 树莓派 3B+ 初始化
 date: 2021-03-11 23:22:23
 tags:
   - RaspberryPi
-count: 3
+count: 4
 os: 1
 os_1: Big Sur 11.2.3 (20D91)
-browser: 1
-browser_1: 89.0.4389.82 Stable
+browser: 0
+browser_0: 89.0.4389.82 Stable
 place: 新家
 key: 110
 ---
@@ -34,16 +34,14 @@ key: 110
 ![ssh](https://i1.yuangezhizao.cn/macOS/QQ20210306-152131@2x.png!webp)
 
 ## 0x02.设置静态`IP`地址
-搬家之后`rpi-master`和`rpi-slave`均不再使用无线连接（分别是`5G`和`2.4G`的`WiFi`），全部以菊花插网线的方式上网
-修改`/etc/dhcpcd.conf`，末尾追加
+搬家之后`rpi-master`和`rpi-slave`均不再使用无线连接（分别是`5G`和`2.4G`的`WiFi`），全部以菊花插网线的方式上网，因此需要修改`/etc/dhcpcd.conf`，末尾追加
 ``` bash
 # Example static IP configuration:
 
-interface eth0
+interface enxb827ebe7f863
 static routers=192.168.25.254
-static domain_name_servers=192.168.25.246 192.168.25.238
-static ip_address=192.168.25.129/24
-static domain_search=
+static domain_name_servers=192.168.25.246 240e:30f:1e76:7300:40b0:9b2d:4ad2:3f9d
+inform 192.168.25.129/24
 ```
 ``` bash
 # Example static IP configuration:
@@ -57,6 +55,14 @@ static domain_search=
 注：`eth0`代表`本地网卡`，`wlan0`代表`无线网卡`
 
 ## 0x03.下行带宽上限测试
+先在`cn-py-dl-w2d`上开启服务端
+``` bash
+D:\iperf-3.1.3-win64>iperf3 -s
+-----------------------------------------------------------
+Server listening on 5201
+-----------------------------------------------------------
+```
+`3B+`实测不到`300M`，有线连接
 ``` bash
 pi@rpi-master:~ $ iperf3 -c 192.168.25.248
 Connecting to host 192.168.25.248, port 5201
@@ -79,6 +85,7 @@ Connecting to host 192.168.25.248, port 5201
 
 iperf Done.
 ```
+而`3B`则实测不到`100M`，同样也是有线连接
 ``` bash
 pi@rpi-slave:~ $ iperf3 -c 192.168.25.248
 Connecting to host 192.168.25.248, port 5201
@@ -116,7 +123,9 @@ camera:
 ```
 
 ## 0x05.安装[SmokePing](https://oss.oetiker.ch/smokeping/)
-参照[How to install SmokePing](https://web.archive.org/web/20210817144328/https://oss.oetiker.ch/smokeping/doc/smokeping_install.en.html)还是算了吧，真的需要一键安装脚本，然后谷歌看到树莓派上有编译好的包，于是立即从`cn-py-dl-c8`切换到`rpi-master`来安装了
+参照[How to install SmokePing](https://web.archive.org/web/20210817144328/https://oss.oetiker.ch/smokeping/doc/smokeping_install.en.html)全部得编译安装，看完直接劝退完全折腾不动，还是算了吧，真的需要一键安装脚本……
+然后谷歌看到树莓派上有编译好的包，于是立即从`cn-py-dl-c8`切换到`rpi-master`来安装了
+后来发现也可以用`docker`：https://github.com/linuxserver/docker-smokeping
 ``` bash
 pi@rpi-master:~ $ apt show smokeping
 Package: smokeping
@@ -144,7 +153,7 @@ Description: latency logging and graphing system
  SmokePing uses RRDtool to maintain a longterm datastore and to draw pretty
  graphs giving up to the minute information on the state of each
  network connection.
- ```
+```
 开始安装
 ``` bash
 pi@rpi-master:~ $ sudo apt install smokeping -y
@@ -153,6 +162,9 @@ Your MPM seems to be threaded. Selecting cgid instead of cgi.
 Module cgid already enabled
 ```
 修改配置文件
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
 ``` bash
 pi@rpi-master:~ $ sudo vim /etc/smokeping/config.d/Probes
 pi@rpi-master:~ $ cat /etc/smokeping/config.d/Probes
@@ -332,8 +344,11 @@ menu  = proxy_v6-cf
 title = proxyv6-cf.yuangezhizao.cn
 host  = proxyv6-cf.yuangezhizao.cn
 ```
+
+</details>
+
 最后重启
-```
+``` bash
 pi@rpi-master:~ $ sudo service smokeping restart
 pi@rpi-master:~ $ service smokeping status
 ● smokeping.service - Latency Logging and Graphing System
@@ -371,5 +386,9 @@ Jan 01 12:21:31 rpi-master smokeping[19370]: Curl: probing 6 targets with step 6
 [树莓派设置静态 IP 地址](https://web.archive.org/web/20210725093638/https://www.jianshu.com/p/f9cb0f85a4e6)
 [树莓派自带的网卡的带宽是多少](https://web.archive.org/web/20210725094423/https://www.icxbk.com/ask/detail/21847.html)
 [Raspberry Pi に Smokeping をインストールしてスループットをモニタする](https://web.archive.org/web/20220101035221/https://sig9.hatenablog.com/entry/2020/01/13/000000)
+
+[How to Upgrade Raspberry Pi OS to the Latest Version?](https://raspberrytips.com/update-raspberry-pi-latest-version)
+[Raspberry Pi OS upgraded to Debian 11 “Bullseye”](https://www.cnx-software.com/2021/11/08/raspberry-pi-os-upgraded-to-debian-11-bullseye)
+[raspberrypi/picamera2](https://github.com/raspberrypi/picamera2/tree/main/examples/tensorflow)
 
 未完待续……

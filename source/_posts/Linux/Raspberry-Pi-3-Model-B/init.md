@@ -3,7 +3,7 @@ title: 树莓派 3B 初始化
 date: 2018-3-6 19:03:35
 tags:
   - RaspberryPi
-count: 10
+count: 11
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
@@ -60,6 +60,20 @@ key: 34
 ![新壁纸](https://i1.yuangezhizao.cn/Win-10/20190625082338.png!webp)
 
 ## 0x03.`apt`使用自建代理访问
+`2022-04-03 15:43:19`：参照官方文档：https://www.raspberrypi.com/documentation/computers/configuration.html#using-a-proxy-server
+可以修改`/etc/environment`
+``` bash
+export http_proxy="http://cn-py-dl-w9d:1081"
+export https_proxy="http://cn-py-dl-w9d:1081"
+export no_proxy="localhost, 127.0.0.1"
+```
+针对`sudo`运行的命令，还需要更新`sudoers`，之前没配置怪不得奇怪`sudo`怎么不走代理草
+``` bash
+sudo visudo
+Defaults	env_keep+="http_proxy https_proxy no_proxy"
+```
+最后重启生效
+
 `sudo apt -o Acquire::http::proxy="http://cn-py-dl-w9d:1081/" update`
 `sudo apt -o Acquire::http::proxy="http://cn-py-dl-w9d:1081/" upgrade -y`
 `sudo apt -o Acquire::http::proxy="http://cn-py-dl-w9d:1081/" dist-upgrade`

@@ -5,7 +5,7 @@ tags:
   - git
   - WakaTime
   - Wakapi
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.3 (21E230)
 browser: 0
@@ -58,7 +58,7 @@ key: 136
 ## 0x03.`Productivity Guide`
 接下来是`JB`家的`IDE`，虽然是针针对于快捷键而不是代码量的统计，但还是列出来吧，也不一定有多少人知道
 这里拿`PyCharm`举例子，在「帮助」里，中文翻译成了「我的工作效率」
-![我的代码效率](https://i1.yuangezhizao.cn/macOS/20220328003359.png!webp)
+![我的工作效率](https://i1.yuangezhizao.cn/macOS/20220328003359.png!webp)
 
 嗯？第一名竟然不是自动补全
 ![](https://i1.yuangezhizao.cn/macOS/20220328003532.png!webp)
