@@ -9,7 +9,7 @@ count: 1
 os: 1
 os_1: Monterry 12.0 Beta (21A5506j)
 browser: 0
-browser_0: 94.0.4606.81 Stable
+browser_1: 94.0.4606.81 Stable
 place: 新家
 key: 121
 ---

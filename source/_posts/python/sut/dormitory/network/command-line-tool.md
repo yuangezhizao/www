@@ -7,7 +7,7 @@ count: 3
 os: 0
 os_1: 10.0.15063 Pro
 browser: 0
-browser_0: 61.0.3163.91 Dev
+browser_1: 61.0.3163.91 Dev
 place: 宿舍
 key: 25
 gitment: true

@@ -8,7 +8,7 @@ count: 15
 os: 1
 os_1: High Sierra 10.13.6 (17G65)
 browser: 0
-browser_0: 86.0.4240.80 Stable
+browser_1: 86.0.4240.80 Stable
 place: 新家
 key: 101
 ---

@@ -9,7 +9,7 @@ count: 4
 os: 1
 os_1: Monterry 12.2.1 (21D62)
 browser: 0
-browser_0: 98.0.4758.109 Stable
+browser_1: 98.0.4758.109 Stable
 place: 新家
 key: 133
 ---

@@ -10,7 +10,7 @@ count: 1
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
-browser_0: 64.0.3282.140 Stable
+browser_1: 64.0.3282.140 Stable
 place: 家
 key: 29
 ---

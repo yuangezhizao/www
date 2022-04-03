@@ -7,7 +7,7 @@ count: 1
 os: 0
 os_1: 10.0.17763.107 2019-LTSC
 browser: 0
-browser_0: 70.0.3538.110 Stable
+browser_1: 70.0.3538.110 Stable
 place: 宿舍
 key: 39
 ---

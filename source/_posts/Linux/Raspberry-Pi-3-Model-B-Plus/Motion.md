@@ -7,7 +7,7 @@ count: 2
 os: 1
 os_1: Big Sur 11.2.2 (20D80)
 browser: 0
-browser_0: 88.0.4324.192 Stable
+browser_1: 88.0.4324.192 Stable
 place: 新家
 key: 108
 ---

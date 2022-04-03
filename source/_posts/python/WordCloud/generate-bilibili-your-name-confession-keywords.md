@@ -8,7 +8,7 @@ count: 2
 os: 0
 os_1: 10.0.15063 Pro
 browser: 0
-browser_0: 61.0.3163.100 Dev
+browser_1: 61.0.3163.100 Dev
 place: 家
 key: 26
 gitment: true

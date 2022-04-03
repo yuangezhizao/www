@@ -7,7 +7,7 @@ count: 11
 os: 0
 os_1: 10.0.14393 2016-LTSB
 browser: 0
-browser_0: 64.0.3282.140 Stable
+browser_1: 64.0.3282.140 Stable
 place: 宿舍
 key: 34
 ---

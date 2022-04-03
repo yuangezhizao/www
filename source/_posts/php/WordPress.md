@@ -7,7 +7,7 @@ count: 1
 os: 1
 os_1: Monterey 12.0 Beta (21A5268h)
 browser: 0
-browser_0: 91.0.4472.114 Stable
+browser_1: 91.0.4472.114 Stable
 place: 新家
 key: 116
 ---

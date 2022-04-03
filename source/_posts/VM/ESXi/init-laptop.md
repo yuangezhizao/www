@@ -10,7 +10,7 @@ count: 2
 os: 1
 os_1: Monterry 12.2 (21D49)
 browser: 0
-browser_0: 97.0.4692.99 Stable
+browser_1: 97.0.4692.99 Stable
 place: 宽甸
 key: 130
 ---

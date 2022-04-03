@@ -7,7 +7,7 @@ count: 3
 os: 0
 os_1: 10.0.10586 Pro
 browser: 0
-browser_0: 58.0.3029.81 Stable
+browser_1: 58.0.3029.81 Stable
 place: 家
 key: 06
 ---
