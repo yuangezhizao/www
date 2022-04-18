@@ -3,7 +3,7 @@ title: 静态路由简析
 date: 2022-04-16 21:42:29
 tags:
   - CCNA
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.3.1 (21E258)
 browser: 0
@@ -27,7 +27,7 @@ key: 138
 
 ## 0x02.后记
 `4`月份的上半月已经过去，终于不再像`3`月份天天爆肝`jb`那么累了，总算是回归正轨了
-![WakaTime](https://i1.yuangezhizao.cn/macOS/20220416225212.png!webp)
+![WakaTime](https://i1.yuangezhizao.cn/macOS/20220418202826.png!webp)
 
 这周一晚上被上门核酸检测之后，开始了为期`7`天的居家隔离生活，现在已经过去`5`天，但是除了每天订外卖换成了室友们做饭，和平常没有任何的区别
 趁着周末开始恶补`CCNA`，然后计划开始啃新买的`《Segment Routing 详解（第一卷）》`（`WZ`手里的第二卷实在是啃不动
