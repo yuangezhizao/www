@@ -3,7 +3,7 @@ title: PY 云新增 cn-py-dl-c7 虚拟机
 date: 2019-10-28 23:13:25
 tags:
   - CentOS
-count: 10
+count: 11
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -108,16 +108,7 @@ yum install htop axel -y
 ## 0x02.编译安装[python3102](https://www.python.org/downloads/release/python-3102/)环境
 同[编译安装python3102环境](./cn-tx-bj1-c8.html#0x04-编译安装python3102环境)
 
-## 0x03.`git`配置
-``` bash
-git config --global user.name "yuangezhizao-serveraccount"
-git config --global user.email yuangezhizao@gmail.com
-git commit --amend --reset-author
-
-git config --global credential.helper store
-```
-
-## 0x04.`NTP`[配置](https://web.archive.org/web/20191107152042/https://cloud.tencent.com/document/product/213/30393)
+## 0x03.`NTP`[配置](https://web.archive.org/web/20191107152042/https://cloud.tencent.com/document/product/213/30393)
 ![NTPD](https://i1.yuangezhizao.cn/Win-10/20200619201038.jpg!webp)
 
 > 网络时间协议`（Network Time Protocol，NTP）`，用于同步网络中各个计算机的时间的协议。其用途是将计算机的时钟同步到世界协调时`UTC`。在`NTP`设计时考虑到了各种网络延迟，当您通过公共网络同步时，误差可以降低到`10`毫秒以内；当您通过本地网络同步时，误差可以降低到`1`毫秒
@@ -266,7 +257,7 @@ enabled
 Removed symlink /etc/systemd/system/multi-user.target.wants/chronyd.service.
 ```
 
-## 0x05.`VMware Tools`
+## 0x04.`VMware Tools`
 首先安装依赖
 ``` bash
 yum install perl gcc gcc-c++ make cmake kernel kernel-headers kernel-devel net-tools -y
@@ -575,335 +566,7 @@ Enjoy,
 
 ![VMware Tools 10.3.21 build 14772444](https://i1.yuangezhizao.cn/Win-10/20200406210003.jpg!webp)
 
-## 0x06.[SmartDNS](https://github.com/pymumu/smartdns)
-安装
-``` bash
-[root@cn-py-dl-c8 ~]# wget https://github.com/pymumu/smartdns/releases/download/Release33/smartdns.1.2020.09.08-2235.x86_64-linux-all.tar.gz
-[root@cn-py-dl-c8 ~]# ll
-total 1576
--rw-------. 1 root root    1490 Mar 21 14:07 anaconda-ks.cfg
--rw-r--r--. 1 root root 1606759 Sep  8  2020 smartdns.1.2020.09.08-2235.x86_64-linux-all.tar.gz
-[root@cn-py-dl-c8 ~]# tar zxf smartdns.1.2020.09.08-2235.x86_64-linux-all.tar.gz 
-[root@cn-py-dl-c8 ~]# cd smartdns
-[root@cn-py-dl-c8 smartdns]# chmod +x ./install
-[root@cn-py-dl-c8 smartdns]# ./install -i
-install: creating directory '/etc/smartdns'
-'usr/sbin/smartdns' -> '/usr/sbin/smartdns'
-'etc/smartdns/smartdns.conf' -> '/etc/smartdns/smartdns.conf'
-'etc/default/smartdns' -> '/etc/default/smartdns'
-'etc/init.d/smartdns' -> '/etc/init.d/smartdns'
-'systemd/smartdns.service' -> '/usr/lib/systemd/system/smartdns.service'
-Synchronizing state of smartdns.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
-Executing: /usr/lib/systemd/systemd-sysv-install enable smartdns
-Created symlink /etc/systemd/system/smartdns.service → /usr/lib/systemd/system/smartdns.service.
-Created symlink /etc/systemd/system/multi-user.target.wants/smartdns.service → /usr/lib/systemd/system/smartdns.service.
-[root@cn-py-dl-c8 smartdns]# vim /etc/smartdns/smartdns.conf
-[root@cn-py-dl-c8 smartdns]# cd /var/log
-[root@cn-py-dl-c8 log]# mkdir smartdns
-[root@cn-py-dl-c8 ~]# systemctl enable smartdns
-[root@cn-py-dl-c8 ~]# systemctl restart smartdns
-[root@cn-py-dl-c8 ~]# systemctl status smartdns
-```
-配置文件
-
-<details><summary>点击此处 ← 查看折叠</summary>
-
-``` bash
-[root@cn-py-dl-c8 ~]# cat /etc/smartdns/smartdns.conf
-# dns server name, default is host name
-# server-name, 
-# example:
-#   server-name smartdns
-#
-
-# Include another configuration options
-# conf-file [file]
-# conf-file blacklist-ip.conf
-
-# dns server bind ip and port, default dns server port is 53, support binding multi ip and port
-# bind udp server
-#   bind [IP]:[port] [-group [group]] [-no-rule-addr] [-no-rule-nameserver] [-no-rule-ipset] [-no-speed-check] [-no-cache] [-no-rule-soa] [-no-dualstack-selection]
-# bind tcp server
-#   bind-tcp [IP]:[port] [-group [group]] [-no-rule-addr] [-no-rule-nameserver] [-no-rule-ipset] [-no-speed-check] [-no-cache] [-no-rule-soa] [-no-dualstack-selection]
-# option:
-#   -group: set domain request to use the appropriate server group.
-#   -no-rule-addr: skip address rule.
-#   -no-rule-nameserver: skip nameserver rule.
-#   -no-rule-ipset: skip ipset rule.
-#   -no-speed-check: do not check speed.
-#   -no-cache: skip cache.
-#   -no-rule-soa: Skip address SOA(#) rules.
-#   -no-dualstack-selection: Disable dualstack ip selection.
-#   -force-aaaa-soa: force AAAA query return SOA.
-# example: 
-#  IPV4: 
-#    bind :53
-#    bind :6053 -group office -no-speed-check
-#  IPV6:
-#    bind [::]:53
-#    bind-tcp [::]:53
-bind [::]:53
-
-# tcp connection idle timeout
-# tcp-idle-time [second]
-
-# dns cache size
-# cache-size [number]
-#   0: for no cache
-cache-size 4096
-
-# enable persist cache when restart
-# cache-persist yes
-
-# cache persist file
-# cache-file /tmp/smartdns.cache
-
-# prefetch domain
-# prefetch-domain [yes|no]
-prefetch-domain yes
-
-# cache serve expired 
-# serve-expired [yes|no]
-# serve-expired yes
-
-# cache serve expired TTL
-# serve-expired-ttl [num]
-# serve-expired-ttl 0
-
-# reply TTL value to use when replying with expired data
-# serve-expired-reply-ttl [num]
-# serve-expired-reply-ttl 30
-
-# List of hosts that supply bogus NX domain results 
-# bogus-nxdomain [ip/subnet]
-
-# List of IPs that will be filtered when nameserver is configured -blacklist-ip parameter
-# blacklist-ip [ip/subnet]
-
-# List of IPs that will be accepted when nameserver is configured -whitelist-ip parameter
-# whitelist-ip [ip/subnet]
-
-# List of IPs that will be ignored
-# ignore-ip [ip/subnet]
-
-# speed check mode
-# speed-check-mode [ping|tcp:port|none|,]
-# example:
-   speed-check-mode ping,tcp:80,tcp:443
-#   speed-check-mode tcp:443,ping
-#   speed-check-mode none
-
-# force AAAA query return SOA
-# force-AAAA-SOA [yes|no]
-
-# Enable IPV4, IPV6 dual stack IP optimization selection strategy
-# dualstack-ip-selection-threshold [num] (0~1000)
-# dualstack-ip-selection [yes|no]
-dualstack-ip-selection yes
-
-# edns client subnet
-# edns-client-subnet [ip/subnet]
-# edns-client-subnet 192.168.1.1/24
-# edns-client-subnet [8::8]/56
-
-# ttl for all resource record
-# rr-ttl: ttl for all record
-# rr-ttl-min: minimum ttl for resource record
-# rr-ttl-max: maximum ttl for resource record
-# example:
-# rr-ttl 300
-# rr-ttl-min 60
-# rr-ttl-max 86400
-
-# set log level
-# log-level: [level], level=fatal, error, warn, notice, info, debug
-# log-file: file path of log file.
-# log-size: size of each log file, support k,m,g
-# log-num: number of logs
-log-level info
-log-file /var/log/smartdns/smartdns.log
-log-size 100m
-log-num 90
-
-# dns audit
-# audit-enable [yes|no]: enable or disable audit.
-audit-enable yes
-# audit-SOA [yes|no]: enable or disable log soa result.
-# audit-size size of each audit file, support k,m,g
-audit-file /var/log/smartdns/smartdns-audit.log
-audit-size 100m
-audit-num 90
-
-# certificate file
-# ca-file [file]
-# ca-file /etc/ssl/certs/ca-certificates.crt
-
-# certificate path
-# ca-path [path]
-# ca-path /etc/ss/certs
-
-# remote udp dns server list
-# server [IP]:[PORT] [-blacklist-ip] [-whitelist-ip] [-check-edns] [-group [group] ...] [-exclude-default-group]
-# default port is 53
-#   -blacklist-ip: filter result with blacklist ip
-#   -whitelist-ip: filter result whth whitelist ip,  result in whitelist-ip will be accepted.
-#   -check-edns: result must exist edns RR, or discard result.
-#   -group [group]: set server to group, use with nameserver /domain/group.
-#   -exclude-default-group: exclude this server from default group.
-# server 8.8.8.8 -blacklist-ip -check-edns -group g1 -group g2
-# server 114.114.114.114
-server 172.64.36.1
-server 172.64.36.2
-server 1.1.1.1
-server 8.8.8.8
-server 219.149.6.99
-
-server 2a06:98c1:54::1802
-server 240c::6666
-server 240e:41:c900:ffff::
-
-# remote tcp dns server list
-# server-tcp [IP]:[PORT] [-blacklist-ip] [-whitelist-ip] [-group [group] ...] [-exclude-default-group]
-# default port is 53
-# server-tcp 8.8.8.8
-
-# remote tls dns server list
-# server-tls [IP]:[PORT] [-blacklist-ip] [-whitelist-ip] [-spki-pin [sha256-pin]] [-group [group] ...] [-exclude-default-group]
-#   -spki-pin: TLS spki pin to verify.
-#   -tls-host-verify: cert hostname to verify.
-#   -host-name: TLS sni hostname.
-#   -no-check-certificate: no check certificate.
-# Get SPKI with this command:
-#    echo | openssl s_client -connect '[ip]:853' | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
-# default port is 853
-# server-tls 8.8.8.8
-# server-tls 1.0.0.1
-
-# remote https dns server list
-# server-https https://[host]:[port]/path [-blacklist-ip] [-whitelist-ip] [-spki-pin [sha256-pin]] [-group [group] ...] [-exclude-default-group]
-#   -spki-pin: TLS spki pin to verify.
-#   -tls-host-verify: cert hostname to verify.
-#   -host-name: TLS sni hostname.
-#   -http-host: http host.
-#   -no-check-certificate: no check certificate.
-# default port is 443
-server-https https://9u12dgz3lz.cloudflare-gateway.com/dns-query
-server-https https://cloudflare-dns.com/dns-query
-server-https https://dns.google/dns-query
-
-# specific nameserver to domain
-# nameserver /domain/[group|-]
-# nameserver /www.example.com/office, Set the domain name to use the appropriate server group.
-# nameserver /www.example.com/-, ignore this domain
-
-# specific address to domain
-# address /domain/[ip|-|-4|-6|#|#4|#6]
-# address /www.example.com/1.2.3.4, return ip 1.2.3.4 to client
-# address /www.example.com/-, ignore address, query from upstream, suffix 4, for ipv4, 6 for ipv6, none for all
-# address /www.example.com/#, return SOA to client, suffix 4, for ipv4, 6 for ipv6, none for all
-
-# enable ipset timeout by ttl feature
-# ipset-timeout [yes]
-
-# specific ipset to domain
-# ipset /domain/[ipset|-]
-# ipset /www.example.com/block, set ipset with ipset name of block 
-# ipset /www.example.com/-, ignore this domain
-
-# set domain rules
-# domain-rules /domain/ [-speed-check-mode [...]]
-# rules:
-#   -speed-check-mode [mode]: speed check mode
-#                             speed-check-mode [ping|tcp:port|none|,]
-#   -address [address|-]: same as address option
-#   -nameserver [group|-]: same as nameserver option
-#   -ipset [ipset|-]: same as ipset option
-```
-
-</details>
-
-## 0x07.[Docker](https://web.archive.org/web/20200614132813/https://docs.docker.com/engine/install/centos/)
-``` bash
-[root@py ~]# yum remove docker \
->                   docker-client \
->                   docker-client-latest \
->                   docker-common \
->                   docker-latest \
->                   docker-latest-logrotate \
->                   docker-logrotate \
->                   docker-engine
-Loaded plugins: fastestmirror
-No Match for argument: docker
-No Match for argument: docker-client
-No Match for argument: docker-client-latest
-No Match for argument: docker-common
-No Match for argument: docker-latest
-No Match for argument: docker-latest-logrotate
-No Match for argument: docker-logrotate
-No Match for argument: docker-engine
-No Packages marked for removal
-[root@py ~]# yum install -y yum-utils
-[root@py ~]# yum-config-manager \
->     --add-repo \
->     https://download.docker.com/linux/centos/docker-ce.repo
-Loaded plugins: fastestmirror
-adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
-grabbing file https://download.docker.com/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo
-repo saved to /etc/yum.repos.d/docker-ce.repo
-[root@py ~]# yum install docker-ce docker-ce-cli containerd.io
-[root@py ~]# systemctl start docker
-[root@py ~]# docker run hello-world
-Unable to find image 'hello-world:latest' locally
-latest: Pulling from library/hello-world
-0e03bdcc26d7: Pull complete 
-Digest: sha256:8e3114318a995a1ee497790535e7b88365222a21771ae7e53687ad76563e8e76
-Status: Downloaded newer image for hello-world:latest
-
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
-
-For more examples and ideas, visit:
- https://docs.docker.com/get-started/
-
-[root@py ~]# 
-[root@py ~]# docker pull portainer/portainer
-Using default tag: latest
-latest: Pulling from portainer/portainer
-d1e017099d17: Pull complete 
-a7dca5b5a9e8: Pull complete 
-Digest: sha256:4ae7f14330b56ffc8728e63d355bc4bc7381417fa45ba0597e5dd32682901080
-Status: Downloaded newer image for portainer/portainer:latest
-docker.io/portainer/portainer:latest
-[root@py ~]# docker volume create portainer_data
-portainer_data
-[root@py ~]# docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-1e66ec7242a7ec5255a6acb4ee8ddcc58c0bd6ed373a5cf4b304b5ad7408274c
-```
-配置镜像源：https://web.archive.org/web/20200614132904/https://mirrors.ustc.edu.cn/help/dockerhub.html
-
-## 0x07.安装`EPEL`源
-``` bash
-[root@cn-py-dl-c8 ~]# dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
-[root@cn-py-dl-c8 ~]# dnf repolist epel -v
-[root@cn-py-dl-c8 ~]# dnf install vagrant -y
-```
-
-## 0x08.[Vagrant](https://www.github.com/hashicorp/vagrant)
+## 0x05.[Vagrant](https://www.github.com/hashicorp/vagrant)
 ``` bash
 [root@cn-py-dl-c8 ~]# yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 Adding repo from: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
@@ -959,7 +622,7 @@ Adding repo from: https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.r
 [root@cn-py-dl-c8 ~]# yum install VirtualBox-6.1 -y
 ```
 
-## 0x09.引用
+## 0x06.引用
 > [ifconfig命令不存在command not found](https://web.archive.org/web/20191028144703/https://blog.csdn.net/dong_alex/article/details/80873733)
 [CentOS7安装VMware Tools](https://web.archive.org/web/20200404101734/https://www.cnblogs.com/roooookie/p/8473640.html)
 [如何在CentOS 8上安装VirtualBox](https://web.archive.org/web/20220108043112/https://www.myfreax.com/how-to-install-virtualbox-on-centos-8/)

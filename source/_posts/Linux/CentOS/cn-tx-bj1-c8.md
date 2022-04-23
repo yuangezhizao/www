@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 18
+count: 19
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,7 +74,7 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python3102](https://www.python.org/downloads/release/python-3102)环境
+## 0x04.编译安装[python3104](https://www.python.org/downloads/release/python-3104)环境
 ### 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -83,8 +83,8 @@ yum install htop screen git axel iftop -y
 
 全新：
 ```
-[root@cn-tx-bj7-c8 ~]# whereis python
-python: /usr/bin/python3.6m /usr/bin/python3.6 /usr/lib/python3.6 /usr/lib64/python3.6 /usr/local/lib/python3.6 /usr/include/python3.6m /usr/share/man/man1/python.1.gz
+[root@cn-py-dl-r8 ~]# whereis python
+python: /usr/bin/python3.6 /usr/bin/python3.6m /usr/lib/python3.6 /usr/lib64/python3.6 /usr/include/python3.6m /usr/share/man/man1/python.1.gz
 ```
 
 ### 2. 安装编译工具
@@ -97,22 +97,22 @@ dnf install libnsl2-devel bluez-libs-devel tix-devel -y
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 ### 3. 下载源码包
-~~`wget https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz`~~
+~~`wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或![下载卡爆，proxy 中转爽到！](https://i1.yuangezhizao.cn/Win-10/20191107224750.jpg!webp)
 
 ``` bash
 CloudFlare（推荐）：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.2.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.4.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.10.2.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.10.4.tar.xz
 ```
 
 ### 4. 解压
 ``` bash
-tar xvJf Python-3.10.2.tar.xz
-cd Python-3.10.2
+tar xvJf Python-3.10.4.tar.xz
+cd Python-3.10.4
 ```
 
 ### 5. 编译
@@ -202,54 +202,64 @@ Python 3.8.3
 ~~`vim /bin/yum-config-manager`~~
 ~~把`#! /usr/bin/python`修改为`#! /usr/bin/python2`~~
 
-①`rm -rf /usr/bin/python3`
-`ln -s /usr/local/python3/bin/python3 /usr/bin/python3`
-②`rm -rf /usr/bin/pip3`
-`ln -s /usr/local/python3/bin/pip3.10 /usr/bin/pip3`
-```
-[root@cn-tx-bj7-c8 Python-3.10.1]# ll /usr/bin | grep py
--rwxr-xr-x  1 root   root         3555 Nov  9  2019 bno_plot.py
-lrwxrwxrwx  1 root   root           54 Dec 20 22:07 cagent_tools -> /usr/local/qcloud/monitor/barad/client/cagent_tools.py
-lrwxrwxrwx  1 root   root            7 Nov 24  2020 fail2ban-python -> python3
--rwxr-xr-x  1 root   root       245864 Nov 12 13:31 objcopy
-lrwxrwxrwx  1 root   root           25 Dec 10  2019 pydoc-3 -> /etc/alternatives/pydoc-3
-lrwxrwxrwx  1 root   root           24 Dec 10  2019 pydoc3 -> /etc/alternatives/pydoc3
--rwxr-xr-x  1 root   root           89 Sep 10 17:15 pydoc3.6
-lrwxrwxrwx  1 root   root           25 Dec 10  2019 python3 -> /etc/alternatives/python3
-lrwxrwxrwx  1 root   root           31 Aug 25 23:47 python3.6 -> /usr/libexec/platform-python3.6
-lrwxrwxrwx  1 root   root           32 Aug 25 23:47 python3.6m -> /usr/libexec/platform-python3.6m
-lrwxrwxrwx  1 root   root           26 Dec 10  2019 pyvenv-3 -> /etc/alternatives/pyvenv-3
--rwxr-xr-x  1 root   root          446 Sep 10 17:15 pyvenv-3.6
--rwxr-xr-x  1 root   root        21440 Apr 24  2020 sg_copy_results
--rwxr-xr-x  1 root   root        41632 Apr 24  2020 sg_xcopy
--rwxr-xr-x  1 root   root        10694 Jul 13 13:08 ssh-copy-id
-lrwxrwxrwx  1 root   root           24 Jul 13  2020 unversioned-python -> /etc/alternatives/python
-[root@cn-tx-bj7-c8 Python-3.10.1]# ll /usr/bin | grep pip
--rwxr-xr-x. 1 root   root         3143 May 11  2019 lesspipe.sh
-lrwxrwxrwx  1 root   root           15 Dec 10  2019 pip -> /usr/bin/pip3.6
-lrwxrwxrwx  1 root   root           23 Dec 10  2019 pip-3 -> /etc/alternatives/pip-3
-lrwxrwxrwx  1 root   root            8 Jun 21  2021 pip-3.6 -> ./pip3.6
--rwxr-xr-x  1 root   root          209 Jun 21  2021 pip3.6
-[root@cn-tx-bj7-c8 Python-3.10.1]# mv /usr/bin/python3 /usr/bin/python3.original
-[root@cn-py-dl-c8 ~]# python -V
--bash: python: command not found
-[root@cn-py-dl-c8 ~]# python3 -V
-Python 3.10.2
-[root@cn-py-dl-c8 ~]# pip3 -V
-pip 21.3 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
-[root@cn-py-dl-c8 ~]# python3
-Python 3.10.2 (main, Jan 21 2022, 18:41:20) [GCC 8.5.0 20210514 (Red Hat 8.5.0-4)] on linux
+重新创建`/usr/bin/python3`和`/usr/bin/pip3`的软链接
+``` bash
+[root@cn-py-dl-r8 Python-3.10.4]# rm -rf /usr/bin/python3
+[root@cn-py-dl-r8 Python-3.10.4]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+[root@cn-py-dl-r8 Python-3.10.4]# rm -rf /usr/bin/pip3
+[root@cn-py-dl-r8 Python-3.10.4]# ln -s /usr/local/python3/bin/pip3.10 /usr/bin/pip3
+[root@cn-py-dl-r8 Python-3.10.4]# ll /usr/bin | grep py
+-rwxr-xr-x. 1 root root        3555 May 15  2019 bno_plot.py
+-rwxr-xr-x. 1 root root       15244 Aug 13  2018 lsusb.py
+lrwxrwxrwx. 1 root root           6 Aug 12  2018 mcopy -> mtools
+-rwxr-xr-x. 1 root root      245864 Oct 20  2021 objcopy
+lrwxrwxrwx. 1 root root          30 Apr 23 14:39 pip3 -> /usr/local/python3/bin/pip3.10
+lrwxrwxrwx. 1 root root          25 Mar 27 02:07 pydoc-3 -> /etc/alternatives/pydoc-3
+lrwxrwxrwx. 1 root root          24 Mar 27 02:07 pydoc3 -> /etc/alternatives/pydoc3
+-rwxr-xr-x. 1 root root          89 Sep  9  2021 pydoc3.6
+-rwxr-xr-x. 1 root root          78 Aug 11  2021 pydoc3.8
+-rwxr-xr-x. 1 root root         404 Nov 15  2018 pyinotify
+lrwxrwxrwx. 1 root root          30 Apr 23 14:39 python3 -> /usr/local/python3/bin/python3
+lrwxrwxrwx. 1 root root          31 Aug 11  2021 python3.6 -> /usr/libexec/platform-python3.6
+lrwxrwxrwx. 1 root root          32 Aug 11  2021 python3.6m -> /usr/libexec/platform-python3.6m
+-rwxr-xr-x. 1 root root        7768 Aug 11  2021 python3.8
+lrwxrwxrwx. 1 root root          26 Mar 27 02:07 pyvenv-3 -> /etc/alternatives/pyvenv-3
+-rwxr-xr-x. 1 root root         446 Sep  9  2021 pyvenv-3.6
+-rwxr-xr-x. 1 root root       21488 Jan  3  2020 sg_copy_results
+-rwxr-xr-x. 1 root root       41688 Jan  3  2020 sg_xcopy
+-rwxr-xr-x. 1 root root       10694 Jul 12  2021 ssh-copy-id
+lrwxrwxrwx. 1 root root          24 Mar 27 02:06 unversioned-python -> /etc/alternatives/python
+-rwxr-xr-x. 1 root root       42888 Aug 13  2018 xdpyinfo
+[root@cn-py-dl-r8 Python-3.10.4]# ll /usr/bin | grep pip
+-rwxr-xr-x. 1 root root        3143 Aug 12  2018 lesspipe.sh
+lrwxrwxrwx. 1 root root          23 Mar 27 02:07 pip-3 -> /etc/alternatives/pip-3
+lrwxrwxrwx. 1 root root          30 Apr 23 14:39 pip3 -> /usr/local/python3/bin/pip3.10
+lrwxrwxrwx. 1 root root           8 Jun 18  2021 pip-3.6 -> ./pip3.6
+-rwxr-xr-x. 1 root root         209 Jun 18  2021 pip3.6
+lrwxrwxrwx. 1 root root           8 Aug 11  2021 pip-3.8 -> ./pip3.8
+-rwxr-xr-x. 1 root root         536 Aug 11  2021 pip3.8
+-rwxr-xr-x. 1 root root       25440 Jun 23  2020 pipewire
+-rwxr-xr-x. 1 root root      437160 Jun 23  2020 pipewire-media-session
+[root@cn-py-dl-r8 Python-3.10.4]# python -V
+bash: python: command not found...
+^C
+[root@cn-py-dl-r8 Python-3.10.4]# python3 -V
+Python 3.10.4
+[root@cn-py-dl-r8 Python-3.10.4]# pip3 -V
+pip 22.0.4 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
+[root@cn-py-dl-r8 Python-3.10.4]# python3
+Python 3.10.4 (main, Apr 23 2022, 14:21:11) [GCC 8.5.0 20210514 (Red Hat 8.5.0-4)] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
-[2]+  Stopped                 python3
+[1]+  Stopped                 python3
 ```
 ~~这样就可以通过`python`/`python2`命令使用`Python`，`python3`来使用`Python 3`~~好了，`CentOS 8`这下`2`终于彻底没有了
 
 ### 8. 升级`pip3`
 你云环境下会自动配置镜像源
-`pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U`
-`pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`
-`pip3 install --upgrade pip`
+~~`pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U`~~
+~~`pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`~~
+`python3 -m pip install --upgrade pip`
 安装`pip3`的另一种方法
 ``` bash
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -273,93 +283,7 @@ PATH=$PATH:$HOME/bin:/usr/local/python3/bin
 export PATH
 ```
 
-## 0x05.安装[Docker](https://docs.docker.com/install/linux/docker-ce/centos/)
-1. 卸载旧版本
-``` bash
-yum remove docker \
-    docker-client \
-    docker-client-latest \
-    docker-common \
-    docker-latest \
-    docker-latest-logrotate \
-    docker-logrotate \
-    docker-engine
-```
-2. 使用源安装
-``` bash
-yum install -y yum-utils
-yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-```
-因国外下载速度过慢不得不去看[Docker CE 源使用帮助](https://mirrors.ustc.edu.cn/help/docker-ce.html)
-> `CentOS、Fedora`等用户在下载`docker-ce.repo`文件后，还需要将该文件中的`download.docker.com`地址换成`mirrors.ustc.edu.cn/docker-ce`
-
-`yum clean all`再`yum makecache`后开始安装
-
-3. 安装
-`yum install docker-ce docker-ce-cli containerd.io`
-根据[Docker Hub 源使用帮助](https://mirrors.ustc.edu.cn/help/dockerhub.html)
-``` bash
-[root@txy ~]# mkdir /etc/docker
-[root@txy ~]# cat /etc/docker/daemon.json
-{
-  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
-}
-```
-4. 启动
-`systemctl start docker`
-5. 测试
-`docker run hello-world`
-输出如下：
-``` bash
-[root@txy ~]#  docker run hello-world
-Unable to find image 'hello-world:latest' locally
-latest: Pulling from library/hello-world
-0e03bdcc26d7: Pull complete 
-Digest: sha256:6a65f928fb91fcfbc963f7aa6d57c8eeb426ad9a20c7ee045538ef34847f44f1
-Status: Downloaded newer image for hello-world:latest
-
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
-
-For more examples and ideas, visit:
- https://docs.docker.com/get-started/
-```
-6. 自启
-`systemctl enable docker`
-
-## 0x06. 测速工具`speedtest-cli`
-`pip3 install speedtest-cli`
-``` bash
-[root@txy ~]# speedtest-cli
-Retrieving speedtest.net configuration...
-Testing from Tencent cloud computing (<rm>)...
-Retrieving speedtest.net server list...
-Selecting best server based on ping...
-Hosted by Beijing Unicom (Beijing) [1.69 km]: 28.199 ms
-Testing download speed................................................................................
-Download: 86.21 Mbit/s
-Testing upload speed......................................................................................................
-Upload: 1.27 Mbit/s
-```
-
-## 0x07.安装[PHPStudy Linux 面板](https://www.xp.cn/linux.html)
+## 0x05.安装[PHPStudy Linux 面板](https://www.xp.cn/linux.html)
 ![官网](https://i1.yuangezhizao.cn/Win-10/20191016213712.jpg!webp)
 ![V0.2 公测版](https://i1.yuangezhizao.cn/Win-10/20191016213828.jpg!webp)
 
@@ -368,7 +292,7 @@ Upload: 1.27 Mbit/s
 ![还不错的面板](https://i1.yuangezhizao.cn/Win-10/20191016214057.jpg!webp)
 ![吊炸天的监控](https://i1.yuangezhizao.cn/Win-10/20191016214130.jpg!webp)
 
-## 0x08.编译安装[Nginx](https://nginx.org/)
+## 0x06.编译安装[Nginx](https://nginx.org/)
 准备
 `mkdir nginx_build && cd nginx_build`
 下载`1.17.3`版本`Nginx`源码
@@ -413,7 +337,7 @@ root      7915  0.0  0.0 112708   976 pts/0    S+   21:42   0:00 grep --color=au
 自启
 将`/usr/local/nginx/sbin/nginx`命令加入`/etc/rc.d/rc.local`文件并赋予权限`chmod +x /etc/rc.d/rc.local`
 
-## 0x09.测试延迟
+## 0x07.测试延迟
 也就只能凑合看下，不过拿来对比应该是可以的
 ①`cn-py-dl-c7`
 ``` bash
@@ -460,7 +384,7 @@ rtt min/avg/max/mdev = 7.004/7.012/7.029/0.092 ms
 ```
 由此可见家里肯定是最慢的了，另外**北京一区**比**北京三区**快`1ms`
 
-## 0x10.安装[Pyston](https://github.com/pyston/pyston)
+## 0x08.安装[Pyston](https://github.com/pyston/pyston)
 `wget https://proxy-cf.yuangezhizao.cn/dl/pyston_2.2_portable.tar.gz`
 `tar -zxvf pyston_2.2_portable.tar.gz`
 ``` bash
@@ -517,7 +441,8 @@ ImportError: cannot import name 'SKu' from 'JD_Sku.sku' (/root/jd/sku/JD_Sku/sku
 KeyboardInterrupt
 ```
 
-## 0x11.安装[Zabbix](https://www.zabbix.com/download/)
+## 0x09.安装[Zabbix](https://www.zabbix.com/download/)
+``` bash
 a. Install Zabbix repository
 # rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/8/x86_64/zabbix-release-5.4-1.el8.noarch.rpm
 # dnf clean all
@@ -573,9 +498,9 @@ dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-agent 
 设置时区
 
 https://www.zabbix.com/cn/download?zabbix=5.0&os_distribution=centos&os_version=8&db=mysql&ws=nginx
+```
 
-
-## 0x12.引用
+## 0x10.引用
 [python --enable-shared](https://web.archive.org/web/20200521142009/https://www.cnblogs.com/Tommy-Yu/p/6144512.html)
 [CentOS 7 升级gcc/g++编译器](https://web.archive.org/web/20200521161733/https://www.cnblogs.com/ToBeExpert/p/10297697.html)
 [3.7.0 build error with --enable-optimizations](https://web.archive.org/web/20200521161845/https://bugs.python.org/issue34112)

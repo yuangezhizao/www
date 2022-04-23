@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 7
+count: 8
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 0
@@ -560,6 +560,14 @@ docker.io/portainer/portainer:latest
 portainer_data
 [root@cn-tx-bj7-c8 ~]# docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 25dbed324c43283014a6f6afa037c3cbdaa4019f12cc24a571e8cc61fcac66e0
+```
+如果需要镜像源的话，可参照[Docker Hub 源使用帮助](https://web.archive.org/web/20200614132904/https://mirrors.ustc.edu.cn/help/dockerhub.html)
+``` bash
+[root@txy ~]# mkdir /etc/docker
+[root@txy ~]# cat /etc/docker/daemon.json
+{
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+}
 ```
 
 ## 0x10.安装[Compose](https://web.archive.org/web/20220112130055/https://docs.docker.com/compose/install/)
@@ -1318,6 +1326,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
 [Cockpit - 使用Web浏览器监视和管理多个Linux服务器的强大工具](https://web.archive.org/web/20211221074818/https://www.howtoing.com/cockpit-monitor-multiple-linux-servers-via-web-browser/)
 [如何在CentOS 8上安装MongoDB](https://web.archive.org/web/20211221084731/https://www.myfreax.com/how-to-install-mongodb-on-centos-8/)
 [Docker可视化工具Portainer](https://web.archive.org/web/20220102074334/https://juejin.cn/post/6847902192217620494)
+[Docker CE 源使用帮助](https://mirrors.ustc.edu.cn/help/docker-ce.html)
 
 [centos8 docker安装mastodon](https://web.archive.org/web/20220102071320/https://www.jianshu.com/p/4f36ec8627c0)
 [Mastodon Docker Setup](https://gist.github.com/TrillCyborg/84939cd4013ace9960031b803a0590c4)
