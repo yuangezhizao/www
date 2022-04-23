@@ -6,7 +6,7 @@ tags:
   - VMware
   - ESXI
   - Kali
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.1217 2019-LTSC
 browser: 0
@@ -116,55 +116,15 @@ DiskLib_Check() failed for source disk The file specified is not a virtual disk 
 Destination disk format: VMFS thin-provisioned
 Cloning disk 'Kali-Linux-2020.2-vmware-amd64.vmdk'...
 Clone: 100% done.
-[yuangezhizao@VM:/vmfs/volumes/5e0607d4-ae255451-ad8d-2c56dc945d15/Kali-Linux-2020.2-amd64.vmwarevm] rm -rf Kali-Linux-2020.2-vmware-amd64.vmdk
-[yuangezhizao@VM:/vmfs/volumes/5e0607d4-ae255451-ad8d-2c56dc945d15/Kali-Linux-2020.2-amd64.vmwarevm] mv  Kali-Linux-2020.2-vmware-amd64.vmdk Kali-Linux-2020.2-vmware-amd64-new.vmdk
-[yuangezhizao@VM:/vmfs/volumes/5e0607d4-ae255451-ad8d-2c56dc945d15/Kali-Linux-2020.2-amd64.vmwarevm] mv  Kali-Linux-2020.2-vmware-amd64-flat.vmdk Kali-Linux-2020.2-vmware-amd64-new-flat.vmdk
-[yuangezhizao@VM:/vmfs/volumes/5e0607d4-ae255451-ad8d-2c56dc945d15/Kali-Linux-2020.2-amd64.vmwarevm] ll
-total 19608960
-drwx------    1 root     root         81920 May 20 13:04 .
-drwxr-xr-t    1 root     root         90112 May 17 05:08 ..
--rw-------    1 root     root     85899345920 May 20 12:40 Kali-Linux-2020.2-vmware-amd64-flat.vmdk
--rw-r--r--    1 root     root     2951938048 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s001.vmdk
--rw-r--r--    1 root     root     3372613632 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s002.vmdk
--rw-r--r--    1 root     root       1376256 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s003.vmdk
--rw-r--r--    1 root     root        917504 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s004.vmdk
--rw-r--r--    1 root     root        851968 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s005.vmdk
--rw-r--r--    1 root     root     444465152 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s006.vmdk
--rw-r--r--    1 root     root     307625984 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s007.vmdk
--rw-r--r--    1 root     root     219742208 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s008.vmdk
--rw-r--r--    1 root     root     185925632 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s009.vmdk
--rw-r--r--    1 root     root     642449408 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s010.vmdk
--rw-r--r--    1 root     root     186777600 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s011.vmdk
--rw-r--r--    1 root     root     139919360 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s012.vmdk
--rw-r--r--    1 root     root     107872256 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s013.vmdk
--rw-r--r--    1 root     root      67239936 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s014.vmdk
--rw-r--r--    1 root     root     375455744 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s015.vmdk
--rw-r--r--    1 root     root     104398848 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s016.vmdk
--rw-r--r--    1 root     root      78249984 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s017.vmdk
--rw-r--r--    1 root     root        655360 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s018.vmdk
--rw-r--r--    1 root     root       1245184 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s019.vmdk
--rw-r--r--    1 root     root     155844608 May  8 13:23 Kali-Linux-2020.2-vmware-amd64-s020.vmdk
--rw-r--r--    1 root     root        131072 May  8 13:21 Kali-Linux-2020.2-vmware-amd64-s021.vmdk
--rw-r--r--    1 root     root          8684 May  8 13:22 Kali-Linux-2020.2-vmware-amd64.nvram
--rw-------    1 root     root           585 May 20 12:40 Kali-Linux-2020.2-vmware-amd64.vmdk
--rw-r--r--    1 root     root             0 May  8 11:56 Kali-Linux-2020.2-vmware-amd64.vmsd
--rw-r--r--    1 root     root          3899 May 20 12:27 Kali-Linux-2020.2-vmware-amd64.vmx
--rw-r--r--    1 root     root           285 May  8 11:56 Kali-Linux-2020.2-vmware-amd64.vmxf
--rw-r--r--    1 root     root         51459 May 17 05:50 vmware-1.log
--rw-r--r--    1 root     root         50256 May 20 12:27 vmware.log
 ```
 
 </details>
 
-启动，再翻车……
-
+`2022-04-23 23:40:22`：注意把`Kali-Linux-2020.2-vmware-amd64.vmdk`转换成`Kali-Linux-2020.2-vmware-amd64-new.vmdk`之后不能重命名，因为磁盘文件中记录了文件名的信息，也不用管那个生成的`flat`文件
+~~启动，再翻车……~~
 ![草](https://i1.yuangezhizao.cn/Win-10/20200520211526.jpg!webp)
 
-于是猜想到不能重命名转换完毕的新磁盘，于是`revoke`
-``` bash
-[yuangezhizao@VM:/vmfs/volumes/5e0607d4-ae255451-ad8d-2c56dc945d15/Kali-Linux-2020.2-amd64.vmwarevm] mv Kali-Linux-2020.2-vmware-amd64-flat.vmdk Kali-Linux-2020.2-vmware-amd64-new-flat.vmdk
-[yuangezhizao@VM:/vmfs/volumes/5e0607d4-ae255451-ad8d-2c56dc945d15/Kali-Linux-2020.2-amd64.vmwarevm] mv Kali-Linux-2020.2-vmware-amd64.vmdk Kali-Linux-2020.2-vmware-amd64-new.vmdk
-```
+~~于是猜想到不能重命名转换完毕的新磁盘，于是`revoke`~~
 删除旧硬盘，重新添加新硬盘，选择到`Kali-Linux-2020.2-vmware-amd64-new.vmdk`，终于添加成功（另外注意到`Kali-Linux-2020.2-vmware-amd64-new-flat.vmdk`不见了。。。
 
 ## 0x04.打开电源
