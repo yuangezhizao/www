@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 19
+count: 20
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -441,64 +441,7 @@ ImportError: cannot import name 'SKu' from 'JD_Sku.sku' (/root/jd/sku/JD_Sku/sku
 KeyboardInterrupt
 ```
 
-## 0x09.安装[Zabbix](https://www.zabbix.com/download/)
-``` bash
-a. Install Zabbix repository
-# rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/8/x86_64/zabbix-release-5.4-1.el8.noarch.rpm
-# dnf clean all
-b. 安装Zabbix server，Web前端，agent
-# dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
-[root@txy mysql]# zcat create.sql.gz  | mysql -h cdb-rqdfhyh6.bj.tencentcdb.com -P 10003 -uroot -p<rm>
-mysql: [Warning] Using a password on the command line interface can be insecure.
-ERROR 1046 (3D000) at line 1: No database selected
-[root@txy mysql]# zcat create.sql.gz  | mysql -h cdb-rqdfhyh6.bj.tencentcdb.com -P 10003 -uroot -p<rm> zabbix
-mysql: [Warning] Using a password on the command line interface can be insecure.
 
-[root@txy mysql]# 
-
-
-[root@txy mysql]# dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
-Repository epel is listed more than once in the configuration
-Last metadata expiration check: 0:55:12 ago on Tue 14 Dec 2021 03:49:38 PM CST.
-Package zabbix-server-mysql-5.4.8-1.el8.x86_64 is already installed.
-Package zabbix-web-mysql-5.4.8-1.el8.noarch is already installed.
-Package zabbix-sql-scripts-5.4.8-1.el8.noarch is already installed.
-Package zabbix-agent-5.4.8-1.el8.x86_64 is already installed.
-Error: 
- Problem: package zabbix-nginx-conf-5.4.8-1.el8.noarch requires nginx, but none of the providers can be installed
-  - cannot install the best candidate for the job
-  - package nginx-1:1.14.1-9.module_el8.0.0+184+e34fea82.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.16.1-2.module_el8.4.0+820+127618ce.1.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.18.0-3.module_el8.4.0+818+5ada96a6.1.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.20.0-2.module_el8.5.0+899+43b718f6.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.20.1-6.module_el8+12928+992082b2.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.21.4-1.module_el8+13280+3abe831f.x86_64 is filtered out by exclude filtering
-(try to add '--skip-broken' to skip uninstallable packages or '--nobest' to use not only best candidate packages)
-
-
-https://repo.zabbix.com/zabbix/5.4/rhel/8/x86_64/
-
-systemctl restart zabbix-server zabbix-agent php-fpm
-
-无奈回退至 5.0 LTS
-
-Error: 
- Problem: package zabbix-nginx-conf-5.0.18-1.el8.noarch requires nginx, but none of the providers can be installed
-  - cannot install the best candidate for the job
-  - package nginx-1:1.14.1-9.module_el8.0.0+184+e34fea82.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.16.1-2.module_el8.4.0+820+127618ce.1.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.18.0-3.module_el8.4.0+818+5ada96a6.1.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.20.0-2.module_el8.5.0+899+43b718f6.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.20.1-6.module_el8+12928+992082b2.x86_64 is filtered out by exclude filtering
-  - package nginx-1:1.21.4-1.module_el8+13280+3abe831f.x86_64 is filtered out by exclude filtering
-(try to add '--skip-broken' to skip uninstallable packages or '--nobest' to use not only best candidate packages)
-
-dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-agent --skip-broken -y
-
-设置时区
-
-https://www.zabbix.com/cn/download?zabbix=5.0&os_distribution=centos&os_version=8&db=mysql&ws=nginx
-```
 
 ## 0x10.引用
 [python --enable-shared](https://web.archive.org/web/20200521142009/https://www.cnblogs.com/Tommy-Yu/p/6144512.html)

@@ -3,7 +3,7 @@ title: PY 云新增 cn-py-dl-c7 虚拟机
 date: 2019-10-28 23:13:25
 tags:
   - CentOS
-count: 11
+count: 12
 os: 0
 os_1: 10.0.17763.832 2019-LTSC
 browser: 0
@@ -105,10 +105,7 @@ yum install epel-release -y
 yum install htop axel -y
 ```
 
-## 0x02.编译安装[python3102](https://www.python.org/downloads/release/python-3102/)环境
-同[编译安装python3102环境](./cn-tx-bj1-c8.html#0x04-编译安装python3102环境)
-
-## 0x03.`NTP`[配置](https://web.archive.org/web/20191107152042/https://cloud.tencent.com/document/product/213/30393)
+## 0x02.`NTP`[配置](https://web.archive.org/web/20191107152042/https://cloud.tencent.com/document/product/213/30393)
 ![NTPD](https://i1.yuangezhizao.cn/Win-10/20200619201038.jpg!webp)
 
 > 网络时间协议`（Network Time Protocol，NTP）`，用于同步网络中各个计算机的时间的协议。其用途是将计算机的时钟同步到世界协调时`UTC`。在`NTP`设计时考虑到了各种网络延迟，当您通过公共网络同步时，误差可以降低到`10`毫秒以内；当您通过本地网络同步时，误差可以降低到`1`毫秒
@@ -257,7 +254,7 @@ enabled
 Removed symlink /etc/systemd/system/multi-user.target.wants/chronyd.service.
 ```
 
-## 0x04.`VMware Tools`
+## 0x03.`VMware Tools`
 首先安装依赖
 ``` bash
 yum install perl gcc gcc-c++ make cmake kernel kernel-headers kernel-devel net-tools -y
@@ -566,7 +563,7 @@ Enjoy,
 
 ![VMware Tools 10.3.21 build 14772444](https://i1.yuangezhizao.cn/Win-10/20200406210003.jpg!webp)
 
-## 0x05.[Vagrant](https://www.github.com/hashicorp/vagrant)
+## 0x04.[Vagrant](https://www.github.com/hashicorp/vagrant)
 ``` bash
 [root@cn-py-dl-c8 ~]# yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 Adding repo from: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
@@ -622,7 +619,7 @@ Adding repo from: https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.r
 [root@cn-py-dl-c8 ~]# yum install VirtualBox-6.1 -y
 ```
 
-## 0x06.引用
+## 0x05.引用
 > [ifconfig命令不存在command not found](https://web.archive.org/web/20191028144703/https://blog.csdn.net/dong_alex/article/details/80873733)
 [CentOS7安装VMware Tools](https://web.archive.org/web/20200404101734/https://www.cnblogs.com/roooookie/p/8473640.html)
 [如何在CentOS 8上安装VirtualBox](https://web.archive.org/web/20220108043112/https://www.myfreax.com/how-to-install-virtualbox-on-centos-8/)

@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 8
+count: 9
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 0
@@ -398,6 +398,30 @@ E:\mongodb-database-tools-windows-x86_64-100.5.1\bin>mongodump -d wooyun -o "X:\
 ```
 最后卸载`cn-tx-bj3-w9d`上的`MongoDB`，寿终正寝已完成使命（<span title="你知道的太多了" class="heimu">这内存大户就是个定时炸弹，尤其是作死全文搜索的时候<span>
 ![卸载](https://i1.yuangezhizao.cn/macOS/20211221235959.png!webp)
+
+修改`MongoDB`默认数据存储路径，自默认的`SSD`盘移至新购的大容量`HDD`盘
+``` bash
+[root@cn-tx-bj7-c8 ~]# systemctl stop mongod
+[root@cn-tx-bj7-c8 ~]# mv /var/lib/mongo /data/
+[root@cn-tx-bj7-c8 ~]# vim /etc/mongod.conf
+# Where and how to store data.
+storage:
+  dbPath: /data/mongo
+  journal:
+    enabled: true
+#  engine:
+#  wiredTiger:
+```
+然后启动失败草，修改文件夹权限之后再次重启终于成功了
+``` bash
+[root@cn-tx-bj7-c8 ~]# systemctl start mongod
+[root@cn-tx-bj7-c8 ~]# chown -R mongod:mongod /data/mongo
+[root@cn-tx-bj7-c8 ~]# chown -R mongod:mongod /data/mongo/WiredTiger
+[root@cn-tx-bj7-c8 ~]# chmod -R 777 /data/mongo
+[root@cn-tx-bj7-c8 ~]# chmod -R 777 /data/mongo/WiredTiger
+[root@cn-tx-bj7-c8 ~]# mongod --repair --dbpath /data/mongo
+[root@cn-tx-bj7-c8 ~]# systemctl status mongod
+```
 
 ## 0x08.安装[Redis](https://redis.io)
 众所周知`dnf`上的版本（`5.0.3`）要落后于源码（`6.2.6`）的版本
@@ -1315,10 +1339,157 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
 并且除了切换至`AlmaLinux`之外，官方工具[almalinux-deploy](https://github.com/AlmaLinux/almalinux-deploy)可以从`CentOS 8.5`切换`AlmaLinux`
 还可以去使用企业版本的`RHEL`，因为针对 16 台系统及其以下的授权是免费的，迁移参考官方文档[CONVERTING FROM AN RPM-BASED LINUX DISTRIBUTION TO RHEL](https://web.archive.org/save/https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/converting_from_an_rpm-based_linux_distribution_to_rhel/index)
 
-## 0x19.后记
+## 0x19.安装[PostgreSQL](https://www.postgresql.org/download/linux/redhat/)
+安装
+``` bash
+[root@cn-tx-bj7-c8 ~]# dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+[root@cn-tx-bj7-c8 ~]# dnf -qy module disable postgresql
+[root@cn-tx-bj7-c8 ~]# export HTTP_PROXY=http://10.0.2.2:1081
+[root@cn-tx-bj7-c8 ~]# export HTTPS_PROXY=http://10.0.2.2:1081
+[root@cn-tx-bj7-c8 ~]# dnf install -y postgresql14-server
+[root@cn-tx-bj7-c8 ~]# /usr/pgsql-14/bin/postgresql-14-setup initdb
+Initializing database ... OK
+[root@cn-tx-bj7-c8 ~]# systemctl start postgresql-14 --now
+[root@cn-tx-bj7-c8 ~]# systemctl status postgresql-14
+● postgresql-14.service - PostgreSQL 14 database server
+   Loaded: loaded (/usr/lib/systemd/system/postgresql-14.service; disabled; vendor preset: disabled)
+   Active: active (running) since Sat 2022-04-23 17:51:42 CST; 4s ago
+     Docs: https://www.postgresql.org/docs/14/static/
+  Process: 2982922 ExecStartPre=/usr/pgsql-14/bin/postgresql-14-check-db-dir ${PGDATA} (code=exited, status=0/SUCCESS)
+ Main PID: 2982956 (postmaster)
+    Tasks: 8 (limit: 23718)
+   Memory: 16.8M
+   CGroup: /system.slice/postgresql-14.service
+           ├─2982956 /usr/pgsql-14/bin/postmaster -D /var/lib/pgsql/14/data/
+           ├─2983019 postgres: logger 
+           ├─2983042 postgres: checkpointer 
+           ├─2983043 postgres: background writer 
+           ├─2983044 postgres: walwriter 
+           ├─2983047 postgres: autovacuum launcher 
+           ├─2983049 postgres: stats collector 
+           └─2983050 postgres: logical replication launcher 
+
+Apr 23 17:51:42 cn-tx-bj7-c8 systemd[1]: Starting PostgreSQL 14 database server...
+Apr 23 17:51:42 cn-tx-bj7-c8 postmaster[2982956]: 2022-04-23 17:51:42.811 CST [2982956] LOG:  redirecting log output to logging collector process
+Apr 23 17:51:42 cn-tx-bj7-c8 postmaster[2982956]: 2022-04-23 17:51:42.811 CST [2982956] HINT:  Future log output will appear in directory "log".
+Apr 23 17:51:42 cn-tx-bj7-c8 systemd[1]: Started PostgreSQL 14 database server.
+```
+修改默认用户密码
+``` bash
+[root@cn-tx-bj7-c8 ~]# su - postgres
+Last failed login: Sat Apr 23 09:51:23 CST 2022 from 144.91.101.39 on ssh:notty
+There were 28 failed login attempts since the last successful login.
+[postgres@cn-tx-bj7-c8 ~]$ psql
+psql (14.2)
+Type "help" for help.
+
+postgres=# alter user postgres with password '<rm>';
+ALTER ROLE
+postgres=# \q
+```
+修改配置文件`/var/lib/pgsql/14/data/postgresql.conf`，开启外网访问`listen_addresses = '*'`
+再修改配置文件`/var/lib/pgsql/14/data/pg_hba.conf`追加`host  all  all 0.0.0.0/0 md5`
+最后重启即可`systemctl restart postgresql-14`
+修改`PG`默认数据存储路径，自默认的`SSD`盘移至新购的大容量`HDD`盘
+``` bash
+[root@cn-tx-bj7-c8 ~]# mkdir /data/pgsql
+[root@cn-tx-bj7-c8 ~]# cp -r /var/lib/pgsql/14/data/* /data/pgsql
+[root@cn-tx-bj7-c8 ~]# chown -R postgres:postgres /data/pgsql
+[root@cn-tx-bj7-c8 ~]# chmod 700 /data/pgsql
+[root@cn-tx-bj7-c8 ~]# vim /var/lib/pgsql/14/data/postgresql.conf
+data_directory = '/data/pgsql' 
+[root@cn-tx-bj7-c8 ~]# vim /usr/lib/systemd/system/postgresql-14.service 
+Environment=PGDATA=/data/pgsql/
+[root@cn-tx-bj7-c8 ~]# systemctl start postgresql-14
+[root@cn-tx-bj7-c8 ~]# psql
+psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  role "root" does not exist
+[root@cn-tx-bj7-c8 ~]# su - postgres
+Last login: Sat Apr 23 17:54:03 CST 2022 on pts/0
+Last failed login: Sat Apr 23 20:21:04 CST 2022 from 125.162.251.218 on ssh:notty
+There was 1 failed login attempt since the last successful login.
+[postgres@cn-tx-bj7-c8 ~]$ psql
+psql (14.2)
+Type "help" for help.
+
+postgres=# show data_directory;
+ data_directory 
+----------------
+ /data/pgsql
+(1 row)
+
+postgres=# \q
+[postgres@cn-tx-bj7-c8 ~]$ 
+```
+
+## 0x20.分配虚拟内存
+``` bash
+[root@cn-tx-bj7-c8 ~]# dd if=/dev/zero of=~/swap bs=1M count=5120
+5120+0 records in
+5120+0 records out
+5368709120 bytes (5.4 GB, 5.0 GiB) copied, 35.679 s, 150 MB/s
+[root@cn-tx-bj7-c8 ~]# chmod 600 swap 
+[root@cn-tx-bj7-c8 ~]# mkswap swap 
+Setting up swapspace version 1, size = 5 GiB (5368705024 bytes)
+no label, UUID=42e7c1ca-8664-4b30-a2c8-01b59adee896
+[root@cn-tx-bj7-c8 ~]# swapon ~/swap
+[root@cn-tx-bj7-c8 ~]# swapon -s
+Filename                                Type            Size    Used    Priority
+/root/swap                              file            5242876 9532    -2
+[root@cn-tx-bj7-c8 ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:          3.6Gi       2.5Gi       161Mi        69Mi       981Mi       648Mi
+Swap:         5.0Gi        15Mi       5.0Gi
+```
+
+## 0x21.安装[Smokeping](https://oss.oetiker.ch/smokeping)
+``` bash
+[root@cn-tx-bj7-c8 ~]# git clone https://github.com/linuxserver/docker-smokeping.git
+[root@cn-tx-bj7-c8 ~]# cd docker-smokeping/
+[root@cn-tx-bj7-c8 docker-smokeping]# cat docker-compose.yml 
+---
+version: "2.1"
+services:
+  smokeping:
+    image: lscr.io/linuxserver/smokeping
+    container_name: smokeping
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /root/docker-smokeping/config:/config
+      - /root/docker-smokeping/data:/data
+    ports:
+      - 82:80
+    restart: unless-stopped
+[root@cn-tx-bj7-c8 docker-smokeping]# docker-compose up -d
+```
+
+## 0x22.安装[Zabbix](https://www.zabbix.com/download/)
+``` bash
+[root@cn-tx-bj7-c8 ~]# git clone https://github.com/zabbix/zabbix-docker
+[root@cn-tx-bj7-c8 ~]# rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm
+[root@cn-tx-bj7-c8 ~]# dnf clean all
+[root@cn-tx-bj7-c8 ~]# dnf install zabbix-server-pgsql zabbix-web-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-selinux-policy zabbix-agent -y
+[root@cn-tx-bj7-c8 ~]# sudo -u postgres createuser --pwprompt zabbix
+[root@cn-tx-bj7-c8 ~]# sudo -u postgres createdb -O zabbix zabbix
+[root@cn-tx-bj7-c8 ~]# zcat /usr/share/doc/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+[root@cn-tx-bj7-c8 ~]# vim /etc/zabbix/zabbix_server.conf
+DBPassword=
+[root@cn-tx-bj7-c8 ~]# vim /etc/nginx/conf.d/zabbix.conf
+        listen          81;
+        server_name     mastodon.yuangezhizao.cn;
+[root@cn-tx-bj7-c8 ~]# systemctl restart zabbix-server zabbix-agent nginx php-fpm
+[root@cn-tx-bj7-c8 ~]# systemctl enable zabbix-server zabbix-agent nginx php-fpm
+Created symlink /etc/systemd/system/multi-user.target.wants/zabbix-server.service → /usr/lib/systemd/system/zabbix-server.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/zabbix-agent.service → /usr/lib/systemd/system/zabbix-agent.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/php-fpm.service → /usr/lib/systemd/system/php-fpm.service.
+```
+
+## 0x23.后记
 折腾了一天好累，反正万事开头难
 
-## 0x20.引用
+## 0x24.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
@@ -1341,3 +1512,5 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
 [CentOS 8でyum/dnfに失敗！ Failed to download metadata for repo 'AppStream'](https://web.archive.org/web/20220326143428/https://qiita.com/yamada-hakase/items/cb1b6124e11ca65e2a2b)
 [CentOS Stream 还适合用于生产环境吗](https://web.archive.org/web/20220326141019/https://dgideas.net/2020/is-centos-stream-still-suitable-for-production-environments/)
 [New Year, new Red Hat Enterprise Linux programs: Easier ways to access RHEL](https://web.archive.org/web/20220326141053/https://www.redhat.com/en/blog/new-year-new-red-hat-enterprise-linux-programs-easier-ways-access-rhel)
+
+[在CentOS 7上安装&配置PostgreSQL 12](https://web.archive.org/web/20220423124133/https://ken.io/note/centos7-postgresql12-install-and-configuration)

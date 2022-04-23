@@ -3,7 +3,7 @@ title: PY 云新增 cn-py-dl-r8 虚拟机
 date: 2022-04-02 22:00:56
 tags:
   - RHEL
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.3.1 (21E258)
 browser: 0
@@ -379,7 +379,7 @@ success
 success
 ```
 
-## 0x09.[SmartDNS](https://github.com/pymumu/smartdns)
+## 0x09.安装[SmartDNS](https://github.com/pymumu/smartdns)
 安装
 ``` bash
 [root@cn-py-dl-r8 ~]# export HTTP_PROXY=http://192.168.25.248:1081
@@ -435,7 +435,7 @@ dnsmasq 1947 dnsmasq    6u  IPv4  39044      0t0  TCP cn-py-dl-r8:domain (LISTEN
 <details><summary>点击此处 ← 查看折叠</summary>
 
 ``` bash
-[root@cn-py-dl-r8 smartdns]# cat /etc/smartdns/smartdns.conf
+[root@cn-py-dl-r8 ~]# cat /etc/smartdns/smartdns.conf
 # dns server name, default is host name
 # server-name, 
 # example:
@@ -587,11 +587,18 @@ server 172.64.36.2
 server 1.1.1.1
 server 8.8.8.8
 server 219.149.6.99
+server 120.53.53.11
+server 121.4.4.176
+server 94.140.14.140
+server 94.140.14.141
 
 server 2a06:98c1:54::1802
 server 240c::6666
 server 240e:41:c900:ffff::
-
+server 2402:4e00:0::d2ad:6392
+server 2402:4e00:1::d2ad:6392
+server 2a10:50c0::1:ff
+server 2a10:50c0::2:ff
 # remote tcp dns server list
 # server-tcp [IP]:[PORT] [-blacklist-ip] [-whitelist-ip] [-group [group] ...] [-exclude-default-group]
 # default port is 53
@@ -608,6 +615,8 @@ server 240e:41:c900:ffff::
 # default port is 853
 # server-tls 8.8.8.8
 # server-tls 1.0.0.1
+server-tls dot-d2ad6392.dot.pub
+server-tls dns-unfiltered.adguard.com
 
 # remote https dns server list
 # server-https https://[host]:[port]/path [-blacklist-ip] [-whitelist-ip] [-spki-pin [sha256-pin]] [-group [group] ...] [-exclude-default-group]
@@ -621,6 +630,8 @@ server 240e:41:c900:ffff::
 server-https https://9u12dgz3lz.cloudflare-gateway.com/dns-query
 server-https https://cloudflare-dns.com/dns-query
 server-https https://dns.google/dns-query
+server-https https://doh-d2ad6392-smartdns.doh.pub/dns-query
+server-https https://dns-unfiltered.adguard.com/dns-query
 
 # specific nameserver to domain
 # nameserver /domain/[group|-]
@@ -650,7 +661,7 @@ server-https https://dns.google/dns-query
 #   [-n] -nameserver [group|-]: same as nameserver option
 #   [-p] -ipset [ipset|-]: same as ipset option
 #   [-d] -dualstack-ip-selection [yes|no]: same as dualstack-ip-selection option
-[root@cn-py-dl-r8 smartdns]# 
+[root@cn-py-dl-r8 ~]# 
 ```
 
 </details>
