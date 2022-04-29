@@ -5,7 +5,7 @@ tags:
   - OOM
   - multiprocessing
   - Elasticsearch
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.0.1 (21A559)
 browser: 0
@@ -35,6 +35,7 @@ Swap:   51199   8086    43113
 root 16065  113930  3   15:09   ?   00:00:18    -venv/bin/python3 collector.py
 首屏非全部，省略后续`49+`行……
 ```
+
 ## 0x02.恢复服务
 也很纳闷，早在前一天下午就讨论到了使用多进程有`OOM`风险~~，也只开了`max_workers`为`4`的进程池，怎么就会爆内存了呢？~~
 但是首先还是要恢复服务，把`ps -ef`出的`collector`进程全都`kill`掉，并且用`supervisorctl`把对应的子服务关闭，内存算是回到了正常水平
