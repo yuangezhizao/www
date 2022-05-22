@@ -12,7 +12,6 @@ URL | CDN | Region | Deployment
 :---: | :---: | :---: | :---:
 https://www.yuangezhizao.cn | QCloud | Recommended in China | Manual（Delayed）
 https://yuangezhizao.vercel.app | Vercel | Recommended outside China | Automatic（Fastest）
-https://www-cf.yuangezhizao.cn | Cloudflare | Available worldwide | Automatic（Medium）
 https://www-do.yuangezhizao.cn | DigitalOcean（Cloudflare） | Available worldwide | Automatic
 
 ## License
