@@ -4,7 +4,7 @@ date: 2019-8-15 20:48:14
 tags:
   - AMD
   - EX920
-count: 6
+count: 7
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -31,33 +31,35 @@ key: 57
 
 ## 0x01.配置
 ### 总览
-注：京东链接不含返利可放心点击，价格数据于`2021-06-22 20:26:06`追加更新
+注：京东链接不含返利可放心点击，价格数据于`2022-06-05 21:39:566`追加更新
 
-硬件 | 型号 | 来源 | 价格
-:---: | :---: | :---: | :---:
-CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html) | JD 正品 | ¥2368
-显卡 | ~~[ZOTAC GTX 1080 Extreme Plus OC](https://www.techpowerup.com/gpu-specs/zotac-gtx-1080-extreme-plus-oc.b4139)~~ | WZ 二手 | ~~¥3600~~¥2500
- | | 闲鱼售出 | -¥3700
-主板 | [MSI MPG X570 Gaming Edge WiFi (MS-7C37)](https://item.jd.com/100003809901.html) | JD 正品 | ¥1381
- | (3 PCI-E x1, 2 PCI-E x16, 2 M.2, 4 DDR4 DIMM, Audio, Video, Gigabit LAN, WiFi) | | 
-硬盘 | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥869
-硬盘 | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥243
-硬盘 | [Seagate BarraCuda 4TB 256MB 5400RPM](https://item.jd.com/4220257.html) | JD 正品 | ¥2.8
-机箱 | [SAMA 坦克 3](https://item.jd.com/100003124872.html) | JD 正品 | ¥203
-电源 | [Antec NEO650](https://item.jd.com/1039354.html) | WZ 二手 | ~~¥459~~¥200
-音箱 | [PHILIPS SPA1312](https://item.jd.com/172149.html) | JD 正品 | ¥98
-鼠标 | [ASUS ROG Gladius](https://item.jd.com/12440466577.html) | JD 抽奖 | ~~¥239~~¥0
-键盘 | [USCORSAIR K70 LUX](https://item.jd.com/41756364735.html) | WZ 二手 | ~~¥699~~¥200
-内存 | [Kingston HyperX KHX3200C18D4/16GX](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
-显示器 | [AOC U2790PQU 27英寸 4K IPS](https://item.jd.com/100001071956.html) | JD 正品 | ¥1749
-内存 | [Kingston HyperX HX432C18FB/16-SP](https://item.jd.com/100005089420.html) | JD 正品 | ¥276.43
-风扇 | 某型号 | WZ 转手 | ¥？
-主板 | [MSI B450M MORTAR MAX](https://item.jd.com/100007256670.html) | JD 正品 | ¥568.92
- | | 转售 WZ | -¥285
-功放 | [BRZHIFI功放解码一体机](https://item.taobao.com/item.htm?id=623298849520) | TB 企业店 | ¥502.06
-有源低音炮 | [BRZHIFI重低音炮家庭影院](https://item.taobao.com/item.htm?id=598781070189) | TB 企业店 | ¥403.46
+年月 | 硬件 | 型号 | 来源 | 价格
+:---: | :---: | :---: | :---: | :---:
+1908 | CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html) | JD 正品 | ¥2368
+- | 显卡 | ~~[ZOTAC GTX 1080 Extreme Plus OC](https://www.techpowerup.com/gpu-specs/zotac-gtx-1080-extreme-plus-oc.b4139)~~ | WZ 二手 | ~~¥3600~~¥2500
+| | | 闲鱼售出 | -¥3700
+* 2206 | 显卡 | [Colorful iGame RTX 3080 Ti Vulcan OC](https://www.techpowerup.com/gpu-specs/colorful-igame-rtx-3080-ti-vulcan-oc.b8955) | TB 店铺 | ¥7399
+1908 | 主板 | [MSI MPG X570 Gaming Edge WiFi (MS-7C37)](https://item.jd.com/100003809901.html) | JD 正品 | ¥1381
+| | (3 PCI-E x1, 2 PCI-E x16, 2 M.2, 4 DDR4 DIMM, Audio, Video, Gigabit LAN, WiFi) | | 
+1908 | SSD | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥869
+1909 | SSD | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥243
+1909 | HDD | [Seagate BarraCuda 4TB 256MB 5400RPM](https://item.jd.com/4220257.html) | JD 正品 | ¥2.8
+1908 | 机箱 | [SAMA 坦克 3](https://item.jd.com/100003124872.html) | JD 正品 | ¥203
+- | 电源 | [Antec NEO650](https://item.jd.com/1039354.html) | WZ 二手 | ~~¥459~~¥200
+* 2206 | 电源 | [CoolerMaster V850GOLD V2](https://item.jd.com/100002748150.html) | JD 正品 | ¥683.46
+1908 | 音箱 | [PHILIPS SPA1312](https://item.jd.com/172149.html) | JD 正品 | ¥98
+- | 鼠标 | [ASUS ROG Gladius](https://item.jd.com/12440466577.html) | JD 抽奖 | ~~¥239~~¥0
+- | 键盘 | [USCORSAIR K70 LUX](https://item.jd.com/41756364735.html) | WZ 二手 | ~~¥699~~¥200
+1908 | 内存 | [Kingston HyperX KHX3200C18D4/16GX](https://product.suning.com/0070092951/10705205793.html) | SN 店铺 | ¥530.28
+2002 | 显示器 | [AOC U2790PQU 27英寸 4K IPS](https://item.jd.com/100001071956.html) | JD 正品 | ¥1749
+2011 | 内存 | [Kingston HyperX HX432C18FB/16-SP](https://item.jd.com/100005089420.html) | JD 正品 | ¥276.43
+- | 风扇 | 某型号 | WZ 转手 | ¥？
+2008 | 主板 | [MSI B450M MORTAR MAX](https://item.jd.com/100007256670.html) | JD 正品 | ¥568.92
+| | | 转售 WZ | -¥285
+2104 | 功放 | [BRZHIFI功放解码一体机](https://item.taobao.com/item.htm?id=623298849520) | TB 企业店 | ¥502.06
+2107 | 有源低音炮 | [BRZHIFI重低音炮家庭影院](https://item.taobao.com/item.htm?id=598781070189) | TB 企业店 | ¥403.46
  | | | 
-总计 | | | ¥8109.95
+总计 | | | ¥16192.41
 
 ### 详情
 ![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/macOS/20210414211309.png!webp)
@@ -90,6 +92,13 @@ CPU | [AMD Ryzen 7 3700X 8-Core Processor](https://item.jd.com/100006391078.html
 `2021-07-17 16:19:53`：
 终于有低音炮了`2333`，简直要爽翻了
 ![低音炮](https://i1.yuangezhizao.cn/macOS/20210808231213.png!webp)
+
+`2022-06-05 21:56:43`：
+酷妈`V850`金牌电源
+![gay 姥紫配色](https://i1.yuangezhizao.cn/macOS/20220605215630.png!webp)
+
+七彩虹`3080Ti X OC`顶级旗舰
+![终于不再是空气卡](https://i1.yuangezhizao.cn/macOS/20220605215804.png!webp)
 
 ## 0x02.CPU
 ![锐龙大师，自动超频](https://i1.yuangezhizao.cn/macOS/QQ20210414-212445@2x.png!webp)
