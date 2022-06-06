@@ -4,7 +4,7 @@ date: 2022-05-08 10:37:00
 tags:
   - RHEL
   - server
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.3.1 (21E258)
 browser: 0
@@ -950,9 +950,150 @@ Mem:          1.8Gi       152Mi       1.2Gi       9.0Mi       383Mi       1.5Gi
 Swap:         1.0Gi          0B       1.0Gi
 ```
 
+6. 扩充磁盘空间，可以看到是`xfs`而不是`ext4`的格式，且`/`挂载点只占用了`8.6G`，加上`/boot`挂载点的`1.1G`接近当初分配的`10G`大小
+``` bash
+[root@cn-tx-bj1-r8 ~]# fdisk -l
+Disk /dev/vda: 50 GiB, 53687091200 bytes, 104857600 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0d2cab79
+
+Device     Boot   Start      End  Sectors Size Id Type
+/dev/vda1  *       2048  2099199  2097152   1G 83 Linux
+/dev/vda2       2099200 20971519 18872320   9G 8e Linux LVM
+
+
+Disk /dev/mapper/rhel-root: 8 GiB, 8585740288 bytes, 16769024 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-swap: 1 GiB, 1073741824 bytes, 2097152 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+[root@cn-tx-bj1-r8 ~]# df -TH
+Filesystem            Type      Size  Used Avail Use% Mounted on
+devtmpfs              devtmpfs  935M     0  935M   0% /dev
+tmpfs                 tmpfs     953M   25k  953M   1% /dev/shm
+tmpfs                 tmpfs     953M   68M  886M   8% /run
+tmpfs                 tmpfs     953M     0  953M   0% /sys/fs/cgroup
+/dev/mapper/rhel-root xfs       8.6G  2.4G  6.3G  28% /
+/dev/vda1             xfs       1.1G  220M  845M  21% /boot
+tmpfs                 tmpfs     191M     0  191M   0% /run/user/0
+```
+可以看出`/`挂载点在`vda2`下，再分成了`rhel-root`和`rhel-swap`，也就是说需要扩充的是`vda2`
+``` bash
+[root@cn-tx-bj1-r8 ~]# dnf install -y cloud-utils-growpart
+[root@cn-tx-bj1-r8 ~]# lsblk
+NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sr0            11:0    1 154.5M  0 rom  
+vda           252:0    0    50G  0 disk 
+├─vda1        252:1    0     1G  0 part /boot
+└─vda2        252:2    0     9G  0 part 
+  ├─rhel-root 253:0    0     8G  0 lvm  /
+  └─rhel-swap 253:1    0     1G  0 lvm  [SWAP]
+```
+尝试使用`growpart`和`resize2fs`，果不其然`resize2fs`报错了
+``` bash
+[root@cn-tx-bj1-r8 ~]# growpart /dev/vda 2
+CHANGED: partition=2 start=2099200 old: size=18872320 end=20971520 new: size=102758367 end=104857567
+[root@cn-tx-bj1-r8 ~]# resize2fs /dev/vda2
+resize2fs 1.45.6 (20-Mar-2020)
+resize2fs: Device or resource busy while trying to open /dev/vda2
+Couldn\'t find valid filesystem superblock.
+```
+切换成针对`xfs`的命令`xfs_growfs`
+``` bash
+[root@cn-tx-bj1-r8 ~]# xfs_growfs /dev/mapper/rhel-root
+meta-data=/dev/mapper/rhel-root  isize=512    agcount=4, agsize=524032 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2096128, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+[root@cn-tx-bj1-r8 ~]# growpart /dev/vda 2
+NOCHANGE: partition 2 is size 102758367. it cannot be grown
+[root@cn-tx-bj1-r8 ~]# pvresize /dev/vda2
+  Physical volume "/dev/vda2" changed
+  1 physical volume(s) resized or updated / 0 physical volume(s) not resized
+[root@cn-tx-bj1-r8 ~]# pvdisplay
+  --- Physical volume ---
+  PV Name               /dev/vda2
+  VG Name               rhel
+  PV Size               <49.00 GiB / not usable 1.98 MiB
+  Allocatable           yes 
+  PE Size               4.00 MiB
+  Total PE              12543
+  Free PE               10240
+  Allocated PE          2303
+  PV UUID               qX1P1B-rFi8-BEIf-heEk-KJj6-iGfD-8TBntG
+[root@cn-tx-bj1-r8 ~]# vgdisplay
+  --- Volume group ---
+  VG Name               rhel
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  5
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                2
+  Open LV               2
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               <49.00 GiB
+  PE Size               4.00 MiB
+  Total PE              12543
+  Alloc PE / Size       2303 / <9.00 GiB
+  Free  PE / Size       10240 / 40.00 GiB
+  VG UUID               XJ5ttD-HFOy-M01d-pJKw-CqK0-tkFL-nSSPKv
+[root@cn-tx-bj1-r8 ~]# lvextend -l +100%FREE /dev/mapper/rhel-root
+  Size of logical volume rhel/root changed from <8.00 GiB (2047 extents) to <48.00 GiB (12287 extents).
+  Logical volume rhel/root successfully resized.
+[root@cn-tx-bj1-r8 ~]# xfs_growfs /dev/mapper/rhel-root
+meta-data=/dev/mapper/rhel-root  isize=512    agcount=4, agsize=524032 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=2096128, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+data blocks changed from 2096128 to 12581888
+```
+再次查看大小，已经成功了，变成`52G`了
+``` bash
+[root@cn-tx-bj1-r8 ~]# df -TH
+Filesystem            Type      Size  Used Avail Use% Mounted on
+devtmpfs              devtmpfs  935M     0  935M   0% /dev
+tmpfs                 tmpfs     953M   25k  953M   1% /dev/shm
+tmpfs                 tmpfs     953M   68M  886M   8% /run
+tmpfs                 tmpfs     953M     0  953M   0% /sys/fs/cgroup
+/dev/mapper/rhel-root xfs        52G  2.7G   49G   6% /
+/dev/vda1             xfs       1.1G  220M  845M  21% /boot
+tmpfs                 tmpfs     191M     0  191M   0% /run/user/0
+```
+
 > 此章节时间线[#108271381980874897](https://mastodon.yuangezhizao.cn/@yuangezhizao/108271381980874897)
 
 ## 0x04.后记
 `cn-py-dl-r8`→`cn-tx-bj1-r8`终于搞定了，最后删除`cn-py-dl-r8`[#108271667122964721](https://mastodon.yuangezhizao.cn/@yuangezhizao/108271667122964721)，完结撒花🎉🎉🎉
+
+## 0x05.引用
+[使用growpart扩容CentOS虚拟机磁盘](https://web.archive.org/web/20220513075449/https://www.cnblogs.com/sanduzxcvbnm/p/13998085.html)
+[安装云服务器监控组件](https://cloud.tencent.com/document/product/248/6211)
+[云服务器无监控数据](https://cloud.tencent.com/document/product/248/44702)
+[获取内网 IP 地址和设置 DNS](https://cloud.tencent.com/document/product/213/17941)
 
 > 至此本文使命完成
