@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 9
+count: 10
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 0
@@ -572,18 +572,15 @@ Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service �
 ```
 并安装`portainer`可视化
 ``` bash
-[root@cn-tx-bj7-c8 ~]# docker pull portainer/portainer:latest
-latest: Pulling from portainer/portainer
-94cfa856b2b1: Pull complete 
-49d59ee0881a: Pull complete 
-a2300fd28637: Pull complete 
-Digest: sha256:fb45b43738646048a0a0cc74fcee2865b69efde857e710126084ee5de9be0f3f
-Status: Downloaded newer image for portainer/portainer:latest
-docker.io/portainer/portainer:latest
+[root@cn-tx-bj7-c8 ~]# docker pull portainer/portainer-ce:latest
+latest: Pulling from portainer/portainer-ce
+Digest: sha256:52f9fdee1e4acfb1b5c4ddd15c88905287efb6e8f8058d2c5a2543ddc72e9dc0
+Status: Image is up to date for portainer/portainer-ce:latest
+docker.io/portainer/portainer-ce:latest
 [root@cn-tx-bj7-c8 ~]# docker volume create portainer_data
 portainer_data
-[root@cn-tx-bj7-c8 ~]# docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-25dbed324c43283014a6f6afa037c3cbdaa4019f12cc24a571e8cc61fcac66e0
+[root@cn-tx-bj7-c8 ~]# docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+334877764accdc1068bef0663f8147e010838f001077fc1e4e3cd4f680d30ad1
 ```
 如果需要镜像源的话，可参照[Docker Hub 源使用帮助](https://web.archive.org/web/20200614132904/https://mirrors.ustc.edu.cn/help/dockerhub.html)
 ``` bash

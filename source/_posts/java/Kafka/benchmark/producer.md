@@ -3,7 +3,7 @@ title: Apache Kafka Producer Benchmark
 date: 2022-06-09 14:52:50
 tags:
   - Kafka
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.4 (21F79)
 browser: 0
@@ -294,4 +294,206 @@ if (!shouldPrintMetrics) {
 4. 那么问题只剩下[#108439423671562473](https://mastodon.yuangezhizao.cn/@yuangezhizao/108439423671562473)，为什么别人只用这一个脚本就能得到数百的吞吐量？难道是单个`CPU`足够强劲？
 5. 最后，因运行多个脚本还得将所有的结果加和，也没找到能一次性获取所有生产者吞吐量总和的地方，被迫决定不再使用这个脚本进行测试了……
 
-未完待续……
+## 0x03.[rdkafka_performance](https://github.com/edenhill/librdkafka/blob/master/examples/rdkafka_performance.c)
+用不了官方脚本，自然就准备自己动手，丰衣足食了……目光转向了[confluent-kafka-python](https://github.com/confluentinc/confluent-kafka-python)这个`Confluent's Python Client for Apache Kafka`
+虽然看到有关于`kafkatests`的[Running Apache Kafka's client system-tests (kafkatests) with the Python client](https://github.com/confluentinc/confluent-kafka-python/blob/master/src/confluent_kafka/kafkatest/README.md)，不过并没有看懂
+众所周知，`confluent-kafka-python`和[PyKafka](https://github.com/Parsely/pykafka)底层调用的都是[librdkafka](https://github.com/edenhill/librdkafka)，于是决定基于`librdkafka`重新进行测试
+
+### 1.安装[librdkafka-devel](https://web.archive.org/web/20220613065034/https://docs.confluent.io/platform/current/installation/installing_cp/rhel-centos.html)
+`RHEL 8`需要先导入`confluent`的`rpm`源，然后才能进行安装
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@cn-py-dl-r8 ~]# dnf install curl which -y
+[root@cn-py-dl-r8 ~]# rpm --import https://packages.confluent.io/rpm/7.1/archive.key
+[root@cn-py-dl-r8 ~]# vim /etc/yum.repos.d/confluent.repo
+[root@cn-py-dl-r8 ~]# cat /etc/yum.repos.d/confluent.repo
+[Confluent]
+name=Confluent repository
+baseurl=https://packages.confluent.io/rpm/7.1
+gpgcheck=1
+gpgkey=https://packages.confluent.io/rpm/7.1/archive.key
+enabled=1
+
+[Confluent-Clients]
+name=Confluent Clients repository
+baseurl=https://packages.confluent.io/clients/rpm/centos/$releasever/$basearch
+gpgcheck=1
+gpgkey=https://packages.confluent.io/clients/rpm/archive.key
+enabled=1
+[root@cn-py-dl-r8 ~]# dnf clean all && dnf install librdkafka-devel -y
+[root@cn-py-dl-r8 ~]# find / -name "rdkafka_performance*"
+```
+
+</details>
+
+### 2.源码编译`librdkafka`
+不过安装完成之后并没有`rdkafka_performance`工具，所以还得去编译源码
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@cn-py-dl-r8 ~]# dnf install gcc gcc-c++ -y
+[root@cn-py-dl-r8 ~]# git clone https://github.com/edenhill/librdkafka.git
+[root@cn-py-dl-r8 ~]# cd librdkafka
+[root@cn-py-dl-r8 librdkafka]# ./configure
+……
+Configuration summary:
+  prefix                   /usr/local
+  MKL_DISTRO               rhel
+  SOLIB_EXT                .so
+  ARCH                     x86_64
+  CPU                      generic
+  GEN_PKG_CONFIG           y
+  MKL_APP_NAME             librdkafka
+  MKL_APP_DESC_ONELINE     The Apache Kafka C/C++ library
+  CC                       gcc
+  CXX                      g++
+  LD                       ld
+  NM                       nm
+  OBJDUMP                  objdump
+  STRIP                    strip
+  RANLIB                   ranlib
+  CPPFLAGS                 -g -O2 -fPIC -Wall -Wsign-compare -Wfloat-equal -Wpointer-arith -Wcast-align
+  PKG_CONFIG               pkg-config
+  INSTALL                  /usr/bin/install
+  HAS_GNU_AR               y
+  LIB_LDFLAGS              -shared -Wl,-soname,$(LIBFILENAME)
+  LDFLAG_LINKERSCRIPT      -Wl,--version-script=
+  RDKAFKA_VERSION_STR      1.9.0
+  MKL_APP_VERSION          1.9.0
+  LIBS                     -lm -lsasl2  -lssl  -lcrypto  -lz  -ldl -lpthread -lrt -lpthread -lrt
+  MKL_PKGCONFIG_LIBS_PRIVATE -lm -ldl -lpthread -lrt -lpthread -lrt
+  MKL_PKGCONFIG_REQUIRES_PRIVATE zlib libcrypto libssl libsasl2
+  CFLAGS                   
+  MKL_PKGCONFIG_REQUIRES   zlib libcrypto libssl libsasl2
+  CXXFLAGS                 -Wno-non-virtual-dtor
+  SYMDUMPER                $(NM) -D
+  MKL_DYNAMIC_LIBS         -lm -lsasl2 -lssl -lcrypto -lz -ldl -lpthread -lrt -lpthread -lrt
+  exec_prefix              /usr/local
+  bindir                   /usr/local/bin
+  sbindir                  /usr/local/sbin
+  libexecdir               /usr/local/libexec
+  datadir                  /usr/local/share
+  sysconfdir               /usr/local/etc
+  sharedstatedir           /usr/local/com
+  localstatedir            /usr/local/var
+  runstatedir              /usr/local/var/run
+  libdir                   /usr/local/lib
+  includedir               /usr/local/include
+  infodir                  /usr/local/info
+  mandir                   /usr/local/man
+  BUILT_WITH               GCC GXX PKGCONFIG INSTALL GNULD LDS C11THREADS LIBDL PLUGINS ZLIB SSL SASL_CYRUS HDRHISTOGRAM SYSLOG SNAPPY SOCKEM SASL_SCRAM SASL_OAUTHBEARER CRC32C_HW
+……
+[root@cn-py-dl-r8 librdkafka]# make
+[root@cn-py-dl-r8 librdkafka]# ll /usr/local/lib
+total 0
+[root@cn-py-dl-r8 librdkafka]# cat /etc/ld.so.conf
+include ld.so.conf.d/*.conf
+[root@cn-py-dl-r8 librdkafka]# make install
+[root@cn-py-dl-r8 librdkafka]# ll /usr/local/lib
+total 67608
+-rwxr-xr-x. 1 root root  7139988 Jun 10 11:56 librdkafka++.a
+-rwxr-xr-x. 1 root root 23221330 Jun 10 11:56 librdkafka.a
+lrwxrwxrwx. 1 root root       17 Jun 10 11:56 librdkafka++.so -> librdkafka++.so.1
+lrwxrwxrwx. 1 root root       15 Jun 10 11:56 librdkafka.so -> librdkafka.so.1
+-rwxr-xr-x. 1 root root  2511992 Jun 10 11:56 librdkafka++.so.1
+-rwxr-xr-x. 1 root root 13123032 Jun 10 11:56 librdkafka.so.1
+-rwxr-xr-x. 1 root root 23221330 Jun 10 11:56 librdkafka-static.a
+drwxr-xr-x. 2 root root       96 Jun 10 11:56 pkgconfig
+[root@cn-py-dl-r8 librdkafka]# cat /etc/ld.so.conf
+include ld.so.conf.d/*.conf
+[root@cn-py-dl-r8 librdkafka]# cd examples/
+[root@cn-py-dl-r8 examples]# ls
+CMakeLists.txt                   misc.c                                rdkafka_example.c
+consumer                         openssl_engine_example.cpp            rdkafka_example.cpp
+consumer.c                       openssl_engine_example_cpp            rdkafka_example_cpp
+delete_records                   producer                              rdkafka_performance
+delete_records.c                 producer.c                            rdkafka_performance.c
+globals.json                     producer.cpp                          README.md
+idempotent_producer              rdkafka_complex_consumer_example      transactions
+idempotent_producer.c            rdkafka_complex_consumer_example.c    transactions.c
+kafkatest_verifiable_client      rdkafka_complex_consumer_example.cpp  transactions-older-broker.c
+kafkatest_verifiable_client.cpp  rdkafka_complex_consumer_example_cpp  win_ssl_cert_store.cpp
+Makefile                         rdkafka_consume_batch.cpp
+misc                             rdkafka_example
+```
+
+</details>
+
+### 3.`rdkafka_performance`使用
+> ./rdkafka_performance -P -t test_broker_1_partition_1_replication_1 -s 1024 -c 3000000 -r 200000 -b localhost:9092 -X queue.buffering.max.kbytes=32768 -X queue.buffering.max.messages=100000 -X request.timeout.ms=5000 -u
+
+其中`queue.buffering.max.kbytes`和`queue.buffering.max.messages`参考自[Producer buffer is too small when using librdkafka](https://access.redhat.com/solutions/6485791)以避免`BufferError: Local: Queue full`
+1. 增大本地队列至`100000`（没有丧心病狂的到最大值`10000000`
+2. 增大默认的`producer buffer`自`1MiB`至`32MiB`，就像`kafka-python`和`JVM`一样
+
+<details><summary>点击此处 ← 查看折叠</summary>
+
+``` bash
+[root@cn-py-dl-r8 examples]# ./rdkafka_performance
+Usage: ./rdkafka_performance [-C|-P] -t <topic> [-p <partition>] [-b <broker,broker..>] [options..]
+
+librdkafka version 1.9.0-RC10-6-gb47da0 (0x010900ff)
+
+ Options:
+  -C | -P |    Consumer or Producer mode
+  -G <groupid> High-level Kafka Consumer mode
+  -t <topic>   Topic to consume / produce
+  -p <num>     Partition (defaults to random). Multiple partitions are allowed in -C consumer mode.
+  -M           Print consumer interval stats
+  -b <brokers> Broker address list (host[:port],..)
+  -s <size>    Message size (producer)
+  -k <key>     Message key (producer)
+  -H <name[=value]> Add header to message (producer)
+  -H parse     Read message headers (consumer)
+  -c <cnt>     Messages to transmit/receive
+  -x <cnt>     Hard exit after transmitting <cnt> messages (producer)
+  -D           Copy/Duplicate data buffer (producer)
+  -i <ms>      Display interval
+  -m <msg>     Message payload pattern
+  -S <start>   Send a sequence number starting at <start> as payload
+  -R <seed>    Random seed value (defaults to time)
+  -a <acks>    Required acks (producer): -1, 0, 1, >1
+  -B <size>    Consume batch size (# of msgs)
+  -z <codec>   Enable compression:
+               none|gzip|snappy
+  -o <offset>  Start offset (consumer)
+               beginning, end, NNNNN or -NNNNN
+  -d [facs..]  Enable debugging contexts:
+               all,generic,broker,topic,metadata,feature,queue,msg,protocol,cgrp,security,fetch,interceptor,plugin,consumer,admin,eos,mock,assignor,conf
+  -X <prop=name> Set arbitrary librdkafka configuration property
+  -X file=<path> Read config from file.
+  -X list      Show full list of supported properties.
+  -X dump      Show configuration
+  -T <intvl>   Enable statistics from librdkafka at specified interval (ms)
+  -Y <command> Pipe statistics to <command>
+  -I           Idle: dont produce any messages
+  -q           Decrease verbosity
+  -v           Increase verbosity (default 1)
+  -u           Output stats in table format
+  -r <rate>    Producer msg/s limit
+  -l           Latency measurement.
+               Needs two matching instances, one
+               consumer and one producer, both
+               running with the -l switch.
+  -l           Producer: per-message latency stats
+  -A <file>    Write per-message latency stats to <file>. Requires -l
+  -O           Report produced offset (producer)
+  -N           No delivery reports (producer)
+
+ In Consumer mode:
+  consumes messages and prints thruput
+  If -B <..> is supplied the batch consumer
+  mode is used, else the callback mode is used.
+
+ In Producer mode:
+  writes messages of size -s <..> and prints thruput
+```
+
+</details>
+
+## 0x04.引用
+[Apache Kafka® Performance](https://web.archive.org/web/20220609091822/https://developer.confluent.io/learn/kafka-performance)
+[Benchmarking Kafka Performance Part 1: Write Throughput](https://web.archive.org/web/20220613074909/https://medium.com/hackernoon/benchmarking-kafka-performance-part-1-write-throughput-7c7a76ab7db1)
