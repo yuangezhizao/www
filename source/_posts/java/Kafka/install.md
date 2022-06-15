@@ -5,7 +5,7 @@ tags:
   - RHEL
   - Ubuntu
   - Kafka
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.4 (21F79)
 browser: 0
@@ -157,7 +157,7 @@ WantedBy=multi-user.target
 </details>
 
 ## 0x03.安装[CMAK](https://github.com/yahoo/CMAK)
-`CMAK`是一款雅虎开源的非常好用的`Kafka`图形化管理工具，用完之后再也不想用命令行了`.jpG`
+`CMAK`是一款雅虎开源的非常好用的`Kafka`图形化管理工具，用完之后再也不想用命令行了`.jpG`，需`Java 11`
 > CMAK (Cluster Manager for Apache Kafka, previously known as Kafka Manager)
 
 ### 1.基于`RHEL 8`系统
@@ -178,7 +178,7 @@ cmak.zkhosts="localhost:2181"
 cmak.zkhosts=${?ZK_HOSTS}
 ……
 ```
-创建`CMAK`的单元文件
+创建`CMAK`的单元文件，如果是手动解压的`Java`，需要在`ExecStart`中添加参数`-java-home /root/jdk-11.0.15`
 ``` bash
 [root@cn-py-dl-r8 ~]# cat /usr/lib/systemd/system/kafka-manager.service
 [Unit]
@@ -244,3 +244,7 @@ WantedBy=multi-user.target
 
 ## 0x05.后记
 是不是很简单？自己装了四台之后，对于`Kafka`的安装愈发熟练草……
+
+## 0x06.引用
+[Kafka的安装与使用](https://web.archive.org/web/20220615030554/https://www.taliove.com/kafka/)
+[Kafka集群优化篇-调整broker的堆内存(heap)案例实操](https://web.archive.org/web/20220615030621/https://www.cnblogs.com/yinzhengjie/p/9884552.html)

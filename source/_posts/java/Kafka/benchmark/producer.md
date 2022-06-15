@@ -3,7 +3,7 @@ title: Apache Kafka Producer Benchmark
 date: 2022-06-09 14:52:50
 tags:
   - Kafka
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.4 (21F79)
 browser: 0
@@ -16,7 +16,7 @@ key: 144
 ## 0x00.前言
 众所周知，压测都是从单机测起的，然后再拓展到集群环境，这也是上一篇文章中提到的「不得不在各个平台上都装一份，以便进行横向对比」
 
-## 0x01.测试环境
+## 0x01.压测环境
 虚拟机从来都不缺，要多少有多少（`bushi`
 
 Hostname | CPU | RAM | Disk | OS
@@ -85,6 +85,7 @@ Topic: test     TopicId: FzMw9nyaQ6Kncgqmp1TBqw PartitionCount: 1       Replicat
 ### 3.运行生产者性能测试
 参数中指定的`config/producer.properties`配置文件保持了默认，其实也尝试过修改其中的`linger.ms`和`batch.size`等参数，虽然确实可能有效果提升[#108441932955929068](https://mastodon.yuangezhizao.cn/@yuangezhizao/108441932955929068)
 但毕竟并不使用`Java`版本的生产者，所以就不浪费时间在这里调参了，之后还得去研究实际会用的`librdkafka`的调参呢，原始结果见[#108446732693126948](https://mastodon.yuangezhizao.cn/@yuangezhizao/108446732693126948)
+`kafka-producer-perf-test.sh`脚本参数可参考[Kafka 性能测试脚本详解](https://web.archive.org/web/20220615030928/https://www.cnblogs.com/lkxed/p/kafka-perf-test-tools.html)
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
@@ -124,7 +125,7 @@ compression.type=none
 
 </details>
 
-`cn-tx-bj1-r8`毕竟是单核，测试时跑爆`CPU`，明显只有一个核是不够用的，限制了压测脚本的生产能力
+`cn-tx-bj1-r8`毕竟是单核，压测时跑爆`CPU`，明显只有一个核是不够用的，限制了压测脚本的生产能力
 ``` bash
 [root@cn-tx-bj1-r8 kafka_2.13-3.2.0]# free -h
               total        used        free      shared  buff/cache   available
@@ -183,7 +184,7 @@ Swap:            0B          0B          0B
 Mem:          1.8Gi       1.1Gi       239Mi        97Mi       492Mi       470Mi
 Swap:            0B          0B          0B
 ```
-`cn-tx-bj6-u0`多了一个核心变成了双核，测试时还是跑爆两个`CPU`，`65`左右的吞吐量看起来还行，压测脚本的生产能力并没有受到限制
+`cn-tx-bj6-u0`多了一个核心变成了双核，压测时还是跑爆两个`CPU`，`65`左右的吞吐量看起来还行，压测脚本的生产能力并没有受到限制
 ``` bash
 ubuntu@cn-tx-bj6-u0:~/kafka_2.13-3.2.0$ free -h
               total        used        free      shared  buff/cache   available
@@ -290,14 +291,14 @@ if (!shouldPrintMetrics) {
     producer.close();
 }
 ```
-测试时也确实看到只有一个核心是打满的状态，这个脚本是单进程的
+压测时也确实看到只有一个核心是打满的状态，这个脚本是单进程的
 4. 那么问题只剩下[#108439423671562473](https://mastodon.yuangezhizao.cn/@yuangezhizao/108439423671562473)，为什么别人只用这一个脚本就能得到数百的吞吐量？难道是单个`CPU`足够强劲？
-5. 最后，因运行多个脚本还得将所有的结果加和，也没找到能一次性获取所有生产者吞吐量总和的地方，被迫决定不再使用这个脚本进行测试了……
+5. 最后，因运行多个脚本还得将所有的结果加和，也没找到能一次性获取所有生产者吞吐量总和的地方，被迫决定不再使用这个脚本进行压测了……
 
 ## 0x03.[rdkafka_performance](https://github.com/edenhill/librdkafka/blob/master/examples/rdkafka_performance.c)
 用不了官方脚本，自然就准备自己动手，丰衣足食了……目光转向了[confluent-kafka-python](https://github.com/confluentinc/confluent-kafka-python)这个`Confluent's Python Client for Apache Kafka`
 虽然看到有关于`kafkatests`的[Running Apache Kafka's client system-tests (kafkatests) with the Python client](https://github.com/confluentinc/confluent-kafka-python/blob/master/src/confluent_kafka/kafkatest/README.md)，不过并没有看懂
-众所周知，`confluent-kafka-python`和[PyKafka](https://github.com/Parsely/pykafka)底层调用的都是[librdkafka](https://github.com/edenhill/librdkafka)，于是决定基于`librdkafka`重新进行测试
+众所周知，`confluent-kafka-python`和[PyKafka](https://github.com/Parsely/pykafka)底层调用的都是[librdkafka](https://github.com/edenhill/librdkafka)，于是决定基于`librdkafka`重新进行压测
 
 ### 1.安装[librdkafka-devel](https://web.archive.org/web/20220613065034/https://docs.confluent.io/platform/current/installation/installing_cp/rhel-centos.html)
 `RHEL 8`需要先导入`confluent`的`rpm`源，然后才能进行安装
@@ -422,12 +423,7 @@ misc                             rdkafka_example
 
 </details>
 
-### 3.`rdkafka_performance`使用
-> ./rdkafka_performance -P -t test_broker_1_partition_1_replication_1 -s 1024 -c 3000000 -r 200000 -b localhost:9092 -X queue.buffering.max.kbytes=32768 -X queue.buffering.max.messages=100000 -X request.timeout.ms=5000 -u
-
-其中`queue.buffering.max.kbytes`和`queue.buffering.max.messages`参考自[Producer buffer is too small when using librdkafka](https://access.redhat.com/solutions/6485791)以避免`BufferError: Local: Queue full`
-1. 增大本地队列至`100000`（没有丧心病狂的到最大值`10000000`
-2. 增大默认的`producer buffer`自`1MiB`至`32MiB`，就像`kafka-python`和`JVM`一样
+### 3.`rdkafka_performance`压测
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
@@ -494,6 +490,32 @@ librdkafka version 1.9.0-RC10-6-gb47da0 (0x010900ff)
 
 </details>
 
-## 0x04.引用
+> ./rdkafka_performance -P -t test_broker_1_partition_1_replication_1 -s 1024 -c 3000000 -r 200000 -b localhost:9092 -X queue.buffering.max.kbytes=32768 -X queue.buffering.max.messages=100000 -X request.timeout.ms=5000 -u
+
+其中`queue.buffering.max.kbytes`和`queue.buffering.max.messages`参考自[Producer buffer is too small when using librdkafka](https://access.redhat.com/solutions/6485791)以避免`BufferError: Local: Queue full`
+1. 增大本地队列至`100000`（没有丧心病狂的到最大值`10000000`
+2. 增大默认的`producer buffer`自`1MiB`至`32MiB`，就像`kafka-python`和`JVM`一样
+
+## 0x04.后记
+1. 压测这周前两天时间都花在`kafka-producer-perf-test.sh`上了，因为有看到过别人仅凭默认参数就能打到很高的吞吐量，一度怀疑是自己的参数没调好，一脸黑人问号
+还好及时在家里和良心云环境上做了相同的测试，发现结果竟然基本一致，才意识到可能真的是这个脚本的问题，从而没有继续在这个脚本上浪费不必要的时间（
+2. 多看看别人写的文章对于自己的理解会有非常大的帮助，比如`confluent`或者`medium`（前者是`Kafka`创始仨人开办的公司；后者上总会搜到些质量很高的文章
+毕竟是站在巨人的肩上，谷歌搜索还是能找到不少生产环境的实践，看完之后再回到自己的环境，心里也大概能有个预估，至少不至于一点儿底都没有
+3. 多看英语/日语文章，中文还是一言难尽，除非是知名平台或者个人博客，其他抄来抄去的低质量平台文章还是算了吧，看那些完全是在浪费时间，更何况里面还可能有错误……
+尤其是想看些关于某产品新版本的文章，基本上只能在外文资料中找到了
+
+## 0x05.引用
 [Apache Kafka® Performance](https://web.archive.org/web/20220609091822/https://developer.confluent.io/learn/kafka-performance)
 [Benchmarking Kafka Performance Part 1: Write Throughput](https://web.archive.org/web/20220613074909/https://medium.com/hackernoon/benchmarking-kafka-performance-part-1-write-throughput-7c7a76ab7db1)
+[消息队列 CKafka-常见参数配置说明](https://web.archive.org/web/20220615031058/https://cloud.tencent.com/document/product/597/30203)
+[Kafka设计解析（五）- Kafka性能测试方法及Benchmark报告](https://web.archive.org/web/20220517133407/http://www.jasongj.com/2015/12/31/KafkaColumn5_kafka_benchmark/)
+[librdkafka的安装和使用](https://web.archive.org/web/20220615055335/https://runnerliu.github.io/2018/01/04/librdkafkainstallanduse/)
+[Kafka文件存储机制](https://web.archive.org/web/20220615055224/https://runnerliu.github.io/2018/04/30/kafkasave/)
+[Kafka快速入门（九）——C客户端](https://web.archive.org/web/20220615055506/https://blog.51cto.com/quantfabric/2502001)
+[数据不撒谎，Flink-Kafka性能压测全记录！](https://web.archive.org/web/20220615062323/https://mp.weixin.qq.com/s/0VXqbzLBj5rZjjf4jAc3UQ)
+[记一次 Kafka Producer 性能调优实战](https://web.archive.org/web/20220615063251/https://cloud.tencent.com/developer/article/1704059)
+[kafka生产者Producer参数设置及调优](https://web.archive.org/web/20220615064002/https://gjtmaster.com/2018/09/03/kafka%E7%94%9F%E4%BA%A7%E8%80%85Producer%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E5%8F%8A%E8%B0%83%E4%BC%98/)
+[Kafka 两个高性价比的参数调优](https://web.archive.org/web/20220615064938/https://xie.infoq.cn/article/2ca3cbeb4a366ca29826974b9)
+[Kafka性能调优](https://web.archive.org/web/20220615064709/https://blog.51cto.com/xujpxm/1934572)
+[Kafka参数调优实战，看这篇文章就够了！](https://web.archive.org/web/20220615064734/https://blog.51cto.com/u_11475121/3352720)
+[centos8平台使用iostat监控磁盘io](https://web.archive.org/web/20220615070105/https://www.cnblogs.com/architectforest/p/12628399.html)
