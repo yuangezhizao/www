@@ -5,7 +5,7 @@ tags:
   - RHEL
   - Ubuntu
   - Kafka
-count: 2
+count: 3
 os: 1
 os_1: Monterry 12.4 (21F79)
 browser: 0
@@ -246,5 +246,12 @@ WantedBy=multi-user.target
 是不是很简单？自己装了四台之后，对于`Kafka`的安装愈发熟练草……
 
 ## 0x06.引用
+[Confluent：在 Kafka 上飞驰的数据交换者](https://web.archive.org/web/20220616030614/https://www.infoq.cn/article/2018/01/confluent-kafka-data)
 [Kafka的安装与使用](https://web.archive.org/web/20220615030554/https://www.taliove.com/kafka/)
 [Kafka集群优化篇-调整broker的堆内存(heap)案例实操](https://web.archive.org/web/20220615030621/https://www.cnblogs.com/yinzhengjie/p/9884552.html)
+[Kafka 两个高性价比的参数调优](https://web.archive.org/web/20220615064938/https://xie.infoq.cn/article/2ca3cbeb4a366ca29826974b9)
+[Kafka性能调优](https://web.archive.org/web/20220615064709/https://blog.51cto.com/xujpxm/1934572)
+[Kafka参数调优实战，看这篇文章就够了！](https://web.archive.org/web/20220615064734/https://blog.51cto.com/u_11475121/3352720)
+[centos8平台使用iostat监控磁盘io](https://web.archive.org/web/20220615070105/https://www.cnblogs.com/architectforest/p/12628399.html)
+[Kafka性能测试及分析](https://web.archive.org/web/20220615082628/https://www.jianshu.com/p/64a4ed516f52)
+[Kafka 高性能吞吐揭秘](https://web.archive.org/web/20220615082638/https://segmentfault.com/a/1190000003985468)

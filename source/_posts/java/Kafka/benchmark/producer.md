@@ -3,7 +3,7 @@ title: Apache Kafka Producer Benchmark
 date: 2022-06-09 14:52:50
 tags:
   - Kafka
-count: 3
+count: 4
 os: 1
 os_1: Monterry 12.4 (21F79)
 browser: 0
@@ -512,10 +512,6 @@ librdkafka version 1.9.0-RC10-6-gb47da0 (0x010900ff)
 [librdkafka的安装和使用](https://web.archive.org/web/20220615055335/https://runnerliu.github.io/2018/01/04/librdkafkainstallanduse/)
 [Kafka文件存储机制](https://web.archive.org/web/20220615055224/https://runnerliu.github.io/2018/04/30/kafkasave/)
 [Kafka快速入门（九）——C客户端](https://web.archive.org/web/20220615055506/https://blog.51cto.com/quantfabric/2502001)
-[数据不撒谎，Flink-Kafka性能压测全记录！](https://web.archive.org/web/20220615062323/https://mp.weixin.qq.com/s/0VXqbzLBj5rZjjf4jAc3UQ)
+[数据不撒谎，Flink-Kafka性能压测全记录！](https://web.archive.org/web/20220615074032/https://cloud.tencent.com/developer/article/1493812)
 [记一次 Kafka Producer 性能调优实战](https://web.archive.org/web/20220615063251/https://cloud.tencent.com/developer/article/1704059)
 [kafka生产者Producer参数设置及调优](https://web.archive.org/web/20220615064002/https://gjtmaster.com/2018/09/03/kafka%E7%94%9F%E4%BA%A7%E8%80%85Producer%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E5%8F%8A%E8%B0%83%E4%BC%98/)
-[Kafka 两个高性价比的参数调优](https://web.archive.org/web/20220615064938/https://xie.infoq.cn/article/2ca3cbeb4a366ca29826974b9)
-[Kafka性能调优](https://web.archive.org/web/20220615064709/https://blog.51cto.com/xujpxm/1934572)
-[Kafka参数调优实战，看这篇文章就够了！](https://web.archive.org/web/20220615064734/https://blog.51cto.com/u_11475121/3352720)
-[centos8平台使用iostat监控磁盘io](https://web.archive.org/web/20220615070105/https://www.cnblogs.com/architectforest/p/12628399.html)

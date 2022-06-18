@@ -4,7 +4,7 @@ date: 2022-04-29 22:51:24
 tags:
   - Kafka
   - Log4j
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.3.1 (21E258)
 browser: 0
@@ -88,3 +88,4 @@ log4j.appender.kafkaAppender.MaxBackupIndex=10
 
 ## 0x07.引用
 [Kafka too many open files解决](https://web.archive.org/web/20220429155307/https://blog.51cto.com/u_15072910/3961649)
+[kafka too many open files的解决方法](https://web.archive.org/web/20220615072645/https://www.jianshu.com/p/1a48a4920088)
