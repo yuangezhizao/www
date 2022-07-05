@@ -1590,31 +1590,8 @@ Mem:          3.6Gi       2.5Gi       161Mi        69Mi       981Mi       648Mi
 Swap:         5.0Gi        15Mi       5.0Gi
 ```
 
-## 0x22.安装[Smokeping](https://oss.oetiker.ch/smokeping)
-``` bash
-[root@cn-tx-bj7-c8 ~]# git clone https://github.com/linuxserver/docker-smokeping.git
-[root@cn-tx-bj7-c8 ~]# cd docker-smokeping/
-[root@cn-tx-bj7-c8 docker-smokeping]# cat docker-compose.yml 
----
-version: "2.1"
-services:
-  smokeping:
-    image: lscr.io/linuxserver/smokeping
-    container_name: smokeping
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - /root/docker-smokeping/config:/config
-      - /root/docker-smokeping/data:/data
-    ports:
-      - 82:80
-    restart: unless-stopped
-[root@cn-tx-bj7-c8 docker-smokeping]# docker-compose up -d
-```
 
-## 0x23.安装[Zabbix](https://www.zabbix.com/download/)
+## 0x22.安装[Zabbix](https://www.zabbix.com/download/)
 ``` bash
 [root@cn-tx-bj7-c8 ~]# git clone https://github.com/zabbix/zabbix-docker
 [root@cn-tx-bj7-c8 ~]# rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-2.el8.noarch.rpm
@@ -1635,10 +1612,10 @@ Created symlink /etc/systemd/system/multi-user.target.wants/zabbix-agent.service
 Created symlink /etc/systemd/system/multi-user.target.wants/php-fpm.service → /usr/lib/systemd/system/php-fpm.service.
 ```
 
-## 0x24.后记
+## 0x23.后记
 折腾了一天好累，反正万事开头难
 
-## 0x25.引用
+## 0x24.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
