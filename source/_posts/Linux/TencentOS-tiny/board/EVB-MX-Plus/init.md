@@ -5,7 +5,7 @@ tags:
   - TencentOS-tiny
   - EVB_MX_Plus
   - STM32L4
-count: 1
+count: 2
 os: 0
 os_1: 10.0.17763.973 2019-LTSC
 browser: 0
@@ -51,7 +51,7 @@ key: 69
 ![果断取消](https://i1.yuangezhizao.cn/Win-10/20200118160031.jpg!webp)
 ![代理启动！](https://i1.yuangezhizao.cn/Win-10/20200118160857.jpg!webp)
 
-官网：http://www.keil.com/fid/13wqr0wyie9j1wprs3w11xsq6mxyr1a99ijw11/files/eval/mdk529.exe
+官网：https://www.keil.com/fid/3zwsv0wtdy9j1wtzsow1dckme9lg1dgwlicqd1/files/eval/mdk536.exe
 ~~CloudFlare：https://proxy-cf.yuangezhizao.cn/dl/mdk529.exe~~
 ~~Skysilk：http://proxy.yuangezhizao.cn/dl/mdk529.exe~~
 
