@@ -6,7 +6,7 @@ tags:
 count: 2
 os: 1
 os_1: Monterry 12.0 Beta (21A5294g)
-browser: 1
+browser: 0
 browser_1: 92.0.4515.107 Stable
 place: 新家
 key: 117
@@ -231,7 +231,7 @@ all_content = df_content.apply(lambda index, row: generate_each_line(row, timest
 ```
 emmm，报错了不知道该怎么同时传递`index`和`row`
 
-#### 4.[pandas.Dataframe.values](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.values.html)
+### 4.[pandas.Dataframe.values](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.values.html)
 仍然是网上的说法，取`.values[]`应该是所有之中最快的，但是此时已经变成了`Numpy`的对象
 ``` python
 for i in index:
@@ -322,13 +322,11 @@ Snapshot saved to /tmp/cxnetflow-collector2.pstat
 因为耗时过短，没看出来时间花费在了哪里，于是只执行第一阶段再看下
 ![配置文件](https://i1.yuangezhizao.cn/Win-10/20210730135943.png!webp)
 
-
 测试至此就接近尾声了，当然结论自然是用`itertuples`了
 
 ## 0x02.深入
+`Xi`总有找到过一篇文章[Why Pandas itertuples() Is Faster Than iterrows() and How To Make It Even Faster](https://web.archive.org/web/20210930123528/https://medium.com/swlh/why-pandas-itertuples-is-faster-than-iterrows-and-how-to-make-it-even-faster-bc50c0edd30d)
 ![iterrows](https://i1.yuangezhizao.cn/Win-10/20210730104909.png!webp)
 ![itertuples](https://i1.yuangezhizao.cn/Win-10/20210730140508.png!webp)
 
 可以看出`iterrows`只调用了一个核心，而`itertuples`会调用全部核心
-
-未完待续……
