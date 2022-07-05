@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 20
+count: 21
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -385,20 +385,19 @@ rtt min/avg/max/mdev = 7.004/7.012/7.029/0.092 ms
 由此可见家里肯定是最慢的了，另外**北京一区**比**北京三区**快`1ms`
 
 ## 0x08.安装[Pyston](https://github.com/pyston/pyston)
-`wget https://proxy-cf.yuangezhizao.cn/dl/pyston_2.2_portable.tar.gz`
-`tar -zxvf pyston_2.2_portable.tar.gz`
 ``` bash
-[root@txy ~]# ./pyston
-Python 3.8.8 (heads/rel2.2:6287d61, Apr 29 2021, 15:46:12)
-[Pyston 2.2.0, GCC 9.3.0] on linux
+[root@cn-tx-bj1-r8 ~]# wget https://proxy-cf.yuangezhizao.cn/dl/pyston_2.3.4_portable_amd64.tar.gz
+[root@cn-tx-bj1-r8 ~]# tar -zxvf pyston_2.3.4_portable_amd64.tar.gz
+[root@cn-tx-bj1-r8 ~]# /root/pyston_2.3.4/bin/pyston3
+Python 3.8.12 (heads/v2.3.4.1_release:4a6b4d3504, Jun  3 2022, 15:46:12)
+[Pyston 2.3.4, GCC 9.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> ^Z
-[5]+  Stopped                 ./pyston
-```
-`./pyston -m venv pyston-venv`
-``` bash
-(pyston-venv) [root@txy jd]# pip --version`
-pip 20.2.3 from /root/jd/pyston-venv/lib/pyston3.8/site-packages/pip (python 3.8)
+>>> 
+[1]+  Stopped                 /root/pyston_2.3.4/bin/pyston3
+[root@cn-tx-bj1-r8 ~]# /root/pyston_2.3.4/bin/pyston3 -m venv pyston-venv
+[root@cn-tx-bj1-r8 ~]# source pyston-venv/bin/activate
+(pyston-venv) [root@cn-tx-bj1-r8 ~]# pip3 --version
+pip 21.1.1 from /root/pyston-venv/lib/python3.8-pyston2.3/site-packages/pip (python 3.8)
 (pyston-venv) [root@txy sku]# pyston JD_Sku_Demo.py 
 Traceback (most recent call last):
   File "JD_Sku_Demo.py", line 3, in <module>
@@ -440,8 +439,6 @@ ImportError: cannot import name 'SKu' from 'JD_Sku.sku' (/root/jd/sku/JD_Sku/sku
     time.sleep(cha)
 KeyboardInterrupt
 ```
-
-
 
 ## 0x10.引用
 [python --enable-shared](https://web.archive.org/web/20200521142009/https://www.cnblogs.com/Tommy-Yu/p/6144512.html)
