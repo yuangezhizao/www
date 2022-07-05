@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 10
+count: 11
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 0
@@ -1418,13 +1418,165 @@ postgres=# \q
 [postgres@cn-tx-bj7-c8 ~]$ 
 ```
 
-## 0x20.分配虚拟内存
+## 0x20.安装[MySQL](https://hub.docker.com/_/mysql)
+``` bash
+[root@cn-tx-bj7-c8 mysql_for_docker]# tree
+.
+├── config
+│   └── docker.cnf
+└── docker-compose.yml
+
+1 directory, 2 files
+[root@cn-tx-bj7-c8 mysql_for_docker]# cat config/docker.cnf 
+[client]
+# 客户端来源数据的默认字符集
+default-character-set=utf8mb4
+
+[mysqld]
+# 服务端默认字符集
+character-set-server=utf8mb4
+# 连接层默认字符集
+collation-server=utf8mb4_unicode_ci
+
+#performance_schema_max_table_instances=400
+table_definition_cache=400
+table_open_cache=64
+performance_schema=off
+
+skip-host-cache
+skip-name-resolve
+
+#innodb_buffer_pool_chunk_size=64M 
+innodb_buffer_pool_size=64M 
+
+#query_cache_size=16M
+#tmp_table_size=18M
+#key_buffer_size=32m
+
+#skip-grant-tables
+ 
+[mysql]
+# 数据库默认字符集
+default-character-set=utf8mb4
+[root@cn-tx-bj7-c8 mysql_for_docker]# cat docker-compose.yml 
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:5.7.38
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    #    privileged: true
+    restart: always
+    ports:
+          - "3306:3306"
+    command: 
+    #      --wait_timeout=31536000
+    #      --interactive_timeout=31536000
+      --max_connections=100 
+      --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: <rm>
+      TZ: Asia/Shanghai
+    volumes:
+      - /data/mysql:/var/lib/mysql
+      - /root/mysql_for_docker/config:/etc/mysql/conf.d
+    networks:
+      - internal_network
+      - external_network
+
+networks:
+  external_network:
+  internal_network:
+    internal: true
+      
+    #  adminer:
+      #    image: adminer
+      #    restart: always
+    #    ports:
+    #      - 8080:8080
+```
+`character-set-server=utf8mb4`参数确实生效
+``` bash
+[root@cn-tx-bj7-c8 config]# docker exec -it 6e48563b9576 /bin/bash
+root@6e48563b9576:/# mysql -uroot -p<rm>
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.38 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show variables like '%character%';
++--------------------------+----------------------------+
+| Variable_name            | Value                      |
++--------------------------+----------------------------+
+| character_set_client     | utf8mb4                    |
+| character_set_connection | utf8mb4                    |
+| character_set_database   | latin1                     |
+| character_set_filesystem | binary                     |
+| character_set_results    | utf8mb4                    |
+| character_set_server     | latin1                     |
+| character_set_system     | utf8                       |
+| character_sets_dir       | /usr/share/mysql/charsets/ |
++--------------------------+----------------------------+
+8 rows in set (0.01 sec)
+
+mysql> exit
+Bye
+root@6e48563b9576:/# exit
+exit
+[root@cn-tx-bj7-c8 config]# docker exec -it 6e48563b9576 /bin/bash
+root@6e48563b9576:/# mysql -uroot -p<rm>
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.38 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show variables like '%character%';
++--------------------------+----------------------------+
+| Variable_name            | Value                      |
++--------------------------+----------------------------+
+| character_set_client     | utf8mb4                    |
+| character_set_connection | utf8mb4                    |
+| character_set_database   | utf8mb4                    |
+| character_set_filesystem | binary                     |
+| character_set_results    | utf8mb4                    |
+| character_set_server     | utf8mb4                    |
+| character_set_system     | utf8                       |
+| character_sets_dir       | /usr/share/mysql/charsets/ |
++--------------------------+----------------------------+
+8 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+root@6e48563b9576:/# exit
+exit
+```
+
+## 0x21.分配虚拟内存
 ``` bash
 [root@cn-tx-bj7-c8 ~]# dd if=/dev/zero of=~/swap bs=1M count=5120
 5120+0 records in
 5120+0 records out
 5368709120 bytes (5.4 GB, 5.0 GiB) copied, 35.679 s, 150 MB/s
-[root@cn-tx-bj7-c8 ~]# chmod 600 swap 
+[root@cn-tx-bj7-c8 ~]# chmod 600 swap
 [root@cn-tx-bj7-c8 ~]# mkswap swap 
 Setting up swapspace version 1, size = 5 GiB (5368705024 bytes)
 no label, UUID=42e7c1ca-8664-4b30-a2c8-01b59adee896
@@ -1438,7 +1590,7 @@ Mem:          3.6Gi       2.5Gi       161Mi        69Mi       981Mi       648Mi
 Swap:         5.0Gi        15Mi       5.0Gi
 ```
 
-## 0x21.安装[Smokeping](https://oss.oetiker.ch/smokeping)
+## 0x22.安装[Smokeping](https://oss.oetiker.ch/smokeping)
 ``` bash
 [root@cn-tx-bj7-c8 ~]# git clone https://github.com/linuxserver/docker-smokeping.git
 [root@cn-tx-bj7-c8 ~]# cd docker-smokeping/
@@ -1462,10 +1614,10 @@ services:
 [root@cn-tx-bj7-c8 docker-smokeping]# docker-compose up -d
 ```
 
-## 0x22.安装[Zabbix](https://www.zabbix.com/download/)
+## 0x23.安装[Zabbix](https://www.zabbix.com/download/)
 ``` bash
 [root@cn-tx-bj7-c8 ~]# git clone https://github.com/zabbix/zabbix-docker
-[root@cn-tx-bj7-c8 ~]# rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm
+[root@cn-tx-bj7-c8 ~]# rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-2.el8.noarch.rpm
 [root@cn-tx-bj7-c8 ~]# dnf clean all
 [root@cn-tx-bj7-c8 ~]# dnf install zabbix-server-pgsql zabbix-web-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-selinux-policy zabbix-agent -y
 [root@cn-tx-bj7-c8 ~]# sudo -u postgres createuser --pwprompt zabbix
@@ -1483,10 +1635,10 @@ Created symlink /etc/systemd/system/multi-user.target.wants/zabbix-agent.service
 Created symlink /etc/systemd/system/multi-user.target.wants/php-fpm.service → /usr/lib/systemd/system/php-fpm.service.
 ```
 
-## 0x23.后记
+## 0x24.后记
 折腾了一天好累，反正万事开头难
 
-## 0x24.引用
+## 0x25.引用
 [如何在CentOS 8上安装和配置Fail2ban](https://web.archive.org/web/20211221065719/https://www.myfreax.com/install-configure-fail2ban-on-centos-8/)
 [如何实时观察TCP和UDP端口](https://web.archive.org/web/20211231131900/https://www.howtoing.com/watch-tcp-and-udp-ports-in-linux)
 [如何在Linux中安装netstat命令](https://web.archive.org/web/20211231132640/https://www.howtoing.com/install-netstat-in-linux)
@@ -1511,3 +1663,6 @@ Created symlink /etc/systemd/system/multi-user.target.wants/php-fpm.service → 
 [New Year, new Red Hat Enterprise Linux programs: Easier ways to access RHEL](https://web.archive.org/web/20220326141053/https://www.redhat.com/en/blog/new-year-new-red-hat-enterprise-linux-programs-easier-ways-access-rhel)
 
 [在CentOS 7上安装&配置PostgreSQL 12](https://web.archive.org/web/20220423124133/https://ken.io/note/centos7-postgresql12-install-and-configuration)
+[在CentOS7.5中基于docker-compose安装mysql5.7](https://web.archive.org/web/20220705151323/https://www.cnblogs.com/linanjie/p/13912004.html)
+[docker mysql 内存大小_docker容器内存占用过高(例如mysql)](https://web.archive.org/web/20220705151633/https://blog.csdn.net/weixin_39632982/article/details/113221229)
+[docker 中 mysql 5.7 8.0 消耗内存大问题办法](https://web.archive.org/web/20220705152001/https://blog.csdn.net/deepxl/article/details/122915546)
