@@ -6,7 +6,7 @@ tags:
   - VMware
   - vCenter
   - AlmaLinux
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.2.1 (21D62)
 browser: 0
@@ -49,5 +49,8 @@ key: 132
 ![安装完成](https://i1.yuangezhizao.cn/macOS/QQ20220220-164450@2x.png!webp)
 ![重启](https://i1.yuangezhizao.cn/macOS/QQ20220220-164511@2x.png!webp)
 ![搞定](https://i1.yuangezhizao.cn/macOS/QQ20220220-164559@2x.png!webp)
+
+## 0x02.引用
+[CentOS 已死，“免费”的 RHEL 没了！](https://web.archive.org/web/20220508084845/https://cloud.tencent.com/developer/article/1762077)
 
 > 至此本文使命完成
