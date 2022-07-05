@@ -10,7 +10,7 @@ os_1: Monterry 12.1 (21C52)
 browser: 0
 browser_1: 96.0.4664.110 Stable
 place: 新家
-key: 128
+key: 127
 ---
     终于还是用上了良心云的轻量应用服务器草
 <!-- more -->

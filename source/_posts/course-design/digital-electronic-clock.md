@@ -7,7 +7,7 @@ os_1: 10.0.14393 Pro
 browser: 0
 browser_1: 58.0.3029.110 Stable
 place: 宿舍
-key: 08
+key: 8
 gitment: true
 ---
     拖更（because *****）……

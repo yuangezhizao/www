@@ -9,7 +9,7 @@ os_1: 10.0.14393 Pro
 browser: 0
 browser_1: 61.0.3153.0 Dev
 place: 家
-key: 09
+key: 9
 ---
     成绩先出的，挂了！
     公告：本文不再更新……
