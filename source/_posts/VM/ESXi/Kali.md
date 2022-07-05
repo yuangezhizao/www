@@ -6,7 +6,7 @@ tags:
   - VMware
   - ESXI
   - Kali
-count: 2
+count: 3
 os: 0
 os_1: 10.0.17763.1217 2019-LTSC
 browser: 0
@@ -120,7 +120,8 @@ Clone: 100% done.
 
 </details>
 
-`2022-04-23 23:40:22`：注意把`Kali-Linux-2020.2-vmware-amd64.vmdk`转换成`Kali-Linux-2020.2-vmware-amd64-new.vmdk`之后不能重命名，因为磁盘文件中记录了文件名的信息，也不用管那个生成的`flat`文件
+`2022-04-23 23:40:22`：注意把`Kali-Linux-2020.2-vmware-amd64.vmdk`转换成`Kali-Linux-2020.2-vmware-amd64-new.vmdk`之后不能重命名
+因为磁盘文件中记录了文件名的信息，也不用管那个生成的`flat`文件
 ~~启动，再翻车……~~
 ![草](https://i1.yuangezhizao.cn/Win-10/20200520211526.jpg!webp)
 
