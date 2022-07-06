@@ -4,7 +4,7 @@ date: 2022-07-05 23:52:58
 tags:
   - CentOS
   - server
-count: 1
+count: 2
 os: 1
 os_1: Monterry 12.4 (21F79)
 browser: 0
@@ -15,8 +15,7 @@ key: 146
     沉迷 Docker 无法自拔（bushi
 <!-- more -->
 ## 0x00.`TL;DR`
-![19](https://i1.yuangezhizao.cn/macOS/20220706002503.png!webp)
-![8](https://i1.yuangezhizao.cn/macOS/20220706002534.png!webp)
+![cn-tx-bj6-c8](https://i1.yuangezhizao.cn/macOS/20220706101209.png!webp)
 
 ## 0x01.前言
 在五月份的征文活动中嫖了一台轻量机，可以玩儿一年，手里现在不仅有`2`台云主机，也有`2`台轻量机辣
@@ -33,8 +32,8 @@ key: 146
 
 <details><summary>点击此处 ← 查看折叠</summary>
 
-![cn-tx-bj7-c8](https://i1.yuangezhizao.cn/macOS/20220706002345.png!webp)
-![cn-tx-bj6-c8](https://i1.yuangezhizao.cn/macOS/20220706002411.png!webp)
+![19](https://i1.yuangezhizao.cn/macOS/20220706002503.png!webp)
+![8](https://i1.yuangezhizao.cn/macOS/20220706002534.png!webp)
 
 </details>
 
