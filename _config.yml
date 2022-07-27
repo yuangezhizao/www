@@ -107,7 +107,7 @@ live2d:
   tagMode: false
   debug: true
   model:
-    use: https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json
+    use: https://s1.yuangezhizao.cn/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json
   display:
     position: right
     width: 200
