@@ -4,7 +4,7 @@ date: 2021-12-21 14:38:31
 tags:
   - CentOS
   - server
-count: 11
+count: 12
 os: 1
 os_1: Monterry 12.1 (21C52)
 browser: 0
@@ -532,12 +532,12 @@ tcp   LISTEN     0      128                                                     
 
 ## 0x09.安装[Docker](https://web.archive.org/web/20220112130003/https://docs.docker.com/engine/install/centos/)
 ``` bash
-[root@cn-tx-bj7-c8 ~]# yum install yum-utils -y
+[root@cn-tx-bj7-c8 ~]# dnf install yum-utils -y
 [root@cn-tx-bj7-c8 ~]# yum-config-manager \
 >     --add-repo \
 >     https://download.docker.com/linux/centos/docker-ce.repo
 Adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
-[root@cn-tx-bj7-c8 ~]# yum install docker-ce docker-ce-cli containerd.io -y
+[root@cn-tx-bj7-c8 ~]# dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 [root@cn-tx-bj7-c8 ~]# systemctl start docker
 [root@cn-tx-bj7-c8 ~]# docker run hello-world
 Unable to find image 'hello-world:latest' locally
@@ -594,24 +594,11 @@ portainer_data
 ## 0x10.安装[Compose](https://web.archive.org/web/20220112130055/https://docs.docker.com/compose/install/)
 `curl`下载不能
 ``` bash
-[root@cn-tx-bj7-c8 ~]# curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:--  0:01:30 --:--:--     0^C
-```
-于是去手动下载二进制文件，然后再用`sftp`传上去……
-``` bash
-[root@cn-tx-bj7-c8 ~]# echo "$(uname -s)-$(uname -m)"
-Linux-x86_64
-sftp> put -r "/Users/yuangezhizao/Downloads/docker-compose-Linux-x86_64"
-Uploading docker-compose-Linux-x86_64 to /root/docker-compose-Linux-x86_64
-  100% 12438KB   6219KB/s 00:00:02     
-/Users/yuangezhizao/Downloads/docker-compose-Linux-x86_64: 12737304 bytes transferred in 2 seconds (6219 KB/s)
-sftp> 
-[root@cn-tx-bj7-c8 ~]# mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
-[root@cn-tx-bj7-c8 ~]# chmod +x /usr/local/bin/docker-compose
-[root@cn-tx-bj7-c8 ~]# docker-compose --version
-docker-compose version 1.29.2, build 5becea4c
+[root@cn-py-dl-a8 ~]# wget https://github.com/docker/compose/releases/download/v2.8.0/docker-compose-Linux-x86_64
+[root@cn-py-dl-a8 ~]# mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+[root@cn-py-dl-a8 ~]# chmod +x /usr/local/bin/docker-compose
+[root@cn-py-dl-a8 ~]# docker-compose --version
+Docker Compose version v2.8.0
 ```
 
 ## 0x11.安装[Mastodon](https://github.com/mastodon/mastodon)
