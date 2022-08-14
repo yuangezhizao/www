@@ -3,7 +3,7 @@ title: PY 云新增 cn-py-dl-r8 虚拟机
 date: 2022-04-02 22:00:56
 tags:
   - RHEL
-count: 3
+count: 4
 os: 1
 os_1: Monterry 12.3.1 (21E258)
 browser: 0
@@ -18,9 +18,9 @@ key: 137
 
 ## 0x01.配置`EPEL`源以安装`htop`
 ``` bash
-[root@cn-py-dl-r8 ~]# yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-[root@cn-py-dl-r8 ~]# yum update -y
-[root@cn-py-dl-r8 ~]# yum install htop -y
+[root@cn-py-dl-r8 ~]# dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+[root@cn-py-dl-r8 ~]# dnf update -y
+[root@cn-py-dl-r8 ~]# dnf install htop -y
 ```
 
 ## 0x02.`git`全局配置

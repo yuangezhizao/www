@@ -5,7 +5,7 @@ tags:
   - Anime4K
   - Video2X
   - HIMEHINA
-count: 3
+count: 4
 os: 0
 os_1: 10.0.17763.775 2019-LTSC
 browser: 0
@@ -30,9 +30,9 @@ No. | 名称 | 大小 | 地址
 度盘：https://pan.baidu.com/s/1Sxkr64-KRTQTfo_cDmdGXw
 
 Audio：
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<link rel="stylesheet" href="https://s1.yuangezhizao.cn/npm/aplayer/dist/APlayer.min.css">
 <div id="aplayer"></div>
-<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="https://s1.yuangezhizao.cn/npm/aplayer/dist/APlayer.min.js"></script>
 <script>
 const ap = new APlayer({
     container: document.getElementById('aplayer'),
@@ -51,10 +51,10 @@ const ap = new APlayer({
 下载地址（由`Coding`企业版`TencentStorage`支持）：[https://yuangezhizao.coding.net/s/ef2743f2-14ac-4b3e-b02d-2fe16ead36f9](https://yuangezhizao.coding.net/s/ef2743f2-14ac-4b3e-b02d-2fe16ead36f9)
 
 Video：
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css" />
+<link rel="stylesheet" href="https://s1.yuangezhizao.cn/npm/dplayer/dist/DPlayer.min.css" />
 <div id="dplayer"></div>
-<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
+<script src="https://s1.yuangezhizao.cn/npm/hls.js/dist/hls.min.js"></script>
+<script src="https://s1.yuangezhizao.cn/npm/dplayer/dist/DPlayer.min.js"></script>
 <script>
 const dp = new DPlayer({
     container: document.getElementById('dplayer'),
