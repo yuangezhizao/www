@@ -4,7 +4,7 @@ date: 2019-8-15 20:48:14
 tags:
   - AMD
   - EX920
-count: 7
+count: 8
 os: 0
 os_1: 10.0.17763.652 2019-LTSC
 browser: 0
@@ -31,7 +31,7 @@ key: 57
 
 ## 0x01.配置
 ### 总览
-注：京东链接不含返利可放心点击，价格数据于`2022-06-05 21:39:566`追加更新
+注：京东链接不含返利可放心点击，价格数据于`2022-08-18 23:37:22`追加更新
 
 年月 | 硬件 | 型号 | 来源 | 价格
 :---: | :---: | :---: | :---: | :---:
@@ -45,7 +45,8 @@ key: 57
 1909 | SSD | [HP SSD EX920 1TB](https://item.jd.com/6209326.html) | JD 正品 | ¥243
 1909 | HDD | [Seagate BarraCuda 4TB 256MB 5400RPM](https://item.jd.com/4220257.html) | JD 正品 | ¥2.8
 1908 | 机箱 | [SAMA 坦克 3](https://item.jd.com/100003124872.html) | JD 正品 | ¥203
-- | 电源 | [Antec NEO650](https://item.jd.com/1039354.html) | WZ 二手 | ~~¥459~~¥200
+- | 电源 | ~~[Antec NEO650](https://item.jd.com/1039354.html)~~ | WZ 二手 | ~~¥459~~¥200
+- | |  | 转售 WZ | -¥100
 * 2206 | 电源 | [CoolerMaster V850GOLD V2](https://item.jd.com/100002748150.html) | JD 正品 | ¥683.46
 1908 | 音箱 | [PHILIPS SPA1312](https://item.jd.com/172149.html) | JD 正品 | ¥98
 - | 鼠标 | [ASUS ROG Gladius](https://item.jd.com/12440466577.html) | JD 抽奖 | ~~¥239~~¥0
@@ -59,7 +60,7 @@ key: 57
 2104 | 功放 | [BRZHIFI功放解码一体机](https://item.taobao.com/item.htm?id=623298849520) | TB 企业店 | ¥502.06
 2107 | 有源低音炮 | [BRZHIFI重低音炮家庭影院](https://item.taobao.com/item.htm?id=598781070189) | TB 企业店 | ¥403.46
  | | | 
-总计 | | | ¥16192.41
+总计 | | | ¥16092.41
 
 ### 详情
 ![8.3/4 到的板 U 套装](https://i1.yuangezhizao.cn/macOS/20210414211309.png!webp)
