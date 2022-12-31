@@ -5,7 +5,7 @@ tags:
   - git
   - WakaTime
   - Wakapi
-count: 3
+count: 4
 os: 1
 os_1: Monterry 12.3 (21E230)
 browser: 0
@@ -132,6 +132,6 @@ backoff_retries = 0
 ![Project](https://i1.yuangezhizao.cn/macOS/20220328005610.png!webp)
 
 ## 0x06.后记
-在经历了[2 月](../../Linux/TencentOS-tiny/board/EVB_AIoT/init.html#0x00-前言)和[3 月](../../Linux/TencentOS-tiny/board/EVB_AIoT/eiq.html#0x01-前言)之后，希望自己能恢复到正常状态，总得好起来吧
+在经历了[2 月](../../Linux/TencentOS-tiny/board/EVB-AIoT/init.html#0x00-前言)和[3 月](../../Linux/TencentOS-tiny/board/EVB-AIoT/eiq.html#0x01-前言)之后，希望自己能恢复到正常状态，总得好起来吧
 
 未完待续……

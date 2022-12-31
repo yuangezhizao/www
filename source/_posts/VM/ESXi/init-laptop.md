@@ -11,7 +11,7 @@ os: 1
 os_1: Monterry 12.2 (21D49)
 browser: 0
 browser_1: 97.0.4692.99 Stable
-place: 宽甸
+place: KD
 key: 130
 ---
     除夕夜前一天终于想起一月份不能就这么鸽了
