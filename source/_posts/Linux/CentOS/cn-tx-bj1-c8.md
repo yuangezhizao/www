@@ -4,7 +4,7 @@ date: 2019-5-9 18:22:34
 tags:
   - CentOS
   - server
-count: 21
+count: 22
 os: 0
 os_1: 10.0.17763.437 2019-LTSC
 browser: 0
@@ -74,7 +74,7 @@ yum install htop screen git axel iftop -y
 ![白嫖的一年资源包](https://i1.yuangezhizao.cn/Win-10/20190509233243.jpg!webp)
 ![最终效果可以说是相当爽了](https://i1.yuangezhizao.cn/Win-10/20190509224926.jpg!webp)
 
-## 0x04.编译安装[python3104](https://www.python.org/downloads/release/python-3104)环境
+## 0x04.编译安装[python3111](https://www.python.org/downloads/release/python-3111)环境
 ### 1. 查看现有位置
 ``` bash
 [root@txy ~]# whereis python
@@ -97,22 +97,22 @@ dnf install libnsl2-devel bluez-libs-devel tix-devel -y
 > 这里面有一个包很关键`libffi-devel`，因为只有`3.7`才会用到这个包，如果不安装这个包的话，在`make`阶段会出现如下的报错：`# ModuleNotFoundError: No module named '_ctypes'`
 
 ### 3. 下载源码包
-~~`wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tar.xz`~~
+~~`wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tar.xz`~~
 ![下载卡爆，jsproxy 启动！](https://i1.yuangezhizao.cn/Win-10/20191016210358.jpg!webp)
 
 或![下载卡爆，proxy 中转爽到！](https://i1.yuangezhizao.cn/Win-10/20191107224750.jpg!webp)
 
 ``` bash
 CloudFlare（推荐）：
-wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.10.4.tar.xz
+wget https://proxy-cf.yuangezhizao.cn/dl/Python-3.11.1.tar.xz
 Skysilk：
-wget http://proxy.yuangezhizao.cn/dl/Python-3.10.4.tar.xz
+wget http://proxy.yuangezhizao.cn/dl/Python-3.11.1.tar.xz
 ```
 
 ### 4. 解压
 ``` bash
-tar xvJf Python-3.10.4.tar.xz
-cd Python-3.10.4
+tar xvJf Python-3.11.1.tar.xz
+cd Python-3.11.1
 ```
 
 ### 5. 编译
@@ -122,7 +122,7 @@ cd Python-3.10.4
 ~~不添加`--enable-shared`（生成动态链接库）编译会报错：`command 'gcc' failed with exit status 1`~~
 ~~`rm -rf /usr/local/python3`~~
 ~~`./configure --prefix=/usr/local/python3 --enable-shared --enable-optimizations --with-lto`~~
-`./configure --prefix=/usr/local/python3 --enable-optimizations --with-lto`
+`./configure --prefix=/usr/local/python3 --enable-optimizations --with-lto=full`
 `make && make install`
 并且，当开启了`--with-lto`编译标志位时，编译时需保证峰值空闲有`3G`内存，否则在`ar`的时候会因内存不足而终止
 ``` bash
@@ -204,51 +204,46 @@ Python 3.8.3
 
 重新创建`/usr/bin/python3`和`/usr/bin/pip3`的软链接
 ``` bash
-[root@cn-py-dl-r8 Python-3.10.4]# rm -rf /usr/bin/python3
-[root@cn-py-dl-r8 Python-3.10.4]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
-[root@cn-py-dl-r8 Python-3.10.4]# rm -rf /usr/bin/pip3
-[root@cn-py-dl-r8 Python-3.10.4]# ln -s /usr/local/python3/bin/pip3.10 /usr/bin/pip3
-[root@cn-py-dl-r8 Python-3.10.4]# ll /usr/bin | grep py
--rwxr-xr-x. 1 root root        3555 May 15  2019 bno_plot.py
--rwxr-xr-x. 1 root root       15244 Aug 13  2018 lsusb.py
-lrwxrwxrwx. 1 root root           6 Aug 12  2018 mcopy -> mtools
--rwxr-xr-x. 1 root root      245864 Oct 20  2021 objcopy
-lrwxrwxrwx. 1 root root          30 Apr 23 14:39 pip3 -> /usr/local/python3/bin/pip3.10
-lrwxrwxrwx. 1 root root          25 Mar 27 02:07 pydoc-3 -> /etc/alternatives/pydoc-3
-lrwxrwxrwx. 1 root root          24 Mar 27 02:07 pydoc3 -> /etc/alternatives/pydoc3
--rwxr-xr-x. 1 root root          89 Sep  9  2021 pydoc3.6
--rwxr-xr-x. 1 root root          78 Aug 11  2021 pydoc3.8
--rwxr-xr-x. 1 root root         404 Nov 15  2018 pyinotify
-lrwxrwxrwx. 1 root root          30 Apr 23 14:39 python3 -> /usr/local/python3/bin/python3
-lrwxrwxrwx. 1 root root          31 Aug 11  2021 python3.6 -> /usr/libexec/platform-python3.6
-lrwxrwxrwx. 1 root root          32 Aug 11  2021 python3.6m -> /usr/libexec/platform-python3.6m
--rwxr-xr-x. 1 root root        7768 Aug 11  2021 python3.8
-lrwxrwxrwx. 1 root root          26 Mar 27 02:07 pyvenv-3 -> /etc/alternatives/pyvenv-3
--rwxr-xr-x. 1 root root         446 Sep  9  2021 pyvenv-3.6
--rwxr-xr-x. 1 root root       21488 Jan  3  2020 sg_copy_results
--rwxr-xr-x. 1 root root       41688 Jan  3  2020 sg_xcopy
--rwxr-xr-x. 1 root root       10694 Jul 12  2021 ssh-copy-id
-lrwxrwxrwx. 1 root root          24 Mar 27 02:06 unversioned-python -> /etc/alternatives/python
--rwxr-xr-x. 1 root root       42888 Aug 13  2018 xdpyinfo
-[root@cn-py-dl-r8 Python-3.10.4]# ll /usr/bin | grep pip
--rwxr-xr-x. 1 root root        3143 Aug 12  2018 lesspipe.sh
-lrwxrwxrwx. 1 root root          23 Mar 27 02:07 pip-3 -> /etc/alternatives/pip-3
-lrwxrwxrwx. 1 root root          30 Apr 23 14:39 pip3 -> /usr/local/python3/bin/pip3.10
-lrwxrwxrwx. 1 root root           8 Jun 18  2021 pip-3.6 -> ./pip3.6
--rwxr-xr-x. 1 root root         209 Jun 18  2021 pip3.6
-lrwxrwxrwx. 1 root root           8 Aug 11  2021 pip-3.8 -> ./pip3.8
--rwxr-xr-x. 1 root root         536 Aug 11  2021 pip3.8
--rwxr-xr-x. 1 root root       25440 Jun 23  2020 pipewire
--rwxr-xr-x. 1 root root      437160 Jun 23  2020 pipewire-media-session
-[root@cn-py-dl-r8 Python-3.10.4]# python -V
-bash: python: command not found...
-^C
-[root@cn-py-dl-r8 Python-3.10.4]# python3 -V
-Python 3.10.4
-[root@cn-py-dl-r8 Python-3.10.4]# pip3 -V
-pip 22.0.4 from /usr/local/python3/lib/python3.10/site-packages/pip (python 3.10)
-[root@cn-py-dl-r8 Python-3.10.4]# python3
-Python 3.10.4 (main, Apr 23 2022, 14:21:11) [GCC 8.5.0 20210514 (Red Hat 8.5.0-4)] on linux
+[root@cn-tx-bj7-c8 Python-3.11.1]# rm -rf /usr/bin/python3
+[root@cn-tx-bj7-c8 Python-3.11.1]# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+[root@cn-tx-bj7-c8 Python-3.11.1]# rm -rf /usr/bin/pip3
+[root@cn-tx-bj7-c8 Python-3.11.1]# ln -s /usr/local/python3/bin/pip3.11 /usr/bin/pip3
+[root@cn-tx-bj7-c8 Python-3.11.1]# ll /usr/bin | grep py
+-rwxr-xr-x  1 root root         3555 Nov  9  2019 bno_plot.py
+lrwxrwxrwx  1 root root           54 Nov  9 15:50 cagent_tools -> /usr/local/qcloud/monitor/barad/client/cagent_tools.py
+lrwxrwxrwx  1 root root            7 Nov 24  2020 fail2ban-python -> python3
+-rwxr-xr-x  1 root root       245864 Nov 12  2021 objcopy
+lrwxrwxrwx  1 root root           30 Dec 24 17:09 pip3 -> /usr/local/python3/bin/pip3.11
+-rwxr-xr-x  1 root root        12096 Aug 31  2021 pmpython
+lrwxrwxrwx  1 root root           25 Dec 10  2019 pydoc-3 -> /etc/alternatives/pydoc-3
+lrwxrwxrwx  1 root root           24 Dec 10  2019 pydoc3 -> /etc/alternatives/pydoc3
+-rwxr-xr-x  1 root root           89 Sep 10  2021 pydoc3.6
+lrwxrwxrwx  1 root root           30 Dec 24 17:07 python3 -> /usr/local/python3/bin/python3
+lrwxrwxrwx  1 root root           31 Aug 25  2021 python3.6 -> /usr/libexec/platform-python3.6
+lrwxrwxrwx  1 root root           32 Aug 25  2021 python3.6m -> /usr/libexec/platform-python3.6m
+lrwxrwxrwx  1 root root           25 Dec 10  2019 python3.original -> /etc/alternatives/python3
+lrwxrwxrwx  1 root root           26 Dec 10  2019 pyvenv-3 -> /etc/alternatives/pyvenv-3
+-rwxr-xr-x  1 root root          446 Sep 10  2021 pyvenv-3.6
+-rwxr-xr-x  1 root root        21440 Apr 24  2020 sg_copy_results
+-rwxr-xr-x  1 root root        41632 Apr 24  2020 sg_xcopy
+-rwxr-xr-x  1 root root        10694 Jul 13  2021 ssh-copy-id
+lrwxrwxrwx  1 root root           24 Jul 13  2020 unversioned-python -> /etc/alternatives/python
+[root@cn-tx-bj7-c8 Python-3.11.1]# ll /usr/bin | grep pip
+-rwxr-xr-x. 1 root root         3143 May 11  2019 lesspipe.sh
+lrwxrwxrwx  1 root root           15 Dec 10  2019 pip -> /usr/bin/pip3.6
+lrwxrwxrwx  1 root root           23 Dec 10  2019 pip-3 -> /etc/alternatives/pip-3
+lrwxrwxrwx  1 root root           30 Dec 24 17:09 pip3 -> /usr/local/python3/bin/pip3.11
+lrwxrwxrwx  1 root root            8 Jun 21  2021 pip-3.6 -> ./pip3.6
+-rwxr-xr-x  1 root root          209 Jun 21  2021 pip3.6
+lrwxrwxrwx  1 root root           22 Dec 10  2019 pip3.original -> /etc/alternatives/pip3
+[root@cn-tx-bj7-c8 Python-3.11.1]# python -V
+-bash: python: command not found
+[root@cn-tx-bj7-c8 Python-3.11.1]# python3 -V
+Python 3.11.1
+[root@cn-tx-bj7-c8 Python-3.11.1]# pip3 -V
+pip 22.3.1 from /usr/local/python3/lib/python3.11/site-packages/pip (python 3.11)
+[root@cn-tx-bj7-c8 Python-3.11.1]# python3
+Python 3.11.1 (main, Dec 24 2022, 16:46:54) [GCC 8.5.0 20210514 (Red Hat 8.5.0-4)] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
 [1]+  Stopped                 python3
