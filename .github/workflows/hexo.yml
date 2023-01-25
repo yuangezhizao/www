@@ -55,8 +55,8 @@ jobs:
       - name: Generate resources
         run: hexo clean && hexo g
 
-      - name: Delete atom.xml
-        run: rm -rf ./public/atom.xml
+      # - name: Delete atom.xml
+      #   run: rm -rf ./public/atom.xml
 
       - name: Deploy to Tencent COS
         env:
