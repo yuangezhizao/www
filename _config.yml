@@ -68,7 +68,6 @@ theme: indigo
 feed:
   type: atom
   path: atom.xml
-  limit: 0
 
 jsonContent:
   meta: false
