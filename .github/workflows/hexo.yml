@@ -65,6 +65,6 @@ jobs:
           BUCKET: ${{ secrets.TENCENT_COS_BUCKET }}
           REGION: ap-beijing
         run: |
-          pip install coscmd
+          pip install https://github.com/tencentyun/coscmd/archive/refs/heads/master.zip
           coscmd config -a ${SECRET_ID} -s ${SECRET_KEY} -b ${BUCKET} -r ${REGION}
           coscmd upload -rs --delete ./public/ / -f
